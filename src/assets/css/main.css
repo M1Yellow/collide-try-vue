@@ -1,0 +1,104 @@
+@import './base.css';
+
+/********************** 去除默认样式 start **********************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border - box;
+  font-family: auto;
+  font-size: 12px;
+}
+
+html,
+body {
+  min-height: 100vh;
+  /*避免document.body.clientHeight得到值是0*/
+}
+
+html {
+  font-size: 12px;
+  -webkit-text-size-adjust: 100%;
+  /*去除元素点击后的高亮*/
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  /*把高亮颜色设置为透明，也可以使用rgba的形式*/
+}
+
+/*a标签去除默认样式*/
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+/*设置使所有a标签的四种状态都和本身颜色保持一致*/
+a:hover,
+a:visited,
+a:link,
+a:active {
+  color: #333;
+}
+
+/*取消a标签点击时的高亮*/
+a {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-user-select: none;
+  -moz-user-focus: none;
+  -moz-user-select: none;
+}
+
+/*点击图片触发超链接时，去掉触发touchstart出现的灰色背景*/
+a,
+a:hover,
+a:active,
+a:visited,
+a:link,
+a:focus {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  background: none;
+  text-decoration: none;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+  border: none;
+}
+
+/*去掉ios图片被选中的蓝色背景*/
+img {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-user-select: none;
+  -moz-user-focus: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+button {
+  border: 0;
+  background-color: none;
+  outline: none;
+  -webkit-appearance: none;
+  /*用于IOS下移除原生样式*/
+}
+
+/*取消div用来做点击的时，可能会出现蓝色框高亮*/
+div:focus {
+  outline: none;
+}
+
+/*b标签加粗避免被其他样式覆盖*/
+b {
+  font-weight: bold !important;
+}
+
+/*********************** 去除默认样式 end ***********************/
