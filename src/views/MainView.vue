@@ -3633,7 +3633,6 @@ function doGlobalError(e, count) {
     if (collideTryInitErrorCount >= count || !isProd()) { // 错误达到指定次数
         /*
         // 清理所有缓存【之前参数配置会丢失】
-        // clear() 只会清除当前网页域名下的数据，注意，所有 html 本地文件，只算一个 file:// 域
         //localStorage.clear();
         sessionStorage.clear();
         for (let i = 0, len = localStorage.length; i < len; i++) {
@@ -7000,11 +6999,11 @@ function isMoveValValidBySplit(str) {
 function resetUserSettings() {
     if (confirm("⚠️ 确定要恢复默认设置吗？")) { // 确认
         // 清除 localStorage sessionStorage 中，站点自身存储的数据
-        //Object.keys(localStorage).forEach(item => item.startsWith('collide-try') ? localStorage.removeItem(item) : '');
-        //Object.keys(sessionStorage).forEach(item => item.startsWith('collide-try') ? sessionStorage.removeItem(item) : '');
-        // clear() 只会清除当前网页域名下的数据，注意，所有 html 本地文件，只算一个 file:// 域
-        localStorage.clear();
-        sessionStorage.clear();
+        Object.keys(localStorage).forEach(item => item.startsWith('collide-try') ? localStorage.removeItem(item) : '');
+        Object.keys(sessionStorage).forEach(item => item.startsWith('collide-try') ? sessionStorage.removeItem(item) : '');
+        // clear() 会清除当前网页域名下的缓存数据！影响本站其他应用缓存数据！注意，所有 html 本地文件，只算一个 file:// 域
+        //localStorage.clear();
+        //sessionStorage.clear();
         // 刷新页面
         location.reload();
     } else { // 取消
