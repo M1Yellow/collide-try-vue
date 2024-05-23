@@ -952,6 +952,15 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item">
+                    <span class="user-setting-item-msg-left">显示角色运动路径</span>
+                    <span class="user-setting-item-switch-right">
+                        <label class="switch" @click="switchCheckbox($event, 'isShowBallMovePath');">
+                            <input type="checkbox" id="isShowBallMovePath">
+                            <div class="slider round"></div>
+                        </label>
+                    </span>
+                </li>
+                <li class="user-setting-item">
                     <span class="user-setting-item-msg-left">显示角色本体路径</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isShowBallPath');">
@@ -2033,7 +2042,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号
-    version: Number(packageVersion.replaceAll(".", "") + "240416"),
+    version: Number(packageVersion.replaceAll(".", "") + "240524"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -2094,6 +2103,8 @@ var userConfig = {
     isFlashRole: false,
     // 是否只用一个角色测试
     isTestOnlyOne: false,
+    // 是否显示小球运动路径
+    isShowBallMovePath: true,
     // 是否显示小球本体路径
     isShowBallPath: false,
     // 碰到另一个小球是否停止运动
@@ -3536,8 +3547,10 @@ function init() {
         // 设置摩擦力
         setFriction();
     }
+    // 角色运动路径判断显示
+    if (userConfig.isShowBallMovePath) gamePathCanvas.style.display = "inherit";
     // 角色全路径判断显示
-    if (userConfig.isShowBallPath) gamePathBallCanvas.style.display = "unset";
+    if (userConfig.isShowBallPath) gamePathBallCanvas.style.display = "inherit";
     // 游戏桌面场景初始化，需要放在角色设置之后，因为场景会根据角色变化
     if (sysConfig.isRoleChooseFinished) gameSceneInit(); // 选择角色后才渲染场景，优化性能
     // 显示游戏设置提示
@@ -4307,7 +4320,7 @@ function setPageSize() {
     gameSceneCanvas.style.display = "unset"; // 静态场景层画布恢复显示
     canvas.style.display = "unset"; // 主运动层恢复显示
     gameMainBallCanvas.style.display = "unset"; // 主球运动层画布恢复显示
-    gamePathCanvas.style.display = "unset"; // 路径层画布恢复显示
+    //gamePathCanvas.style.display = "unset"; // 路径层画布恢复显示
     //gamePathBallCanvas.style.display = "unset"; // 全路径层画布恢复显示
     gameMaskCanvas.style.display = "unset"; // 遮罩层景画布恢复显示
     document.body.style.overflow = 'hidden'; //禁止页面滚动，允许是 visible
@@ -6223,7 +6236,7 @@ function switchCanvasShow(canvasEle, isShow) {
             clearCanvasAll(gameSceneCoordinateCanvas);
             drawSceneCoordinate();
         }
-        canvasEle.style.display = "unset";
+        canvasEle.style.display = "inherit";
     } else { // 关闭
         canvasEle.style.display = "none";
     }
@@ -6250,7 +6263,8 @@ function initUserSettingDialogVal() {
             } else if (typeof userConfig[f] === "string" || typeof userConfig[f] === "number" || userConfig[f] instanceof Array) { // 字符串、数值、数组类型
                 if (ele && userConfig[f]) ele.value = userConfig[f].toString();
             } else if (typeof userConfig[f] === "boolean") { // 布尔类型
-                if (f === "isShowBallPath") togglePathBallShow(userConfig[f]); // 实时切换球路径层显示或隐藏
+                if (f === "isShowBallMovePath") togglePathBallMoveShow(userConfig[f]); // 切换运动路径层显示或隐藏
+                if (f === "isShowBallPath") togglePathBallShow(userConfig[f]); // 切换全路径层显示或隐藏
                 if (!ele) continue;
                 if (userConfig[f]) ele.setAttribute("checked", true);
                 else ele.removeAttribute("checked");
@@ -6297,15 +6311,27 @@ function switchCheckbox(label, key, params) {
         isShow = false;
         userConfig[key] = false;
         if (key === "isKuileiPullBack") userConfig.isKuileiPullBack = false;
+        if (key === "isShowBallMovePath") { // 角色运动路径关闭，关联的角色全路径也一起关闭
+            userConfig.isShowBallPath = false;
+            document.getElementById("isShowBallPath").removeAttribute("checked");
+            togglePathBallShow(isShow);
+        }
     } else { // 开关未打开，点击后打开
         switchEle.setAttribute("checked", true);
         isShow = true;
         userConfig[key] = true;
+        if (key === "isShowBallPath") { // 角色全路径打开，依赖的角色运动路径也一起打开
+            userConfig.isShowBallMovePath = true;
+            document.getElementById("isShowBallMovePath").setAttribute("checked", true);
+            togglePathBallMoveShow(isShow);
+        }
     }
 
     // canvas图层切换显示
     if (params && params.canvasEle) switchCanvasShow(params.canvasEle, isShow);
-    // 运动全路径
+    // 角色运动路径
+    if (key === "isShowBallMovePath") togglePathBallMoveShow(isShow);
+    // 角色球体路径
     if (key === "isShowBallPath") togglePathBallShow(isShow);
     // 血量条切换显示
     if (key === "isShowRoleBloodLine") directPlayAgain(false);
@@ -6466,17 +6492,15 @@ function setMainTeamColorText(val) {
 }
 
 
+// 切换显示运动路径层画布
+function togglePathBallMoveShow(isShow) {
+    switchCanvasShow(gamePathCanvas, isShow);
+}
+
+
 // 切换显示本体路径层画布
-function togglePathBallShow(bool) {
-    /*
-    if (gamePathBallCanvas.css("display") === "none") {
-        gamePathBallCanvas.style.display = "unset";
-    } else {
-        gamePathBallCanvas.style.display = "none";
-    }
-    */
-    if (bool) gamePathBallCanvas.style.display = "unset";
-    else gamePathBallCanvas.style.display = "none";
+function togglePathBallShow(isShow) {
+    switchCanvasShow(gamePathBallCanvas, isShow);
 }
 
 
