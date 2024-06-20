@@ -775,7 +775,7 @@ input:checked+.slider:before {
 /* https://blog.csdn.net/ChenX_Web/article/details/99721636 */
 #info {
     position: fixed;
-    right: 0;
+    left: 0;
     top: 0;
     width: 100vw;
     height: 60vh;
@@ -1127,7 +1127,7 @@ input:checked+.slider:before {
                 <li class="user-setting-item" style="display: none;">
                     <span class="user-setting-item-msg-left">卡顿自动恢复等待时间(单位：秒)</span>
                     <div class="user-setting-item-input-area">
-                        <input type="text" id="animateAutoRestTime" value="10" maxlength="100">
+                        <input type="text" id="animateAutoRestTime" value="20" maxlength="100">
                     </div>
                 </li>
                 <li class="user-setting-item">
@@ -1136,8 +1136,8 @@ input:checked+.slider:before {
                         <input type="text" id="wan8CocosTableMoveVals" value="0" maxlength="100">
                     </div>
                 </li>
-                <li class="user-setting-item" id="collide-try-save-html" @click="saveLocalHtml(this);">
-                    <span class="user-setting-item-msg-left">保存为离线版</span>
+                <li class="user-setting-item" id="collide-try-save-html" @click="saveRemoteHtml(this);">
+                    <span class="user-setting-item-msg-left">下载离线版</span>
                 </li>
                 <li class="user-setting-item" @click="resetUserSettings()">
                     <span class="user-setting-item-msg-left">恢复默认设置</span>
@@ -1202,12 +1202,20 @@ input:checked+.slider:before {
 3️⃣ 可能存在个别角度（碰墙角）反弹有点问题，请以实战数据为准
 4️⃣ 兼容手机、平板、电脑浏览器
 
-<b class="each-item-border-bottom">🆕 V4.1.4 更新：</b>
+<b class="each-item-border-bottom">🆕 V4.1.5 更新：</b>
 <pre id="collide-try-about-app-update-newest">
-1. 兼容适配平板浏览器
-2. 角色图标、场景主题图形大小调整
-3. 加入了『告别』信息，退游一段时间
+1. 新增了【显示角色运动路径】开关功能
+2. 修复了移动端多点触碰可能出现卡死的问题
+3. 加入了超时自动结束（默认20秒），避免程序一直卡死消耗性能
+4. 【保存为离线版】（不用联网）改为【下载离线版】（要联网，更稳定）
+5. 内置了访问密钥，目前不用输入密钥都可以玩了
+6. 还在退游中，玩友们珍重勿念哈
 </pre>
+                <b class="each-item-border-bottom">V4.1.4 更新：</b>
+                1. 兼容适配平板浏览器
+                2. 角色图标、场景主题图形大小调整
+                3. 加入了『告别』信息，退游一段时间
+
                 <b class="each-item-border-bottom">V4.1.3 更新：</b>
                 1. 新增了【显示角色坐标】功能
                 2. 新增了【分享/导入角色及坐标】功能
@@ -1454,10 +1462,15 @@ onMounted(() => {
             // 滚动到底部，显示最新日志
             infoConsole.scrollTop = infoConsole.scrollHeight;
             let type = infoConsole.getAttribute("type");
-            if (type === "0") {
+            if (type === "0") { // 收起
                 infoConsole.style.cssText = "width:20px;height:20px;";
                 infoConsole.setAttribute("type", "1");
-            } else {
+                // 清空日志
+                if (confirm("是否清空日志记录？")) {
+                    console.clear();
+                    infoConsole.innerHTML = "";
+                } else { }
+            } else { // 展开
                 infoConsole.removeAttribute('style');
                 infoConsole.setAttribute("type", "0");
             }
@@ -1847,7 +1860,7 @@ function checkCoreCode(method, isDialog) {
     for (let i = 0, len = 100; i < len; i++) {
         // 先从 localStorage 获取 accessKey
         accessKey = localStorage.getItem('collide-try-access-key', accessKey);
-        // GitHub 开源版本，不用输访问密钥
+        // TODO 目前开放使用
         accessKey = "gSLtYnCZNLWAgUxQh0byWDt55xhGj6HU";
 
         if (isDialog) {
@@ -2042,7 +2055,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号
-    version: Number(packageVersion.replaceAll(".", "") + "240524"),
+    version: Number(packageVersion.replaceAll(".", "") + "240621"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -2142,7 +2155,7 @@ var userConfig = {
     // 角色加速或减速（负数为减速）
     roleSpeedAddVal: 0,
     // 卡顿自动恢复等待时间（单位：秒）
-    animateAutoRestTime: 10,
+    animateAutoRestTime: 20,
     // 斜边角度倾斜偏差（单位：格），用户设置看到的是这里的数值。第一个值对应点(0, 3)，其他点往顺时针方向递增
     //wan8CocosTableMoveVals: [0,0.05,-0.025,-0.025,0.05,-0.025,0.025,0.025], // 注意 undefined 找不到值，或者数值不对，需要清除 localStorage 缓存
     wan8CocosTableMoveVals: [0, 0.05, -0.05, -0.05, 0.12, -0.025, 0.025, 0.08],
@@ -2309,7 +2322,7 @@ class Ball {
         if (this.roleId === Role.KUKU.id) console.log(">>>> Ball update " + this.getBallDesc() + " addCount=" + this.addCount);
 
         if (this.isMainBall && this.roleId === Role.KUILEI.id && this.wallCollidedCount >= 3) { // 傀儡碰三次后，绳子速度停止
-            if (userConfig.isKuileiPullBack && this.roleCollidedCount > 0 && !isKuileiPulling) { // 有抓到人，傀儡拉回状态
+            if (userConfig.isKuileiPullBack && this.roleCollidedCount > 0 && !isKuileiPulling) { // 傀儡绳子有抓到人，且开启了拉回开关
                 doKuileiPullBack(this); // 处理傀儡拉回
             } else if (!isKuileiPulling) {
                 this.vx = 0;
@@ -3620,7 +3633,8 @@ function doVersionThings() {
             for (let f in userConfig) {
                 //console.log(f + " = " + userConfig[f]);
                 // 个别特殊字段不受缓存影响，以配置为准
-                //if (f === 'tryFullPathPointNum') continue;
+                if (f === 'tryFullPathPointNum') continue;
+                if (f === 'animateAutoRestTime') continue;
                 if (userConfigCache[f] || typeof userConfigCache[f] === "boolean") userConfig[f] = userConfigCache[f];
             }
             // 更新 localStorage 中的 userConfig
@@ -6271,9 +6285,9 @@ function initUserSettingDialogVal() {
             }
         }
 
-        // 输入了正确的访问密钥才显示【保存为离线版】
-        // vue 暂时不支持保存
-        if (checkAccessKey() && !isVue()) {
+        // 输入了正确的访问密钥才显示【下载离线版】
+        // vue 暂时不支持保存  && !isVue()
+        if (checkAccessKey()) {
             document.getElementById("collide-try-save-html").style.display = "list-item";
         } else {
             document.getElementById("collide-try-save-html").style.display = "none";
@@ -7140,8 +7154,8 @@ function saveRemoteHtml(ele) {
     if (!t0) t0 = "0";
     t0 = Number(t0);
     if (t0 <= 0) { // 提示另外保存方法
-        //alert("💡 温馨提示：\n如果长时间没反应，可能是链接不可用了，使用电脑浏览器 Ctrl+S 也可以保存离线版哦！");
-        if (confirm("💡 温馨提示：\n如果长时间没反应，可能是链接不可用了，使用电脑浏览器 Ctrl+S 也可以保存离线版哦！")) { // 确认
+        //alert("💡 温馨提示：\n联网请求下载一个离线版文件（几百KB），如果长时间没反应，可能是链接不可用了，使用电脑浏览器 Ctrl+S 也可以保存离线版哦！");
+        if (confirm("💡 温馨提示：\n联网请求下载一个离线版文件（几百KB），如果长时间没反应，可能是链接不可用了，使用电脑浏览器 Ctrl+S 也可以保存离线版哦！")) { // 确认
             //localStorage.setItem('collide-try-save-remote-html-time', new Date().getTime());
             isConfirm = true;
         } else { // 取消
@@ -7150,23 +7164,12 @@ function saveRemoteHtml(ele) {
     }
     if (!isConfirm) return;
 
-    // 选择角色弹窗是否正在显示
-    let chooseShowing = isDialogShowing(chooseRoleDialog);
-    // 切换参数设置与选择角色弹窗
-    switchUserSettingDialog(false);
-    // 隐藏关闭所有dialog弹窗，保证离线版刚打开不会一直有弹窗
-    hideAllDialog();
-
     let titleEle = document.getElementsByTagName('title')[0];
     let url = "https://www.m1yellow.cn/collide-try?download=1&f=" + titleEle.innerText + ".html";
     console.log(">>>> saveRemoteHtml url=" + url);
     window.location.href = url; // 手机移动端下载后会停留在空白页面
     // 返回原来地址，移动端还是没用
     //history.back();
-
-    // 操作完成后，再显示相关弹窗
-    if (chooseShowing) switchDialogShow(chooseRoleDialog, true);
-    switchUserSettingDialog(true);
 }
 
 
@@ -8369,8 +8372,6 @@ let tryMoveBallCollidedPoints = [];
 let isAnimated = false; // 渲染完成
 let isMoving = true; // 是否在运动
 let isPlaying = true; // 是否在玩
-let aCount = 0; // 回调执行次数统计，取一个合适值，避免死循环耗费性能
-let aTime = (new Date()).getTime();
 let isKuileiPulling = false; // 傀儡是否正在拉回
 
 
@@ -8385,20 +8386,18 @@ onMounted(() => {
 function animate() {
     if (!balls || balls.length < 1) return;
 
-    // 执行次数异常检测
-    if (!selectedBall) aCount++; // 拖动期间不算
-    if (!aTime) aTime = (new Date()).getTime();
-    if (aCount >= userConfig.animateAutoRestTime * 60) resetBallsSpeed(); // 60帧，每秒60次，60~120
-
     // 检测是否在玩
     checkIsPlaying();
 
     // 闲置没玩了，或者长时间瞄准不动时，停止渲染，优化CPU性能
     if (!isPlaying) {
-        if (balls && balls.length > 0 && checkAnyBallCollided(0)) {
-            doAfterBallStopped(balls);
-            if (userConfig.currRole === Role.KUILEI.id) isKuileiPulling = false; // 必须放在 doAfterBallStopped() 之后
+        // TODO 屏幕多点触碰，可能会出现程序异常情况（目前限制了多点触碰）：主球有速度但是不运动，导致不执行 resetBallsSpeed，出现死循环！
+        // 有运动碰撞才处理停止事项
+        if (checkAnyBallCollided(0)) {
+            //doAfterBallStopped(balls);
+            resetBallsSpeed(balls);
         }
+        // 没有碰撞，就只是停止 animate 渲染
         return;
     }
 
@@ -8529,12 +8528,17 @@ function checkIsMoving() {
 
 
 // animate 单次执行次数过多，可能是出现了死循环，将所有小球速度置零
-function resetBallsSpeed() {
+function resetBallsSpeed(balls) {
+    // 重置所有角色速度，更新运动状态
     balls.some(ball => {
         ball.vx = 0;
         ball.vy = 0;
         ball.update();
     });
+    // 处理停止事项 animate() 会调用
+    doAfterBallStopped(balls);
+    // 再检测一次 animate 状态
+    checkIsPlaying();
 }
 
 
@@ -8668,13 +8672,10 @@ function doAfterBallStopped(balls) {
     // 运动结束，遮罩层调到最下，避免挡住拖动 【放最后】
     changeCanvasIndex(gameMaskCanvas, -2);
 
-    // 重置animate执行次数
-    if (aCount > 0) {
-        console.log('>>>> animate count=' + aCount);
-        console.log('>>>> animate time=' + (new Date().getTime() - aTime));
-    }
-    aCount = 0;
-    aTime = null;
+    // 重置超时计时器
+    autoStopTimer && clearTimeout(autoStopTimer);
+    //console.log(">>>> autoStopTimer:", autoStopTimer);
+    autoStopTimer = null;
 }
 
 
@@ -8684,10 +8685,32 @@ function changeCanvasIndex(target, idx) {
 }
 
 
+// TODO 开打后，超时自动停止，防止程序异常，导致高耗电！
+// 在 doAfterBallStopped、resetBallsSpeed 等游戏结束的地方，也要清理重置定时器
+var autoStopTimer;
+function autoStopTimeout(sec) {
+    let sTime = new Date().getTime();
+    autoStopTimer && clearTimeout(autoStopTimer);
+    if (!sec) sec = userConfig.animateAutoRestTime;
+    if (!sec) sec = 20;
+    autoStopTimer = setTimeout(() => {
+        resetBallsSpeed(balls);
+        let eTime = new Date().getTime();
+        let runTime = Math.round((eTime - sTime) / 1000);
+        console.log('>>>> autoStopTimeout: ' + runTime);
+        alert('👉 本回合运行了 ' + runTime + ' 秒，已超时自动结束。');
+    }, sec * 1000);
+}
+
+
 // 处理傀儡打完后业务逻辑
 function doKuilei(ball) {
     if (!ball || userConfig.currRole !== Role.KUILEI.id || !ball.isMainBall || ball.roleId !== Role.KUILEI.id || ball.wallCollidedCount < 2) return;
-    if (isKuileiPulling) return;
+    if (isKuileiPulling) { // 傀儡拉回之前已经还原过一次了，拉回打完直接重置状态返回就行
+        // 重置拉回状态
+        isKuileiPulling = false;
+        return;
+    }
     // 还原 tryMoveBall
     preTryMoveBall(0);
     // 坐标回到起点
@@ -8841,6 +8864,9 @@ let longPressTimer = 0;
 let longPressPoint = { x: 0, y: 0 };
 // 小球拖动前的坐标
 let oldBallPos = { x: 0, y: 0 };
+// 移动端开始触摸事件
+let currTouchPointNum = 0;
+
 
 // 事件顺序：touchstart-touchmove-touchend-mousedown-mouseup-click
 // mousedown事件触发时绑定mousemove、mouseup事件，mouseup事件触发时，解除mousemove、mouseup事件
@@ -8853,6 +8879,7 @@ onMounted(() => {
 
         //balls.some(ball => {
         // 添加事件来模拟拖拽
+        // 注意，移除和添加的函数名必须一模一样，不能带参数，否则不能正常移除
         canvas.removeEventListener('mousemove', onMouseOrTouchMove, false);
         canvas.addEventListener('mousemove', onMouseOrTouchMove, false);
         canvas.removeEventListener('mouseup', onMouseUp, false);
@@ -8864,6 +8891,20 @@ onMounted(() => {
         longPressTimer && clearTimeout(longPressTimer);
         longPressTimer = setTimeout(() => { doLongPress(e) }, 500);
 
+    }, false);
+
+    if (!os.isPc) canvas.addEventListener('touchstart', (e) => {
+        //console.log(e);
+        doEventDefault(e);
+        currTouchPointNum = e.touches.length;
+        // 目前只支持单点触碰
+        if (currTouchPointNum !== 1) return;
+        getClickPos(e);
+        // 触摸开始，设置长按定时器
+        longPressPoint.x = mouse.x;
+        longPressPoint.y = mouse.y;
+        longPressTimer && clearTimeout(longPressTimer);
+        longPressTimer = setTimeout(() => { doLongPress(e) }, 500);
     }, false);
 })
 
@@ -9029,7 +9070,9 @@ function onMouseUp() {
 }
 
 
-function onMouseOrTouchMove() {
+function onMouseOrTouchMove(e) {
+    //console.log(e);
+    doEventDefault(e);
     // 解决部分机型，手指没有move，touchmove事件仍会被调用的问题
     if (longPressPoint.x !== mouse.x || longPressPoint.y !== mouse.y) {
         // 有拖动行为，重置长按定时器
@@ -9066,7 +9109,10 @@ function selectBall(pos) {
 // touchmove --> mousemove 手指在元素按下之后，在屏幕中移动
 // touchend --> mouseup 手指在元素按下之后，在屏幕中抬起
 onMounted(() => {
-    if (!os.isPc) canvas.addEventListener('touchmove', onMouseOrTouchMove, false);
+    if (!os.isPc) canvas.addEventListener('touchmove', (e) => {
+        if (currTouchPointNum !== 1) return;
+        onMouseOrTouchMove(e);
+    }, false);
 })
 
 
@@ -9096,10 +9142,15 @@ onMounted(() => {
 onMounted(() => {
     let lastTouchEnd = 0;
     if (!os.isPc) canvas.addEventListener('touchend', (e) => {
+        //console.log(e);
+        //alert(e.touches.length);
         doEventDefault(e);
+        //if (e.type !== "touchend" && e.touches.length !== 0) return;
+        if (currTouchPointNum !== 1) return;
         // 触摸结束，重置长按定时器
         longPressTimer && clearTimeout(longPressTimer);
         longPressTimer = 0;
+
         let now = (new Date()).getTime();
         if (now - lastTouchEnd <= 300) { // 200~300
             //alert(">>>> 双击了");
@@ -9109,20 +9160,6 @@ onMounted(() => {
             doClick(e);
         }
         lastTouchEnd = now;
-    }, false);
-})
-
-
-// 移动端获取点击坐标【会导致屏幕误触问题】
-onMounted(() => {
-    if (!os.isPc) canvas.addEventListener('touchstart', (e) => {
-        doEventDefault(e);
-        getClickPos(e);
-        // 触摸开始，设置长按定时器
-        longPressPoint.x = mouse.x;
-        longPressPoint.y = mouse.y;
-        longPressTimer && clearTimeout(longPressTimer);
-        longPressTimer = setTimeout(() => { doLongPress(e) }, 500);
     }, false);
 })
 
@@ -9140,7 +9177,7 @@ function doClick(e) {
     //console.log(">>>> isChgPosFinished=" + selectedBall.isChgPosFinished);
     //if (selectedBall) console.log(">>>> isBallReady=" + isBallReady(selectedBall));
     if (selectedBall.isChgPosFinished && isBallReady(selectedBall)) {
-        console.log(">>>> doClick ready to play >>>>");
+        console.log(">>>> doClick is readying >>>>");
         // 重置拖动标识
         selectedBall.isChgPosFinished = false;
         //if (userConfig.isJustTrying) return; // 只瞄准不打
@@ -9175,6 +9212,8 @@ function doClick(e) {
         if (!isPlaying) animate();
         // 开始运动，置顶遮罩，避免误碰
         changeCanvasIndex(gameMaskCanvas, 2);
+        // 超时自动停止
+        autoStopTimeout();
         // 重置各个小球的碰撞标志位
         setBallCollidingNos();
         // 重置傀儡拉回标志
@@ -9236,7 +9275,10 @@ function preTripleClick(e, isDbClick) {
 
 // 长按处理
 function doLongPress(e) {
+    //console.log(e);
     if (!userConfig.isLongPressRandom) return;
+    // 移动端目前只支持单点触碰
+    if (!os.isPc && currTouchPointNum !== 1) return;
     // 按角色不重置，只能按空白区域
     if (isBallsSelected(balls)) return;
     //alert(">>>> 长按");
@@ -9373,6 +9415,7 @@ function doJustTrying() {
 function directPlayAgain(isChgPosFinished) {
     if (!userConfig.isDbclickBack) return;
     if (selectedBall && selectedBall.isChgPosFinished) return;
+    if (checkIsMoving()) return; // 解决多点触碰，单击开打后又触发双击重置，导致无限循环
     // 获取点击坐标
     let pos = clickPos;
     // 是否点击了主球【移动端可能点不准】
