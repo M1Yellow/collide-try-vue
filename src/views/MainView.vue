@@ -114,7 +114,7 @@ canvas {
     cursor: pointer;
 }
 
-#game-setting-dialog {
+#game-setting-entry-dialog {
     position: absolute;
     top: 5px;
     right: 40px;
@@ -124,7 +124,7 @@ canvas {
     font-size: 16px;
 }
 
-#game-setting-dialog-msg {
+#game-setting-entry-dialog-msg {
     text-align: right;
     vertical-align: middle;
     padding: 0 5px 5px 5px;
@@ -135,11 +135,11 @@ canvas {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
-#game-setting-dialog-msg span {
+#game-setting-entry-dialog-msg span {
     font-size: 20px;
 }
 
-#game-setting-dialog-ok {
+#game-setting-entry-dialog-ok {
     text-align: right;
     vertical-align: middle;
     width: 100%;
@@ -147,7 +147,7 @@ canvas {
     font-size: 14px;
 }
 
-#game-setting-dialog-ok span {
+#game-setting-entry-dialog-ok span {
     text-align: center;
     vertical-align: middle;
     width: max-content;
@@ -870,9 +870,10 @@ input:checked+.slider:before {
         <div id="dialog-mask" ref="dialogMask" class="collide-try-dialog"></div>
         <!-- 右上角设置提示 -->
         <div id="game-setting-icon"><span @click="switchUserSettingDialog(true);">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-        <div id="game-setting-dialog" ref="gameSettingDialog" class="collide-try-dialog" style="display: none;">
-            <div id="game-setting-dialog-msg">右上角有一个隐藏的设置<span>⚙</span>入口哦~<span>👉</span></div>
-            <div id="game-setting-dialog-ok" @click="closeGameSettingDialog();"><span
+        <div id="game-setting-entry-dialog" ref="gameSettingEntryDialog" class="collide-try-dialog"
+            style="display: none;">
+            <div id="game-setting-entry-dialog-msg">右上角有一个隐藏的设置<span>⚙</span>入口哦~<span>👉</span></div>
+            <div id="game-setting-entry-dialog-ok" @click="closeGameSettingEntryDialog();"><span
                     class="collide-try-dialog-ok">我知道啦</span></div>
         </div>
         <!-- 选择角色弹窗 -->
@@ -928,11 +929,12 @@ input:checked+.slider:before {
                     <span class="user-setting-item-switch-right">
                         <button class="dropbtn" @click="toggleDropdown()" id="sceneThemeMode">默认主题</button>
                         <div class="dropdown-content" id="themeDropdown">
-                            <a href="#" @click="setSceneThemeVal($event.target, 0);">默认主题</a>
-                            <a href="#" @click="setSceneThemeVal($event.target, 1);">冰雪主题</a>
-                            <!-- <a href="#" @click="setSceneThemeVal($event.target, 2);">新年主题</a> -->
-                            <a href="#" @click="setSceneThemeVal($event.target, 3);">田园主题</a>
-                            <a href="#" @click="setSceneThemeVal($event.target, 4);">星际主题</a>
+                            <!-- a 标签的 href 会触发 popstate 事件 -->
+                            <a @click="setSceneThemeVal($event.target, 0);">默认主题</a>
+                            <a @click="setSceneThemeVal($event.target, 1);">冰雪主题</a>
+                            <!-- <a @click="setSceneThemeVal($event.target, 2);">新年主题</a> -->
+                            <a @click="setSceneThemeVal($event.target, 3);">田园主题</a>
+                            <a @click="setSceneThemeVal($event.target, 4);">星际主题</a>
                         </div>
                     </span>
                 </li>
@@ -1734,6 +1736,138 @@ console.log(">>>> isLightMode=" + isLightMode);
 console.log(">>>> isDarkMode=" + isDarkMode);
 
 
+// 监听返回
+// popstate 方案，必须手动点一下页面任何地方，才会触发！
+// chrome 为了防止流氓网站禁止用户执行回退操作，把用户困在当前网站，专门做的这个设计！
+
+onMounted(() => {
+    pushHistory();
+    window.addEventListener("popstate", function (e) { // 后退、前进都会触发
+        //console.log(e);
+        e.preventDefault();
+        //alert("我监听到了浏览器的返回按钮事件啦"); // 根据自己的需求实现自己的功能
+        pushHistory();
+        // 处理返回事项
+        doBack();
+    }, false);
+});
+
+function pushHistory() {
+    //let ts = new Date().getTime().toString();
+    /*
+    var state = {
+        title: "title",
+        url: "#"
+    };
+    window.history.pushState(state, "title", "#");
+    */
+    //window.history.pushState(null, null, "#");
+    history.pushState(null, null, document.URL);
+}
+function doBack() {
+    // 弹窗遮罩
+    let isDialogMaskShowing = isDialogShowing(dialogMask);
+    // 选择角色弹窗
+    let isChooseRoleDialogShowing = isDialogShowing(chooseRoleDialog);
+    // 游戏设置弹窗
+    let isUserSettingDialogShowing = isDialogShowing(userSettingDialog);
+    // 关于应用弹窗
+    let isAboutAppDialogShowing = isDialogShowing(aboutAppDialog);
+    // 更新提示弹窗
+    let isUpdateContentDialogShowing = isDialogShowing(updateContentDialog);
+
+    // 关闭更新提示弹窗
+    if (isUpdateContentDialogShowing) {
+        showUpdateContent(false);
+        return;
+    }
+
+    // 关闭关于应用弹窗
+    if (isAboutAppDialogShowing) {
+        switchDialogShow(aboutAppDialog, false);
+        return;
+    }
+
+    // 关闭游戏设置弹窗
+    if (isUserSettingDialogShowing) {
+        switchUserSettingDialog(false);
+        return;
+    }
+
+    // 游戏正在进行
+    if (checkIsMoving()) {
+        //alert("👉 游戏正在进行，不建议返回哦~");
+        return;
+    }
+
+    /*
+    // 退出游戏
+    if (!isChooseRoleDialogShowing) { // 游戏界面
+        window.history.go(0); // 回到起始界面
+        return;
+    } else { // 选择角色界面
+        //window.history.go(0); // 回到起始界面
+        window.history.forward(1); // 点后退又前进，相当于没动，达到屏蔽后退按钮的效果
+        return;
+        if (confirm("💡 确定要离开游戏了吗？")) { // 确认
+            window.opener = null;
+            window.open('', '_self');
+            // Scripts may close only the windows that were opened by them.
+            // window.close()方法只能关闭由window.open()或者浏览器直接输入url打开的页面，其余情况安全考虑是被限制的
+            window.close(); // 关不了
+        } else { // 取消
+            // ignore
+        }
+        return;
+    }
+    */
+}
+
+
+// window 全局点击空白事项处理
+window.onclick = function (e) {
+    doEventDefault(e); // 处理事件默认行为，防止出现点一次，执行两次
+    // 点击了主题设置下拉框以外的区域
+    if (!e.target.matches('.dropbtn')) {
+        let themeDropdown = document.getElementById("themeDropdown");
+        if (themeDropdown.classList.contains('show')) {
+            themeDropdown.classList.remove('show');
+        }
+    }
+}
+
+
+// 浏览器窗口关闭或者刷新时【一定要在关闭页面前移除所有监听事件？页面关闭自动处理了啊】
+// 会导致重新加载一直提示 “系统可能不会保存您所做的更改”
+/*
+window.addEventListener("beforeunload", (event) => {
+    // Cancel the event as stated by the standard.
+    event.preventDefault();
+    // Chrome requires returnValue to be set.
+    event.returnValue = "";
+});
+*/
+
+
+/*
+// 监听浏览器切换页面。判断用户浏览的是否为当前页，根据当前页面激活状态，进行业务处理
+// Document：hidden 属性
+var hiddenProperty = 'hidden' in document ? 'hidden' :
+'webkitHidden' in document ? 'webkitHidden' :
+'mozHidden' in document ? 'mozHidden' :
+null;
+var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+var onVisibilityChange = function() {
+    if (document[hiddenProperty]) { // hidden===true 非激活
+        console.log('页面非激活');
+    } else {
+        console.log('页面激活')
+    }
+}
+document.addEventListener(visibilityChangeEvent, onVisibilityChange);
+*/
+
+
 // 获取正常展示 Emoji 时的宽度
 // https://cloud.tencent.com/developer/article/2211194
 const getTextWidth = (text) => {
@@ -2008,8 +2142,8 @@ let gameMaskContext = gameMaskCanvas ? gameMaskCanvas.getContext('2d') : null;
 // 弹窗元素
 let dialogMask = document.getElementById('dialog-mask'); // 选择角色弹窗遮罩
 let chooseRoleDialog = document.getElementById('choose-role-dialog'); // 选择角色弹窗
-let userSettingDialog = document.getElementById('user-setting-dialog'); // 选择角色弹窗
-let gameSettingDialog = document.getElementById('game-setting-dialog'); // 游戏设置提示
+let userSettingDialog = document.getElementById('user-setting-dialog'); // 参数设置弹窗
+let gameSettingEntryDialog = document.getElementById('game-setting-entry-dialog'); // 游戏设置提示
 let gameSettingMainRoleDialog = document.getElementById('game-setting-main-role-dialog'); // 游戏设置-主角设置提示
 let aboutAppDialog = document.getElementById('user-setting-about-app-dialog'); // 参数设置-关于应用
 let updateContentDialog = document.getElementById('collide-try-update-content-dialog'); // 更新内容提示
@@ -2040,8 +2174,8 @@ onMounted(() => {
 
     dialogMask = document.getElementById('dialog-mask'); // 选择角色弹窗遮罩
     chooseRoleDialog = document.getElementById('choose-role-dialog'); // 选择角色弹窗
-    userSettingDialog = document.getElementById('user-setting-dialog'); // 选择角色弹窗
-    gameSettingDialog = document.getElementById('game-setting-dialog'); // 游戏设置提示
+    userSettingDialog = document.getElementById('user-setting-dialog'); // 参数设置弹窗
+    gameSettingEntryDialog = document.getElementById('game-setting-entry-dialog'); // 游戏设置提示
     gameSettingMainRoleDialog = document.getElementById('game-setting-main-role-dialog'); // 游戏设置-主角设置提示
     aboutAppDialog = document.getElementById('user-setting-about-app-dialog'); // 参数设置-关于应用
     updateContentDialog = document.getElementById('collide-try-update-content-dialog'); // 更新内容提示
@@ -3567,7 +3701,7 @@ function init() {
     // 游戏桌面场景初始化，需要放在角色设置之后，因为场景会根据角色变化
     if (sysConfig.isRoleChooseFinished) gameSceneInit(); // 选择角色后才渲染场景，优化性能
     // 显示游戏设置提示
-    if (sysConfig.isRoleChooseFinished) showGameSettingDialog();
+    if (sysConfig.isRoleChooseFinished) showGameSettingEntryDialog();
 }
 
 
@@ -6122,7 +6256,7 @@ function isRoleChooseFinished() {
 // 判断指定弹窗是否正在显示
 function isDialogShowing(dialogEle) {
     let isShowing = false;
-    if (dialogEle && dialogEle.style.display && dialogEle.style.display === "unset") { // 正在显示
+    if (dialogEle && dialogEle.style.display && dialogEle.style.display !== "none") { // 正在显示
         isShowing = true;
     }
     return isShowing;
@@ -6145,23 +6279,23 @@ function switchDialogShow(dialogEle, isShow, params) {
 
 
 // 显示右上角设置入口提示
-function showGameSettingDialog() {
+function showGameSettingEntryDialog() {
     // 有其他弹窗时，不显示
     if (isDialogShowing(chooseRoleDialog) || isDialogShowing(userSettingDialog)) return;
-    let t0 = localStorage.getItem('collide-try-game-settings-time');
+    let t0 = localStorage.getItem('collide-try-game-settings-entry-time');
     if (!t0) t0 = "0";
     t0 = Number(t0);
     if (t0 > 0) { // 已经弹过提示了，不再提示
         return;
     }
-    switchDialogShow(gameSettingDialog, true);
+    switchDialogShow(gameSettingEntryDialog, true);
 }
 
 
 // 关闭右上角设置入口提示，不再提示
-function closeGameSettingDialog() {
-    switchDialogShow(gameSettingDialog, false, { display: "none" });
-    localStorage.setItem('collide-try-game-settings-time', new Date().getTime());
+function closeGameSettingEntryDialog() {
+    switchDialogShow(gameSettingEntryDialog, false, { display: "none" });
+    localStorage.setItem('collide-try-game-settings-entry-time', new Date().getTime());
 }
 
 
@@ -6369,17 +6503,6 @@ function switchCheckbox(label, key, params) {
 // 点击按钮，下拉菜单在 显示/隐藏 之间切换
 function toggleDropdown() {
     document.getElementById("themeDropdown").classList.toggle("show");
-}
-
-// 点击下拉菜单以外区域隐藏
-window.onclick = function (e) {
-    doEventDefault(e); // 处理事件默认行为，防止出现点一次，执行两次
-    if (!e.target.matches('.dropbtn')) {
-        let themeDropdown = document.getElementById("themeDropdown");
-        if (themeDropdown.classList.contains('show')) {
-            themeDropdown.classList.remove('show');
-        }
-    }
 }
 
 
@@ -7042,8 +7165,14 @@ function resetUserSettings() {
         // clear() 会清除当前网页域名下的缓存数据！影响本站其他应用缓存数据！注意，所有 html 本地文件，只算一个 file:// 域
         //localStorage.clear();
         //sessionStorage.clear();
-        // 刷新页面
+        // 刷新页面【vue 重新加载后，历史记录清空】
         location.reload();
+        // href 或 replace 都可以替换当前 history 跳转页面，避免一步一步返回
+        //window.location.href = "#";
+        //window.location.replace("#");
+        // replaceState 替换 history 中的 state
+        //window.history.replaceState(null, "", "#");
+        //window.history.go(0);
     } else { // 取消
 
     }
