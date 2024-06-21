@@ -1739,7 +1739,6 @@ console.log(">>>> isDarkMode=" + isDarkMode);
 // 监听返回
 // popstate 方案，必须手动点一下页面任何地方，才会触发！
 // chrome 为了防止流氓网站禁止用户执行回退操作，把用户困在当前网站，专门做的这个设计！
-
 onMounted(() => {
     pushHistory();
     window.addEventListener("popstate", function (e) { // 后退、前进都会触发
@@ -1764,6 +1763,8 @@ function pushHistory() {
     //window.history.pushState(null, null, "#");
     history.pushState(null, null, document.URL);
 }
+var backClickCount = 0;
+var backClickTimer = 0;
 function doBack() {
     // 弹窗遮罩
     let isDialogMaskShowing = isDialogShowing(dialogMask);
@@ -1798,6 +1799,17 @@ function doBack() {
     if (checkIsMoving()) {
         //alert("👉 游戏正在进行，不建议返回哦~");
         return;
+    } else {
+        if (!backClickTimer) backClickTimer = setTimeout(() => {
+            backClickCount = 0;
+            backClickTimer && clearTimeout(backClickTimer);
+            backClickTimer = 0;
+        }, 3000);
+        backClickCount += 1;
+        if (backClickCount > 2) {
+            alert("👉 刷新页面重选角色，关掉页面退出游戏");
+            backClickCount = 0;
+        }
     }
 
     /*
@@ -1814,7 +1826,7 @@ function doBack() {
             window.open('', '_self');
             // Scripts may close only the windows that were opened by them.
             // window.close()方法只能关闭由window.open()或者浏览器直接输入url打开的页面，其余情况安全考虑是被限制的
-            window.close(); // 关不了
+            window.close(); // js关不了，需要按钮点击调用
         } else { // 取消
             // ignore
         }
