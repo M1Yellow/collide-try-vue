@@ -3641,6 +3641,8 @@ function init() {
     // 调整边框宽度为 0.3 * girdSizeCss
     sysConfig.sceneLineWidth = roundNumber(0.27 * sysConfig.girdSizeCss, 4);
     console.log(">>>> sysConfig.sceneLineWidth=" + sysConfig.sceneLineWidth);
+    // 设置弹窗滚动区域高度
+    setDialogScrollMaxHeight(1.70);
     // 画布居中
     canvasAutoCenter();
     // 初始化鼠标位置
@@ -4484,6 +4486,29 @@ function setPageSize() {
     //gamePathBallCanvas.style.display = "unset"; // 全路径层画布恢复显示
     gameMaskCanvas.style.display = "unset"; // 遮罩层景画布恢复显示
     document.body.style.overflow = 'hidden'; //禁止页面滚动，允许是 visible
+}
+
+
+// 设置弹窗可滚动区域高度【依赖 canvas 宽高】
+// height = Math.round(width * 1.63)
+function setDialogScrollMaxHeight(hRadio) {
+    let targetHeight = Math.round(canvas.width * hRadio);
+    let targetCssHeight = Math.round(sysConfig.cssWidth * hRadio);
+    // 选择角色列表
+    let targetElm = document.getElementById('role-list-area');
+    if (targetElm) {
+        targetElm.style.maxHeight = targetCssHeight + 'px';
+    }
+    // 参数设置列表
+    targetElm = document.getElementById('user-setting-area');
+    if (targetElm) {
+        targetElm.style.maxHeight = targetCssHeight + 'px';
+    }
+    // 关于应用内容列表
+    targetElm = document.getElementById('user-setting-about-app-content');
+    if (targetElm) {
+        targetElm.style.maxHeight = targetCssHeight + 'px';
+    }
 }
 
 
