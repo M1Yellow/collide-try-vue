@@ -931,10 +931,11 @@ input:checked+.slider:before {
                         <div class="dropdown-content" id="themeDropdown">
                             <!-- a 标签的 href 会触发 popstate 事件 -->
                             <a @click="setSceneThemeVal($event.target, 0);">默认主题</a>
-                            <a @click="setSceneThemeVal($event.target, 1);">冰雪主题</a>
                             <!-- <a @click="setSceneThemeVal($event.target, 2);">新年主题</a> -->
                             <a @click="setSceneThemeVal($event.target, 3);">田园主题</a>
+                            <a @click="setSceneThemeVal($event.target, 5);">夏日主题</a>
                             <a @click="setSceneThemeVal($event.target, 4);">星际主题</a>
+                            <a @click="setSceneThemeVal($event.target, 1);">冰雪主题</a>
                         </div>
                     </span>
                 </li>
@@ -1008,6 +1009,15 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item">
+                    <span class="user-setting-item-msg-left">显示场景图形</span>
+                    <span class="user-setting-item-switch-right">
+                        <label class="switch" @click="switchCheckbox($event, 'isShowSceneGraph');">
+                            <input type="checkbox" id="isShowSceneGraph">
+                            <div class="slider round"></div>
+                        </label>
+                    </span>
+                </li>
+                <li class="user-setting-item">
                     <span class="user-setting-item-msg-left">显示台面边框</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch"
@@ -1028,28 +1038,10 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item">
-                    <span class="user-setting-item-msg-left">显示场景图形</span>
-                    <span class="user-setting-item-switch-right">
-                        <label class="switch" @click="switchCheckbox($event, 'isShowSceneGraph');">
-                            <input type="checkbox" id="isShowSceneGraph">
-                            <div class="slider round"></div>
-                        </label>
-                    </span>
-                </li>
-                <li class="user-setting-item">
                     <span class="user-setting-item-msg-left">显示角色血量条</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isShowRoleBloodLine');">
                             <input type="checkbox" id="isShowRoleBloodLine">
-                            <div class="slider round"></div>
-                        </label>
-                    </span>
-                </li>
-                <li class="user-setting-item">
-                    <span class="user-setting-item-msg-left">双击屏幕回退</span>
-                    <span class="user-setting-item-switch-right">
-                        <label class="switch" @click="switchCheckbox($event, 'isDbclickBack');">
-                            <input type="checkbox" id="isDbclickBack">
                             <div class="slider round"></div>
                         </label>
                     </span>
@@ -1068,6 +1060,15 @@ input:checked+.slider:before {
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isShowTryFullPath');">
                             <input type="checkbox" id="isShowTryFullPath">
+                            <div class="slider round"></div>
+                        </label>
+                    </span>
+                </li>
+                <li class="user-setting-item">
+                    <span class="user-setting-item-msg-left">双击屏幕回退</span>
+                    <span class="user-setting-item-switch-right">
+                        <label class="switch" @click="switchCheckbox($event, 'isDbclickBack');">
+                            <input type="checkbox" id="isDbclickBack">
                             <div class="slider round"></div>
                         </label>
                     </span>
@@ -1204,15 +1205,20 @@ input:checked+.slider:before {
 3️⃣ 可能存在个别角度（碰墙角）反弹有点问题，请以实战数据为准
 4️⃣ 兼容手机、平板、电脑浏览器
 
-<b class="each-item-border-bottom">🆕 V4.1.5 更新：</b>
+<b class="each-item-border-bottom">🆕 V4.2.0 更新：</b>
 <pre id="collide-try-about-app-update-newest">
-1. 新增了【显示角色运动路径】开关功能
-2. 修复了移动端多点触碰可能出现卡死的问题
-3. 加入了超时自动结束（默认20秒），避免程序一直卡死消耗性能
-4. 【保存为离线版】（不用联网）改为【下载离线版】（要联网，更稳定）
-5. 内置了访问密钥，目前不用输入密钥都可以玩了
-6. 还在退游中，玩友们珍重勿念哈
+1. 新增了【夏日主题】
+2. 主题模式随季节自动切换
+3. 补全角色录入（61个）
 </pre>
+                <b class="each-item-border-bottom">V4.1.5 更新：</b>
+                1. 新增了【显示角色运动路径】开关功能
+                2. 修复了移动端多点触碰可能出现卡死的问题
+                3. 加入了超时自动结束（默认20秒），避免程序一直卡死消耗性能
+                4. 【保存为离线版】（不用联网）改为【下载离线版】（要联网，更稳定）
+                5. 内置了访问密钥，目前不用输入密钥都可以玩了
+                6. 还在退游中，玩友们珍重勿念哈
+
                 <b class="each-item-border-bottom">V4.1.4 更新：</b>
                 1. 兼容适配平板浏览器
                 2. 角色图标、场景主题图形大小调整
@@ -1270,6 +1276,7 @@ input:checked+.slider:before {
 
                 </pre>
 
+                <br><br>
                 <div id="collide-try-bye-reason" class="collide-try-goodbye">
                     <pre>
 <b class="each-item-border-bottom">几个游戏公平建议：</b>
@@ -1283,9 +1290,15 @@ input:checked+.slider:before {
 游戏公平了，玩的人更多！格局打开！
 
 <b class="each-item-border-bottom">不公平！BUG太多！太浪费时间精力！</b>
-① 牺牲公平换利益，实在是玩不过！每天都会被不公平和各种BUG气炸！（越是在乎，看得越清，就会越气）
-② 工作、生活已经够累了，还要比来比去！游戏娱乐放松了个啥？游戏社交真的能交到好朋友或奔现对象？
-③ 40级以下，技巧不够、没角色或者只有标配组合，很难打赢高配组合，大概率白送；40级以上，几乎都是高配，先手和开局位置至关重要，两局甚至三局不给先手，大概率连跪！先手和开局好位置给谁，懂的都懂！
+• 牺牲公平换利益，实在是玩不过！每天都会被不公平和各种BUG气炸！（越是在乎，看得越清，就会越气）
+• 工作、生活已经够累了，还要比来比去！游戏娱乐放松了个啥？游戏社交真的能交到好朋友或奔现对象？
+• 40级以下，技巧不够、没角色或者只有标配组合，很难打赢高配组合，大概率白送；40级以上，几乎都是高配，先手和开局位置至关重要，两局甚至三局不给先手，大概率连跪！先手和开局好位置给谁，懂的都懂！
+
+<b class="each-item-border-bottom">所以呢？还玩吗？</b>
+• 清楚自己为什么玩这个游戏！不公平的事情多了去了！怕浪费时间精力就减少做任务/冲分的局数
+• 目标段位期望太高会玩得很累！角色搭配没凑齐高配，撞击技巧（角度、连击、落点）熟练度不够（角色 > 技巧 = 运气[氪金]）
+• 大奖赛“日三”，十局完不成就放下吧，平均一大局 6 分钟，10 局就一个小时；跟好友过一下日常任务、切磋练习角色技巧
+• 【角色拼不过】 + 【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！这个【拼角色】的游戏别太较劲硬肝！
 
                     </pre>
                 </div>
@@ -1300,25 +1313,25 @@ input:checked+.slider:before {
         <div class="svg-image-area">
             <!-- https://icons.bootcss.com/icons/snow2/ -->
             <!-- https://yqnn.github.io/svg-path-editor/ -->
-            <!-- 默认主题中心图形 -->
+            <!-- 默认主题-中心图形 -->
             <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" fill="#6274C490" id="svg-default-center"
                 class="bi bi-default-center" viewBox="0 0 800 800">
                 <path
                     d="M39,361l30.165-17.437,30.526,15.268L71.346,378.462Zm662.489-17.437,30.526-15.269L762,345l-29.985,18.194ZM252.321,295.575s-4-11.846,6.541-15.269c0,0,7.614-2.782,17.444,8.725,0,0,4.3,11.666-6.541,15.269C269.765,304.3,259.013,307.626,252.321,295.575Zm82.856-102.519s-1.426-13.026,10.9-10.906c0,0,8.137-.392,10.9,10.906,0,0,2.2,11.184-10.9,10.907C346.08,203.963,338.523,204.884,335.177,193.056Zm2.181,370.813s1.134-10.64,10.9-8.725c0,0,7.362-.237,10.9,8.725,0,0,1.475,12.706-10.9,10.906C348.26,574.775,339.665,575.264,337.358,563.869Zm104.66,2.181s1.121-11.772,13.083-10.906c0,0,9.711,2.567,8.722,10.906,0,0,.728,8.846-10.9,10.906C452.92,576.956,444,578.611,442.018,566.05ZM402.771,361.012s0.222-12.616,13.082-15.268c0,0,9.647-2.729,13.083,15.268,0,0-1.931,11.839-13.083,13.088C415.853,374.1,404.6,372.223,402.771,361.012ZM531,337c4.43,5.388,5.75,43.344,3,40l75.911-24.713Zm-19.208-47.969s-11.152-21.5-30.526-28.356l87.217-74.162Zm-74.135-32.719C428.364,235.6,394.038,50.255,398.41,60l-10.9,161.412S354.487,232.022,333,251.95l-82.856-54.531,58.871,82.887s-17.634,25.994-17.443,56.713L189,358l102.569,16.1s26.934,89.76,111.2,87.25c0,0,98.875,1.955,93.758-100.338,0,0-7.184-64.79-69.774-65.437,0,0-40.215-1.321-54.51,39.263,0,0-7.811,27.219,13.082,47.987,0,0-20.41-45.658,23.673-64.825,0,0,35.347-7.477,48.281,32.106,0,0,16.709,63.783-49.281,77.894,0,0-76.807,4.3-83.725-73.531C324.275,354.469,312.226,252.288,437.657,256.312ZM278.486,428.631L93.15,657.662,274.125,487.525s29.3,23.868,37.068,28.356L283,605l56.538-76.031s20.24,12.3,45.789,13.087L400.59,758s15.5-195.811,17.279-218.224C417.977,538.415,418,540,418,540s33.951-3.5,48-17l71,71-42.651-86.844s17.212-10.4,34.886-32.719L725.474,624.944,518.333,428.631s-42.507,62.707-113.382,67.619C404.951,496.25,343.848,502.446,278.486,428.631Z" />
             </svg>
-            <!-- 冰雪主题中心雪花 -->
+            <!-- 冰雪主题-中心雪花 -->
             <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" fill="#EEF0F220" id="svg-snow"
                 class="bi bi-snow2" viewBox="0 0 1600 1600">
                 <path
                     d="M 800 1600 a 50 50 90 0 1 -50 -50 v -129.3 l -64.6 64.7 a 50 50 90 0 1 -70.7 -70.8 L 750 1279.3 v -108.6 l -64.6 64.7 a 50 50 90 0 1 -70.7 -70.8 L 750 1029.3 V 886.6 l -123.6 71.3 l -49.5 185 a 50 50 90 1 1 -96.6 -26 l 23.7 -88.2 l -94 54.2 l -49.6 185 a 50 50 90 1 1 -96.6 -26 l 23.7 -88.2 l -112 64.6 a 50 50 90 0 1 -50 -86.6 l 112 -64.6 l -88.4 -23.7 a 50 50 90 1 1 26 -96.6 l 184.8 49.5 l 94 -54.2 l -88.2 -23.7 a 50 50 90 1 1 25.8 -96.6 l 185 49.5 L 700 800 l -123.6 -71.3 l -184.9 49.5 a 50 50 90 1 1 -25.8 -96.6 l 88.3 -23.7 l -94 -54.2 l -185 49.5 a 50 50 90 0 1 -25.8 -96.6 l 88.3 -23.7 l -112 -64.6 a 50 50 90 1 1 50 -86.6 l 112 64.6 l -23.7 -88.3 a 50 50 90 0 1 96.6 -25.8 l 49.5 184.9 l 94 54.2 l -23.6 -88.3 a 50 50 90 0 1 96.6 -25.8 l 49.5 184.9 l 123.6 71.3 V 570.7 L 614.7 435.4 a 50 50 90 1 1 70.7 -70.8 l 64.6 64.7 V 320.7 L 614.7 185.4 a 50 50 90 1 1 70.7 -70.8 l 64.6 64.7 V 50 a 50 50 90 0 1 100 0 v 129.3 l 64.7 -64.7 a 50 50 90 1 1 70.7 70.8 L 850 320.7 v 108.6 l 64.7 -64.7 a 50 50 90 1 1 70.7 70.8 L 850 570.7 v 142.7 l 123.6 -71.3 l 49.5 -185 a 50 50 90 1 1 96.6 26 l -23.6 88.2 l 94 -54.2 l 49.5 -185 a 50 50 90 1 1 96.6 26 l -23.6 88.2 l 112 -64.6 a 50 50 90 0 1 50 86.6 l -112 64.6 l 88.3 23.7 a 50 50 90 1 1 -26 96.6 l -184.8 -49.5 l -94 54.2 l 88.3 23.7 a 50 50 90 1 1 -26 96.6 l -184.8 -49.5 L 900 800 l 123.6 71.3 l 184.9 -49.5 a 50 50 90 0 1 25.9 96.6 l -88.3 23.7 l 94 54.2 l 184.9 -49.5 a 50 50 90 0 1 25.9 96.6 l -88.3 23.7 l 112 64.6 a 50 50 90 0 1 -50 86.6 l -112 -64.6 l 23.6 88.3 a 50 50 90 1 1 -96.6 25.8 l -49.5 -184.9 l -94 -54.2 l 23.6 88.3 a 50 50 90 0 1 -96.6 25.8 L 973.6 958 L 850 886.6 v 142.7 l 135.4 135.3 a 50 50 90 0 1 -70.7 70.8 l -64.7 -64.7 v 108.6 l 135.4 135.3 a 50 50 90 0 1 -70.7 70.8 l -64.7 -64.7 V 1550 a 50 50 90 0 1 -50 50 z" />
             </svg>
-            <!-- 默认主题骨头 -->
+            <!-- 默认主题-骨头 -->
             <svg xmlns="http://www.w3.org/2000/svg" width="1156" height="517" fill="#FAF8F9A0" id="svg-bone"
                 class="bi bi-bone" viewBox="0 0 1156 517">
                 <path
                     d="M792.742,214l57.981,11c3.363-29.552-.866-54.089-7-78-2.4-9.366-.024-22.848-2-32-2.756-12.77-5.116-37.265,5-41,4.986-3.95,15.353-.123,20.994,2,17.974,6.764,38.175,12.06,55.981,20,7.922,3.532,15.683,10.442,23.993,14,11.179,4.787,21.369,6.927,30.989,13,9.948,6.279,18.756,14.747,28.989,21,10.71,6.539,22.34,9.5,32.99,16,29.58,18.072,58.62,36.04,84.97,57,13.08,10.4,24.71,32.444,26,54,0.61,10.3,1.26,27.307-5,31-6.46,4.477-16.89,2.009-25.99,4-23.16,5.063-56.47.19-80.98,0-9.79-.076-18.55-2.665-25.99,0,0.63,1.754.19,0.971,1,2,2.47,7.744,9.69,9.051,15.99,13,10.61,6.641,22.03,13.213,34.99,18,7.46,2.755,22.38,4.63,27.99,9h-1c-11.71,11.493-31.73,15.109-47.98,22-41.91,17.771-86.1,28-143.953,28-18.818,0-34.74,2-54.982,2H823.732c-5.875-1.889-8.167-7.075-12-11-0.354-17.627,7.822-25.443,13-37,10.049-22.45,19.493-45.007,19.993-77l-3-1c-7.616-5.636-41.911-9.444-53.982-12-4.534,52.915-31.062,101.589-51.984,140-6.922,12.709-17.711,39.253-34.988,40a18.324,18.324,0,0,1-1-6c3.474-3.869,3.686-8.7,6-14,5.09-11.667,10.537-23.4,16-36,14.961-34.548,40.4-82.758,41.986-128l-96.968-16c1.058,44.646-16.339,103.107-33.989,130-3.4,5.179-9.339,9.173-13,14-6.087,8.037-14.232,21.163-25.991,23-1.588-2.95-2.075-5.721-2-11,7.807-10.562,8.419-33.928,13-48,10.814-33.244,20.663-67.317,20.993-110h-2c-4.541-2.84-13.811.31-19.994-1-8.691-1.842-46.887-4.9-52.982-3,4.532,13.093,2,33.92,2,50,0,59.086-15.28,98.1-43.986,128l-4-2c-2.163-18.366,1.188-44.319,5-62q0.5-57.995,1-116c-22.312-.853-50.247,3.117-69.978,9-8.128,2.424-17.691.73-23.992,5-0.96,1.418-.976,3.273-1,6,5.5,8.265,1.426,25.461,3,37,4.01,29.431-17.2,68-28.991,87-4.908,7.908-8.173,23.353-19.993,24v-2c-3.549-5.645,0-30.838,0-40,0-34.26,4.652-65.063,5-101h-1c-2.467,1.738-4.363.709-8,2-12.15,4.316-26.066,10.022-37.988,15-7.112,2.97-16.413,2.355-16.994,12,3.65,5.559,3.123,27.578,3,37-0.324,24.556-14.154,38.656-25.992,52-4.013,4.524-6.914,10.639-14,12-1.124.144-1.787-.067-4-1-3.809-30.813,6.634-57.745,7-89h-2c-6.774,5.9-31.421,12.544-40.987,17-2.567,23.606-22.621,48.571-30.99,68-3.571,8.291-3.524,16.462-7,25-8.157,20.047-17.051,45.871-26.991,65-6.367,12.253-20.929,42.732-36.988,43a24.966,24.966,0,0,0-4-5c0.2-20.015,1.553-52.337-3-69-2.362-8.649-8.5-11.167-9-22,3.069-3.5,3.484-8.853,6-13,6.228-10.274,14.561-22.634,17.994-35a23.635,23.635,0,0,1-8-1,16.936,16.936,0,0,1-2-6c2.161-2.688,3.173-7.056,4-11h-1c-3.27,3.075-38.246,15.949-42.986,13-2.222-1.382-1.89-4.365-2-8,8.746-8.589,19.334-20.834,24.992-32h-2c-1.8,1.488-28.293,10.916-30.99,10-3.031-1.029-3.655-3.981-4-8,7.331-4.806,12.683-11.772,20.993-16v-1h-2c-6.953,4.614-44.236,12.022-54.982,10-1.113-2.476-1.687-3.233-2-7,3.921-3.582,16.349-13.578,17.994-18-13.905-1.408-28.469-9.161-39.987-14-4.759-2-12.629-.525-15-5-0.877-1.3-.894-2.467-1-5a18.058,18.058,0,0,0,4-3c78.125,0.41,150.189,14.25,216.929,26,11.007,1.938,35.66-13.768,43.986-18,3.636-1.848,12.182-3.6,14-7V256c-5.011-7.79-4.018-22.785-9-31-12.138-20.028-28.283-36.567-44.985-52-0.093-10.478,3.9-10.265,9-15,48.81,0.306,58.334,66.3,72.976,103,14.669-6.819,28.894-16.5,43.986-23,6.26-2.7,19.386-4.919,21.993-11-2.408-3.732-1.451-9.225-3-14-3.124-9.629-6.752-20.225-11-30-10.143-23.359-27.548-42.49-37.987-65-4.851-10.459-15.093-29.765,5-29,6.659,6.867,17.167,10.312,24.992,16,5.709,4.15,9.708,11.31,13.995,17l11,10c16.367,22.489,22.482,55.04,32.989,83,17.461-6.611,34.972-9.887,53.982-16,13-4.18,28.214-9.018,43.986-10,0.105-8.829-2.206-16.135-4-23-4.822-18.464-5.314-34.9-12-51-3.043-7.334-8.352-14.31-12-21-6.378-11.711-10.614-24.409-19.993-33a50.141,50.141,0,0,1,1-11c26.713-15.492,39.515.656,49.984,20,16.506,30.5,30.855,76.456,35.988,117,27.335-.087,52.049,1.905,77.975,2,0.445-28.115-8.134-49.972-15-71-5.828-17.862-8.185-32.654-15-49-4.326-10.382-22.8-39.378-17-53,2.189-5.133,7.417-7.271,11-11,27.522-1.686,35.066,13.431,45.985,31,16.622,26.746,22.822,59.785,30.99,96,4.425,19.621.079,41.827,4,62h6c7.736,4.675,24.731,2.585,34.989,5l56.981,10v-2c-2.106-3.544.138-10.073-1-15-3.084-13.361-.965-28.537-5-41-9.288-28.7-15.7-57.04-26.991-83-4.342-9.981-12.346-18.946-16.994-28-3.851-7.5-8.294-28.548-1-34,2.841-2.245,8.155-2.879,13-3,6.25,5.347,15.159,8.379,19.993,15C759.2,32.3,761.34,48.786,767.75,68c4.578,13.723,10.611,29.339,15,44q1.5,12,3,24C791.106,158.74,792.56,187,792.742,214Zm172.944-56c-3.7,2.2-10,1.3-14,3-10.252,4.349-21.064,15.4-24.992,26-11.145,30.082,19.654,64.22,51.983,56C1028.9,230.232,1018.28,160.747,965.686,158Zm140.954,63c-0.96,1.766-1.26,1.68-2,4,6,2.193,5.51,6.5,14,7a10.727,10.727,0,0,1,2-3c-0.64-1.754-.2-0.971-1-2-1.19-3.511-2.84-3.73-5-6h-8Z" />
             </svg>
-            <!-- 默认主题石头 -->
+            <!-- 默认主题-石头 -->
             <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" id="svg-stone" class="bi bi-stone"
                 viewBox="0 0 1024 1024">
                 <path
@@ -1339,6 +1352,52 @@ input:checked+.slider:before {
                 <path
                     d="M743.300267 534.673067c5.316267-2.542933 8.098133-4.1088 13.422933-7.0144l52.612267-23.825067c9.309867-5.077333 33.501867-14.272 37.8496-19.592533-13.422933-0.8448-29.870933 1.3312-42.325334 1.450666-15.121067 0.119467-27.217067 1.6896-41.365333 1.570134-5.073067 0-76.066133 5.444267-79.697067 1.813333-5.444267 1.088-1.088-1.813333-4.962133 2.6624l58.658133 35.8016c5.806933 3.8656 4.957867 2.176 5.6832 7.253333l0.123734-0.119466z"
                     fill="#13227a" p-id="3209"></path>
+            </svg>
+            <!-- 夏日主题-小黄鸭 -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" id="svg-yl-duck" class="bi bi-yl-duck"
+                viewBox="0 0 1024 1024">
+                <path
+                    d="M212.5 465c-13.8 4.1-25.5 13.1-33.1 25.3-36.4 58.5-126.6 237.8 38.5 367.8 199.9 157.4 655 68.1 699.7-197.8C953.7 445.5 890 364.7 802.8 320c0 0-51-23.4-106.3 0l-484 145z"
+                    fill="#FFDC48" p-id="4556"></path>
+                <path
+                    d="M526.2 543.3s191.5-7.9 194.7 78.2c1.6 42.1-122.8 357.8-467.3 260 0 0 281.2 161.6 574.6-59.6 216.9-280.7 21.3-572.1-123.4-508.3S526.2 543.3 526.2 543.3z"
+                    fill="#FFBE3C" p-id="4557"></path>
+                <path
+                    d="M206 482.7c21.9 37.2 57.5 64.4 99 76.2 36 10.2 79.1 16.2 125.4 16.2 49.8 0 95.9-6.9 133.5-18.6 39.9-12.4 73.8-39.5 94.6-75.7 0.1-0.2 0.2-0.4 0.3-0.5 21.8-38 34.3-82 34.4-128.9 0.5-144.5-117.1-262.5-261.6-262.5C287.1 88.9 170 206 170 350.5c0.1 48.2 13.2 93.4 36 132.2z"
+                    fill="#FFDC48" p-id="4558"></path>
+                <path
+                    d="M431.7 88.8c-16.7 0-33 1.6-48.8 4.6 95.3 28.8 165 117.7 164.6 222.2-0.1 41.5-11.2 80.3-30.4 113.9-0.1 0.2-0.2 0.3-0.3 0.5-18.4 32-48.4 56-83.6 66.9-33.2 10.4-74 16.5-118 16.5-34.3 0-66.6-3.7-94.9-10.2 21.7 26.7 51.3 46.2 84.8 55.7 36 10.2 79.1 16.2 125.4 16.2 49.8 0 95.9-6.9 133.5-18.6 39.9-12.4 73.8-39.5 94.6-75.7 0.1-0.2 0.2-0.4 0.3-0.5 21.8-38 34.3-82 34.4-128.9 0.5-144.5-117.1-262.6-261.6-262.6z"
+                    fill="#FFBE3C" p-id="4559"></path>
+                <path
+                    d="M162 409.9l18.1-9.6c36.3-12.7 76.6-4.4 104.8 21.7 31.8 34 52.7 59.2 85.1 78.4 4.5 2.7 7.3 7.5 7.3 12.7v12.2c0 11.9-8.5 22.2-20.2 24.5-55.5 10.7-209.4 30.8-260-61.8-15.4-37.2 64.9-78.1 64.9-78.1z"
+                    fill="#FF4160" p-id="4560"></path>
+                <path
+                    d="M324.6 464.1L304 447.6s-164.2 68.3-193.9 59.2c0.2 0.3 0.5 0.6 0.7 0.8 13.8 8.5 85.8 48.9 178.4 34.6 103.1-16 81-41.8 81-41.8-17.4-10.3-31.4-22.2-45.6-36.3z"
+                    fill="#F43459" p-id="4561"></path>
+                <path
+                    d="M361.8 513.2c-51.5 12.7-179.2 36.7-257.2-13.4 56.8 79.1 199.6 60.3 252.6 50 11.7-2.3 20.2-12.5 20.2-24.5v-12.2c0-2.8-0.8-5.4-2.2-7.7-3.6 3.7-8.2 6.5-13.4 7.8z"
+                    fill="#DB214E" p-id="4562"></path>
+                <path
+                    d="M776.9 784.8s-125.5 61.7-153.1-51c-25.5-146.7 140.4-117 163.8-153.1 25.8-39.9 42.5-112.7 70.2-70.2s32.9 210.5-80.9 274.3z"
+                    fill="#FFDC48" p-id="4563"></path>
+                <path
+                    d="M667 793.5c46.6 22.4 109.9-8.8 109.9-8.8C890.7 721 885.4 553 857.7 510.4s-44.3 30.3-70.2 70.2c26.3 95.2-16.2 172.2-120.5 212.9z"
+                    fill="#FFBE3C" p-id="4564"></path>
+                <path d="M405.2 357.4m-40.7 0a40.7 40.7 0 1 0 81.4 0 40.7 40.7 0 1 0-81.4 0Z" fill="#FFBE3C"
+                    p-id="4565"></path>
+                <path d="M397.4 351.7m-40.7 0a40.7 40.7 0 1 0 81.4 0 40.7 40.7 0 1 0-81.4 0Z" fill="#5E4153"
+                    p-id="4566"></path>
+                <path
+                    d="M918.4 421.2c-20.9-49.4-55.8-85.2-109.7-112.9-0.2-0.1-0.3-0.2-0.5-0.2-2.2-1-50.4-22.5-105.8-4.3-10.4-60.4-40.9-115.8-87-157.3-50.6-45.6-115.8-70.7-183.7-70.7-151.4 0-274.6 123.2-274.6 274.6 0 15.2 1.3 30.4 3.7 45.3l-4.8 2.5c-9.7 5-90.3 47.9-70.9 94.7 0.2 0.4 0.4 0.9 0.6 1.3 12.4 22.6 30 39.1 50.7 50.9-33.2 79.6-61.1 217.3 73.4 323.1 57.7 45.4 136.9 72.8 229.2 79.2 13.4 0.9 26.9 1.4 40.5 1.4 74.5 0 150.8-13.8 218.5-40 60.7-23.5 113.5-56.6 152.5-95.8 43.6-43.8 70.5-94.5 79.9-150.6 17.3-102.5 13.3-181.4-12-241.2zM431.7 101.9c126.8 0 233 95 247 221 1 9.3 1.6 18.9 1.5 28.4-0.1 43-11.4 85.3-32.7 122.4-0.1 0.2-0.3 0.5-0.3 0.6-19.3 33.5-50.2 58.3-87.2 69.8-37.8 11.8-82.6 18-129.6 18-20.3 0-40.4-1.2-59.6-3.5 11.8-6.5 19.6-19.1 19.6-33.2v-12.2c0-9.8-5.2-19-13.7-24-26.2-15.5-44.3-35.1-69.4-62.3-4.1-4.4-8.4-9-12.8-13.8-0.2-0.2-0.4-0.5-0.7-0.7-29.3-27.2-70-37.2-108.3-27.4-1.6-11.4-2.4-23-2.4-34.6 0-3.1 0.1-6.1 0.2-9.2C194.5 334 202 321.4 202 307c0-9.7-3.4-18.6-9.1-25.6 30-103.5 125.7-179.5 238.8-179.5zM109 482.5c-6.3-17.8 31.2-46.8 59-61 0.1 0 0.1-0.1 0.2-0.1l17.2-9.1c31.4-10.7 65.9-3.4 90.4 19 4.3 4.6 8.4 9.1 12.4 13.3 25.6 27.7 45.8 49.5 75.3 67 0.5 0.3 0.9 0.9 0.9 1.5v12.2c0 5.7-4 10.6-9.6 11.7-45.8 8.8-198.2 30.8-245.8-54.5z m795.7 175.6c-16.3 97.1-95.1 179.6-216.1 226.4-161.7 62.5-356.3 47-462.6-36.7-115.4-90.8-101.4-206.4-66-291.4 31.6 12.1 67.4 16.2 101.1 16.2 13.2 0 26.1-0.6 38.3-1.6 0.7 0.2 1.3 0.4 2 0.6 38.4 10.9 83 16.7 128.9 16.7 49.6 0 97.1-6.6 137.4-19.2 43.2-13.5 79.5-42.5 102.1-81.8l0.2-0.3c0-0.1 0.1-0.1 0.1-0.2 23.5-41 36-87.8 36.2-135.4 0-7-0.2-14-0.8-21 45.9-17.4 88.4 0.1 91.5 1.4 74.1 38 144.6 106.6 107.7 326.3z"
+                    fill="#5E4153" p-id="4567"></path>
+                <path
+                    d="M841.5 482.8c-19.6 1.3-31.1 25.4-44.5 53.4-6 12.5-12.1 25.4-18.7 35.6-4.4 6.8-25.8 11.8-44.8 16.2-27.9 6.5-62.5 14.6-87.9 35-30.4 24.5-41.5 61.9-32.9 111.3 0.1 0.3 0.1 0.6 0.2 0.9 8.3 33.7 25.5 56.9 51.1 68.9 14.1 6.6 29.2 9 43.8 9 39.1 0 74.6-17.2 76.7-18.2l0.6-0.3c60.1-33.7 85.2-91.6 95.7-134.2 16-64.8 7.3-131.6-10.4-158.7-8.6-13.3-18.3-19.6-28.9-18.9z m7 33c12.5 19.2 21.8 77.8 6.9 138.2-9.2 37.5-31.1 88.3-82.8 117.4-4.4 2.1-59 27-97.7 8.8-18-8.4-30.3-25.6-36.6-50.9-15.2-88.8 46.6-103.2 101.1-115.9 28.3-6.6 50.7-11.8 60.8-27.4 7.5-11.6 14.1-25.3 20.4-38.5 6.2-13 16.4-34.4 22.3-38.3 1 0.7 2.9 2.5 5.6 6.6z"
+                    fill="#5E4153" p-id="4568"></path>
+                <path d="M384.7 339.1m-12.7 0a12.7 12.7 0 1 0 25.4 0 12.7 12.7 0 1 0-25.4 0Z" fill="#FFFFFF"
+                    p-id="4569"></path>
+                <path
+                    d="M225.5 485.3c-5.1-0.5-9.6-4-11.2-9.1-2.1-6.9 1.7-14.2 8.6-16.3 15.5-4.8 33.8-13 34-13.1 6.6-3 14.3 0 17.3 6.5 3 6.6 0 14.3-6.5 17.3-0.8 0.4-19.9 8.9-37 14.2-1.8 0.5-3.5 0.7-5.2 0.5z"
+                    fill="#FFD7DF" p-id="4570"></path>
             </svg>
 
             <!-- 角色icon图标 -->
@@ -2201,7 +2260,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号
-    version: Number(packageVersion.replaceAll(".", "") + "240621"),
+    version: Number(packageVersion.replaceAll(".", "") + "240719"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -2277,7 +2336,7 @@ var userConfig = {
     // 是否显示台面边框
     isShowTableBorder: true,
     // 是否显示砖格坐标
-    isShowGridCoordinate: false,
+    isShowGridCoordinate: true,
     // 是否显示场景图形
     isShowSceneGraph: true,
     // 是否显示角色血量条
@@ -2291,9 +2350,9 @@ var userConfig = {
     // 瞄准显示路径，指定碰撞几次的路径
     tryFullPathPointNum: 6,
     // 长按重置角色位置
-    isLongPressRandom: false,
+    isLongPressRandom: true,
     // 移动角色显示坐标（单位：格）
-    isShowRoleMovePos: false,
+    isShowRoleMovePos: true,
     // 分享/导入角色及坐标
     shareRoleAndPos: "",
     // 指定游戏角色，数量不够会随机补满。输入一个字即可自动识别补充角色全名
@@ -2653,6 +2712,24 @@ class Ball {
         this.context.restore();
     }
 
+    // 绘制瞄准时被碰撞角色指示圈
+    drawTryCollidedCircle(params, ball) {
+        if (ball.isMainBall) return; // 瞄准时被碰撞角色为非主角
+        if (userConfig.isTestOnlyOne) return; // 单个角色测试时不画
+        if (!params) params = GlobalParams.getCleanParams();
+        let context = selectedBall.context;
+        context.save();
+        context.beginPath();
+        if (params.composite) context.globalCompositeOperation = params.composite;
+        context.arc(ball.x, ball.y, roundNumber(ball.radiusTmp - 1 * dpr * sysConfig.pxRatio, 4), Math.PI / 180 * 0, Math.PI / 180 * 360);
+        context.strokeStyle = "#D75956";
+        if (ball.teamColor === 'b') context.strokeStyle = "#0A7AFD";
+        context.closePath();
+        context.lineWidth = 2 * dpr * sysConfig.pxRatio;
+        context.stroke();
+        context.restore();
+    }
+
     // 绘制角色血量条
     drawRoleBloodLine(params) {
         if (!userConfig.isShowRoleBloodLine) return;
@@ -2745,6 +2822,8 @@ class Ball {
         gamePathContext.moveTo(p1.x, p1.y);
         gamePathContext.lineTo(p2.x, p2.y);
         gamePathContext.strokeStyle = "#cfe0d380";
+        if (userConfig.sceneThemeMode === 5) // 夏日主题
+            gamePathContext.strokeStyle = "#F9FBF580";
         if (userConfig.currRole === Role.SHUANGZI.id && !this.isMainBall && this.roleId === Role.SHUANGZI.id) gamePathContext.strokeStyle = "#EADF5580"; // 双子分身路径颜色
         if (this.roleId === Role.KUILEI.id) gamePathContext.strokeStyle = "#D61C24"; // 傀儡路径颜色
         gamePathContext.lineWidth = this.pathRadius * sysConfig.pxRatio;
@@ -2767,6 +2846,8 @@ class Ball {
         gamePathBallContext.moveTo(p1.x, p1.y);
         gamePathBallContext.lineTo(p2.x, p2.y);
         gamePathBallContext.strokeStyle = "#cfe0d325";
+        if (userConfig.sceneThemeMode === 5) // 夏日主题
+            gamePathBallContext.strokeStyle = "#F9FBF540";
         //if (!this.isMainBall && this.roleId === Role.SHUANGZI.id) gamePathBallContext.strokeStyle = "#EADF5525"; // 双子分身路径颜色
         gamePathBallContext.lineWidth = this.radius * 2;
         //gamePathBallContext.lineCap = "round"; // 圆角
@@ -3253,6 +3334,7 @@ class Role {
     static YOUFANG = new Role(58, "🌩️", "游方术士", "雷电", "电", null);
     static MOUSE = new Role(59, "🐭", "纽扣骑士", "老鼠", "鼠", null);
     static YEREN = new Role(60, "🧔", "灵域萨满", "野人", "野", null);
+    static BAIGUJING = new Role(61, "🧞‍♀️", "白骨夫人", "白骨", "骨", null);
 
 
     static maxRoleId = -1;
@@ -3346,67 +3428,69 @@ class Role {
     }
 
     static initRoleCps() {
-        this.HEIWA.cps = [Role.KUKU.id, Role.LELE.id, Role.LULU.id, Role.JIUWEIHU.id, Role.CHUZI.id, Role.SHUANGZI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.JIANGJIANG.cps = [Role.KUKU.id, Role.LULU.id, Role.JIUWEIHU.id, Role.NURSE.id, Role.MANWANG.id, Role.HUAQIANJI.id, Role.BAKE.id, Role.YINGYING.id, Role.WUGEGE.id, Role.ZHADANKE.id, Role.HONGSANSAN.id, Role.SANTAIZI.id];
-        this.DUODUO.cps = [Role.HUAQIANJI.id, Role.BAKE.id, Role.CHUZI.id, Role.JOKER.id, Role.NURSE.id, Role.JIUWEIHU.id, Role.HONGZHAJI.id, Role.MIAOJIANG.id];
-        this.KUILEI.cps = [Role.YINGYING.id, Role.JOKER.id, Role.LINGLING.id, Role.RABBIT.id, Role.DIANYIN.id, Role.YOUXIA.id, Role.ZHADANKE.id];
-        this.BAKE.cps = [Role.DUODUO.id, Role.LINGLING.id, Role.RABBIT.id, Role.WUGEGE.id, Role.DIANYIN.id, Role.XIUNV.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.HEIWA.cps = [Role.KUKU.id, Role.LELE.id, Role.LULU.id, Role.JIUWEIHU.id, Role.NURSE.id, Role.CHUZI.id, Role.TONY.id, Role.SHUANGZI.id, Role.WUGEGE.id, Role.WUKONG.id, Role.HUABANTU.id, Role.LANPANG.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.JIANGJIANG.cps = [Role.KUKU.id, Role.LULU.id, Role.JIUWEIHU.id, Role.NURSE.id, Role.CHUZI.id, Role.MANWANG.id, Role.HUAQIANJI.id, Role.BAKE.id, Role.YINGYING.id, Role.WUGEGE.id, Role.ZHADANKE.id, Role.HONGSANSAN.id, Role.XIXUEGUI.id, Role.SANTAIZI.id];
+        this.DUODUO.cps = [Role.HUAQIANJI.id, Role.BAKE.id, Role.CHUZI.id, Role.JOKER.id, Role.NURSE.id, Role.JIUWEIHU.id, Role.HONGZHAJI.id, Role.MIAOJIANG.id, Role.MUSHI.id];
+        this.KUILEI.cps = [Role.YINGYING.id, Role.JOKER.id, Role.LINGLING.id, Role.RABBIT.id, Role.DIANYIN.id, Role.YOUXIA.id, Role.ZHANAN.id, Role.XIXUEGUI.id, Role.ZHADANKE.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.BAKE.cps = [Role.DUODUO.id, Role.LINGLING.id, Role.RABBIT.id, Role.WUGEGE.id, Role.DIANYIN.id, Role.XIUNV.id, Role.JIANGJIANG.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
         this.LULU.cps = [Role.JIANGJIANG.id, Role.HEIWA.id, Role.TIEMIAN.id, Role.CAPTAIN.id, Role.SANTAIZI.id];
-        this.KUKU.cps = [Role.HEIWA.id, Role.JIANGJIANG.id, Role.RABBIT.id, Role.DIANYIN.id, Role.HUOWANG.id, Role.TIEMIAN.id];
-        this.YINGYING.cps = [Role.LELE.id, Role.CAPTAIN.id, Role.KUILEI.id, Role.SHUANGZI.id, Role.WUGEGE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.JIUWEIHU.cps = [Role.JIANGJIANG.id, Role.HEIWA.id, Role.DUODUO.id, Role.NURSE.id, Role.CHUZI.id, Role.HONGZHAJI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.SHUANGZI.cps = [Role.JOKER.id, Role.RABBIT.id, Role.YOUXIA.id, Role.HEIWA.id, Role.YINGYING.id, Role.HUOWANG.id, Role.DIANYIN.id, Role.LINGLING.id, Role.LANGZAI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.ZHADANKE.id, Role.SANTAIZI.id];
-        this.X.cps = [Role.JOKER.id, Role.WUGEGE.id, Role.RABBIT.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.LELE.id, Role.LEIMENG.id, Role.YINGYING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id]; // 自定义角色
-        this.YOUXIA.cps = [Role.SHUANGZI.id, Role.ZHANAN.id, Role.LELE.id, Role.KUILEI.id, Role.WUGEGE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.KUKU.cps = [Role.HEIWA.id, Role.JIANGJIANG.id, Role.RABBIT.id, Role.DIANYIN.id, Role.HUOWANG.id, Role.TIEMIAN.id, Role.ZHANAN.id];
+        this.YINGYING.cps = [Role.LELE.id, Role.CAPTAIN.id, Role.KUILEI.id, Role.SHUANGZI.id, Role.WUGEGE.id, Role.LEIMENG.id, Role.JIANGJIANG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.JIUWEIHU.cps = [Role.JIANGJIANG.id, Role.HEIWA.id, Role.ZHANAN.id, Role.DUODUO.id, Role.NURSE.id, Role.CHUZI.id, Role.HONGZHAJI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.SHUANGZI.cps = [Role.JOKER.id, Role.RABBIT.id, Role.YOUXIA.id, Role.HEIWA.id, Role.YINGYING.id, Role.HUOWANG.id, Role.DIANYIN.id, Role.LINGLING.id, Role.LANGZAI.id, Role.ZHANAN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.ZHADANKE.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.X.cps = [Role.JOKER.id, Role.WUGEGE.id, Role.RABBIT.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.LELE.id, Role.LEIMENG.id, Role.YINGYING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id]; // 自定义角色
+        this.YOUXIA.cps = [Role.SHUANGZI.id, Role.ZHANAN.id, Role.LELE.id, Role.KUILEI.id, Role.WUGEGE.id, Role.WUKONG.id, Role.HUABANTU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
         this.CHUZI.cps = [Role.HEIWA.id, Role.DIANYIN.id, Role.DUODUO.id, Role.NURSE.id, Role.JIUWEIHU.id, Role.MAGICLION.id, Role.YINGYING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
         this.HUAQIANJI.cps = [Role.DUODUO.id, Role.JIANGJIANG.id, Role.NURSE.id, Role.JIUWEIHU.id, Role.RABBIT.id, Role.DIANYIN.id, Role.PUMPKIN.id, Role.HUOWANG.id, Role.QUANBA.id, Role.MUSHI.id];
-        this.WUGEGE.cps = [Role.JOKER.id, Role.HEIWA.id, Role.YINGYING.id, Role.JIANGJIANG.id, Role.ZHANAN.id, Role.YOUXIA.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.JOKER.cps = [Role.WUGEGE.id, Role.RABBIT.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.LELE.id, Role.DIANYIN.id, Role.YINGYING.id, Role.DUODUO.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.ZHADANKE.id, Role.XIUNV.id, Role.SANTAIZI.id];
-        this.RABBIT.cps = [Role.LELE.id, Role.JOKER.id, Role.BAKE.id, Role.KUILEI.id, Role.WUKONG.id, Role.SHUANGZI.id, Role.KUKU.id, Role.MAGICLION.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.WUGEGE.cps = [Role.JOKER.id, Role.HEIWA.id, Role.LINGLING.id, Role.YOUXIA.id, Role.YINGYING.id, Role.JIANGJIANG.id, Role.ZHANAN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.JOKER.cps = [Role.WUGEGE.id, Role.RABBIT.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.LELE.id, Role.DIANYIN.id, Role.YINGYING.id, Role.LINGLING.id, Role.DUODUO.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.ZHADANKE.id, Role.XIUNV.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.RABBIT.cps = [Role.LELE.id, Role.JOKER.id, Role.BAKE.id, Role.KUILEI.id, Role.WUKONG.id, Role.SHUANGZI.id, Role.KUKU.id, Role.MAGICLION.id, Role.HUABANTU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
         this.NURSE.cps = [Role.HEIWA.id, Role.JIANGJIANG.id, Role.HUAQIANJI.id, Role.KAIER.id, Role.TIEMIAN.id, Role.DUODUO.id, Role.CHUZI.id, Role.JIUWEIHU.id, Role.LEIMENG.id, Role.BZGIRL.id];
-        this.CAPTAIN.cps = [Role.YINGYING.id, Role.CHUZI.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.LULU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.LELE.cps = [Role.HEIWA.id, Role.RABBIT.id, Role.JOKER.id, Role.DIANYIN.id, Role.YINGYING.id, Role.HUOWANG.id, Role.YOUXIA.id, Role.LANGZAI.id, Role.LINGLING.id, Role.TIEMIAN.id, Role.ZHADANKE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.CAPTAIN.cps = [Role.YINGYING.id, Role.CHUZI.id, Role.SHUANGZI.id, Role.LELE.id, Role.KUILEI.id, Role.LULU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.LELE.cps = [Role.HEIWA.id, Role.RABBIT.id, Role.JOKER.id, Role.DIANYIN.id, Role.ZHANAN.id, Role.YINGYING.id, Role.CAPTAIN.id, Role.HUOWANG.id, Role.YOUXIA.id, Role.LANGZAI.id, Role.LINGLING.id, Role.TIEMIAN.id, Role.ZHADANKE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
         this.MANWANG.cps = [Role.RABBIT.id, Role.HEIWA.id, Role.JIANGJIANG.id, Role.LELE.id, Role.DIANYIN.id];
-        this.LINGLING.cps = [Role.BAKE.id, Role.JOKER.id, Role.YINGYING.id, Role.KUILEI.id, Role.CHUZI.id, Role.WUGEGE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.HUOWANG.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.JOKER.id, Role.GUISHUSHI.id, Role.YINGYING.id, Role.KUKU.id, Role.MAGICLION.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.LEIMENG.cps = [Role.HEIWA.id, Role.JOKER.id, Role.DIANYIN.id, Role.YINGYING.id, Role.JIUWEIHU.id, Role.RABBIT.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.DIANYIN.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.JOKER.id, Role.CHUZI.id, Role.QUANBA.id, Role.MAGICLION.id, Role.KUKU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.XIXUEGUI.cps = [Role.CHUZI.id, Role.JOKER.id, Role.BAKE.id, Role.LELE.id, Role.SHUANGZI.id, Role.YINGYING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.GUISHUSHI.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.JOKER.id, Role.HUOWANG.id, Role.YINGYING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.MAGICLION.cps = [Role.CHUZI.id, Role.SHITOUREN.id, Role.DIANYIN.id, Role.JOKER.id, Role.BAKE.id, Role.RABBIT.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.LANGZAI.cps = [Role.CHUZI.id, Role.JOKER.id, Role.BAKE.id, Role.YINGYING.id, Role.KUILEI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.BZGIRL.cps = [Role.CHUZI.id, Role.JOKER.id, Role.BAKE.id, Role.YINGYING.id, Role.KUILEI.id, Role.SHUANGZI.id, Role.LELE.id, Role.DIANYIN.id, Role.RABBIT.id, Role.LANGZAI.id, Role.WUGEGE.id, Role.PUMPKIN.id, Role.LEIMENG.id, Role.SANTAIZI.id];
-        this.PUMPKIN.cps = [Role.HUAQIANJI.id, Role.QUANBA.id, Role.GUISHUSHI.id, Role.HUOWANG.id, Role.LELE.id, Role.SHUANGZI.id, Role.RABBIT.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.QUANBA.cps = [Role.HUAQIANJI.id, Role.CHUZI.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.LELE.id, Role.SHUANGZI.id, Role.HUOWANG.id, Role.DIANYIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.HONGZHAJI.cps = [Role.JIUWEIHU.id, Role.HUAQIANJI.id, Role.DUODUO.id, Role.WUGEGE.id, Role.RABBIT.id, Role.YOUXIA.id, Role.CHUZI.id, Role.LEIMENG.id, Role.BZGIRL.id];
-        this.SANTAIZI.cps = [Role.JOKER.id, Role.DIANYIN.id, Role.LELE.id, Role.WUGEGE.id, Role.RABBIT.id, Role.YOUXIA.id, Role.CHUZI.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.LEIMENG.id, Role.BZGIRL.id];
-        this.ZHADANKE.cps = [Role.HONGSANSAN.id, Role.YINGYING.id, Role.JIANGJIANG.id, Role.LELE.id, Role.WUGEGE.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.HONGSANSAN.cps = [Role.ZHADANKE.id, Role.PUMPKIN.id, Role.JIANGJIANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.LEIMENG.id, Role.BZGIRL.id];
-        this.WUKONG.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.HEIWA.id, Role.XIUNV.id, Role.PUMPKIN.id, Role.ZHANAN.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.LEIMENG.id, Role.BZGIRL.id];
-        this.ZHANAN.cps = [Role.YOUXIA.id, Role.WUGEGE.id, Role.SHUANGZI.id, Role.WUKONG.id, Role.ZHANGYUGE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.XIUNV.cps = [Role.BAKE.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.ZHANGYUGE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.TONY.cps = [Role.HEIWA.id, Role.WUKONG.id, Role.LELE.id, Role.SHUANGZI.id, Role.WUGEGE.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.KUKU.id, Role.JIANGJIANG.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.RENZHE.cps = [Role.JOKER.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.YOUXIA.id, Role.KUKU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.NUANYANG.cps = [Role.JOKER.id, Role.YINGYING.id, Role.QIANGWEI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.YOUXIA.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.LINGLING.cps = [Role.BAKE.id, Role.JOKER.id, Role.YINGYING.id, Role.KUILEI.id, Role.CHUZI.id, Role.WUGEGE.id, Role.LEIMENG.id, Role.LANLAN.id, Role.JIUWEIHU.id, Role.GUISHUSHI.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.HUOWANG.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.JOKER.id, Role.GUISHUSHI.id, Role.YINGYING.id, Role.KUKU.id, Role.MAGICLION.id, Role.PUMPKIN.id, Role.HUABANTU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.LEIMENG.cps = [Role.HEIWA.id, Role.JOKER.id, Role.DIANYIN.id, Role.YINGYING.id, Role.JIUWEIHU.id, Role.RABBIT.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.DIANYIN.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.JOKER.id, Role.CHUZI.id, Role.QUANBA.id, Role.MAGICLION.id, Role.KUKU.id, Role.LEIMENG.id, Role.HUABANTU.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.XIXUEGUI.cps = [Role.CHUZI.id, Role.JOKER.id, Role.BAKE.id, Role.LELE.id, Role.KUILEI.id, Role.SHUANGZI.id, Role.YINGYING.id, Role.HUABANTU.id, Role.JIANGJIANG.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.GUISHUSHI.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.JOKER.id, Role.HUOWANG.id, Role.YINGYING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.MAGICLION.cps = [Role.CHUZI.id, Role.SHITOUREN.id, Role.PUMPKIN.id, Role.DIANYIN.id, Role.JOKER.id, Role.BAKE.id, Role.RABBIT.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.LANGZAI.cps = [Role.CHUZI.id, Role.JOKER.id, Role.BAKE.id, Role.YINGYING.id, Role.KUILEI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.BZGIRL.cps = [Role.ZHANAN.id, Role.CHUZI.id, Role.JOKER.id, Role.BAKE.id, Role.YINGYING.id, Role.KUILEI.id, Role.SHUANGZI.id, Role.LELE.id, Role.DIANYIN.id, Role.RABBIT.id, Role.LANGZAI.id, Role.WUGEGE.id, Role.PUMPKIN.id, Role.LEIMENG.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.PUMPKIN.cps = [Role.HUAQIANJI.id, Role.MAGICLION.id, Role.QUANBA.id, Role.GUISHUSHI.id, Role.HUOWANG.id, Role.LELE.id, Role.SHUANGZI.id, Role.RABBIT.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.QUANBA.cps = [Role.HUAQIANJI.id, Role.CHUZI.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.LELE.id, Role.SHUANGZI.id, Role.HUOWANG.id, Role.DIANYIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.HONGZHAJI.cps = [Role.JIUWEIHU.id, Role.HUAQIANJI.id, Role.DUODUO.id, Role.WUGEGE.id, Role.RABBIT.id, Role.YOUXIA.id, Role.CHUZI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.SANTAIZI.cps = [Role.JOKER.id, Role.DIANYIN.id, Role.ZHANAN.id, Role.LELE.id, Role.WUGEGE.id, Role.RABBIT.id, Role.YOUXIA.id, Role.CHUZI.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.ZHADANKE.cps = [Role.HONGSANSAN.id, Role.YINGYING.id, Role.JIANGJIANG.id, Role.LELE.id, Role.WUGEGE.id, Role.SHUANGZI.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
+        this.HONGSANSAN.cps = [Role.ZHADANKE.id, Role.PUMPKIN.id, Role.JIANGJIANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
+        this.WUKONG.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.HEIWA.id, Role.XIUNV.id, Role.PUMPKIN.id, Role.ZHANAN.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.ZHANAN.cps = [Role.YOUXIA.id, Role.WUGEGE.id, Role.SHUANGZI.id, Role.WUKONG.id, Role.JIUWEIHU.id, Role.ZHANGYUGE.id, Role.HUABANTU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.XIUNV.cps = [Role.BAKE.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.ZHANGYUGE.id, Role.HUABANTU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.TONY.cps = [Role.HEIWA.id, Role.WUKONG.id, Role.LELE.id, Role.SHUANGZI.id, Role.WUGEGE.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.KUKU.id, Role.JIANGJIANG.id, Role.HUABANTU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.RENZHE.cps = [Role.JOKER.id, Role.WUKONG.id, Role.LELE.id, Role.SHUANGZI.id, Role.HUABANTU.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.YOUXIA.id, Role.KUKU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.NUANYANG.cps = [Role.JOKER.id, Role.YINGYING.id, Role.QIANGWEI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.YOUXIA.id, Role.HUABANTU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
         this.QIANGWEI.cps = [Role.JOKER.id, Role.YINGYING.id, Role.NUANYANG.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.YOUXIA.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.LANLAN.cps = [Role.JOKER.id, Role.YINGYING.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.LINGLING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.KAIER.cps = [Role.NURSE.id, Role.JIUWEIHU.id, Role.JOKER.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.SHITOUREN.cps = [Role.MAGICLION.id, Role.XIUNV.id, Role.MIAOJIANG.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CHUZI.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.TIEMIAN.cps = [Role.LULU.id, Role.NURSE.id, Role.JIUWEIHU.id, Role.LELE.id, Role.SHUANGZI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.KUKU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.MIAOJIANG.cps = [Role.MAGICLION.id, Role.NURSE.id, Role.JIUWEIHU.id, Role.DUODUO.id, Role.SHUANGZI.id, Role.CHUZI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.MUSHI.cps = [Role.KAIER.id, Role.QUANBA.id, Role.HUAQIANJI.id, Role.LELE.id, Role.SHUANGZI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.DIANYIN.id, Role.RABBIT.id, Role.HONGZHAJI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.WUNV.cps = [Role.YINGYING.id, Role.CAPTAIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.JIANGJIANG.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.LIANGLIANG.cps = [Role.LAILAI.id, Role.MAGICLION.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.CHUZI.id, Role.LEIMENG.id, Role.BZGIRL.id];
-        this.LAILAI.cps = [Role.LIANGLIANG.id, Role.MAGICLION.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.CHUZI.id, Role.LEIMENG.id, Role.BZGIRL.id];
-        this.ZHANGYUGE.cps = [Role.HUOWANG.id, Role.GUISHUSHI.id, Role.DIANYIN.id, Role.RABBIT.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.YINGYING.id, Role.PUMPKIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.HUABANTU.cps = [Role.HUOWANG.id, Role.GUISHUSHI.id, Role.DIANYIN.id, Role.RABBIT.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.YINGYING.id, Role.PUMPKIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.NIUXIAOMANG.cps = [Role.HUOWANG.id, Role.JOKER.id, Role.DIANYIN.id, Role.RABBIT.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.YINGYING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.LANPANG.cps = [Role.HUOWANG.id, Role.PUMPKIN.id, Role.DIANYIN.id, Role.RABBIT.id, Role.XIXUEGUI.id, Role.GUISHUSHI.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.YINGYING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.JIANSHI.cps = [Role.HUOWANG.id, Role.GUISHUSHI.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.JIUWEIHU.id, Role.NURSE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.JUNDUN.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.HEIWA.id, Role.JIANGJIANG.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.YOUFANG.cps = [Role.JOKER.id, Role.HUOWANG.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.MOUSE.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.WUGEGE.id, Role.HUOWANG.id, Role.JIANGJIANG.id, Role.NUANYANG.id, Role.CAPTAIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
-        this.YEREN.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.WUGEGE.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.MAGICLION.id, Role.JIANGJIANG.id, Role.NUANYANG.id, Role.CAPTAIN.id, Role.XIUNV.id, Role.ZHADANKE.id, Role.HONGSANSAN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.LANLAN.cps = [Role.JOKER.id, Role.YINGYING.id, Role.LINGLING.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.KAIER.cps = [Role.NURSE.id, Role.JIUWEIHU.id, Role.JOKER.id, Role.QUANBA.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.SHITOUREN.cps = [Role.MAGICLION.id, Role.XIUNV.id, Role.MIAOJIANG.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CHUZI.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.TIEMIAN.cps = [Role.LULU.id, Role.NURSE.id, Role.JIUWEIHU.id, Role.LELE.id, Role.SHUANGZI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.WUGEGE.id, Role.KUKU.id, Role.HUABANTU.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.MIAOJIANG.cps = [Role.MAGICLION.id, Role.SHITOUREN.id, Role.NURSE.id, Role.JIUWEIHU.id, Role.DUODUO.id, Role.SHUANGZI.id, Role.CHUZI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.MUSHI.cps = [Role.KAIER.id, Role.QUANBA.id, Role.HUAQIANJI.id, Role.LELE.id, Role.SHUANGZI.id, Role.CHUZI.id, Role.PUMPKIN.id, Role.DIANYIN.id, Role.RABBIT.id, Role.HONGZHAJI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.WUNV.cps = [Role.YINGYING.id, Role.CAPTAIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.CHUZI.id, Role.WUKONG.id, Role.PUMPKIN.id, Role.JIANGJIANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.LIANGLIANG.cps = [Role.LAILAI.id, Role.MAGICLION.id, Role.BAKE.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.CHUZI.id, Role.LEIMENG.id, Role.BZGIRL.id];
+        this.LAILAI.cps = [Role.LIANGLIANG.id, Role.MAGICLION.id, Role.BAKE.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.CHUZI.id, Role.LEIMENG.id, Role.BZGIRL.id];
+        this.ZHANGYUGE.cps = [Role.HUOWANG.id, Role.GUISHUSHI.id, Role.DIANYIN.id, Role.RABBIT.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.YINGYING.id, Role.PUMPKIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.HUABANTU.cps = [Role.HUOWANG.id, Role.GUISHUSHI.id, Role.HEIWA.id, Role.DIANYIN.id, Role.RABBIT.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.YINGYING.id, Role.LINGLING.id, Role.PUMPKIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.NIUXIAOMANG.cps = [Role.HUOWANG.id, Role.GUISHUSHI.id, Role.JOKER.id, Role.DIANYIN.id, Role.RABBIT.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.YINGYING.id, Role.LINGLING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.LANPANG.cps = [Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.HEIWA.id, Role.DIANYIN.id, Role.RABBIT.id, Role.XIXUEGUI.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.YINGYING.id, Role.LINGLING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id, Role.BAIGUJING.id];
+        this.JIANSHI.cps = [Role.HUOWANG.id, Role.GUISHUSHI.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.JIUWEIHU.id, Role.NURSE.id, Role.CHUZI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.JUNDUN.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.HEIWA.id, Role.ZHANAN.id, Role.JIANGJIANG.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.LANLAN.id, Role.LINGLING.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.YOUFANG.cps = [Role.JOKER.id, Role.HUOWANG.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.CAPTAIN.id, Role.CHUZI.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.MOUSE.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.WUGEGE.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.JIANGJIANG.id, Role.NUANYANG.id, Role.CAPTAIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.YEREN.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.HUABANTU.id, Role.LANPANG.id, Role.MAGICLION.id, Role.JIANGJIANG.id, Role.NUANYANG.id, Role.CAPTAIN.id, Role.XIUNV.id, Role.ZHADANKE.id, Role.HONGSANSAN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
+        this.BAIGUJING.cps = [Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.HUABANTU.id, Role.NIUXIAOMANG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
+        // TODO 后续需要抽取分类，不然很难维护
     }
 
 }
@@ -3918,24 +4002,47 @@ function setSysWan8CocosTableMoveVals() {
 }
 
 
-// 首次进入游戏，未选择任何主题，根据时间季节设置主题
 /*
+首次进入游戏，未选择任何主题，根据时间季节设置主题
+季节变化，更换对应主题，只改一次，在这个季节内可手动更换其他主题
+
 按照阳历划分，春季通常是3、4、5月，夏季是6、7、8月，秋季是9、10、11月，冬季是12、1、2月。
 按照农历划分，春季是农历的正月至三月，夏季是四月至六月，秋季是七月至九月，冬季是十月至十二月。
 */
 function setThemeBySeason(date) {
-    if (userConfig.sceneThemeMode >= 0) return; // 玩家手动设置了主题
+    // 上一次设置主题时间月份
+    let collideTryThemeTimeStr = localStorage.getItem('collide-try-theme-time');
+    let collideTryThemeTime = collideTryThemeTimeStr ? Number(collideTryThemeTimeStr) : 0;
+    console.log(">>>> collide-try-theme-time=" + collideTryThemeTime);
     if (!date) date = new Date();
     let m = date.getMonth() + 1;
+    if (isMonthInSameSeason(collideTryThemeTime, m) && userConfig.sceneThemeMode >= 0) return; // 玩家手动设置了主题
+    let currThemeMode = 0;
     if ([12, 1, 2].indexOf(m) > -1) { // 冬季，冰雪主题
-        userConfig.sceneThemeMode = 1;
-    } else if ([3, 4, 5, 6, 7, 8].indexOf(m) > -1) { // 春夏，田园主题
-        userConfig.sceneThemeMode = 3;
+        currThemeMode = 1;
+    } else if ([3, 4, 5].indexOf(m) > -1) { // 春季，田园主题
+        currThemeMode = 3;
+    } else if ([6, 7, 8].indexOf(m) > -1) { // 夏季，夏日主题
+        currThemeMode = 5;
     } else if ([9, 10, 11].indexOf(m) > -1) { // 秋季，星际主题（《星际穿越》上映时间 2014-11-07 正好是秋季）
-        userConfig.sceneThemeMode = 4;
-    } else {
-        userConfig.sceneThemeMode = 0;
+        currThemeMode = 4;
+    } else { // 默认主题
+        currThemeMode = 0;
     }
+    // 设置主题模式
+    userConfig.sceneThemeMode = currThemeMode;
+    // 保存设置主题的月份
+    localStorage.setItem('collide-try-theme-time', m);
+}
+
+
+// 判断两个月份是否在同一个季节（阳历）
+function isMonthInSameSeason(m1, m2) {
+    let idx1 = Math.floor(m1 / 3);
+    if (idx1 < 0 || idx1 >= 4) idx1 = 0;
+    let idx2 = Math.floor(m2 / 3);
+    if (idx2 < 0 || idx2 >= 4) idx2 = 0;
+    return idx1 === idx2;
 }
 
 
@@ -4310,6 +4417,12 @@ function initBallByRole(ball) {
             if (!ball.color) ball.color = "#FFA803"; // 取的默认皮肤牛角颜色
             ball.sizeRatio = Ball.SIZERATIO.L; // 大
             ball.mRatio = Ball.WEIGHTRATIO.L; // 重
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
+            break;
+        case Role.BAIGUJING.id:
+            if (!ball.color) ball.color = "#5A4A71"; // 取的默认皮肤头发颜色
+            ball.sizeRatio = Ball.SIZERATIO.M; // 中等
+            ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
             break;
         default: // 默认是黑娃
@@ -5318,6 +5431,8 @@ function drawTable() {
     drawSceneBg();
     // 画网格，在背景色之后
     drawSceneGrid();
+    // 夏日主题画间隔颜色的砖格
+    if (userConfig.sceneThemeMode === 5) drawSceneGridRect();
     // 墙面切角
     clipTableAngles();
     // 设置场景主题
@@ -5326,6 +5441,14 @@ function drawTable() {
     if (userConfig.isShowTableBorder) doDrawTableLines();
     // 画砖格坐标
     if (userConfig.isShowGridCoordinate) drawSceneCoordinate();
+    // 夏日主题个别动物上台面
+    if (userConfig.sceneThemeMode === 5) {
+        drawIconRandom("🦀", "ss", 1, false, gameSceneCanvas);
+        drawIconRandom("🦀", "xss", 2, false, gameSceneCanvas);
+        //drawIconRandom("🦞", "ss", 1, false, gameSceneCanvas);
+        //drawIconRandom("🦞", "xss", 1, false, gameSceneCanvas);
+        //drawIconRandom("🐢", "ss", 1, false, gameSceneCanvas);
+    }
 
 }
 
@@ -5354,17 +5477,20 @@ function drawSceneGrid() {
         gameSceneContext.beginPath(); // 开启路径，设置不同的样式
         gameSceneContext.moveTo(0, sysConfig.girdSize * i); // -0.5是为了解决像素模糊问题
         gameSceneContext.lineTo(CanvasWidth, sysConfig.girdSize * i);
-        gameSceneContext.strokeStyle = "#8384D1D0"; // 设置每个线条的颜色
+        gameSceneContext.strokeStyle = "#8384D1D0"; // 默认主题
         if (i === 11) gameSceneContext.strokeStyle = "#6A6CBFD0"; // 中间线突出一点
         if (userConfig.sceneThemeMode === 1) { // 冰雪主题
             gameSceneContext.strokeStyle = "#438EC2";
             if (i === 11) gameSceneContext.strokeStyle = "#3483B7";
         } else if (userConfig.sceneThemeMode === 3) { // 田园主题
             gameSceneContext.strokeStyle = "#6B624060";
-            if (i === 11) gameSceneContext.strokeStyle = "#6B6240";
+            if (i === 11) gameSceneContext.strokeStyle = "#6B6240D0";
         } else if (userConfig.sceneThemeMode === 4) { // 星际主题
             gameSceneContext.strokeStyle = "#696969A0";
             if (i === 11) gameSceneContext.strokeStyle = "#2F4F4FA0";
+        } else if (userConfig.sceneThemeMode === 5) { // 夏日主题
+            gameSceneContext.strokeStyle = "#B7521AA0";
+            if (i === 11) gameSceneContext.strokeStyle = "#B7521AD0";
         }
         gameSceneContext.stroke();
     }
@@ -5376,19 +5502,66 @@ function drawSceneGrid() {
         gameSceneContext.beginPath(); // 开启路径，设置不同的样式
         gameSceneContext.moveTo(sysConfig.girdSize * j, 0);
         gameSceneContext.lineTo(sysConfig.girdSize * j, CanvasHeight);
-        gameSceneContext.strokeStyle = "#8384D1D0"; // 设置每个线条的颜色
+        gameSceneContext.strokeStyle = "#8384D1D0"; // 默认主题
         if (j === 7) gameSceneContext.strokeStyle = "#6A6CBFD0";
         if (userConfig.sceneThemeMode === 1) { // 冰雪主题
             gameSceneContext.strokeStyle = "#438EC2";
             if (j === 7) gameSceneContext.strokeStyle = "#3483B7";
         } else if (userConfig.sceneThemeMode === 3) { // 田园主题
             gameSceneContext.strokeStyle = "#6B624060";
-            if (j === 7) gameSceneContext.strokeStyle = "#6B6240";
+            if (j === 7) gameSceneContext.strokeStyle = "#6B6240D0";
         } else if (userConfig.sceneThemeMode === 4) { // 星际主题
             gameSceneContext.strokeStyle = "#696969A0";
             if (j === 7) gameSceneContext.strokeStyle = "#2F4F4FA0";
+        } else if (userConfig.sceneThemeMode === 5) { // 夏日主题
+            gameSceneContext.strokeStyle = "#B7521AA0";
+            if (j === 7) gameSceneContext.strokeStyle = "#B7521AD0";
         }
         gameSceneContext.stroke();
+    }
+
+    gameSceneContext.restore();
+}
+
+
+// 画间隔颜色的砖格
+function drawSceneGridRect() {
+    gameSceneContext.save();
+    gameSceneContext.beginPath();
+    gameSceneContext.lineWidth = roundNumber(1 * dpr * sysConfig.pxRatio, 4);
+    //gameSceneContext.shadowColor = '#5A5030';
+    //gameSceneContext.shadowBlur = 1 * dpr;
+
+    // 1. 设置网格大小
+    // girdSize
+
+    // 2. 获取Canvas的width、height
+    let CanvasWidth = gameSceneCanvas.width;
+    let CanvasHeight = gameSceneCanvas.height;
+
+    let xLineTotals = 22;
+    let yLineTotals = 14;
+    for (let i = 0; i < xLineTotals; i++) {
+        for (let j = 0; j < yLineTotals; j++) {
+            if (i % 2 === 0) { // 偶数行
+                if (j % 2 === 0) { // 偶数列
+                    gameSceneContext.fillStyle = "#FFA35D"; // 夏日主题-砖格深颜色填充
+                } else { // 奇数列
+                    gameSceneContext.fillStyle = "#FFC777"; // 夏日主题-砖格浅颜色填充
+                }
+            } else { // 奇数行-相反
+                if (j % 2 !== 0) {
+                    gameSceneContext.fillStyle = "#FFA35D"; // 夏日主题-砖格深颜色填充
+                } else {
+                    gameSceneContext.fillStyle = "#FFC777"; // 夏日主题-砖格浅颜色填充
+                }
+            }
+
+            gameSceneContext.globalAlpha = Math.random(); // 随机透明度
+            //if (gameSceneContext.fillStyle === "#FFC777") gameSceneContext.globalAlpha = 1.0; // 浅颜色填充不设置透明度
+            gameSceneContext.fillRect(j * sysConfig.girdSize, i * sysConfig.girdSize, sysConfig.girdSize - gameSceneContext.lineWidth * Math.random(), sysConfig.girdSize - gameSceneContext.lineWidth * Math.random());
+
+        }
     }
 
     gameSceneContext.restore();
@@ -5432,6 +5605,9 @@ function drawSceneCoordinate() {
         } else if (userConfig.sceneThemeMode === 4) { // 星际主题
             gameSceneCoordinateContext.fillStyle = "#D7D7DC";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
+        } else if (userConfig.sceneThemeMode === 5) { // 夏日主题
+            gameSceneCoordinateContext.fillStyle = "#241133";
+            if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#FBFAD0";
         }
         gameSceneCoordinateContext.fillText(xLineNum + "", -(CanvasWidth / 2 + sceneLineRealWidth), -(CanvasHeight / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * i);
         gameSceneCoordinateContext.fillText(xLineNum + "", (CanvasWidth / 2 + sceneLineRealWidth), -(CanvasHeight / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * i);
@@ -5457,6 +5633,9 @@ function drawSceneCoordinate() {
         } else if (userConfig.sceneThemeMode === 4) { // 星际主题
             gameSceneCoordinateContext.fillStyle = "#D7D7DC";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
+        } else if (userConfig.sceneThemeMode === 5) { // 夏日主题
+            gameSceneCoordinateContext.fillStyle = "#241133";
+            if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#FBFAD0";
         }
         gameSceneCoordinateContext.fillText(yLineNum + "", -(CanvasWidth / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * j, -(CanvasHeight / 2 + sceneLineRealWidth));
         gameSceneCoordinateContext.fillText(yLineNum + "", -(CanvasWidth / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * j, (CanvasHeight / 2 + sceneLineRealWidth));
@@ -5478,6 +5657,8 @@ function drawSceneBg() {
         gameSceneContext.fillStyle = "#9A9069"; // 田园主题-场地背景色
     else if (userConfig.sceneThemeMode === 4)
         gameSceneContext.fillStyle = "Gray"; // 星际主题-场地背景色
+    else if (userConfig.sceneThemeMode === 5)
+        gameSceneContext.fillStyle = "#FFBF6F"; // 夏日主题-场地背景色
     gameSceneContext.fillRect(0, 0, gameSceneCanvas.width, gameSceneCanvas.height);
     // 设置dialog弹窗确认按钮颜色为场景背景色
     setDialogOkColor(gameSceneContext.fillStyle);
@@ -5638,6 +5819,43 @@ function setSceneTheme() {
                 drawIconRandom("👩‍🚀", "mm", 1);
             }
             break;
+        case 5: // 夏日主题
+            document.body.style.backgroundColor = '#3C8BBB'; // 00ABDE
+            if (userConfig.isShowSceneGraph) {
+                // 图形先后顺序可以控制叠加效果
+                drawIconUpAndDown("🏝", "l", 1);
+                //drawIconUpAndDown("🏝", "xl", 1, false, 1); // 只画上/左方
+                drawIconUpAndDown("🛟", "ss", 1); // 救生圈
+                drawIconUpAndDown("🌊", "ss", 1);
+                drawIconUpAndDown("🏖️", "s", 1);
+                drawIconRandom("🛟", "ss", 1); // 救生圈
+                drawIconRandom("🏄", "s", 2);
+                drawIconRandom("🏄‍♀️", "s", 2);
+                drawIconRandom("🏊", "s", 1);
+                drawIconRandom("🏊‍♀️", "s", 1);
+                drawIconRandom("🌊", "s", 2);
+                drawIconRandom("🌊", "xss", 10);
+                drawIconRandom("🐚", "xss", 8);
+                drawIconRandom("⛵️", "m", 2);
+                drawIconRandom("🪂", "m", 2);
+                drawIconRandom("🐋", "m", 1);
+                drawIconRandom("🦈", "s", 2);
+                drawIconRandom("🐬", "s", 2);
+                drawIconRandom("🐟", "ss", 4);
+                drawIconRandom("🐟", "xss", 20);
+                drawIconRandom("🦞", "xss", 4);
+                drawIconRandom("🦀", "xss", 6);
+                drawIconRandom("🐡", "xss", 4);
+                drawIconRandom("🐙", "xss", 4);
+                drawIconRandom("🦑", "xss", 4);
+                drawIconRandom("🪼", "xss", 4); // 水母
+                drawIconRandom("🪸", "ss", 4); // 珊瑚
+                drawIconRandom("🪸", "xss", 20); // 珊瑚
+                drawIconRandom("🐢", "ss", 2);
+                drawSvgUpAndDown("svg-yl-duck", "s", 1);
+
+            }
+            break;
         default: // 默认主题
             document.body.style.backgroundColor = '#7F70C3';
             //sysConfig.sceneLineWidth -= 2; // 边框窄一点
@@ -5702,6 +5920,8 @@ function drawTableLines() {
         gameSceneLinesContext.strokeStyle = "#FBFAD0"; // 田园主题边框
     else if (userConfig.sceneThemeMode === 4)
         gameSceneLinesContext.strokeStyle = "#D7D7DC"; // 星际主题边框 EBEBE9
+    else if (userConfig.sceneThemeMode === 5)
+        gameSceneLinesContext.strokeStyle = "#FAF9CB"; // 夏日主题边框 FAF9CB
     let sceneLineRealWidth = roundNumber(sysConfig.sceneLineWidth * dpr, 4); // 不同设备实际线宽
     gameSceneLinesContext.lineWidth = sceneLineRealWidth; // 设置线宽
     // 移动坐标系到场景中心
@@ -5838,8 +6058,9 @@ function getCenterImgScale(img) {
 // 获取字符、icon显示大小
 function getFontSize(begin, end, size) {
     let fontSize = { begin: (begin ? begin : 0), end: (end ? end : 0) };
-    if (size === "l") { fontSize.begin = (fontSize.begin + 1.5) * sysConfig.girdSize; fontSize.end = (fontSize.end + 3) * sysConfig.girdSize; }
-    if (size === "ll") { fontSize.begin = (fontSize.begin + 1.5) * sysConfig.girdSize; fontSize.end = (fontSize.end + 4) * sysConfig.girdSize; }
+    if (size === "xl") { fontSize.begin = (fontSize.begin + 2.0) * sysConfig.girdSize; fontSize.end = (fontSize.end + 5) * sysConfig.girdSize; }
+    if (size === "l") { fontSize.begin = (fontSize.begin + 1.5) * sysConfig.girdSize; fontSize.end = (fontSize.end + 4) * sysConfig.girdSize; }
+    if (size === "ll") { fontSize.begin = (fontSize.begin + 1.0) * sysConfig.girdSize; fontSize.end = (fontSize.end + 3) * sysConfig.girdSize; }
     if (size === "m") { fontSize.begin = (fontSize.begin + 1) * sysConfig.girdSize; fontSize.end = (fontSize.end + 2.3) * sysConfig.girdSize; }
     if (size === "mm") { fontSize.begin = (fontSize.begin + 0.8) * sysConfig.girdSize; fontSize.end = (fontSize.end + 1.8) * sysConfig.girdSize; }
     if (size === "s") { fontSize.begin = (fontSize.begin + 0.6) * sysConfig.girdSize; fontSize.end = (fontSize.end + 1.5) * sysConfig.girdSize; }
@@ -5854,7 +6075,9 @@ function getFontSize(begin, end, size) {
 
 
 // 【上下布局ICON】
-function drawIconUpAndDown(icon, size, num, isNumRd) {
+function drawIconUpAndDown(icon, size, num, isNumRd, posIdx) {
+    if (!posIdx) posIdx = 0; // 1-只画上/左方；2-只画下/右方；其他-都画
+
     gameSceneEmojiContext.save();
     gameSceneEmojiContext.fillStyle = "#3ACC57";
     // 水平对齐方式 (center left right start end)
@@ -5865,41 +6088,46 @@ function drawIconUpAndDown(icon, size, num, isNumRd) {
     let fontSize = getFontSize(0, 0, size);
 
     let metrics, width, height, count;
-    // 上/左方空白区域
-    if (isNumRd) num = fullCloseInt(0, num);
-    for (let i = 0; i < num; i++) {
-        gameSceneEmojiContext.font = fullOpen(fontSize.begin, fontSize.end) + "px serif";
-        metrics = gameSceneEmojiContext.measureText(icon);
-        width = roundNumber(metrics.width, 4);
-        height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
-        //console.log(">>>> graph width=" + width + ", height=" + height);
-        count = Math.round(sysConfig.cTop * dpr / height); // 能容纳多少个
-        if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
-        //if (count > 1) count -= 1;
-        //console.log(">>>> count=" + count);
-        if (count < 1) continue;
-        //if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(0, sysConfig.cTop * dpr));
-        //if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(0, sysConfig.cLeft * dpr), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
-        if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr / 4, sysConfig.cTop * dpr - height));
-        if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, sysConfig.cLeft * dpr - width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
-        gameSceneEmojiContext.beginPath();
+
+    if (posIdx !== 2) {
+        // 上/左方空白区域
+        if (isNumRd) num = fullCloseInt(0, num);
+        for (let i = 0; i < num; i++) {
+            gameSceneEmojiContext.font = fullOpen(fontSize.begin, fontSize.end) + "px serif";
+            metrics = gameSceneEmojiContext.measureText(icon);
+            width = roundNumber(metrics.width, 4);
+            height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
+            //console.log(">>>> graph width=" + width + ", height=" + height);
+            count = Math.round(sysConfig.cTop * dpr / height); // 能容纳多少个
+            if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
+            //if (count > 1) count -= 1;
+            //console.log(">>>> count=" + count);
+            if (count < 1) continue;
+            //if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(0, sysConfig.cTop * dpr));
+            //if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(0, sysConfig.cLeft * dpr), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
+            if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr / 4, sysConfig.cTop * dpr - height));
+            if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, sysConfig.cLeft * dpr - width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
+            gameSceneEmojiContext.beginPath();
+        }
     }
 
-    // 下/右方空白区域
-    if (isNumRd) num = fullCloseInt(0, num);
-    for (let i = 0; i < num; i++) {
-        gameSceneEmojiContext.font = fullOpen(fontSize.begin, fontSize.end) + "px serif";
-        metrics = gameSceneEmojiContext.measureText(icon);
-        width = roundNumber(metrics.width, 4);
-        height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
-        count = Math.round(sysConfig.cTop * dpr / height);
-        if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
-        //if (count > 1) count -= 1;
-        if (count < 1) continue;
-        //gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - height * count + height / 2 - 1, gameSceneEmojiCanvas.height - height / 2 + 1));
-        if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2, gameSceneEmojiCanvas.height - height / 2));
-        if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2, gameSceneEmojiCanvas.width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
-        gameSceneEmojiContext.beginPath();
+    if (posIdx !== 1) {
+        // 下/右方空白区域
+        if (isNumRd) num = fullCloseInt(0, num);
+        for (let i = 0; i < num; i++) {
+            gameSceneEmojiContext.font = fullOpen(fontSize.begin, fontSize.end) + "px serif";
+            metrics = gameSceneEmojiContext.measureText(icon);
+            width = roundNumber(metrics.width, 4);
+            height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
+            count = Math.round(sysConfig.cTop * dpr / height);
+            if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
+            //if (count > 1) count -= 1;
+            if (count < 1) continue;
+            //gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - height * count + height / 2 - 1, gameSceneEmojiCanvas.height - height / 2 + 1));
+            if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2, gameSceneEmojiCanvas.height - height / 2));
+            if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2, gameSceneEmojiCanvas.width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
+            gameSceneEmojiContext.beginPath();
+        }
     }
 
     gameSceneEmojiContext.restore();
@@ -5907,13 +6135,15 @@ function drawIconUpAndDown(icon, size, num, isNumRd) {
 
 
 // 【全屏随机布局ICON】
-function drawIconRandom(icon, size, num, isNumRd) {
-    gameSceneEmojiContext.save();
-    gameSceneEmojiContext.fillStyle = "#DEE8F2B1";
+function drawIconRandom(icon, size, num, isNumRd, targetCanvas) {
+    if (!targetCanvas) targetCanvas = gameSceneEmojiCanvas;
+    let ctx = targetCanvas ? targetCanvas.getContext('2d') : gameSceneEmojiContext;
+    ctx.save();
+    ctx.fillStyle = "#DEE8F2B1";
     // 水平对齐方式 (center left right start end)
-    gameSceneEmojiContext.textAlign = "center";
+    ctx.textAlign = "center";
     // 垂直对齐的方式 (top,bottom,middle)
-    gameSceneEmojiContext.textBaseline = 'middle';
+    ctx.textBaseline = 'middle';
 
     // 保持跟上下布局一样
     let fontSize = getFontSize(0, 0, size);
@@ -5921,21 +6151,23 @@ function drawIconRandom(icon, size, num, isNumRd) {
     let metrics, width, height, count;
     if (isNumRd) num = fullCloseInt(1, num);
     for (let i = 0; i < num; i++) {
-        gameSceneEmojiContext.font = fullOpen(fontSize.begin, fontSize.end) + "px serif";
-        metrics = gameSceneEmojiContext.measureText(icon);
+        ctx.font = fullOpen(fontSize.begin, fontSize.end) + "px serif";
+        metrics = ctx.measureText(icon);
         width = roundNumber(metrics.width, 4);
         height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
         count = Math.round(sysConfig.cTop / height);
         if (count < 1) continue;
-        gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
-        gameSceneEmojiContext.beginPath();
+        ctx.fillText(icon, fullOpen(width / 2, targetCanvas.width - width / 2), fullOpen(height / 2, targetCanvas.height - height / 2));
+        ctx.beginPath();
     }
-    gameSceneEmojiContext.restore();
+    ctx.restore();
 }
 
 
 // 【上下布局SVG】
-function drawSvgUpAndDown(svgId, size, num, isNumRd) {
+function drawSvgUpAndDown(svgId, size, num, isNumRd, posIdx) {
+    if (!posIdx) posIdx = 0;
+
     gameSceneEmojiContext.save();
     gameSceneEmojiContext.fillStyle = "#FAF8F9"; // 在 svg 中配置 fill 颜色
     // 水平对齐方式 (center left right start end)
@@ -5958,42 +6190,46 @@ function drawSvgUpAndDown(svgId, size, num, isNumRd) {
         height = img.height;
 
         if (height) {
-            // 上/左方空白区域
-            if (isNumRd) num = fullCloseInt(1, num);
-            for (let i = 0; i < num; i++) {
-                if (i === 0)
-                    scale = roundNumber(fullOpen(fontSize.begin, fontSize.end) / (sysConfig.girdSize * 8), 4);
-                else
-                    scale = roundNumber(fullOpen(fontSize.begin, fontSize.end) / (sysConfig.girdSize * 10), 4);
+            if (posIdx !== 2) {
+                // 上/左方空白区域
+                if (isNumRd) num = fullCloseInt(1, num);
+                for (let i = 0; i < num; i++) {
+                    if (i === 0)
+                        scale = roundNumber(fullOpen(fontSize.begin, fontSize.end) / (sysConfig.girdSize * 8), 4);
+                    else
+                        scale = roundNumber(fullOpen(fontSize.begin, fontSize.end) / (sysConfig.girdSize * 10), 4);
 
-                width = roundNumber(img.width * scale, 4);
-                height = roundNumber(img.height * scale, 4);
-                count = Math.round(sysConfig.cTop * dpr / height);
-                if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
-                if (count < 1) continue;
-                // 随机旋转角度，0 ~ 360
-                //let rotate = fullCloseInt(0, 360);
-                //gameSceneEmojiContext.rotate((rotate * Math.PI) / 180);
-                if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr / 4, sysConfig.cTop * dpr - height / 2), width, height);
-                if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, sysConfig.cLeft * dpr - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
-                //gameSceneEmojiContext.rotate((-rotate * Math.PI) / 180); // 画完之后旋转回去
-                gameSceneEmojiContext.beginPath();
+                    width = roundNumber(img.width * scale, 4);
+                    height = roundNumber(img.height * scale, 4);
+                    count = Math.round(sysConfig.cTop * dpr / height);
+                    if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
+                    if (count < 1) continue;
+                    // 随机旋转角度，0 ~ 360
+                    //let rotate = fullCloseInt(0, 360);
+                    //gameSceneEmojiContext.rotate((rotate * Math.PI) / 180);
+                    if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr / 4, sysConfig.cTop * dpr - height / 2), width, height);
+                    if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, sysConfig.cLeft * dpr - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
+                    //gameSceneEmojiContext.rotate((-rotate * Math.PI) / 180); // 画完之后旋转回去
+                    gameSceneEmojiContext.beginPath();
+                }
             }
 
-            // 下/右方空白区域
-            if (isNumRd) num = fullCloseInt(1, num);
-            for (let i = 0; i < num; i++) {
-                scale = roundNumber(fullOpen(fontSize.begin, fontSize.end) / (sysConfig.girdSize * 10), 4);
-                width = roundNumber(img.width * scale, 4);
-                height = roundNumber(img.height * scale, 4);
-                count = Math.round(sysConfig.cTop * dpr / height);
-                if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
-                if (count < 1) continue;
-                //let rotate = fullCloseInt(0, 360);
-                //gameSceneEmojiContext.rotate((rotate * Math.PI) / 180);
-                if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
-                if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2, gameSceneEmojiCanvas.width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height)
-                gameSceneEmojiContext.beginPath();
+            if (posIdx !== 1) {
+                // 下/右方空白区域
+                if (isNumRd) num = fullCloseInt(1, num);
+                for (let i = 0; i < num; i++) {
+                    scale = roundNumber(fullOpen(fontSize.begin, fontSize.end) / (sysConfig.girdSize * 10), 4);
+                    width = roundNumber(img.width * scale, 4);
+                    height = roundNumber(img.height * scale, 4);
+                    count = Math.round(sysConfig.cTop * dpr / height);
+                    if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
+                    if (count < 1) continue;
+                    //let rotate = fullCloseInt(0, 360);
+                    //gameSceneEmojiContext.rotate((rotate * Math.PI) / 180);
+                    if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
+                    if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2, gameSceneEmojiCanvas.width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height)
+                    gameSceneEmojiContext.beginPath();
+                }
             }
         }
     }
@@ -6645,6 +6881,9 @@ function setSceneThemeText(val) {
             break;
         case 4:
             document.getElementById("sceneThemeMode").innerText = "星际主题";
+            break;
+        case 5:
+            document.getElementById("sceneThemeMode").innerText = "夏日主题";
             break;
         default:
             document.getElementById("sceneThemeMode").innerText = "默认主题";
@@ -7865,6 +8104,9 @@ function checkOtherBalls(ball, isCheck) {
                     else do2BallsCollidedMV2(ball, b, isCheck, false, collideParams);
                 } else do2BallsCollidedMV2(ball, b, true, false, collideParams);
 
+                // 显示瞄准碰撞指示圈【瞄准时不停地检测，导致指示圈有闪动，后续再搞】
+                //if (isCheck) ball.drawTryCollidedCircle(null, b);
+
                 console.log(">>>> checkOtherBalls-" + ball.getBallDesc() + "-撞击点坐标：x=" + ball.x + ", y=" + ball.y);
                 if (isCheck && recordCollidedPoint(ball)) return true; // 注意只是结束循环
 
@@ -8983,6 +9225,8 @@ function drawLine2Point(p1, p2) {
     context.moveTo(p1.x, p1.y); // 起始位置
     context.lineTo(p2.x, p2.y); // 结束位置
     context.strokeStyle = '#cfe0d330';
+    if (userConfig.sceneThemeMode === 5) // 夏日主题
+        context.strokeStyle = "#F9FBF540";
     context.lineWidth = selectedBall.radius * 2;
     if (selectedBall.isMainBall && selectedBall.roleId === Role.KUILEI.id) context.lineWidth = selectedBall.tryRadius * 2;
     context.lineCap = "round"; // 圆角
@@ -8995,6 +9239,8 @@ function drawLine2Point(p1, p2) {
     context.arc(p2.x, p2.y, selectedBall.tryRadius, Math.PI / 180 * 0, Math.PI / 180 * 360);
     context.lineWidth = 1 * dpr * sysConfig.pxRatio;
     context.strokeStyle = "#E6ECFF75";
+    if (userConfig.sceneThemeMode === 5) // 夏日主题
+        context.strokeStyle = "#F9FBF5A0";
     context.setLineDash([6 * dpr * sysConfig.pxRatio, 3 * dpr * sysConfig.pxRatio]);
     if (selectedBall.isMainBall && selectedBall.roleId === Role.KUILEI.id) context.setLineDash([2 * dpr * sysConfig.pxRatio, 2 * dpr * sysConfig.pxRatio]);
     context.closePath();
