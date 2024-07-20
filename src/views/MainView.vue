@@ -8800,8 +8800,8 @@ function animate() {
     // 闲置没玩了，或者长时间瞄准不动时，停止渲染，优化CPU性能
     if (!isPlaying) {
         // TODO 屏幕多点触碰，可能会出现程序异常情况（目前限制了多点触碰）：主球有速度但是不运动，导致不执行 resetBallsSpeed，出现死循环！
-        // 有运动碰撞才处理停止事项
-        if (checkAnyBallCollided(0)) {
+        // 有运动碰撞才处理停止事项；因为单独碰蛋不算碰撞，会导致 resetBallsSpeed 不能执行，出现卡死！ selectedBall 为 null 时，主球开始运动
+        if (!selectedBall || checkAnyBallCollided(0)) {
             //doAfterBallStopped(balls);
             resetBallsSpeed(balls);
         }
@@ -8947,6 +8947,7 @@ function resetBallsSpeed(balls) {
     doAfterBallStopped(balls);
     // 再检测一次 animate 状态
     checkIsPlaying();
+    if (!isMoving && !isPlaying) console.log(">>>> 本回合结束 >>>>");
 }
 
 
