@@ -1284,21 +1284,30 @@ input:checked+.slider:before {
 ② 1号位先打，2号位后打，交给玩家自己决定，玩家就想1号位先打就这么难？
 ③ 开局角色位置、🌿、💣、🍄等陷阱位置，请完全随机！哪有那么巧就刚好给直线？
 ④ 加入『允许发言交流』勾选框，只要有一个玩家不勾选，就不能发言和发表情！
-⑤ 中奖概率有偏爱就不提了！回馈衣食父母也没错
+⑤ 加入《撞王等级资格证》机制，根据上一个大奖赛段位自动区分，大奖赛【大师】以下段位加入撞王等级匹配规则，避免 20、30 多级的玩家频繁对阵满级大佬被气走！留住新用户才有得⭕啊！[狗头]
+⑥ 中奖概率有偏爱就不提了！回馈衣食父母也没错
 
 你在教我做事？
 游戏公平了，玩的人更多！格局打开！
 
+
 <b class="each-item-border-bottom">不公平！BUG太多！太浪费时间精力！</b>
 • 牺牲公平换利益，实在是玩不过！每天都会被不公平和各种BUG气炸！（越是在乎，看得越清，就会越气）
+
 • 工作、生活已经够累了，还要比来比去！游戏娱乐放松了个啥？游戏社交真的能交到好朋友或奔现对象？
+
 • 40级以下，技巧不够、没角色或者只有标配组合，很难打赢高配组合，大概率白送；40级以上，几乎都是高配，先手和开局位置至关重要，两局甚至三局不给先手，大概率连跪！先手和开局好位置给谁，懂的都懂！
 
+
 <b class="each-item-border-bottom">所以呢？还玩吗？</b>
-• 清楚自己为什么玩这个游戏！不公平的事情多了去了！怕浪费时间精力就减少做任务/冲分的局数
-• 目标段位期望太高会玩得很累！角色搭配没凑齐高配，撞击技巧（角度、连击、落点）熟练度不够（角色 > 技巧 = 运气[氪金]）
-• 大奖赛“日三”，十局完不成就放下吧，平均一大局 6 分钟，10 局就一个小时；跟好友过一下日常任务、切磋练习角色技巧
-• 【角色拼不过】 + 【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！这个【拼角色】的游戏别太较劲硬肝！
+• <b>清楚自己为什么玩这个游戏！</b>不公平的事情多了去了！怕浪费时间精力就减少做任务/冲分的局数，或者跟好友过一下日常任务、切磋几局练习角色技巧，再或者每天登录签到就行了！
+
+• <b>目标段位期望太高会玩得很累！</b>角色搭配没凑齐高配，撞击技巧（角度、连击、落点）熟练度不够（角色 > 技巧 = 运气[氪金]），遇到满级大佬或者突破&高配组合确实很难赢（毕竟他们已经玩了几年了）！很多 20、30 多级的玩家大奖赛频繁对阵满级大佬，输到怀疑人生，没挺过这段艰难的瓶颈期就气到【注销】了！
+
+• <b>大奖赛“日三”，十局完不成就放下吧！</b>平均一大局 6 分钟，10 局就一个小时，20 局两小时，每天几个小时玩游戏是挺奢侈的了！用一半的游戏时间经营打理现实生活，会不会更有意义？
+
+•【角色拼不过】+【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！<b>这个【拼角色】的游戏别太较劲硬肝！</b>前期（40级之前）的角色兑换路线和技巧练习才是关键！
+
 
                     </pre>
                 </div>
@@ -2048,7 +2057,7 @@ function removeCoreScript(eles, eleIdOrClass) {
 let accessKey = null;
 let accessMsg = "🔑 请输入访问密钥";
 let codeStr = null;
-let encodeStr = "UQBYkS3HEWYoldrvuVmGGqrnuCq3O5T1U9mNnUxm4WxUm5CZKgGylDnuIEuxmi0VN+8WVJvXP0vznWVT6I3i/KmGBqc+sBZFSuXQm/4lYt0uuIep2PhlovquJzJeuUMRvrc5P34M7TzfIcDDnQHQpzbqYnzbaUPcBKfGZOW+rbhlHGAcYZnJ8g6hI3rXVnul5lkqLitInbwKI1Wa7/84fJRU8Vw58IJwqgYgRFOSf8MCmucDd2OjMSEAa2SCdVfyNEMs3GEpd4snXI79lpcNk4S52lXvqsbzsHqf13JL9nroouMPiB137XAA95hGTmEeK/ch3Ck1pIleJePj0PHQXU9Q7pfwqgmnd0PtKljyO7P+GR+EUJ6nXjFlS85I8Qvn0FJ9EdOyUTtRFF3ZbisPQ70goddCQChc2zKNBVZDcKf4RsLinlkjZXKUZlKHhXg4l7L8ric83hI/sS12bnQcXYdyYVsuXtyG/qIP5ESlRVprbAiZvc9YyTcf4+SRoTCqbP7Ny/2e3gJT1nBGr1DnbYREVuW6NvbX92fvV7Wuyp5Jo6cyQqZ8kEzVmn8i31IpAWIA3BXE+S2arG3OxWcFzeVDmJc3NdOL+izVU1nBim7nOCdiGB3q3AH30BeBISBMI+yJwlPTqkbO31ZN6yCpDg+tKIUt7au1LwZd8Y6/iMrvuWzfLqqi8SFX3jKVausv4kq5CXWZ2QAj6iWZ2AVleGO8rOJzqtTYnzGvTccoBqTBZqwKuRMTvj0OdA2RCTvQNbNAHat/W+g9ki9MkImvBc+EYchDDTf70PDROQgYa01EflEPTn9rL8R8V9Q+NgdpKi9tc76OJVgFyBBVI3QNaukKB5PzGMU+SgiIHpXqW6+Xa+WHvBwDcA3BDPmE1EOydrM+1FvZTMBfiFgf1ieTGw3nDOnN0Oh0iSfh4Auiv8NSwoEFJMXXzZtK";
+let encodeStr = "fAE9aAJXpmYCxrWJL/hIKhFvLVbtb19viIlXp6sR7qDxD6UBQWc+vruy9Epl0tPXaPsyI2wW6CNUo5obVRzs0wJCo5WgBw69wQaZPFfZtfESR82dt9xbGPckk+nFxF3ijxZ/H7U7sR57exzLtj7+RZcjydXakdUOSy4E7yrImi8mE8pA9xk+6CN2BM/aEXwwwf6LADE1st2NRoLrlOQ7QZ4uGrDzCHBvs8ZpiheUqhlKtMXY2NaiiKqXiZkDv68AOxK9+wTqc0sWueM6z0vwX7uIixVPCdPTgs/U3C+d2Jv4w9Umnn4HYxHsKEPAQhOctiOzXtcvp4Tdu4cWQknrxQaaWELqjlHuOKT3fJjhHrDCO2ZrqhwGjGnJeCc3AhosXu+7ADa8RSPSV9UHyr0mwgZ5T0z/pvaR5xlivfPMtGF0/U1FIh1onqpSRpeqipqwoTU2OuKXTxfyqZRKxFjk5qhZJO569JdABFrYjOrRaBUTxB/+mfmrT254WJT0uoG0WqOhH27Br6vsJCAy4pmcTVW3xq4eWuZZfjOZTZDt+O7AKDM5Ex9HkRwj3O3xrU0XYlp4ZE1VLforNVzFsYIRIEnKSgcDd3uQuiJRm8vnxASXcFC8Tel6Bo08EVylUle4Uj4/tPab8Xtx8FKvfDicCmvtMQb1FliU0pWjzOH3B6y53Uhl0k446HJgLH7k0E8FER8Rsj4NXpYbfx7F4cLdT66Ci3oTSUqfCPb7yMXgRSMYAOA3ONKxYtmFBhIL2w0YhvcHBcAwla3CpTMt6mhtSn62kHURYBkRaTqyOoBJRP24A2xSDi6/9TSZBkyyJFDwP7i0p9nZj+FPo+ua7yI7QNhR1vRv9jv6zpUV2hI/ahHd/dlVYTY9qS0IGlAy7w2IgUpz7qA1jjltcUg1OGBxF/0S6iJvc1BVEpYijh2H/D7QnA1HIf8a5wjZYC1uv4Z+sd12DWzFGNqZY82kUcDYLhsQNmAc8pSlOc4=";
 let superKeyEnStr = "zQN6114c/2W74lv7PvypKZh8zsei8CbICQZNtqrBJyxW0xwV350Wig==";
 //superKeyEnStr = Aes.Ctr.encrypt("", "", 256);
 //console.log('>>>> superKeyEnStr', superKeyEnStr);
@@ -3187,6 +3196,11 @@ function getPullBackSpeed() {
         ball.vy = vxy.vy;
         //console.log(">>>> getPullBackSpeed " + ball.getBallDesc() + "-vx=" + ball.vx + ", vy=" + ball.vy);
     }
+    // 傀儡拉回时，自身没有速度
+    if (mainBall.isMainBall && mainBall.roleId === Role.KUILEI.id) {
+        mainBall.vx = 0;
+        mainBall.vy = 0;
+    }
 }
 
 
@@ -3506,7 +3520,7 @@ class RegularlyCollocation {
         this.group = group;
     }
 
-    // 🥚、🧟、❄、🤡、8g 每个分配一百万个id
+    // 🥚、🧟、❄️、🤡、8g 每个分配一百万个id
     static group1000001 = new RegularlyCollocation(1000001, [Role.DUODUO.id, Role.BAKE.id]);
     static group1000002 = new RegularlyCollocation(1000002, [Role.DUODUO.id, Role.HUAQIANJI.id]);
     static group1000003 = new RegularlyCollocation(1000003, [Role.DUODUO.id, Role.CHUZI.id]);
@@ -5444,9 +5458,9 @@ function drawTable() {
     // 夏日主题个别动物上台面
     if (userConfig.sceneThemeMode === 5) {
         drawIconRandom("🦀", "ss", 1, false, gameSceneCanvas);
-        drawIconRandom("🦀", "xss", 2, false, gameSceneCanvas);
+        drawIconRandom("🦀", "xxs", 2, false, gameSceneCanvas);
         //drawIconRandom("🦞", "ss", 1, false, gameSceneCanvas);
-        //drawIconRandom("🦞", "xss", 1, false, gameSceneCanvas);
+        //drawIconRandom("🦞", "xxs", 1, false, gameSceneCanvas);
         //drawIconRandom("🐢", "ss", 1, false, gameSceneCanvas);
     }
 
@@ -5747,20 +5761,23 @@ function setSceneTheme() {
                 //drawCenterGraphIcon();
                 drawCenterGraphSvg("svg-snow");
                 // 冰雪主题景物图形
-                drawIconUpAndDown("🎄", "l", 1, false);
-                drawIconUpAndDown("🎄", "m", 1, true);
-                drawIconUpAndDown("🎄", "mm", 1, true);
-                drawIconUpAndDown("🎁", "m", 1, true);
-                drawIconUpAndDown("🎁", "s", 1, false);
-                drawIconUpAndDown("🎁", "ss", 1, true);
-                drawIconUpAndDown("⛄", "m", 1, false);
-                drawIconUpAndDown("⛄", "s", 1, true);
-                drawIconUpAndDown("⛄", "ss", 1, true);
-                drawIconUpAndDown("❄", "xs", 3, true);
-                drawIconRandom("❄", "s", 1);
-                drawIconRandom("❄", "ss", 3);
-                drawIconRandom("❄", "xs", 8);
-                drawIconRandom("❄", "xss", 20);
+                drawIconUpAndDown("🎄", "l", 1);
+                drawIconUpAndDown("🎄", "m", 1, true); // 随机
+                drawIconUpAndDown("🎄", "mm", 1);
+                drawIconUpAndDown("🎁", "s", 1, true); // 随机
+                drawIconUpAndDown("🎁", "ss", 1);
+                drawIconUpAndDown("🎁", "xs", 1);
+                drawIconUpAndDown("⛄️", "m", 1);
+                drawIconUpAndDown("⛄️", "s", 1, true); // 随机
+                drawIconUpAndDown("⛄️", "ss", 1, true);
+                drawIconUpAndDown("❄️", "xs", 2, true);
+                drawIconUpAndDown("❄️", "xxs", 4, true);
+                drawIconRandom("❄️", "xs", 10);
+                drawIconRandom("❄️", "xxs", 10);
+                drawIconRandom("❄️", "xxxs", 20);
+                drawIconRandom("🎄", "mm", 1);
+                drawIconRandom("🎁", "xs", 1);
+                drawIconRandom("⛄️", "ss", 1);
             }
             break;
         case 2: // 新年主题
@@ -5769,28 +5786,38 @@ function setSceneTheme() {
         case 3: // 田园主题
             document.body.style.backgroundColor = '#E6DD9C';
             if (userConfig.isShowSceneGraph) {
-                // 花草树木，鸡鸭鹅狗猪牛羊
-                drawIconUpAndDown("🌹", "xs", 2);
-                drawIconRandom("🌹", "xs", 7);
-                drawIconRandom("🌼", "xs", 5);
-                drawIconUpAndDown("🌷", "xs", 2);
-                drawIconRandom("🌷", "xs", 5);
-                drawIconUpAndDown("🌻", "m", 1);
-                drawIconRandom("🌻", "m", 2);
-                drawIconUpAndDown("🌳", "ll", 1);
-                if (isWoodIconShow) drawIconUpAndDown("🪵", "ss", 1);
-                drawIconUpAndDown("🐓", "s", 1);
+                // 花草树木，鸡鸭鹅狗猪牛羊【先后顺序可控制图形叠加效果】
+                drawIconUpAndDown("🌹", "xxs", 4, true);
+                drawIconRandom("🌹", "xxs", 8);
+                drawIconRandom("🌼", "xxs", 5);
+                drawIconUpAndDown("🌷", "xxs", 4, true);
+                drawIconRandom("🌷", "xxs", 8);
+                drawIconUpAndDown("🌻", "mm", 1);
+                drawIconRandom("🌻", "s", 2);
+                drawIconRandom("🥕", "xs", 4);
+                drawIconRandom("🍄", "xxxs", 4);
+                if (isWoodIconShow) drawIconRandom("🪵", "ss", 2);
+                drawIconRandom("🥚", "xxs", 5);
+                drawIconUpAndDown("🌳", "l", 1);
+                drawIconRandom("🌳", "s", 1);
+                drawIconRandom("🐕", "s", 2);
+                drawIconRandom("🐖", "m", 1);
+                drawIconRandom("🐖", "mm", 1);
+                drawIconRandom("🐂", "l", 1);
+                drawIconRandom("🐏", "mm", 1);
+                drawIconRandom("🐑", "mm", 1);
+                drawIconRandom("🐈", "ss", 1);
+                drawIconRandom("🐇", "ss", 1);
+                drawIconRandom("🐇", "xs", 1);
+                drawIconRandom("🐍", "xs", 1);
+                drawIconRandom("🐌", "xxxs", 4);
+                drawIconRandom("🐝", "xxxs", 4);
+                drawIconRandom("🦋", "xxs", 2);
+                drawIconUpAndDown("🐓", "ss", 1, false, 1); // 只画上/左方
                 drawIconRandom("🐓", "ss", 2);
-                drawIconUpAndDown("🦃", "ss", 1);
-                drawIconRandom("🦃", "ss", 2);
-                drawIconUpAndDown("🦆", "ss", 1);
+                drawIconRandom("🦃", "ss", 4);
+                drawIconUpAndDown("🦆", "ss", 1, false, 2); // 只画下/右方
                 drawIconRandom("🦆", "ss", 2);
-                drawIconRandom("🥚", "xss", 6);
-                drawIconRandom("🐕", "mm", 2);
-                drawIconRandom("🐖", "m", 2);
-                drawIconRandom("🐂", "ll", 1);
-                drawIconRandom("🐏", "m", 1);
-                drawIconRandom("🐑", "m", 1);
             }
             break;
         case 4: // 星际主题
@@ -5801,59 +5828,65 @@ function setSceneTheme() {
                 // 画随机星系光亮
                 globalParams.shadowColor = "#7F9BC2";
                 globalParams.shadowBlur = 100 * dpr;
-                drawGalaxyLightRandom(null, "mm", 2);
+                drawGalaxyLightRandom(null, "mm", 1);
                 drawGalaxyLightRandom(null, "s", 2);
                 drawGalaxyLightRandom(null, "ss", 2);
-                drawGalaxyLightRandom(null, "xs", 7);
-                drawGalaxyLightRandom(null, "xss", 15);
-                drawIconUpAndDown("🛰️", "m", 1);
-                drawIconRandom("🌏", "mm", 1);
-                if (isRingedIconShow) drawIconRandom("🪐", "mm", 1);
-                drawIconRandom("☄️", "mm", 2);
-                drawIconRandom("⭐", "xs", 5);
-                drawIconRandom("⭐", "xss", 20);
+                drawGalaxyLightRandom(null, "xs", 5);
+                drawGalaxyLightRandom(null, "xxs", 10);
+                drawGalaxyLightRandom(null, "xxxs", 15);
+                drawIconUpAndDown("🛰️", "mm", 1);
+                drawIconUpAndDown("🌏", "s", 1, false, 2); // 只画下/右方
+                //drawIconRandom("🌏", "s", 1);
+                //drawIconRandom("🌕", "xxs", 1); // 月球位置应该跟随地球
+                if (isRingedIconShow)
+                    drawIconUpAndDown("🪐", "s", 1, false, 2); // 只画下/右方
+                drawIconRandom("☄️", "ss", 2);
+                drawIconRandom("☄️", "xs", 2);
+                drawIconRandom("⭐", "xxs", 10);
+                drawIconRandom("⭐", "xxxs", 15);
                 drawIconRandom("🛰️", "s", 2);
-                drawIconRandom("🚀", "mm", 1);
-                drawIconRandom("🚀", "ss", 1);
-                drawIconRandom("👨‍🚀", "mm", 1);
-                drawIconRandom("👩‍🚀", "mm", 1);
+                drawIconRandom("🚀", "ss", 2);
+                //drawIconRandom("👨‍🚀", "ss", 1);
+                //drawIconRandom("👩‍🚀", "ss", 1);
+                drawIconUpAndDown("👩‍🚀", "ss", 1, true, 1);
+                drawIconUpAndDown("👨‍🚀", "ss", 1, true, 2);
             }
             break;
         case 5: // 夏日主题
             document.body.style.backgroundColor = '#3C8BBB'; // 00ABDE
             if (userConfig.isShowSceneGraph) {
                 // 图形先后顺序可以控制叠加效果
-                drawIconUpAndDown("🏝", "l", 1);
-                //drawIconUpAndDown("🏝", "xl", 1, false, 1); // 只画上/左方
-                drawIconUpAndDown("🛟", "ss", 1); // 救生圈
-                drawIconUpAndDown("🌊", "ss", 1);
-                drawIconUpAndDown("🏖️", "s", 1);
+                drawIconUpAndDown("🏝️", "l", 1, true);
+                //drawIconUpAndDown("🏝️", "xl", 1, false, 1); // 只画上/左方
+                drawIconUpAndDown("🛟", "ss", 1, true); // 救生圈
+                drawIconUpAndDown("🌊", "ss", 1, true);
+                drawIconUpAndDown("🏖️", "s", 1, true);
+                drawIconUpAndDown("🏄", "s", 1, true, 1);
+                drawIconUpAndDown("🏄‍♀️", "s", 1, true, 2);
                 drawIconRandom("🛟", "ss", 1); // 救生圈
-                drawIconRandom("🏄", "s", 2);
-                drawIconRandom("🏄‍♀️", "s", 2);
+                drawIconRandom("🏄", "s", 1);
+                drawIconRandom("🏄‍♀️", "s", 1);
                 drawIconRandom("🏊", "s", 1);
                 drawIconRandom("🏊‍♀️", "s", 1);
-                drawIconRandom("🌊", "s", 2);
-                drawIconRandom("🌊", "xss", 10);
-                drawIconRandom("🐚", "xss", 8);
+                drawIconRandom("🌊", "ss", 2);
+                drawIconRandom("🌊", "xxs", 5);
+                drawIconRandom("🐚", "xxxs", 4);
                 drawIconRandom("⛵️", "m", 2);
                 drawIconRandom("🪂", "m", 2);
                 drawIconRandom("🐋", "m", 1);
-                drawIconRandom("🦈", "s", 2);
-                drawIconRandom("🐬", "s", 2);
-                drawIconRandom("🐟", "ss", 4);
-                drawIconRandom("🐟", "xss", 20);
-                drawIconRandom("🦞", "xss", 4);
-                drawIconRandom("🦀", "xss", 6);
-                drawIconRandom("🐡", "xss", 4);
-                drawIconRandom("🐙", "xss", 4);
-                drawIconRandom("🦑", "xss", 4);
-                drawIconRandom("🪼", "xss", 4); // 水母
-                drawIconRandom("🪸", "ss", 4); // 珊瑚
-                drawIconRandom("🪸", "xss", 20); // 珊瑚
-                drawIconRandom("🐢", "ss", 2);
-                drawSvgUpAndDown("svg-yl-duck", "s", 1);
-
+                drawIconRandom("🦈", "s", 1);
+                drawIconRandom("🐬", "s", 1);
+                drawIconRandom("🐟", "xxs", 15);
+                drawIconRandom("🦞", "xxs", 2);
+                drawIconRandom("🦀", "xxs", 4);
+                drawIconRandom("🐡", "xxs", 2);
+                drawIconRandom("🐙", "xxs", 2);
+                drawIconRandom("🦑", "xxs", 2);
+                drawIconRandom("🪼", "xxs", 2); // 水母
+                drawIconRandom("🪸", "ss", 2); // 珊瑚
+                drawIconRandom("🪸", "xxs", 8); // 珊瑚
+                drawIconRandom("🐢", "ss", 1);
+                drawSvgUpAndDown("svg-yl-duck", "s", 1, true);
             }
             break;
         default: // 默认主题
@@ -5869,23 +5902,23 @@ function setSceneTheme() {
                     drawIconUpAndDown("🪨", "s", 1);
                     drawIconRandom("🪨", "s", 2);
                     drawIconRandom("🪨", "ss", 6);
-                    drawIconRandom("🪨", "xss", 15);
+                    drawIconRandom("🪨", "xxs", 15);
                 }
                 */
                 // 改为画svg石头
                 drawSvgUpAndDown("svg-stone", "s", 1);
                 drawSvgUpAndDown("svg-stone", "ss", 1);
-                drawSvgUpAndDown("svg-stone", "xss", 2);
+                drawSvgUpAndDown("svg-stone", "xxs", 2);
                 drawSvgRandom("svg-stone", "ss", 2);
-                drawSvgRandom("svg-stone", "xss", 5);
+                drawSvgRandom("svg-stone", "xxs", 6);
                 // 指定位置画石头和骨头
                 drawStoneGraphDefault();
                 // 画骨头
-                drawSvgUpAndDown("svg-bone", "mm", 1);
+                drawSvgUpAndDown("svg-bone", "mm", 1, true);
                 drawSvgUpAndDown("svg-bone", "s", 1);
-                drawSvgRandom("svg-bone", "s", 2);
+                drawSvgRandom("svg-bone", "s", 1);
                 drawSvgRandom("svg-bone", "xs", 2);
-                drawSvgRandom("svg-bone", "xss", 6);
+                drawSvgRandom("svg-bone", "xxs", 6);
             }
     }
 
@@ -5897,7 +5930,7 @@ function setSceneTheme() {
 
 function doDrawTableLines() {
     globalParams.shadowColor = "#352e6160";
-    if (userConfig.sceneThemeMode === 1) globalParams.shadowColor = "#819BC3"; // 冰雪主题边框阴影
+    //if (userConfig.sceneThemeMode === 1 && isLightMode) globalParams.shadowColor = "#819BC3"; // 冰雪主题边框阴影
     globalParams.shadowBlur = 6 * dpr;
     drawTableLines();
     globalParams.shadowBlur = 1 * dpr;
@@ -5942,7 +5975,7 @@ function drawTableLines() {
 
 
 // 【中心布局ICON】
-// 中心雪花❄ 画在游戏场景画布上  3 * sysConfig.girdSize ≤ height ≤ 5 * sysConfig.girdSize
+// 中心雪花❄️ 画在游戏场景画布上  3 * sysConfig.girdSize ≤ height ≤ 5 * sysConfig.girdSize
 // 雪花因为字体原因，会出现不能完全居中
 function drawCenterGraphIcon(icon, size, num) {
     gameSceneContext.save();
@@ -5992,7 +6025,7 @@ function drawCenterGraphIcon(icon, size, num) {
 
 
 // 【中心布局SVG】
-// 中心雪花❄ 画在游戏场景画布上  3 * sysConfig.girdSize ≤ height ≤ 5 * sysConfig.girdSize
+// 中心雪花❄️ 画在游戏场景画布上  3 * sysConfig.girdSize ≤ height ≤ 5 * sysConfig.girdSize
 function drawCenterGraphSvg(svgId) {
     gameSceneContext.save();
     //gameSceneContext.fillStyle = "#EEF0F220"; // 在 svg 中配置 fill 颜色，这里设置没用
@@ -6066,11 +6099,21 @@ function getFontSize(begin, end, size) {
     if (size === "s") { fontSize.begin = (fontSize.begin + 0.6) * sysConfig.girdSize; fontSize.end = (fontSize.end + 1.5) * sysConfig.girdSize; }
     if (size === "ss") { fontSize.begin = (fontSize.begin + 0.4) * sysConfig.girdSize; fontSize.end = (fontSize.end + 0.8) * sysConfig.girdSize; }
     if (size === "xs") { fontSize.begin = (fontSize.begin + 0.3) * sysConfig.girdSize; fontSize.end = (fontSize.end + 0.6) * sysConfig.girdSize; }
-    if (size === "xss") { fontSize.begin = (fontSize.begin + 0.15) * sysConfig.girdSize; fontSize.end = (fontSize.end + 0.4) * sysConfig.girdSize; }
+    if (size === "xxs") { fontSize.begin = (fontSize.begin + 0.15) * sysConfig.girdSize; fontSize.end = (fontSize.end + 0.4) * sysConfig.girdSize; }
+    if (size === "xxxs") { fontSize.begin = (fontSize.begin + 0.10) * sysConfig.girdSize; fontSize.end = (fontSize.end + 0.25) * sysConfig.girdSize; }
 
     fontSize.begin = Math.round(fontSize.begin);
     fontSize.end = Math.round(fontSize.end);
     return fontSize;
+}
+
+
+// 获取图形可视区域大小，默认为场地高度的一半左右
+function getGraphViewAreaSize() {
+    let graphViewAreaSize = roundNumber(sysConfig.girdSize * 5, 4); // 8.5
+    if (!os.isPc && sysConfig.cTop * dpr > graphViewAreaSize) graphViewAreaSize = sysConfig.cTop * dpr;
+    if (os.isPc && sysConfig.cLeft * dpr > graphViewAreaSize) graphViewAreaSize = sysConfig.cLeft * dpr;
+    return Math.round(graphViewAreaSize);
 }
 
 
@@ -6079,14 +6122,14 @@ function drawIconUpAndDown(icon, size, num, isNumRd, posIdx) {
     if (!posIdx) posIdx = 0; // 1-只画上/左方；2-只画下/右方；其他-都画
 
     gameSceneEmojiContext.save();
-    gameSceneEmojiContext.fillStyle = "#3ACC57";
+    //gameSceneEmojiContext.fillStyle = "#3ACC57"; // 这个颜色会覆盖图形原有颜色
     // 水平对齐方式 (center left right start end)
     gameSceneEmojiContext.textAlign = "center";
     // 垂直对齐的方式 (top,bottom,middle)
     gameSceneEmojiContext.textBaseline = 'middle';
 
     let fontSize = getFontSize(0, 0, size);
-
+    let graphViewAreaSize = getGraphViewAreaSize();
     let metrics, width, height, count;
 
     if (posIdx !== 2) {
@@ -6100,13 +6143,12 @@ function drawIconUpAndDown(icon, size, num, isNumRd, posIdx) {
             //console.log(">>>> graph width=" + width + ", height=" + height);
             count = Math.round(sysConfig.cTop * dpr / height); // 能容纳多少个
             if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
-            //if (count > 1) count -= 1;
             //console.log(">>>> count=" + count);
-            if (count < 1) continue;
-            //if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(0, sysConfig.cTop * dpr));
-            //if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(0, sysConfig.cLeft * dpr), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
-            if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr / 4, sysConfig.cTop * dpr - height));
-            if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, sysConfig.cLeft * dpr - width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
+            // if (count < 1) continue; // 不考虑 count，则图形可以超出边界
+            //if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr / 4, sysConfig.cTop * dpr - height));
+            //if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, sysConfig.cLeft * dpr - width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
+            if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr - graphViewAreaSize + height / 2, sysConfig.cTop * dpr - height / 2));
+            if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(sysConfig.cLeft * dpr - graphViewAreaSize + width / 2, sysConfig.cLeft * dpr - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
             gameSceneEmojiContext.beginPath();
         }
     }
@@ -6121,11 +6163,11 @@ function drawIconUpAndDown(icon, size, num, isNumRd, posIdx) {
             height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
             count = Math.round(sysConfig.cTop * dpr / height);
             if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
-            //if (count > 1) count -= 1;
-            if (count < 1) continue;
-            //gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - height * count + height / 2 - 1, gameSceneEmojiCanvas.height - height / 2 + 1));
-            if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2, gameSceneEmojiCanvas.height - height / 2));
-            if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2, gameSceneEmojiCanvas.width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
+            //if (count < 1) continue;
+            //if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2, gameSceneEmojiCanvas.height - height / 2));
+            //if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2, gameSceneEmojiCanvas.width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
+            if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2, gameSceneEmojiCanvas.height + (graphViewAreaSize - sysConfig.cTop * dpr) - height / 2));
+            if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2, gameSceneEmojiCanvas.width + (graphViewAreaSize - sysConfig.cLeft * dpr) - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
             gameSceneEmojiContext.beginPath();
         }
     }
@@ -6139,7 +6181,7 @@ function drawIconRandom(icon, size, num, isNumRd, targetCanvas) {
     if (!targetCanvas) targetCanvas = gameSceneEmojiCanvas;
     let ctx = targetCanvas ? targetCanvas.getContext('2d') : gameSceneEmojiContext;
     ctx.save();
-    ctx.fillStyle = "#DEE8F2B1";
+    //ctx.fillStyle = "#3ACC57";
     // 水平对齐方式 (center left right start end)
     ctx.textAlign = "center";
     // 垂直对齐的方式 (top,bottom,middle)
@@ -6176,6 +6218,7 @@ function drawSvgUpAndDown(svgId, size, num, isNumRd, posIdx) {
     gameSceneEmojiContext.textBaseline = 'middle';
 
     let fontSize = getFontSize(0, 0, size);
+    let graphViewAreaSize = getGraphViewAreaSize();
 
     let svg_xml = (new XMLSerializer()).serializeToString(document.getElementById(svgId));
     //console.log(">>>> svg_xml:", svg_xml);
@@ -6198,17 +6241,18 @@ function drawSvgUpAndDown(svgId, size, num, isNumRd, posIdx) {
                         scale = roundNumber(fullOpen(fontSize.begin, fontSize.end) / (sysConfig.girdSize * 8), 4);
                     else
                         scale = roundNumber(fullOpen(fontSize.begin, fontSize.end) / (sysConfig.girdSize * 10), 4);
-
                     width = roundNumber(img.width * scale, 4);
                     height = roundNumber(img.height * scale, 4);
                     count = Math.round(sysConfig.cTop * dpr / height);
                     if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
-                    if (count < 1) continue;
+                    //if (count < 1) continue;
                     // 随机旋转角度，0 ~ 360
                     //let rotate = fullCloseInt(0, 360);
                     //gameSceneEmojiContext.rotate((rotate * Math.PI) / 180);
-                    if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr / 4, sysConfig.cTop * dpr - height / 2), width, height);
-                    if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, sysConfig.cLeft * dpr - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
+                    //if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr / 4, sysConfig.cTop * dpr - height / 2), width, height);
+                    //if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, sysConfig.cLeft * dpr - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
+                    if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr - graphViewAreaSize + height / 2, sysConfig.cTop * dpr - height / 2), width, height);
+                    if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(sysConfig.cLeft * dpr - graphViewAreaSize + width / 2, sysConfig.cLeft * dpr - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
                     //gameSceneEmojiContext.rotate((-rotate * Math.PI) / 180); // 画完之后旋转回去
                     gameSceneEmojiContext.beginPath();
                 }
@@ -6223,11 +6267,11 @@ function drawSvgUpAndDown(svgId, size, num, isNumRd, posIdx) {
                     height = roundNumber(img.height * scale, 4);
                     count = Math.round(sysConfig.cTop * dpr / height);
                     if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
-                    if (count < 1) continue;
-                    //let rotate = fullCloseInt(0, 360);
-                    //gameSceneEmojiContext.rotate((rotate * Math.PI) / 180);
-                    if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
-                    if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2, gameSceneEmojiCanvas.width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height)
+                    //if (count < 1) continue;
+                    //if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
+                    //if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2, gameSceneEmojiCanvas.width), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height)
+                    if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2, gameSceneEmojiCanvas.height + (graphViewAreaSize - sysConfig.cTop * dpr) - height / 2), width, height);
+                    if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2, gameSceneEmojiCanvas.width + (graphViewAreaSize - sysConfig.cLeft * dpr) - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height)
                     gameSceneEmojiContext.beginPath();
                 }
             }
@@ -6268,12 +6312,11 @@ function drawSvgRandom(svgId, size, num, isNumRd) {
                     scale = roundNumber(fullOpen(fontSize.begin, fontSize.end) / (sysConfig.girdSize * 8), 4);
                 else
                     scale = roundNumber(fullOpen(fontSize.begin, fontSize.end) / (sysConfig.girdSize * 10), 4);
-
                 width = roundNumber(img.width * scale, 4);
                 height = roundNumber(img.height * scale, 4);
                 count = Math.round(sysConfig.cTop * dpr / height);
                 if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
-                if (count < 1) continue;
+                //if (count < 1) continue;
                 gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
                 gameSceneEmojiContext.beginPath();
             }
@@ -8671,7 +8714,7 @@ function isCollisionBallAndBall(ball0, ball1) {
     // 傀儡碰撞判断半径取绳子的半径
     let KLRadius;
     if (ball0.isMainBall && ball0.roleId === Role.KUILEI.id) {
-        if (isKuileiPulling) KLRadius = ball0.radius;
+        if (isKuileiPulling) KLRadius = ball0.radiusTmp;
         else KLRadius = ball0.pathRadius;
     }
     // 双子本体与分身不会碰撞，会穿透
