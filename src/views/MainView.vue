@@ -1282,13 +1282,13 @@ input:checked+.slider:before {
 <b class="each-item-border-bottom">几个游戏公平建议：</b>
 ① 开局在选择角色框下方加入“石头剪刀布”选项，谁赢谁先手！系统不要帮选，不选则后手，选完在游戏界面公示！
 ② 1号位先打，2号位后打，交给玩家自己决定，玩家就想1号位先打就这么难？
-③ 开局角色位置、🌿、💣、🍄等陷阱位置，请完全随机！哪有那么巧就刚好给直线？
+③ 开局角色位置、🌿、💣、🍄 等陷阱位置，请完全随机！哪有那么巧就刚好给直线？
 ④ 加入『允许发言交流』勾选框，只要有一个玩家不勾选，就不能发言和发表情！
-⑤ 加入《撞王等级资格证》机制，根据上一个大奖赛段位自动区分，大奖赛【大师】以下段位加入撞王等级匹配规则，避免 20、30 多级的玩家频繁对阵满级大佬被气走！留住新用户才有得⭕啊！[狗头]
-⑥ 中奖概率有偏爱就不提了！回馈衣食父母也没错
+⑤ 加入《撞王等级资格证》机制，根据上一个赛季和当前赛季最高段位自动区分，大奖赛【大师】以下段位加入撞王等级匹配规则，避免 20、30 多级的玩家频繁对阵满级大佬被气走！留住新用户才有得 ⭕ 啊！[狗头]
+⑥ 中奖概率有偏爱就不提了！回馈衣食父母也没错 👌
 
 你在教我做事？
-游戏公平了，玩的人更多！格局打开！
+游戏公平！玩的人更多！格局打开！
 
 
 <b class="each-item-border-bottom">不公平！BUG太多！太浪费时间精力！</b>
@@ -1306,7 +1306,7 @@ input:checked+.slider:before {
 
 • <b>大奖赛“日三”，十局完不成就放下吧！</b>平均一大局 6 分钟，10 局就一个小时，20 局两小时，每天几个小时玩游戏是挺奢侈的了！用一半的游戏时间经营打理现实生活，会不会更有意义？
 
-•【角色拼不过】+【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！<b>这个【拼角色】的游戏别太较劲硬肝！</b>前期（40级之前）的角色兑换路线和技巧练习才是关键！
+•【角色拼不过】+【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！<b>这个【拼角色】的游戏别太较劲硬肝！40级之前，角色兑换路线和技巧练习才是关键！</b>
 
 
                     </pre>
@@ -5611,16 +5611,16 @@ function drawSceneCoordinate() {
         gameSceneCoordinateContext.fillStyle = "#D2CCF1"; // 设置每个线条的颜色
         if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
         if (userConfig.sceneThemeMode === 1) { // 冰雪主题
-            gameSceneCoordinateContext.fillStyle = "#687CA1";
+            gameSceneCoordinateContext.fillStyle = "#5A63D1";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#EEF0F2";
         } else if (userConfig.sceneThemeMode === 3) { // 田园主题
-            gameSceneCoordinateContext.fillStyle = "#241133";
+            gameSceneCoordinateContext.fillStyle = "#252042";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#FBFAD0";
         } else if (userConfig.sceneThemeMode === 4) { // 星际主题
             gameSceneCoordinateContext.fillStyle = "#D7D7DC";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
         } else if (userConfig.sceneThemeMode === 5) { // 夏日主题
-            gameSceneCoordinateContext.fillStyle = "#241133";
+            gameSceneCoordinateContext.fillStyle = "#2B117D";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#FBFAD0";
         }
         gameSceneCoordinateContext.fillText(xLineNum + "", -(CanvasWidth / 2 + sceneLineRealWidth), -(CanvasHeight / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * i);
@@ -5639,16 +5639,16 @@ function drawSceneCoordinate() {
         gameSceneCoordinateContext.fillStyle = "#D2CCF1";
         if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
         if (userConfig.sceneThemeMode === 1) { // 冰雪主题
-            gameSceneCoordinateContext.fillStyle = "#687CA1";
+            gameSceneCoordinateContext.fillStyle = "#5A63D1";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#EEF0F2";
         } else if (userConfig.sceneThemeMode === 3) { // 田园主题
-            gameSceneCoordinateContext.fillStyle = "#241133";
+            gameSceneCoordinateContext.fillStyle = "#252042";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#FBFAD0";
         } else if (userConfig.sceneThemeMode === 4) { // 星际主题
             gameSceneCoordinateContext.fillStyle = "#D7D7DC";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
         } else if (userConfig.sceneThemeMode === 5) { // 夏日主题
-            gameSceneCoordinateContext.fillStyle = "#241133";
+            gameSceneCoordinateContext.fillStyle = "#2B117D";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#FBFAD0";
         }
         gameSceneCoordinateContext.fillText(yLineNum + "", -(CanvasWidth / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * j, -(CanvasHeight / 2 + sceneLineRealWidth));
