@@ -1215,7 +1215,7 @@ input:checked+.slider:before {
                 1. 新增了【显示角色运动路径】开关功能
                 2. 修复了移动端多点触碰可能出现卡死的问题
                 3. 加入了超时自动结束（默认20秒），避免程序一直卡死消耗性能
-                4. 【保存为离线版】（不用联网）改为【下载离线版】（要联网，更稳定）
+                4. 【保存离线版】（不用联网）改为【下载离线版】（要联网，更可靠）
                 5. 内置了访问密钥，目前不用输入密钥都可以玩了
                 6. 还在退游中，玩友们珍重勿念哈
 
@@ -1254,14 +1254,14 @@ input:checked+.slider:before {
                 3. 加入了访问密钥（玩友私聊获取即可哦）
 
                 <b class="each-item-border-bottom">V4.0.1 更新：</b>
-                1. 新增【保存为离线版】功能
+                1. 新增【保存离线版】功能
                 2. 设置主角时，提示使用【极速开始】才生效
 
                 <b class="each-item-border-bottom">V4.0.0 更新：</b>
                 1. 可以在设置里面指定任意角色
-                2. 新增双击屏幕回退重打功能
+                2. 新增【双击屏幕回退】重打功能
                 3. 游戏界面右上角加入隐形设置按钮，多项设置不用刷新页面
-                4. 新增关于应用信息
+                4. 新增【关于应用】信息
                 5. 角色动画分层优化，减少性能消耗
 
                 <b class="each-item-border-bottom">🔗 参考文章：</b>
@@ -5611,7 +5611,7 @@ function drawSceneCoordinate() {
         gameSceneCoordinateContext.fillStyle = "#D2CCF1"; // 设置每个线条的颜色
         if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
         if (userConfig.sceneThemeMode === 1) { // 冰雪主题
-            gameSceneCoordinateContext.fillStyle = "#5A63D1";
+            gameSceneCoordinateContext.fillStyle = "#687CA1"; // 5A63D1
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#EEF0F2";
         } else if (userConfig.sceneThemeMode === 3) { // 田园主题
             gameSceneCoordinateContext.fillStyle = "#252042";
@@ -5639,7 +5639,7 @@ function drawSceneCoordinate() {
         gameSceneCoordinateContext.fillStyle = "#D2CCF1";
         if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
         if (userConfig.sceneThemeMode === 1) { // 冰雪主题
-            gameSceneCoordinateContext.fillStyle = "#5A63D1";
+            gameSceneCoordinateContext.fillStyle = "#687CA1";
             if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#EEF0F2";
         } else if (userConfig.sceneThemeMode === 3) { // 田园主题
             gameSceneCoordinateContext.fillStyle = "#252042";
