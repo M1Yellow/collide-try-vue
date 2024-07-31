@@ -1056,6 +1056,15 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item">
+                    <span class="user-setting-item-msg-left">瞄准穿透</span>
+                    <span class="user-setting-item-switch-right">
+                        <label class="switch" @click="switchCheckbox($event, 'isPiercesTry');">
+                            <input type="checkbox" id="isPiercesTry">
+                            <div class="slider round"></div>
+                        </label>
+                    </span>
+                </li>
+                <li class="user-setting-item">
                     <span class="user-setting-item-msg-left">瞄准显示路径</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isShowTryFullPath');">
@@ -1205,12 +1214,16 @@ input:checked+.slider:before {
 3️⃣ 可能存在个别角度（碰墙角）反弹有点问题，请以实战数据为准
 4️⃣ 兼容手机、平板、电脑浏览器
 
-<b class="each-item-border-bottom">🆕 V4.2.0 更新：</b>
+<b class="each-item-border-bottom">🆕 V4.2.1 更新：</b>
 <pre id="collide-try-about-app-update-newest">
-1. 新增了【夏日主题】
-2. 主题模式随季节自动切换
-3. 补全角色录入（61个）
+1. 新增了【瞄准穿透】开关，弥补傀儡、僵尸等可穿透角色瞄准时的流畅灵敏度
+2. 补全角色录入（62个）
 </pre>
+                <b class="each-item-border-bottom">V4.2.0 更新：</b>
+                1. 新增了【夏日主题】
+                2. 主题模式随季节自动切换
+                3. 补全角色录入（61个）
+
                 <b class="each-item-border-bottom">V4.1.5 更新：</b>
                 1. 新增了【显示角色运动路径】开关功能
                 2. 修复了移动端多点触碰可能出现卡死的问题
@@ -2269,7 +2282,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号
-    version: Number(packageVersion.replaceAll(".", "") + "240719"),
+    version: Number(packageVersion.replaceAll(".", "") + "240731"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -2354,7 +2367,9 @@ var userConfig = {
     isDbclickBack: true,
     // 傀儡拉回
     isKuileiPullBack: false,
-    // 瞄准显示路径，只对僵尸、傀儡有效
+    // 瞄准穿透(提升流畅)，只对僵尸、傀儡等可穿透角色有效
+    isPiercesTry: false,
+    // 瞄准显示路径，只对僵尸、傀儡等可穿透角色有效
     isShowTryFullPath: false,
     // 瞄准显示路径，指定碰撞几次的路径
     tryFullPathPointNum: 6,
@@ -3205,11 +3220,18 @@ function getPullBackSpeed() {
 
 
 // 是否为可穿透角色，僵尸、傀儡、游侠、剑士等
-// 主要用于判断是否显示瞄准路径
+// 用于判断是否显示瞄准路径
 function isRoleCanPierces() {
     return userConfig.isShowTryFullPath
         && (userConfig.currRole === Role.JIANGJIANG.id || userConfig.currRole === Role.KUILEI.id
             || userConfig.currRole === Role.HEIWA.id || userConfig.currRole === Role.DUODUO.id);
+}
+
+
+// 用于判断是否在瞄准的时候穿透一次
+function isTryCanPierces() {
+    return userConfig.isPiercesTry
+        && (userConfig.currRole === Role.JIANGJIANG.id || userConfig.currRole === Role.KUILEI.id);
 }
 
 
@@ -3349,6 +3371,7 @@ class Role {
     static MOUSE = new Role(59, "🐭", "纽扣骑士", "老鼠", "鼠", null);
     static YEREN = new Role(60, "🧔", "灵域萨满", "野人", "野", null);
     static BAIGUJING = new Role(61, "🧞‍♀️", "白骨夫人", "白骨", "骨", null);
+    static TUYA = new Role(62, "👨‍🎨", "涂鸦战士", "涂鸦", "涂", null);
 
 
     static maxRoleId = -1;
@@ -3504,6 +3527,7 @@ class Role {
         this.MOUSE.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.WUGEGE.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.JIANGJIANG.id, Role.NUANYANG.id, Role.CAPTAIN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
         this.YEREN.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.HUABANTU.id, Role.LANPANG.id, Role.MAGICLION.id, Role.JIANGJIANG.id, Role.NUANYANG.id, Role.CAPTAIN.id, Role.XIUNV.id, Role.ZHADANKE.id, Role.HONGSANSAN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
         this.BAIGUJING.cps = [Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.HUABANTU.id, Role.NIUXIAOMANG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
+        this.TUYA.cps = [Role.JIUWEIHU.id, Role.NURSE.id, Role.ZHANAN.id, Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.HUABANTU.id, Role.NIUXIAOMANG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
         // TODO 后续需要抽取分类，不然很难维护
     }
 
@@ -4438,6 +4462,12 @@ function initBallByRole(ball) {
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
+            break;
+        case Role.TUYA.id:
+            if (!ball.color) ball.color = "#3F3B41"; // 取的默认皮肤头发颜色
+            ball.sizeRatio = Ball.SIZERATIO.M; // 中等
+            ball.mRatio = Ball.WEIGHTRATIO.XS; // 极轻
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 极快
             break;
         default: // 默认是黑娃
             ball.color = "#74593A"; // 默认皮肤颜色(RosyBrown玫瑰棕)-CA9480；脸颊边缘脸红的颜色(IndianRed印度红)-A36E5D；黑(Black)-151A14；棕色头发(DarkOliveGreen暗橄榄绿)-74593A
@@ -8099,9 +8129,8 @@ function checkOtherBalls(ball, isCheck) {
 
     ball.isBallCollided = false; // 碰撞标识重置
 
-    // 可穿透角色，瞄准阶段，不检测碰撞
-    //if (isRoleCanPierces() && selectedBall)
-    if (!isRoleCanPierces() || !selectedBall)
+    // 瞄准阶段，可穿透角色，或者开启了瞄准穿透，不检测碰撞
+    if (!selectedBall || !isRoleCanPierces() && !isTryCanPierces())
         balls.forEach(b => {
             /*
             只检测序号比ball大的，即可保证组合不重复，12 和 21 算重复
