@@ -98,6 +98,152 @@ canvas {
     text-align: left;
 }
 
+/* 带一个关闭按钮的居中偏上弹窗 */
+.collide-try-close-btn-dialog {
+    position: absolute;
+    left: 0;
+    top: -20vh;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 10010;
+    width: 80%;
+    height: max-content;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+}
+
+.collide-try-close-btn-dialog-title {
+    border-radius: 10px 10px 0 0;
+    background: #edeff6;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.collide-try-close-btn-dialog-title-close {
+    position: absolute;
+    width: 100%;
+    font-size: 18px;
+    top: 6px;
+    left: -6px;
+    text-align: right;
+}
+
+.collide-try-close-btn-dialog-title-close span {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.collide-try-close-btn-dialog-title b {
+    font-size: 18px;
+    text-align: left;
+    line-height: 2.4;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+.collide-try-close-btn-dialog-content {
+    background-color: #f7f7fc;
+    max-height: 80.0vh;
+    /* 内容超出区域，需要设置高度，才能滚动 */
+    /* 隐藏 IE、Edge 和 Firefox 的滚动条 */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-size: 14px;
+    margin-top: -2px;
+    /* 解决标题边框透明问题 */
+    padding: 10px 10px 25px 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+.collide-try-close-btn-dialog-content pre {
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+
+.collide-try-close-btn-dialog-content pre a {
+    font-size: 10px;
+}
+
+.collide-try-close-btn-dialog-ok {
+    text-align: right;
+    margin-top: -11px;
+    margin-right: 20px;
+}
+
+.collide-try-close-btn-dialog-ok span {
+    text-align: center;
+    vertical-align: middle;
+    width: max-content;
+    padding: 6px;
+    font-size: 14px;
+    background: chartreuse;
+    border-radius: 5px;
+    border: 1px black;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    cursor: pointer;
+}
+
+/* 小提示弹窗样式，重写样式需要放在这个样式后面 */
+.collide-try-tiny-dialog {
+    position: absolute;
+    top: 5px;
+    right: 40px;
+    margin: auto;
+    z-index: 0;
+    text-align: center;
+    font-size: 16px;
+    display: none;
+}
+
+.collide-try-tiny-dialog-msg {
+    text-align: right;
+    vertical-align: middle;
+    padding: 0 5px 5px 5px;
+    font-size: 16px;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px dashed black;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.collide-try-tiny-dialog-msg span {
+    font-size: 20px;
+}
+
+.collide-try-tiny-dialog-ok {
+    text-align: right;
+    vertical-align: middle;
+    width: 100%;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.collide-try-tiny-dialog-ok span {
+    text-align: center;
+    vertical-align: middle;
+    width: max-content;
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 14px;
+    background: chartreuse;
+    border-radius: 5px;
+    border: 1px black;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    cursor: pointer;
+}
+
 /* 右上角设置提示弹窗样式 */
 #game-setting-icon {
     position: absolute;
@@ -114,54 +260,6 @@ canvas {
     cursor: pointer;
 }
 
-#game-setting-entry-dialog {
-    position: absolute;
-    top: 5px;
-    right: 40px;
-    margin: auto;
-    z-index: 0;
-    text-align: center;
-    font-size: 16px;
-}
-
-#game-setting-entry-dialog-msg {
-    text-align: right;
-    vertical-align: middle;
-    padding: 0 5px 5px 5px;
-    font-size: 16px;
-    background: #fff;
-    border-radius: 5px;
-    border: 1px dashed black;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-}
-
-#game-setting-entry-dialog-msg span {
-    font-size: 20px;
-}
-
-#game-setting-entry-dialog-ok {
-    text-align: right;
-    vertical-align: middle;
-    width: 100%;
-    margin: 5px 0;
-    font-size: 14px;
-}
-
-#game-setting-entry-dialog-ok span {
-    text-align: center;
-    vertical-align: middle;
-    width: max-content;
-    margin-top: 5px;
-    padding: 5px;
-    font-size: 14px;
-    background: chartreuse;
-    border-radius: 5px;
-    border: 1px black;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-    cursor: pointer;
-}
-
-/* TODO 后续再封装一个全局弹窗，多处调用同一个，减少重复代码 */
 /* 设置主角时提示弹窗样式 */
 /* 父元素设置 position 为 relative，自身设置为 absolute，即可跟随定位 */
 .user-setting-item-input-area {
@@ -169,55 +267,28 @@ canvas {
 }
 
 #game-setting-main-role-dialog {
-    position: absolute;
     top: 25px;
     bottom: 0;
     left: 0;
     right: 0;
-    margin: auto;
-    width: 100%;
     z-index: 1003;
-    text-align: center;
-    font-size: 16px;
 }
 
 #game-setting-main-role-dialog-msg {
     text-align: left;
-    vertical-align: middle;
     padding: 5px;
     font-size: 14px;
-    background: #fff;
-    border-radius: 5px;
-    border: 1px dashed black;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 #game-setting-main-role-dialog-msg span {
     font-size: 16px;
 }
 
-#game-setting-main-role-dialog-ok {
-    text-align: right;
-    vertical-align: middle;
-    width: 100%;
-    margin: 5px 0;
-    font-size: 14px;
-}
+#game-setting-main-role-dialog-ok {}
 
-#game-setting-main-role-dialog-ok span {
-    text-align: center;
-    vertical-align: middle;
-    width: max-content;
-    margin-top: 5px;
-    padding: 5px;
-    font-size: 14px;
-    background: chartreuse;
-    border-radius: 5px;
-    border: 1px black;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-    cursor: pointer;
-}
+#game-setting-main-role-dialog-ok span {}
 
+/* TODO 后续再封装一个全局弹窗，多处调用同一个，减少重复代码 */
 /* 选择角色弹窗样式 */
 #choose-role-dialog {
     position: absolute;
@@ -290,6 +361,55 @@ canvas {
 
 .role-list:hover {
     background-color: #FAFAFA;
+}
+
+/* 选择角色列表icon、name表格样式 */
+.role-list-icon-name {
+    display: inline-grid;
+    grid-template-columns: 46px 170px;
+    grid-template-rows: 100%;
+    align-content: center;
+    justify-content: center;
+    align-items: baseline;
+    justify-items: stretch;
+    padding-left: 10px;
+}
+
+.role-list-icon-name span {
+    font-size: 20px;
+}
+
+.role-list-icon {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.role-list-name {
+    text-align: left;
+}
+
+/* 选择角色双子图标重画 */
+#role-shuangzi span {
+    font-size: 20px;
+}
+
+#role-shuangzi-new-draw {
+    display: inline-grid;
+}
+
+.role-shuangzi-single {
+    grid-area: 1 / 2;
+}
+
+#role-shuangzi-1 {
+    margin-right: 7px;
+    z-index: 1002;
+}
+
+#role-shuangzi-2 {
+    margin-left: 7px;
+    margin-top: -2px;
+    z-index: 1001;
 }
 
 /* 用户设置弹窗样式 */
@@ -457,101 +577,6 @@ canvas {
     color: #fff;
 }
 
-
-/* 更新内容提示弹窗样式 */
-#collide-try-update-content-dialog {
-    position: absolute;
-    left: 0;
-    top: -20vh;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    z-index: 1004;
-    width: 80%;
-    height: max-content;
-    border-radius: 10px;
-    background-color: #f7f7fc;
-    text-align: center;
-    display: none;
-}
-
-#collide-try-update-content-close-icon {
-    position: absolute;
-    width: 100%;
-    font-size: 18px;
-    top: 6px;
-    left: -6px;
-    text-align: right;
-}
-
-#collide-try-update-content-close-icon span {
-    font-size: 16px;
-    cursor: pointer;
-}
-
-#collide-try-update-content {
-    max-height: 80.0vh;
-    /* 内容超出区域，需要设置高度，才能滚动 */
-    /* 隐藏 IE、Edge 和 Firefox 的滚动条 */
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
-    overflow-x: hidden;
-    overflow-y: scroll;
-    font-size: 14px;
-    padding: 10px;
-}
-
-#collide-try-update-content pre {
-    width: 100%;
-    text-align: left;
-    font-size: 16px;
-    line-height: 1.5;
-    white-space: pre-line;
-}
-
-#collide-try-update-content pre a {
-    font-size: 10px;
-}
-
-#update-content-title {
-    font-size: 18px;
-    text-align: left;
-    line-height: 2.4;
-    padding-left: 10px;
-    vertical-align: middle;
-}
-
-/* 角色坐标悬浮条样式 */
-#collide-try-role-pos-line {
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: auto;
-    z-index: 1;
-    background-color: #fff;
-    border-radius: 5px;
-    width: max-content;
-    height: max-content;
-    text-align: center;
-    vertical-align: middle;
-    padding: 2px 0px 2px 4px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-    display: none;
-}
-
-.div-input-role-pos {
-    display: inline-block;
-    text-align: left;
-    line-height: 1;
-    padding: 2px 4px;
-    background-color: transparent;
-    outline: none;
-    -webkit-appearance: none;
-}
-
-
 /* 关于应用弹窗样式 */
 #user-setting-about-app-dialog {
     position: absolute;
@@ -649,7 +674,35 @@ canvas {
     /*color: mediumblue;*/
 }
 
-/*颜色样式*/
+/* 角色坐标悬浮条样式 */
+#collide-try-role-pos-line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: auto;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 5px;
+    width: max-content;
+    height: max-content;
+    text-align: center;
+    vertical-align: middle;
+    padding: 2px 0px 2px 4px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    display: none;
+}
+
+.div-input-role-pos {
+    display: inline-block;
+    text-align: left;
+    line-height: 1;
+    padding: 2px 4px;
+    background-color: transparent;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+/* 颜色样式 */
 .red {
     color: red !important;
 }
@@ -870,11 +923,12 @@ input:checked+.slider:before {
         <div id="dialog-mask" ref="dialogMask" class="collide-try-dialog"></div>
         <!-- 右上角设置提示 -->
         <div id="game-setting-icon"><span @click="switchUserSettingDialog(true);">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-        <div id="game-setting-entry-dialog" ref="gameSettingEntryDialog" class="collide-try-dialog"
-            style="display: none;">
-            <div id="game-setting-entry-dialog-msg">右上角有一个隐藏的设置<span>⚙</span>入口哦~<span>👉</span></div>
-            <div id="game-setting-entry-dialog-ok" @click="closeGameSettingEntryDialog();"><span
-                    class="collide-try-dialog-ok">我知道啦</span></div>
+        <div id="game-setting-entry-dialog" ref="gameSettingEntryDialog"
+            class="collide-try-dialog collide-try-tiny-dialog" style="display: none;">
+            <div id="game-setting-entry-dialog-msg" class="collide-try-tiny-dialog-msg">
+                右上角有一个隐藏的设置<span>⚙</span>入口哦~<span>👉</span></div>
+            <div id="game-setting-entry-dialog-ok" class="collide-try-tiny-dialog-ok"
+                @click="closeGameSettingEntryDialog();"><span class="collide-try-dialog-ok">知道啦</span></div>
         </div>
         <!-- 选择角色弹窗 -->
         <div id="choose-role-dialog" ref="chooseRoleDialog" class="collide-try-dialog">
@@ -885,34 +939,50 @@ input:checked+.slider:before {
             </div>
             <ul id="role-list-area">
                 <li id="role-heiwa" class="role-list" @click="chooseRole($event.target, Role.HEIWA.id);">
-                    &nbsp;🍼&nbsp;圣婴大王（黑娃）
+                    <div class="role-list-icon-name"><span class="role-list-icon">🍼</span><span
+                            class="role-list-name">圣婴大王（黑娃）</span></div>
                 </li>
                 <li id="role-jiangjiang" class="role-list" @click="chooseRole($event.target, Role.JIANGJIANG.id);">
-                    🧟‍♂️ 波比僵僵（僵尸）
+                    <div class="role-list-icon-name"><span class="role-list-icon">🧟‍♂</span><span
+                            class="role-list-name">波比僵僵（僵尸）</span></div>
                 </li>
                 <li id="role-duoduo" class="role-list" @click="chooseRole($event.target, Role.DUODUO.id);">
-                    🥚 风铃朵朵（朵朵）
+                    <div class="role-list-icon-name"><span class="role-list-icon">🥚</span><span
+                            class="role-list-name">风铃朵朵（朵朵）</span></div>
                 </li>
                 <li id="role-kuilei" class="role-list" @click="chooseRole($event.target, Role.KUILEI.id);">
-                    🦊 傀儡娃娃（狐狸）
+                    <div class="role-list-icon-name"><span class="role-list-icon">🦊</span><span
+                            class="role-list-name">傀儡娃娃（狐狸）</span></div>
                 </li>
                 <li id="role-shuangzi" class="role-list" @click="chooseRole($event.target, Role.SHUANGZI.id);">
-                    👬 怪盗双子（双子）
+                    <div class="role-list-icon-name">
+                        <span class="role-list-icon">
+                            <div id="role-shuangzi-new-draw"><span id="role-shuangzi-1"
+                                    class="role-shuangzi-single">🧍‍♂️</span><span id="role-shuangzi-2"
+                                    class="role-shuangzi-single">🧍</span></div>
+                        </span>
+                        <span class="role-list-name">怪盗双子（双子）</span>
+                    </div>
                 </li>
                 <li id="role-lele" class="role-list" @click="chooseRole($event.target, Role.LELE.id);">
-                    🥙 太平乐（乐乐）&nbsp;&nbsp;&nbsp;
+                    <div class="role-list-icon-name"><span class="role-list-icon">🥙</span><span
+                            class="role-list-name">太平乐（乐乐）</span></div>
                 </li>
                 <li id="role-huaqianji" class="role-list" @click="chooseRole($event.target, Role.HUAQIANJI.id);">
-                    🚀 花千机（炮弹）&nbsp;&nbsp;&nbsp;
+                    <div class="role-list-icon-name"><span class="role-list-icon">🚀</span><span
+                            class="role-list-name">花千机（炮弹）</span></div>
                 </li>
                 <li id="role-youxia" class="role-list" @click="chooseRole($event.target, Role.YOUXIA.id);">
-                    🏹 暗夜游侠（游侠）
+                    <div class="role-list-icon-name"><span class="role-list-icon">🏹</span><span
+                            class="role-list-name">暗夜游侠（游侠）</span></div>
                 </li>
                 <li id="role-flash" class="role-list" @click="chooseRole($event.target, -2);">
-                    ⚡ 极速开始（来吧）
+                    <div class="role-list-icon-name"><span class="role-list-icon">⚡</span><span
+                            class="role-list-name">极速开始（来吧）</span></div>
                 </li>
                 <li id="role-random" class="role-list" @click="chooseRole($event.target, -1);">
-                    🔀 随便玩玩（好的）
+                    <div class="role-list-icon-name"><span class="role-list-icon">🔀</span><span
+                            class="role-list-name">随便玩玩（好的）</span></div>
                 </li>
             </ul>
         </div>
@@ -1123,9 +1193,12 @@ input:checked+.slider:before {
                             placeholder="输入对手1" value="">输入对手1</div>
                         <div class="div-input-game-roles default" contenteditable="true" id="gameRoleId4"
                             placeholder="输入对手2" value="">输入对手2</div>
-                        <div id="game-setting-main-role-dialog" class="collide-try-dialog" style="display: none;">
-                            <div id="game-setting-main-role-dialog-msg">👆主角设置只在<span>【极速开始】</span>选项生效哦~</div>
-                            <div id="game-setting-main-role-dialog-ok" @click="closeGameSettingMainRoleDialog();"><span
+                        <div id="game-setting-main-role-dialog" class="collide-try-dialog collide-try-tiny-dialog"
+                            style="display: none;">
+                            <div id="game-setting-main-role-dialog-msg" class="collide-try-tiny-dialog-msg">
+                                👆主角设置只在<span>【极速开始】</span>选项生效哦~</div>
+                            <div id="game-setting-main-role-dialog-ok" class="collide-try-tiny-dialog-ok"
+                                @click="closeGameSettingMainRoleDialog();"><span
                                     class="collide-try-dialog-ok">好的吧</span></div>
                         </div>
                     </div>
@@ -1162,15 +1235,37 @@ input:checked+.slider:before {
         </div>
 
         <!-- 更新提示弹窗 -->
-        <div id="collide-try-update-content-dialog" ref="collideTryUpdateContentDialog" class="collide-try-dialog">
-            <div id="collide-try-update-content-close-icon">
+        <div id="collide-try-update-content-dialog" ref="collideTryUpdateContentDialog"
+            class="collide-try-dialog collide-try-close-btn-dialog">
+            <div id="collide-try-update-content-close-icon" class="collide-try-close-btn-dialog-title-close">
                 <span @click="showUpdateContent(false);">❎</span>
             </div>
-            <div id="collide-try-update-content-title" class="each-item-border-bottom">
+            <div id="collide-try-update-content-title"
+                class="each-item-border-bottom collide-try-close-btn-dialog-title">
                 <b id="update-content-title">🆕 应用更新</b>
             </div>
-            <div id="collide-try-update-content">
+            <div id="collide-try-update-content" class="collide-try-close-btn-dialog-content">
 
+            </div>
+        </div>
+
+        <!-- 操作指南弹窗 -->
+        <div id="collide-try-how-to-play-dialog" class="collide-try-dialog collide-try-close-btn-dialog">
+            <div class="collide-try-close-btn-dialog-title-close" style="display: none;">
+                <span @click="showHowToPlay(false);">❎</span>
+            </div>
+            <div id="collide-try-how-to-play-title" class="each-item-border-bottom collide-try-close-btn-dialog-title">
+                <b>👇 操作指南</b><span>（先这样再那样🤪）</span>
+            </div>
+            <div id="collide-try-how-to-play-content" class="collide-try-close-btn-dialog-content">
+                <pre>
+                ① 拖动角色摆好位置
+                ② 再拖动主角瞄准，松手开打
+                ③ 设置里面可以指定任意角色哦~
+                </pre>
+            </div>
+            <div class="collide-try-close-btn-dialog-ok" @click="showHowToPlay(false);">
+                <span class="collide-try-dialog-ok">朕知道了</span>
             </div>
         </div>
 
@@ -1207,18 +1302,26 @@ input:checked+.slider:before {
             <div id="user-setting-about-app-content">
                 <pre>
 <b class="collide-try-app-full-name">玩吧-撞击王者-角色角度练习器</b>
-<b>👨‍💻 Author: @THeLiGht_ Group.</b>
+<b>👨‍💻 Author: THeLiGht_ Group</b>
+<b>📧 Contact: m1yellow@163.com</b>
 
 1️⃣ 目前支持一个主打角色、三个辅助角色，主要适用于黑娃、僵僵、朵朵、傀儡、双子、太平乐等角色『角度』和『走位』练习
-2️⃣ 角色运动速度和距离可能和实战有一定差距，做到一模一样很难
-3️⃣ 可能存在个别角度（碰墙角）反弹有点问题，请以实战数据为准
-4️⃣ 兼容手机、平板、电脑浏览器
+2️⃣ 血量条仅用来区分队伍，因为血量伤害体系很复杂，目前不考虑去实现
+3️⃣ 角色运动速度和距离可能和实战有一定差距，做到一模一样很难
+4️⃣ 可能存在个别角度（碰墙角）反弹有点问题，请以实战数据为准
+5️⃣ 兼容手机、平板、电脑浏览器
 
-<b class="each-item-border-bottom">🆕 V4.2.1 更新：</b>
+
+<b class="each-item-border-bottom">🆕 V4.2.2 更新：</b>
 <pre id="collide-try-about-app-update-newest">
-1. 新增了【瞄准穿透】开关，弥补傀儡、僵尸等可穿透角色瞄准时的流畅灵敏度
-2. 补全角色录入（62个）
+1. 新增了【操作指南】说明，首次进入游戏时提示
+2. 调整了双子图标（有显示问题可以反馈一下）
+3. 更新了【关于应用】内容
 </pre>
+                <b class="each-item-border-bottom">V4.2.1 更新：</b>
+                1. 新增了【瞄准穿透】开关，弥补傀儡、僵尸等可穿透角色瞄准时的流畅灵敏度
+                2. 补全角色录入（62个）
+
                 <b class="each-item-border-bottom">V4.2.0 更新：</b>
                 1. 新增了【夏日主题】
                 2. 主题模式随季节自动切换
@@ -1317,7 +1420,7 @@ input:checked+.slider:before {
 
 • <b>目标段位期望太高会玩得很累！</b>角色搭配没凑齐高配，撞击技巧（角度、连击、落点）熟练度不够（角色 > 技巧 = 运气[氪金]），遇到满级大佬或者突破&高配组合确实很难赢（毕竟他们已经玩了几年了）！很多 20、30 多级的玩家大奖赛频繁对阵满级大佬，输到怀疑人生，没挺过这段艰难的瓶颈期就气到【注销】了！
 
-• <b>大奖赛“日三”，十局完不成就放下吧！</b>平均一大局 6 分钟，10 局就一个小时，20 局两小时，每天几个小时玩游戏是挺奢侈的了！用一半的游戏时间经营打理现实生活，会不会更有意义？
+• <b>大奖赛“日三”，十局完不成就放下吧！</b>平均一大局（3小局）7 分钟，10 局就一个多小时，20 局两小时以上，每天几个小时玩游戏是挺奢侈的了！用一半的游戏时间经营打理现实生活，会不会更有意义？
 
 •【角色拼不过】+【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！<b>这个【拼角色】的游戏别太较劲硬肝！40级之前，角色兑换路线和技巧练习才是关键！</b>
 
@@ -1427,7 +1530,7 @@ input:checked+.slider:before {
         </div>
 
         <!-- 显示console.log日志 -->
-        <div id="info" ref="info" onClick="show();" type="0"></div>
+        <div id="info" ref="info" @click="show();" type="0"></div>
     </main>
 </template>
 
@@ -1857,10 +1960,18 @@ function doBack() {
     let isAboutAppDialogShowing = isDialogShowing(aboutAppDialog);
     // 更新提示弹窗
     let isUpdateContentDialogShowing = isDialogShowing(updateContentDialog);
+    // 操作指南弹窗
+    let isHowToPlayDialogShowing = isDialogShowing(howToPlayDialog);
 
     // 关闭更新提示弹窗
     if (isUpdateContentDialogShowing) {
         showUpdateContent(false);
+        return;
+    }
+
+    // 关闭操作指南弹窗
+    if (isHowToPlayDialogShowing) {
+        showHowToPlay(false);
         return;
     }
 
@@ -1976,7 +2087,8 @@ const getTextWidth = (text) => {
 
 // icon 兼容旧机型
 //const iconWidth = getTextWidth(Role.getRoleIconById(Role.SHUANGZI.id));
-const iconWidth = getTextWidth("🧍");
+const iconWidth = getTextWidth("🧍‍♂️");
+//const iconWidth = getTextWidth("🏃‍♂️‍➡️");
 console.log(">>>> iconWidth=" + iconWidth);
 
 // 检验 Emoji 能否被正常展示
@@ -1985,11 +2097,14 @@ const isEmojiValid = (emoji) => {
 }
 
 // 双子分身图标是否能正常显示
-//const isTwinSingleIconShow = isEmojiValid("🧍") && isEmojiValid("🧍🏼"); // TODO let const 定义的变量，在定义之前不能访问
-var isTwinSingleIconShow = isEmojiValid("🧍") && isEmojiValid("🧍🏼"); // var 可以全局访问到为初始化的变量（只有默认值），不受定义位置限制
+//const isTwinSingleIconShow = isEmojiValid("🧍") && isEmojiValid("🧍‍♂️"); // TODO let const 定义的变量，在定义之前不能访问
+var isTwinSingleIconShow = isEmojiValid("🧍") && isEmojiValid("🧍‍♂️"); // var 可以全局访问到为初始化的变量（只有默认值），不受定义位置限制
+var isTwinLeftIconShow = isEmojiValid("🏃");
+var isTwinRightIconShow = isEmojiValid("🏃‍♂️‍➡️");
 console.log(">>>> isTwinSingleIconShow=" + isTwinSingleIconShow);
 //console.log(">>>> twinSingleIconWidth=" + getTextWidth("🧍"));
-//console.log(">>>> twinSingleIconWidth=" + getTextWidth("🧍🏼"));
+//console.log(">>>> twinSingleIconWidth=" + getTextWidth("🧍‍♂️"));
+//console.log(">>>> twinSingleIconWidth=" + getTextWidth("🏃‍♂️‍➡️"));
 
 // 田园主题-木头图标是否能正常显示
 var isWoodIconShow = getTextWidth("🪵") >= 14;
@@ -2240,6 +2355,7 @@ let gameSettingEntryDialog = document.getElementById('game-setting-entry-dialog'
 let gameSettingMainRoleDialog = document.getElementById('game-setting-main-role-dialog'); // 游戏设置-主角设置提示
 let aboutAppDialog = document.getElementById('user-setting-about-app-dialog'); // 参数设置-关于应用
 let updateContentDialog = document.getElementById('collide-try-update-content-dialog'); // 更新内容提示
+let howToPlayDialog = document.getElementById('collide-try-how-to-play-dialog'); // 操作指南提示
 let rolePosLine = document.getElementById('collide-try-role-pos-line'); // 角色坐标悬浮条
 
 onMounted(() => {
@@ -2272,6 +2388,7 @@ onMounted(() => {
     gameSettingMainRoleDialog = document.getElementById('game-setting-main-role-dialog'); // 游戏设置-主角设置提示
     aboutAppDialog = document.getElementById('user-setting-about-app-dialog'); // 参数设置-关于应用
     updateContentDialog = document.getElementById('collide-try-update-content-dialog'); // 更新内容提示
+    howToPlayDialog = document.getElementById('collide-try-how-to-play-dialog'); // 操作指南提示
     rolePosLine = document.getElementById('collide-try-role-pos-line'); // 角色坐标悬浮条
 })
 
@@ -2282,7 +2399,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号
-    version: Number(packageVersion.replaceAll(".", "") + "240731"),
+    version: Number(packageVersion.replaceAll(".", "") + "240801"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -2362,7 +2479,7 @@ var userConfig = {
     // 是否显示场景图形
     isShowSceneGraph: true,
     // 是否显示角色血量条
-    isShowRoleBloodLine: false,
+    isShowRoleBloodLine: true,
     // 是否双击屏幕回退
     isDbclickBack: true,
     // 傀儡拉回
@@ -2639,13 +2756,24 @@ class Ball {
         this.context.textBaseline = 'middle';
 
         let content = Role.getRoleIconById(this.roleId);
+        let iconType = 0; // 0-兼容图标；1-新图标
         // 双子运动时，两个人分开
         if (isTwinSingleIconShow && userConfig.currRole === Role.SHUANGZI.id && this.roleId === Role.SHUANGZI.id && this.isMainBall && !selectedBall && (checkIsMoving() || isTwinBallShowStill())) {
-            content = '🧍';
+            // 本体
+            if (os.isPc || !isTwinLeftIconShow || !isTwinRightIconShow || !iconType) {
+                content = '🧍‍♂️';
+            } else {
+                content = '🏃';
+            }
         }
         if (params.graph) content = params.graph;
         if (isTwinSingleIconShow && userConfig.currRole === Role.SHUANGZI.id && this.roleId === Role.SHUANGZI.id && !this.isMainBall && this.teamColor === balls[0].teamColor) {
-            content = '🧍🏼';
+            // 分身
+            if (os.isPc || !isTwinLeftIconShow || !isTwinRightIconShow || !iconType) {
+                content = '🧍';
+            } else {
+                content = '🏃‍♂️‍➡️';
+            }
         }
         if (this.iconSize < 10) {
             let metrics, width, ratio;
@@ -2687,6 +2815,14 @@ class Ball {
         if (this.isMainBall && this.roleId === Role.KUILEI.id && this.isMoving) {
             this.context.fillText(content, this.x, this.y);
             //this.context.fillText(content, this.x0 === 0 ? this.x : this.x0, this.y0 === 0 ? this.y : this.y0);
+        } else if (this.roleId === Role.SHUANGZI.id && content === '👬') { // 双子图标重画
+            if (os.isPc || !isTwinLeftIconShow || !isTwinRightIconShow || !iconType) {
+                this.context.fillText('🧍', this.x + (0.20 * sysConfig.girdSize), this.y - (0.1 * sysConfig.girdSize));
+                this.context.fillText('🧍‍♂️', this.x - (0.20 * sysConfig.girdSize), this.y + (0.1 * sysConfig.girdSize));
+            } else {
+                this.context.fillText('🏃‍♂️‍➡️', this.x + (0.20 * sysConfig.girdSize), this.y - (0.1 * sysConfig.girdSize));
+                this.context.fillText('🏃', this.x - (0.20 * sysConfig.girdSize), this.y + (0.1 * sysConfig.girdSize));
+            }
         }
         else this.context.fillText(content, this.x, this.y);
         this.context.restore();
@@ -3310,7 +3446,7 @@ class Role {
 
     //static HEIWA = {id:0, icon:"🍼", fullName:"圣婴大王", shortName:"黑娃", oneName:"娃", cps:null};
     static HEIWA = new Role(0, "🍼", "圣婴大王", "黑娃", "娃", null);
-    static JIANGJIANG = new Role(1, "🧟‍♂️", "波比僵僵", "僵尸", "僵", null);
+    static JIANGJIANG = new Role(1, "🧟‍♂", "波比僵僵", "僵尸", "僵", null);
     static DUODUO = new Role(2, "🥚", "风铃朵朵", "朵朵", "朵", null);
     static KUILEI = new Role(3, "🦊", "傀儡娃娃", "傀儡", "傀", null);
     static BAKE = new Role(4, "8g", "火焰巴克", "巴克", "巴", null);
@@ -3836,8 +3972,8 @@ function init() {
     if (userConfig.isShowBallPath) gamePathBallCanvas.style.display = "inherit";
     // 游戏桌面场景初始化，需要放在角色设置之后，因为场景会根据角色变化
     if (sysConfig.isRoleChooseFinished) gameSceneInit(); // 选择角色后才渲染场景，优化性能
-    // 显示游戏设置提示
-    if (sysConfig.isRoleChooseFinished) showGameSettingEntryDialog();
+    // 显示操作指南弹窗
+    if (sysConfig.isRoleChooseFinished) showHowToPlay(true);
 }
 
 
@@ -3957,16 +4093,11 @@ function doGlobalError(e, count) {
 // 读取、设置用户配置
 function setUserConfig() {
     let localUserConfigStr = localStorage.getItem('collide-try-user-settings');
-    let localUserConfigTimeStr = localStorage.getItem('collide-try-user-settings-time');
     if (localUserConfigStr) {
         userConfig = JSON.parse(localUserConfigStr);
         // TODO 特殊字段不受缓存影响，以代码配置为准
         userConfig.tryFullPathPointNum = userConfigBack.tryFullPathPointNum;
         console.log(">>>> localStorage userConfig: " + JSON.stringify(userConfig));
-    }
-    //console.log(">>>> localStorage localUserConfigTimeStr:", localUserConfigTimeStr);
-    if (userConfig.currRole > -1 && !localUserConfigTimeStr) { // 已经选过角色，但没设置参数，弹窗提示一次
-        switchUserSettingDialog(true);
     }
 }
 
@@ -4633,6 +4764,9 @@ function setPageSize() {
     // 更新内容提示弹窗复制宽度
     updateContentDialog.width = canvas.width;
     updateContentDialog.style.width = sysConfig.cssWidth + 'px';
+    // 操作指南提示弹窗复制宽度
+    howToPlayDialog.width = canvas.width;
+    howToPlayDialog.style.width = sysConfig.cssWidth + 'px';
 
 
     // 画布最开始是隐藏的，调整大小后，设置为默认显示
@@ -6094,7 +6228,7 @@ function getCenterImgScale(img) {
     scale = 0.5;
     width = img.width;
     height = img.height;
-    console.log(">>>> getCenterImgScale origin width=" + width);
+    //console.log(">>>> getCenterImgScale origin width=" + width);
 
     if (width) {
         while (width > 4.6 * sysConfig.girdSize) {
@@ -6112,8 +6246,8 @@ function getCenterImgScale(img) {
     }
     scale = roundNumber(scale, 4);
 
-    console.log(">>>> getCenterImgScale scale=" + scale);
-    console.log(">>>> getCenterImgScale final width=" + width);
+    //console.log(">>>> getCenterImgScale scale=" + scale);
+    //console.log(">>>> getCenterImgScale final width=" + width);
     return scale;
 }
 
@@ -6675,6 +6809,34 @@ function showUpdateContent(isShow) {
     } else { // 关闭
         updateContentDialog.style.display = "none";
         chooseRoleDialog.style.height = "max-content";
+    }
+}
+
+
+// 显示一次操作指南弹窗
+function showHowToPlay(isShow) {
+    if (isShow) { // 显示
+        // 只提示一次
+        let howToPlayTimeStr = localStorage.getItem('collide-try-how-to-play-time');
+        if (howToPlayTimeStr) return;
+        // 有其他弹窗时，不显示
+        if (isDialogShowing(chooseRoleDialog) || isDialogShowing(userSettingDialog)) return;
+        howToPlayDialog.style.display = "unset";
+        dialogMask.style.display = "unset";
+    } else { // 关闭
+        howToPlayDialog.style.display = "none";
+        dialogMask.style.display = "none";
+        // 设置弹窗时间，用来判断是否显示过
+        localStorage.setItem('collide-try-how-to-play-time', new Date().getTime());
+        /*
+        // 首次进入游戏，操作指南关闭之后，直接进入一次设置
+        let localUserConfigTimeStr = localStorage.getItem('collide-try-user-settings-time');
+        if (!localUserConfigTimeStr) {
+            switchUserSettingDialog(true);
+        }
+        */
+        // 显示右上角设置入口提示
+        showGameSettingEntryDialog();
     }
 }
 
