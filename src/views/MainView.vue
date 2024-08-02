@@ -167,7 +167,7 @@ canvas {
 .collide-try-close-btn-dialog-content pre {
     width: 100%;
     text-align: left;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.6;
     white-space: pre-line;
 }
@@ -1259,8 +1259,8 @@ input:checked+.slider:before {
             </div>
             <div id="collide-try-how-to-play-content" class="collide-try-close-btn-dialog-content">
                 <pre>
-                ① 拖动角色摆好位置
-                ② 再拖动主角瞄准，松手开打
+                ① 拖动角色摆好位置，再拖动主角瞄准，松手开打
+                ② 打完双击台面可重打；长按台面可随机重置角色位置
                 ③ 设置里面可以指定任意角色哦~
                 </pre>
             </div>
@@ -8414,9 +8414,9 @@ function checkOtherBallCollided(ball, isChPos) {
 function isSpeedMax(ball) {
     let speed0 = getBallSpeed0(ball);
     if (ball.isMainBall && ball.roleId === Role.JIANGJIANG.id) { // 僵尸主打时，上限为原始速度的 1.6 倍
-        if (ball.vx ** 2 + ball.vy ** 2 > (speed0 * 1.3) ** 2) return true;
+        if (ball.vx ** 2 + ball.vy ** 2 > (speed0 * 1.3) ** 2) return true; // 1.3 直打酷酷速度有点不够，1.5 又有点多了，需要更多实战观察验证
     } else { // 1.5
-        if (ball.vx ** 2 + ball.vy ** 2 > (speed0 * 1.2) ** 2) return true;
+        if (ball.vx ** 2 + ball.vy ** 2 > (speed0 * 1.2) ** 2) return true; // 1.2
     }
     return false;
 }
