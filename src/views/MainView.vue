@@ -82,7 +82,7 @@ canvas {
     border-radius: 3px;
 }
 
-.in-one-line {
+.collide-try-in-one-line {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -91,11 +91,16 @@ canvas {
     align-items: stretch;
 }
 
-.each-item-border-bottom {
+.collide-try-each-item-border-bottom {
     width: 100%;
     display: inline-block;
     border-bottom: 1px solid #ddd;
     text-align: left;
+}
+
+.collide-try-each-item-margin {
+    display: inline-block;
+    margin: 3px 0 3px 0;
 }
 
 /* 带一个关闭按钮的居中偏上弹窗 */
@@ -632,7 +637,7 @@ canvas {
 }
 
 #user-setting-about-app-content pre b {
-    line-height: 2;
+    /*line-height: 2;*/
 }
 
 #user-setting-about-app-content pre a {
@@ -672,6 +677,48 @@ canvas {
     font-size: 16px;
     font-weight: bold;
     /*color: mediumblue;*/
+}
+
+.collide-try-update-title {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.collide-try-update-title b {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.collide-try-update-date {
+    font-weight: normal;
+    font-size: 9px;
+    color: #999;
+}
+
+.collide-try-author-declare {}
+
+.collide-try-author-declare-title {
+    font-size: 14px;
+}
+
+.collide-try-author-declare-content {
+    display: grid;
+    background: #edeff6;
+    border: 1px solid black;
+    margin-top: 6px;
+    padding-bottom: 6px;
+}
+
+.collide-try-author-declare-content li {
+    display: inline-block;
+    margin: 6px 0 0 0;
+    padding: 0 5px 0 5px;
 }
 
 /* 角色坐标悬浮条样式 */
@@ -1173,7 +1220,7 @@ input:checked+.slider:before {
                 <li class="user-setting-item">
                     <span class="user-setting-item-msg-left">分享/导入角色及坐标</span><span class="reset-btn"
                         @click="resetShareContent(this);" title="重置分享"> 🔄 </span>
-                    <div class="user-setting-item-input-area in-one-line">
+                    <div class="user-setting-item-input-area collide-try-in-one-line">
                         <input type="text" id="shareRoleAndPos" value="" maxlength="1000"
                             placeholder="粘贴内容后点击导入，刷新页面生效">
                         <button class="collide-try-btn bg-lv1" id="rpShareCopy" @click="copyShareContent();">复制</button>
@@ -1241,7 +1288,7 @@ input:checked+.slider:before {
                 <span @click="showUpdateContent(false);">❎</span>
             </div>
             <div id="collide-try-update-content-title"
-                class="each-item-border-bottom collide-try-close-btn-dialog-title">
+                class="collide-try-each-item-border-bottom collide-try-close-btn-dialog-title">
                 <b id="update-content-title">🆕 应用更新</b>
             </div>
             <div id="collide-try-update-content" class="collide-try-close-btn-dialog-content">
@@ -1254,7 +1301,8 @@ input:checked+.slider:before {
             <div class="collide-try-close-btn-dialog-title-close" style="display: none;">
                 <span @click="showHowToPlay(false);">❎</span>
             </div>
-            <div id="collide-try-how-to-play-title" class="each-item-border-bottom collide-try-close-btn-dialog-title">
+            <div id="collide-try-how-to-play-title"
+                class="collide-try-each-item-border-bottom collide-try-close-btn-dialog-title">
                 <b>👇 操作指南</b><span>（先这样再那样🤪）</span>
             </div>
             <div id="collide-try-how-to-play-content" class="collide-try-close-btn-dialog-content">
@@ -1288,7 +1336,7 @@ input:checked+.slider:before {
         <div id="user-setting-about-app-dialog" ref="userSettingAboutAppDialog" class="collide-try-dialog">
             <div id="user-setting-about-app-close-icon" style="display: none;"><span
                     @click="switchDialogShow(aboutAppDialog, false);">❎</span></div>
-            <div id="user-setting-about-app-title" class="each-item-border-bottom">
+            <div id="user-setting-about-app-title" class="collide-try-each-item-border-bottom">
                 <b id="about-app-title">
                     <span @click="switchDialogShow(aboutAppDialog, false);"><svg t="1709376528064" class="icon"
                             viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8794"
@@ -1301,86 +1349,119 @@ input:checked+.slider:before {
             </div>
             <div id="user-setting-about-app-content">
                 <pre>
-<b class="collide-try-app-full-name">玩吧-撞击王者-角色角度练习器</b>
-<b>👨‍💻 Author: THeLiGht_ Group</b>
-<b>📧 Contact: m1yellow@163.com</b>
+<b class="collide-try-app-full-name collide-try-each-item-margin">玩吧-撞击王者-角色角度练习器</b>
+<b class="collide-try-each-item-margin">👨‍💻 Author: THeLiGht_ Group</b>
+<b class="collide-try-each-item-margin">📧 Contact: m1yellow@163.com</b>
 
-1️⃣ 目前支持一个主打角色、三个辅助角色，主要适用于黑娃、僵僵、朵朵、傀儡、双子、太平乐等角色『角度』和『走位』练习
-2️⃣ 血量条仅用来区分队伍，因为血量伤害体系很复杂，目前不考虑去实现
-3️⃣ 角色运动速度和距离可能和实战有一定差距，做到一模一样很难
-4️⃣ 可能存在个别角度（碰墙角）反弹有点问题，请以实战数据为准
-5️⃣ 兼容手机、平板、电脑浏览器
+<div class="collide-try-author-declare">
+<b class="collide-try-author-declare-title">关于近期有玩友反馈网站被QQ浏览器屏蔽打不开了！郑重声明以下几点：</b>
+<ul class="collide-try-author-declare-content">
+<li>1. 本工具<b>不收取任何费用</b>，也不与游戏本身产生任何关联，仅用于日常练习和交流，<b>如果有侵害到玩吧官方的利益，请玩吧工作人员直接联系上方的邮箱处理！</b></li>
+<li>2. 本工具<b>绝对不包含任何恶意代码，不收集任何个人隐私信息！</b></li>
+<li>3. 个人站点容易被利益相关者或不友好的人<b>【恶意匿名举报】</b>，每次申诉都是三个工作日内答复，可能过不了多久又会被举报屏蔽！</li>
+<li>4. 这个练习工具已经花费了将近两年的时间和精力开发和维护了，纯属<b>为爱发电！</b></li>
+<li>5. 用其他浏览器打开这个练习工具网页吧~【<a target="_blank" href="https://viayoo.com/zh-cn/">Via浏览器</a>】或【<a target="_blank" href="https://www.xbext.com/">X浏览器</a>】，哪个能用好用选哪个就行（没有任何推广和安利），感谢各位玩友的信任！</li>
+<li>温馨提示：浏览器会对打开的网页做缓存，多次刷新只会去查询网页是否有变动，没变动是不会重新请求网页资源的，所以，<b>【刷新重选角色】要不了多少流量哦~</b></li>
+</ul>
+</div>
+
+<span class="collide-try-each-item-margin">1️⃣ 支持一个主打角色、三个辅助角色，主要适用于黑娃、僵僵、朵朵、傀儡、双子、太平乐等角色『角度』和『走位』练习</span>
+<span class="collide-try-each-item-margin">2️⃣ 血量条仅用来区分队伍，因为血量伤害体系很复杂，目前不考虑去实现</span>
+<span class="collide-try-each-item-margin">3️⃣ 角色运动速度和距离可能和实战有一定差距，做到一模一样很难</span>
+<span class="collide-try-each-item-margin">4️⃣ 可能存在个别角度（碰墙角）反弹有点问题，请以实战数据为准</span>
+<span class="collide-try-each-item-margin">5️⃣ 兼容手机、平板、电脑浏览器</span>
 
 
-<b class="each-item-border-bottom">🆕 V4.2.2 更新：</b>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.2.4 更新：<span class="collide-try-update-date">2024-08-06</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 新增了【操作指南】说明，首次进入游戏时提示
-2. 调整了双子图标（有显示问题可以反馈一下）
-3. 更新了【关于应用】内容
+1. 重新加入了访问密钥（玩友私聊获取即可哦）
+2. 【关于应用】添加了网站被QQ浏览器屏蔽声明
 </pre>
-                <b class="each-item-border-bottom">V4.2.1 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.3 更新：<span
+                            class="collide-try-update-date">2024-08-05</span></b></div>
+                1. 游戏场景图形重叠问题优化
+                2. 【关于应用】添加了版本更新日期
+
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.2 更新：<span
+                            class="collide-try-update-date">2024-08-02</span></b></div>
+                1. 新增了【操作指南】说明，首次进入游戏时提示
+                2. 调整了双子图标（有显示问题可以反馈一下）
+                3. 更新了【关于应用】内容
+
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.1 更新：<span
+                            class="collide-try-update-date">2024-07-31</span></b></div>
                 1. 新增了【瞄准穿透】开关，弥补傀儡、僵尸等可穿透角色瞄准时的流畅灵敏度
                 2. 补全角色录入（62个）
 
-                <b class="each-item-border-bottom">V4.2.0 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.0 更新：<span
+                            class="collide-try-update-date">2024-07-21</span></b></div>
                 1. 新增了【夏日主题】
                 2. 主题模式随季节自动切换
                 3. 补全角色录入（61个）
 
-                <b class="each-item-border-bottom">V4.1.5 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.5 更新：<span
+                            class="collide-try-update-date">2024-07-18</span></b></div>
                 1. 新增了【显示角色运动路径】开关功能
                 2. 修复了移动端多点触碰可能出现卡死的问题
                 3. 加入了超时自动结束（默认20秒），避免程序一直卡死消耗性能
                 4. 【保存离线版】（不用联网）改为【下载离线版】（要联网，更可靠）
-                5. 内置了访问密钥，目前不用输入密钥都可以玩了
-                6. 还在退游中，玩友们珍重勿念哈
 
-                <b class="each-item-border-bottom">V4.1.4 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.4 更新：<span
+                            class="collide-try-update-date">2024-05-24</span></b></div>
                 1. 兼容适配平板浏览器
                 2. 角色图标、场景主题图形大小调整
                 3. 加入了『告别』信息，退游一段时间
 
-                <b class="each-item-border-bottom">V4.1.3 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.3 更新：<span
+                            class="collide-try-update-date">2024-04-10</span></b></div>
                 1. 新增了【显示角色坐标】功能
                 2. 新增了【分享/导入角色及坐标】功能
 
-                <b class="each-item-border-bottom">V4.1.2 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.2 更新：<span
+                            class="collide-try-update-date">2024-03-27</span></b></div>
                 1. 离线版调整为不需要输入访问密钥
                 2. 新增了切换【主角所在队颜色】功能
                 3. 优化了【只显示撞击台面】、【显示场景图形】开关，免刷新页面
 
-                <b class="each-item-border-bottom">V4.1.1 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.1 更新：<span
+                            class="collide-try-update-date">2024-03-18</span></b></div>
                 1. 新增了【显示砖格坐标】功能
                 2. 新增了【长按重置角色位置】功能
                 3. 优化了【显示台面边框】、【显示砖格坐标】开关，免刷新页面
 
-                <b class="each-item-border-bottom">V4.1.0 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.0 更新：<span
+                            class="collide-try-update-date">2024-03-13</span></b></div>
                 1. 新增了【瞄准显示路径】功能
                 2. 修复了【只瞄准不打】时的拖动问题
                 3. 加入了更新提示
                 4. 优化了拖动、瞄准时的动画渲染，减少性能消耗
 
-                <b class="each-item-border-bottom">V4.0.3 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.0.3 更新：<span
+                            class="collide-try-update-date">2024-03-11</span></b></div>
                 1. 实现了傀儡拉回功能
                 2. 新增了太平乐练习选项
 
-                <b class="each-item-border-bottom">V4.0.2 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.0.2 更新：<span
+                            class="collide-try-update-date">2024-03-09</span></b></div>
                 1. 修复了僵尸、傀儡瞄准时穿透问题
                 2. 实现了电音突破加速效果
                 3. 加入了访问密钥（玩友私聊获取即可哦）
 
-                <b class="each-item-border-bottom">V4.0.1 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.0.1 更新：<span
+                            class="collide-try-update-date">2024-03-07</span></b></div>
                 1. 新增【保存离线版】功能
                 2. 设置主角时，提示使用【极速开始】才生效
 
-                <b class="each-item-border-bottom">V4.0.0 更新：</b>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.0.0 更新：<span
+                            class="collide-try-update-date">2024-03-02</span></b></div>
                 1. 可以在设置里面指定任意角色
                 2. 新增【双击屏幕回退】重打功能
                 3. 游戏界面右上角加入隐形设置按钮，多项设置不用刷新页面
                 4. 新增【关于应用】信息
                 5. 角色动画分层优化，减少性能消耗
 
-                <b class="each-item-border-bottom">🔗 参考文章：</b>
+
+                <b class="collide-try-each-item-border-bottom">🔗 参考文章：</b>
                 <a target="_blank"
                     href="https://www.kai666666.com/2020/07/28/Canvas%E7%B3%BB%E5%88%97%EF%BC%8814%EF%BC%89%EF%BC%9A%E5%AE%9E%E6%88%98-%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/">Canvas系列（14）：实战-小球碰撞</a><a
                     target="_blank" href="https://cloud.tencent.com/developer/article/1722313"> ② </a>
@@ -1395,34 +1476,29 @@ input:checked+.slider:before {
                 <br><br>
                 <div id="collide-try-bye-reason" class="collide-try-goodbye">
                     <pre>
-<b class="each-item-border-bottom">几个游戏公平建议：</b>
-① 开局在选择角色框下方加入“石头剪刀布”选项，谁赢谁先手！系统不要帮选，不选则后手，选完在游戏界面公示！
-② 1号位先打，2号位后打，交给玩家自己决定，玩家就想1号位先打就这么难？
-③ 开局角色位置、🌿、💣、🍄 等陷阱位置，请完全随机！哪有那么巧就刚好给直线？
-④ 加入『允许发言交流』勾选框，只要有一个玩家不勾选，就不能发言和发表情！
-⑤ 加入《撞王等级资格证》机制，根据上一个赛季和当前赛季最高段位自动区分，大奖赛【大师】以下段位加入撞王等级匹配规则，避免 20、30 多级的玩家频繁对阵满级大佬被气走！留住新用户才有得 ⭕ 啊！[狗头]
-⑥ 中奖概率有偏爱就不提了！回馈衣食父母也没错 👌
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">几个游戏公平建议：<span class="collide-try-update-date"></span></b></div>
+<span class="collide-try-each-item-margin">① 开局在选择角色框下方加入“石头剪刀布”选项，谁赢谁先手！系统不要帮选，不选则后手，选完在游戏界面公示！</span>
+<span class="collide-try-each-item-margin">② 1号位先打，2号位后打，交给玩家自己决定，玩家就想1号位先打就这么难？</span>
+<span class="collide-try-each-item-margin">③ 开局角色位置、🌿、💣、🍄 等陷阱位置，请完全随机！哪有那么巧就刚好给直线？</span>
+<span class="collide-try-each-item-margin">④ 加入『允许发言交流』勾选框，只要有一个玩家不勾选，就不能发言和发表情！</span>
+<span class="collide-try-each-item-margin">⑤ 加入《撞王等级资格证》机制，根据上一个赛季和当前赛季最高段位自动区分，大奖赛【大师】以下段位加入撞王等级匹配规则，避免 20、30 多级的玩家频繁对阵满级大佬被气走！留住新用户才有得 ⭕ 啊！[狗头]</span>
+<span class="collide-try-each-item-margin">⑥ 中奖概率有偏爱就不提了！回馈衣食父母也没错 👌</span>
 
 你在教我做事？
 游戏公平！玩的人更多！格局打开！
 
 
-<b class="each-item-border-bottom">不公平！BUG太多！太浪费时间精力！</b>
-• 牺牲公平换利益，实在是玩不过！每天都会被不公平和各种BUG气炸！（越是在乎，看得越清，就会越气）
-
-• 工作、生活已经够累了，还要比来比去！游戏娱乐放松了个啥？游戏社交真的能交到好朋友或奔现对象？
-
-• 40级以下，技巧不够、没角色或者只有标配组合，很难打赢高配组合，大概率白送；40级以上，几乎都是高配，先手和开局位置至关重要，两局甚至三局不给先手，大概率连跪！先手和开局好位置给谁，懂的都懂！
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">不公平！BUG太多！太浪费时间精力！<span class="collide-try-update-date"></span></b></div>
+<span class="collide-try-each-item-margin">• 牺牲公平换利益，实在是玩不过！每天都会被不公平和各种BUG气炸！（越是在乎，看得越清，就会越气）</span>
+<span class="collide-try-each-item-margin">• 工作、生活已经够累了，还要比来比去！游戏娱乐放松了个啥？游戏社交真的能交到好朋友或奔现对象？</span>
+<span class="collide-try-each-item-margin">• 40级以下，技巧不够、没角色或者只有标配组合，很难打赢高配组合，大概率白送；40级以上，几乎都是高配，先手和开局位置至关重要，两局甚至三局不给先手，大概率连跪！先手和开局好位置给谁，懂的都懂！</span>
 
 
-<b class="each-item-border-bottom">所以呢？还玩吗？</b>
-• <b>清楚自己为什么玩这个游戏！</b>不公平的事情多了去了！怕浪费时间精力就减少做任务/冲分的局数，或者跟好友过一下日常任务、切磋几局练习角色技巧，再或者每天登录签到就行了！
-
-• <b>目标段位期望太高会玩得很累！</b>角色搭配没凑齐高配，撞击技巧（角度、连击、落点）熟练度不够（角色 > 技巧 = 运气[氪金]），遇到满级大佬或者突破&高配组合确实很难赢（毕竟他们已经玩了几年了）！很多 20、30 多级的玩家大奖赛频繁对阵满级大佬，输到怀疑人生，没挺过这段艰难的瓶颈期就气到【注销】了！
-
-• <b>大奖赛“日三”，十局完不成就放下吧！</b>平均一大局（3小局）7 分钟，10 局就一个多小时，20 局两小时以上，每天几个小时玩游戏是挺奢侈的了！用一半的游戏时间经营打理现实生活，会不会更有意义？
-
-•【角色拼不过】+【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！<b>这个【拼角色】的游戏别太较劲硬肝！40级之前，角色兑换路线和技巧练习才是关键！</b>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">所以呢？还玩吗？<span class="collide-try-update-date"></span></b></div>
+<span class="collide-try-each-item-margin">• <b>清楚自己为什么玩这个游戏！</b>不公平的事情多了去了！怕浪费时间精力就减少做任务/冲分的局数，或者跟好友过一下日常任务、切磋几局练习角色技巧，再或者每天登录签到就行了！</span>
+<span class="collide-try-each-item-margin">• <b>目标段位期望太高会玩得很累！</b>角色搭配没凑齐高配，撞击技巧（角度、连击、落点）熟练度不够（角色 > 技巧 = 运气[氪金]），遇到满级大佬或者突破&高配组合确实很难赢（毕竟他们已经玩了几年了）！很多 20、30 多级的玩家大奖赛频繁对阵满级大佬，输到怀疑人生，没挺过这段艰难的瓶颈期就气到【注销】了！</span>
+<span class="collide-try-each-item-margin">• <b>大奖赛“日三”，十局完不成就放下吧！</b>平均一大局（3小局）7 分钟，10 局就一个多小时，20 局两小时以上，每天几个小时玩游戏是挺奢侈的了！用一半的游戏时间经营打理现实生活，会不会更有意义？</span>
+<span class="collide-try-each-item-margin">•【角色拼不过】+【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！<b>这个【拼角色】的游戏别太较劲硬肝！40级之前，角色兑换路线和技巧练习才是关键！</b></span>
 
 
                     </pre>
@@ -2185,12 +2261,12 @@ function removeCoreScript(eles, eleIdOrClass) {
 let accessKey = null;
 let accessMsg = "🔑 请输入访问密钥";
 let codeStr = null;
-let encodeStr = "fAE9aAJXpmYCxrWJL/hIKhFvLVbtb19viIlXp6sR7qDxD6UBQWc+vruy9Epl0tPXaPsyI2wW6CNUo5obVRzs0wJCo5WgBw69wQaZPFfZtfESR82dt9xbGPckk+nFxF3ijxZ/H7U7sR57exzLtj7+RZcjydXakdUOSy4E7yrImi8mE8pA9xk+6CN2BM/aEXwwwf6LADE1st2NRoLrlOQ7QZ4uGrDzCHBvs8ZpiheUqhlKtMXY2NaiiKqXiZkDv68AOxK9+wTqc0sWueM6z0vwX7uIixVPCdPTgs/U3C+d2Jv4w9Umnn4HYxHsKEPAQhOctiOzXtcvp4Tdu4cWQknrxQaaWELqjlHuOKT3fJjhHrDCO2ZrqhwGjGnJeCc3AhosXu+7ADa8RSPSV9UHyr0mwgZ5T0z/pvaR5xlivfPMtGF0/U1FIh1onqpSRpeqipqwoTU2OuKXTxfyqZRKxFjk5qhZJO569JdABFrYjOrRaBUTxB/+mfmrT254WJT0uoG0WqOhH27Br6vsJCAy4pmcTVW3xq4eWuZZfjOZTZDt+O7AKDM5Ex9HkRwj3O3xrU0XYlp4ZE1VLforNVzFsYIRIEnKSgcDd3uQuiJRm8vnxASXcFC8Tel6Bo08EVylUle4Uj4/tPab8Xtx8FKvfDicCmvtMQb1FliU0pWjzOH3B6y53Uhl0k446HJgLH7k0E8FER8Rsj4NXpYbfx7F4cLdT66Ci3oTSUqfCPb7yMXgRSMYAOA3ONKxYtmFBhIL2w0YhvcHBcAwla3CpTMt6mhtSn62kHURYBkRaTqyOoBJRP24A2xSDi6/9TSZBkyyJFDwP7i0p9nZj+FPo+ua7yI7QNhR1vRv9jv6zpUV2hI/ahHd/dlVYTY9qS0IGlAy7w2IgUpz7qA1jjltcUg1OGBxF/0S6iJvc1BVEpYijh2H/D7QnA1HIf8a5wjZYC1uv4Z+sd12DWzFGNqZY82kUcDYLhsQNmAc8pSlOc4=";
-let superKeyEnStr = "zQN6114c/2W74lv7PvypKZh8zsei8CbICQZNtqrBJyxW0xwV350Wig==";
+let encodeStr = "1QJdfWnasGak6KKMnrmpwA76B0+EXGgN2d2It/WGuji5FFu4bgmN65YX3uCxyzK2Xz9/9pI/LwkCtyAdSZjaBdbGaTMUjmZz2fETt/zKZyAaQXwaICrEcZvqQ++SQb1tfm8lLU38Ol1sRB9HyP5IUzWhPbIRg5aMRzNLPIRTLHl77nhT5E7sRf/tWuGUA6MzQUp50M7CDEA8Pb3uZ9SpozR7iy7VqxOhBfd3MFtsm6SUrM7hsgP2HU6LYdJ+lsR4HjyZuja/I2CqF39Yxme/B0a1OzDCAKELR351bGPOVzGuENtBXTuhX3Bea79LT3v0bVCVEBgmBTdWh1SCaoyVgkROh97k3dMtYz0qKo7/tYRWNU23lAjx7V0WEhQ5OuA3k27luX8tJuckKV9R0u9REcnASVKLmzUqcKEll9Rob/Wlo8dO13HZz7DHnbemPy3kHDLWorX2nKhcSrN77cthVoR2W/V0DcYo9Z09LER89rlr16lUxooek5oNgqPPH/RNHJfVGlRpX/CwDXFbvotf4rUk2ZIZTWIuO0raMM5G2XwE2x0WoLh4X7G43Zsk1UENDmQfUYQZn8c0rbzG3pJvOt0wy9ccmPnOhZAem6LyBibI79rigBGKgbk9zXbpcKrOQVt2WkNy6/yoYKYRVi2bfXY3mUjlrU1AsszmqaJ5/ie6oh0sAwca/GhFUuDfikM1OBH5ZcBgWXWwYirEaf9cAfc9nFof7K4vA1Vs8LeA4u8KDHD2T98T9WiWRSBFSE9KD8+qX6e5zvDB3RDHUKece3VXNSdhAP5PiHrzkg3AQA8i01ytU5hbQtVu1sDyB8dBUsMsKodSpGZBTspao9x3+/sCkXoL0mLWC3s/Sc3LdOIIp/KBuJ0rjyFfE7CAMss6qyrQpEIeJ6WDAP5PzEQTNYdEOGym6F3Y/LOyjF13hJmkIqeBMMjhLIiN7cDOiZXgQSu/SjPFSNA28CFcWA40um6xQl66eKDeBo8NZnkO1huY37FBhjdekbEeJKTGx/yO3CpDh8a2p014e/etpHKYyuxC4zEicC+cm+elmqQtXdwJCsYQnGHWY2pqv37ztd9xcsFk45ya37vANCGblPJ7Un7woxiZwdayiRpG0FqhJKSdykcUt/qgVCvCq6Hx5oT7l/P4s7kyD4oFVJymLYX8UhO9c/ur25CI2IT3nbDZzLr2urG7YjhFdbkeHlQr";
+let superKeyEnStr = "1QJCs2nasGbJvorcWXCJDKOKD63zawAl4Q/Y6bFmOGZKDSlRl98OSQ==";
 //superKeyEnStr = Aes.Ctr.encrypt("", "", 256);
-//console.log('>>>> superKeyEnStr', superKeyEnStr);
+//console.log('>>>> superKeyEnStr=', superKeyEnStr);
 //encodeStr = Aes.Ctr.encrypt(codeStr, "", 256);
-//console.log('>>>> encodeStr', encodeStr);
+//console.log('>>>> encodeStr=', encodeStr);
 
 // 检测核心代码和密钥
 function checkCoreCode(method, isDialog) {
@@ -2202,8 +2278,6 @@ function checkCoreCode(method, isDialog) {
     for (let i = 0, len = 100; i < len; i++) {
         // 先从 localStorage 获取 accessKey
         accessKey = localStorage.getItem('collide-try-access-key', accessKey);
-        // TODO 目前开放使用
-        accessKey = "gSLtYnCZNLWAgUxQh0byWDt55xhGj6HU";
 
         if (isDialog) {
             // 没找到，再弹窗提示输入【访问密钥】
@@ -2398,8 +2472,8 @@ onMounted(() => {
 var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
-    // 程序版本号
-    version: Number(packageVersion.replaceAll(".", "") + "240801"),
+    // 程序版本号 TODO 记得查看并更新版本过期的时间
+    version: Number(packageVersion.replaceAll(".", "") + "240806"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3882,6 +3956,8 @@ function init() {
     setAppFullName();
     // 设置应用更新内容
     setAppUpdateContent();
+    // 设置更新时间格式
+    setUpdateDateFormat();
     // 隐藏关闭所有dialog弹窗，保证离线版刚打开不会一直有弹窗
     hideAllDialog();
     // 检测 WebStorage 是否正常可用
@@ -4021,6 +4097,19 @@ function setAppFullName() {
     let fullName = sysConfig.appName + "_" + sysConfig.versionName;
     for (let i = 0, len = fullNameEles.length; i < len; i++) {
         fullNameEles[i].innerText = fullName;
+    }
+}
+
+
+// 设置更新时间格式
+function setUpdateDateFormat() {
+    let dateEles = document.getElementsByClassName('collide-try-update-date');
+    if (!dateEles) return;
+    let y = new Date().getFullYear();
+    let result;
+    for (let i = 0, len = dateEles.length; i < len; i++) {
+        result = dateEles[i].innerText;
+        if (result.startsWith(y)) dateEles[i].innerText = result.replaceAll((y + "-"), "");
     }
 }
 
