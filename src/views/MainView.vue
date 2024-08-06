@@ -2267,6 +2267,7 @@ let superKeyEnStr = "1QJCs2nasGbJvorcWXCJDKOKD63zawAl4Q/Y6bFmOGZKDSlRl98OSQ==";
 //console.log('>>>> superKeyEnStr=', superKeyEnStr);
 //encodeStr = Aes.Ctr.encrypt(codeStr, "", 256);
 //console.log('>>>> encodeStr=', encodeStr);
+// TODO 更新访问密钥之后，还需要更改 nginx 下载链接中的密钥
 
 // 检测核心代码和密钥
 function checkCoreCode(method, isDialog) {
@@ -2277,7 +2278,7 @@ function checkCoreCode(method, isDialog) {
     if (!method || typeof method !== 'string' || method.length > 50) return false;
     for (let i = 0, len = 100; i < len; i++) {
         // 先从 localStorage 获取 accessKey
-        accessKey = localStorage.getItem('collide-try-access-key', accessKey);
+        accessKey = localStorage.getItem('collide-try-access-key');
 
         if (isDialog) {
             // 没找到，再弹窗提示输入【访问密钥】
@@ -2353,7 +2354,7 @@ function checkAccessKey() {
 
     let result = false;
     // 校验是否输入了密钥
-    accessKey = localStorage.getItem('collide-try-access-key', accessKey);
+    accessKey = localStorage.getItem('collide-try-access-key');
     if (!accessKey || accessKey.replaceAll(' ', '') === '') return false;
 
     // 校验密钥是否正确，解密方法是否能正常访问
@@ -2514,6 +2515,8 @@ var sysConfig = {
     maxWeightVal: 100,
     // emoji/svg 图形图形重叠重试次数
     emojiCrossRetryCount: 3,
+    // 是否为展示demo
+    isDemo: false,
     // 是否说再见，用于控制显示告别信息
     isSayGoodbye: true,
 
@@ -8084,7 +8087,10 @@ function saveLocalHtml(ele) {
 // 下载网络文件
 function saveRemoteHtml(ele) {
 
-    if (!checkAccessKey()) return;
+    if (!checkAccessKey()) {
+        alert("请先输入正确的访问密钥！");
+        return;
+    }
 
     let isConfirm = false;
     let t0 = localStorage.getItem('collide-try-save-remote-html-time');
@@ -8102,7 +8108,8 @@ function saveRemoteHtml(ele) {
     if (!isConfirm) return;
 
     let titleEle = document.getElementsByTagName('title')[0];
-    let url = "https://www.m1yellow.cn/collide-try?download=1&f=" + titleEle.innerText + ".html";
+    let accessKey = localStorage.getItem('collide-try-access-key'); // TODO accessKey 更新后，nginx 也要同步更新 hashCode
+    let url = "https://www.m1yellow.cn/collide-try?k=" + hashCode(accessKey) + "&f=" + titleEle.innerText + ".html"; // collide-try 末尾会自动加上 /
     console.log(">>>> saveRemoteHtml url=" + url);
     window.location.href = url; // 手机移动端下载后会停留在空白页面
     // 返回原来地址，移动端还是没用
@@ -8138,7 +8145,7 @@ function setDialogOkColor(cVal) {
 
 
 //////////////////////////////////////////////////////////////////////
-// 【工具类相关】 变量、方法区域
+// 【工具类相关】 变量、方法区域 共用函数 通用函数 公共函数 函数区域
 //////////////////////////////////////////////////////////////////////
 
 // 是否为数值类型
@@ -8200,6 +8207,20 @@ function randomString(len) {
     for (var i = 0; i < len; i++)
         result += str[Math.floor(Math.random() * str.length)];
     return result;
+}
+
+
+// 字符串哈希
+// https://segmentfault.com/q/1010000042400796
+function hashCode(str) {
+    var hash = 0, i, chr;
+    if (str.length === 0) return hash;
+    for (i = 0; i < str.length; i++) {
+        chr = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
 }
 
 
