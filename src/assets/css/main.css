@@ -11,8 +11,8 @@
 
 html,
 body {
-  min-height: 100vh;
-  /*避免document.body.clientHeight得到值是0*/
+  min-height: 100vh; /*避免document.body.clientHeight得到值是0*/
+  overflow: hidden; /*防止出现额外的滚动条*/
 }
 
 html {

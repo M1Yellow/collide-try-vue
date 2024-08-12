@@ -80,6 +80,7 @@ canvas {
     vertical-align: middle;
     line-height: 1;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 .collide-try-in-one-line {
@@ -153,7 +154,7 @@ canvas {
 
 .collide-try-close-btn-dialog-content {
     background-color: #f7f7fc;
-    max-height: 80.0vh;
+    max-height: 40.0vh;
     /* 内容超出区域，需要设置高度，才能滚动 */
     /* 隐藏 IE、Edge 和 Firefox 的滚动条 */
     -ms-overflow-style: none;
@@ -483,9 +484,22 @@ canvas {
 }
 
 .user-setting-item {
-    padding: 6px 10px;
+    padding: 9px 10px;
     font-size: 18px;
+    line-height: 18px;
     text-align: left;
+}
+
+.li-space-between-center {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#page-color-image {
+    padding: 8.2px 10px;
 }
 
 .user-setting-item-msg-left {
@@ -494,6 +508,12 @@ canvas {
 
 .user-setting-item-switch-right button {
     font-size: 12px;
+}
+
+.custom-theme-conf-inout {
+    line-height: 18px;
+    width: 30px;
+    margin-left: 7px;
 }
 
 .user-setting-item:not(:last-child) {
@@ -516,8 +536,9 @@ canvas {
 .user-setting-item-switch-right {
     position: relative;
     float: right;
-    top: 3px;
+    /*top: 4px;*/
     vertical-align: middle;
+    display: flex;
 }
 
 .user-setting-item-input-area {
@@ -534,6 +555,38 @@ canvas {
     background-color: transparent;
     outline: none;
     -webkit-appearance: none;
+}
+
+.user-setting-item-right-input-area {
+    margin: 0;
+}
+
+.user-setting-item-right-input-area input {
+    width: 100px;
+    text-align: right;
+    padding: 0;
+}
+
+.user-setting-item-right-input-area label {
+    font-size: 16px;
+    margin-left: 2px;
+    cursor: pointer;
+}
+
+.user-setting-item-right-input-area svg {
+    width: 18px;
+    height: 18px;
+    vertical-align: sub;
+    transform: rotate(90deg);
+    fill: #2196F3;
+}
+
+.user-setting-item-right-input-color-code {
+    width: 80px !important;
+}
+
+.user-setting-item-right-input-number-m {
+    width: 50px !important;
 }
 
 .div-input-game-roles {
@@ -581,6 +634,21 @@ canvas {
     background-color: #2196F3;
     color: #fff;
 }
+
+/* 用户设置-二级列表 */
+.user-setting-item-expand {
+    background-color: #EDF2FA;
+    display: none;
+}
+
+.user-setting-item-expand .user-setting-item-msg-left {
+    font-size: 14px;
+}
+
+.user-setting-item-disabled {
+    color: #999 !important;
+}
+
 
 /* 关于应用弹窗样式 */
 #user-setting-about-app-dialog {
@@ -1041,7 +1109,246 @@ input:checked+.slider:before {
                 <div id="user-setting-head-desc"></div>
             </div>
             <ul id="user-setting-area">
-                <li class="user-setting-item" id="user-setting-item-1st">
+                <li class="user-setting-item li-space-between-center">
+                    <span class="user-setting-item-msg-left">自定义主题</span>
+                    <span id="toggleCustomThemeSvgArrow"
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area"
+                        @click="toggleCustomTheme($event.target);">
+                        <svg t="1723345403203" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="4920" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            width="1000" height="1000">
+                            <path
+                                d="M346.52382345477406 104.43830532674417c-12.257495055447652-12.257495055447652-30.6437359627898-12.257495055447652-42.90123101823747 0s-12.257495055447652 30.6437359627898 0 42.90123101823747L668.2830560915551 512 303.6225924365366 876.6604636550185c-12.257495055447652 12.257495055447652-12.257495055447652 30.6437359627898 0 42.90123101823747 6.128747527723826 6.128747527723826 15.3218679813949 9.193120453671073 21.450615509118734 9.193120453671073s15.3218679813949-3.064372925947246 21.450615509118734-9.193120453671073l386.1110791641372-386.1110791641372c12.257495055447652-12.257495055447652 12.257495055447652-30.6437359627898 0-42.90123101823747L346.52382345477406 104.43830532674417z"
+                                fill="" p-id="4921"></path>
+                        </svg>
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">启用自定义</span>
+                    <span class="user-setting-item-switch-right">
+                        <label class="switch" @click="switchCheckbox($event, 'isUseCustomTheme');">
+                            <input type="checkbox" id="isUseCustomTheme">
+                            <div class="slider round"></div>
+                        </label>
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">导入/导出主题</span>
+                    <span id="customThemeInOut" class="user-setting-item-switch-right">
+                        <button class="collide-try-btn bg-lv2 custom-theme-conf-inout" id="customThemeInput">导入</button>
+                        <button class="collide-try-btn bg-lv1 custom-theme-conf-inout"
+                            id="customThemeOutput">导出</button>
+                        <input id="customThemeInputFile" type="file" style="display: none;"
+                            accept="text/plain,application/json">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">主题名称</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text" class="custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="name" value="自定义主题01" maxlength="7" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">页面背景颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="bgColor" value="#FFFFFFFF" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li id="page-color-image" class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">页面背景图片</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text" id="bgImage"
+                            class="custom-theme-item custom-theme-item-input user-setting-item-disabled" value=""
+                            placeholder="选择图片" maxlength="9" disabled="disabled">
+                        <form class="user-setting-item-form" action="" method="post">
+                            <label id="pageBgImageIcon" style="display: none;"><i class=""></i>📁</label>
+                            <input id="pageBgImageFile" type="file" style="display: none;"
+                                accept="image/jpg,image/jpeg,image/png,image/gif">
+                        </form>
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">台面填充颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="tbColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">台面边框颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="tblColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">砖格线颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="glColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">砖格中线颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="glmColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">砖格坐标颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="gnColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span
+                        class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">砖格坐标黑夜颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="gndColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span
+                        class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">角色运动路径颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="plColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span
+                        class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">角色本体路径颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="rlColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <!--
+      <li class="user-setting-item user-setting-item-expand li-space-between-center">
+        <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">傀儡运动路径颜色</span>
+        <span class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+          <input type="text" class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled" id="klplColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+        </span>
+      </li>
+      -->
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span
+                        class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">分身运动路径颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="szbplColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <!--
+      <li class="user-setting-item user-setting-item-expand li-space-between-center">
+        <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">分身本体路径颜色</span>
+        <span class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+          <input type="text" class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled" id="szbrlColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+        </span>
+      </li>
+      -->
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">碰撞指示圈颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="ccColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span
+                        class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">分身碰撞指示圈颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="szccColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">台面边框线宽度</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-number-m custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="tblWidth" value="0" maxlength="5" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">台面砖格线宽</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-number-m custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="glWidth" value="0" maxlength="5" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span
+                        class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">砖格坐标字体大小</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-number-m custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="gnSize" value="0" maxlength="5" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span
+                        class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">角色运动路径线宽</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-number-m custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="plWidth" value="0" maxlength="5" disabled="disabled">
+                    </span>
+                </li>
+                <!--
+      <li class="user-setting-item user-setting-item-expand li-space-between-center">
+        <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">傀儡运动路径线宽</span>
+        <span class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+          <input type="text" class="user-setting-item-right-input-number-m custom-theme-item custom-theme-item-input user-setting-item-disabled" id="klplWidth" value="0" maxlength="5" disabled="disabled">
+        </span>
+      </li>
+      -->
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">碰撞指示圈线宽</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-number-m custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            id="ccWidth" value="0" maxlength="5" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item li-space-between-center" id="user-setting-item-1st">
                     <span class="user-setting-item-msg-left">游戏场景主题</span>
                     <span class="user-setting-item-switch-right">
                         <button class="dropbtn" @click="toggleDropdown()" id="sceneThemeMode">默认主题</button>
@@ -1056,13 +1363,13 @@ input:checked+.slider:before {
                         </div>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">主角所在队颜色</span>
                     <span class="user-setting-item-switch-right">
                         <button class="dropbtn red" @click="toggleTeamColor()" id="mainTeamColor">红色</button>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">只用一个角色测试</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isTestOnlyOne');">
@@ -1071,7 +1378,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">显示角色运动路径</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isShowBallMovePath');">
@@ -1080,7 +1387,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">显示角色本体路径</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isShowBallPath');">
@@ -1089,7 +1396,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">只瞄准不打</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isJustTrying');">
@@ -1098,7 +1405,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">碰到角色即停止</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isStopAfterCollided');">
@@ -1107,7 +1414,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">碰墙两次即停止</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isStopAfter2WallCollided');">
@@ -1116,7 +1423,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">只显示撞击台面</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isJustShowTable');">
@@ -1125,7 +1432,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">显示场景图形</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isShowSceneGraph');">
@@ -1134,7 +1441,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">显示台面边框</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch"
@@ -1144,7 +1451,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">显示砖格坐标</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch"
@@ -1154,7 +1461,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">显示角色血量条</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isShowRoleBloodLine');">
@@ -1163,7 +1470,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">傀儡拉回</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isKuileiPullBack');">
@@ -1172,7 +1479,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">瞄准穿透</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isPiercesTry');">
@@ -1181,7 +1488,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">瞄准显示路径</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isShowTryFullPath');">
@@ -1190,7 +1497,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">双击屏幕回退</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isDbclickBack');">
@@ -1199,7 +1506,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">长按重置角色位置</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isLongPressRandom');">
@@ -1208,7 +1515,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">显示角色坐标(单位：格)</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isShowRoleMovePos');">
@@ -1217,16 +1524,13 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
-                <li class="user-setting-item">
-                    <span class="user-setting-item-msg-left">分享/导入角色及坐标</span><span class="reset-btn"
-                        @click="resetShareContent(this);" title="重置分享"> 🔄 </span>
-                    <div class="user-setting-item-input-area collide-try-in-one-line">
-                        <input type="text" id="shareRoleAndPos" value="" maxlength="1000"
-                            placeholder="粘贴内容后点击导入，刷新页面生效">
-                        <button class="collide-try-btn bg-lv1" id="rpShareCopy" @click="copyShareContent();">复制</button>
-                        <button class="collide-try-btn bg-lv2" id="rpShareImport" @click="importShareContent();"
-                            style="display: none;">导入</button>
-                    </div>
+                <li class="user-setting-item li-space-between-center">
+                    <span class="user-setting-item-msg-left">角色加速或减速(-20~200)</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text" class="user-setting-item-right-input-number-m" id="roleSpeedAddVal" value="0"
+                            maxlength="3">
+                    </span>
                 </li>
                 <li class="user-setting-item">
                     <span class="user-setting-item-msg-left">指定游戏角色(输入角色名)</span><span class="reset-btn"
@@ -1251,9 +1555,14 @@ input:checked+.slider:before {
                     </div>
                 </li>
                 <li class="user-setting-item">
-                    <span class="user-setting-item-msg-left">角色加速或减速(-20~200)</span>
-                    <div class="user-setting-item-input-area">
-                        <input type="text" id="roleSpeedAddVal" value="0" maxlength="3">
+                    <span class="user-setting-item-msg-left">分享/导入角色及坐标</span><span class="reset-btn"
+                        @click="resetShareContent(this);" title="重置分享"> 🔄 </span>
+                    <div class="user-setting-item-input-area collide-try-in-one-line">
+                        <input type="text" id="shareRoleAndPos" value="" maxlength="1000"
+                            placeholder="粘贴内容后点击导入，刷新页面生效">
+                        <button class="collide-try-btn bg-lv1" id="rpShareCopy" @click="copyShareContent();">复制</button>
+                        <button class="collide-try-btn bg-lv2" id="rpShareImport" @click="importShareContent();"
+                            style="display: none;">导入</button>
                     </div>
                 </li>
                 <li class="user-setting-item" style="display: none;">
@@ -1356,15 +1665,15 @@ input:checked+.slider:before {
 <div class="collide-try-author-declare">
 <b class="collide-try-author-declare-title">关于近期有玩友反馈网站被QQ浏览器屏蔽打不开了！郑重声明以下几点：</b>
 <ul class="collide-try-author-declare-content">
-<li>1. 本工具<b>不收取任何费用</b>，也不与游戏本身产生任何关联，仅用于日常练习和交流，<b>如果有侵害到玩吧官方的利益，请玩吧工作人员直接联系上方的邮箱处理！</b></li>
-<li>2. 本工具<b>绝对不包含任何恶意代码，不收集任何个人隐私信息！</b></li>
-<li>3. 个人站点容易被利益相关者或不友好的人<b>【恶意匿名举报】</b>，每次申诉都是三个工作日内答复，可能过不了多久又会被举报屏蔽！</li>
+<li>1. 本工具<b>不收取任何费用</b>，也不与官方游戏产生任何关联，仅用于日常练习和交流，<b>如果有侵害到玩吧官方的利益，请玩吧工作人员直接联系上方的邮箱处理！</b></li>
+<li>2. 本工具<b>保证不包含任何恶意代码，不收集任何个人隐私信息！</b></li>
+<li>3. 个人站点容易被利益相关者或不友好的人<b>【恶意匿名举报】</b>，每次申诉会在三个工作日内答复（首次申诉很快处理），但可能过不了多久又会被举报屏蔽！</li>
 <li>4. 这个练习工具已经花费了将近两年的时间和精力开发和维护了，纯属<b>为爱发电！</b></li>
-<li>5. 用其他浏览器打开这个练习工具网页吧~【<a target="_blank" href="https://viayoo.com/zh-cn/">Via浏览器</a>】或【<a target="_blank" href="https://www.xbext.com/">X浏览器</a>】，哪个能用好用选哪个就行（没有任何推广和安利），感谢各位玩友的信任！</li>
-<li>温馨提示：浏览器会对打开的网页做缓存，多次刷新只会去查询网页是否有变动，没变动是不会重新请求网页资源的，所以，<b>【刷新重选角色】要不了多少流量哦~</b></li>
+<li>5. 可以用其他浏览器打开这个练习工具网页。【<a target="_blank" href="https://viayoo.com/zh-cn/">Via浏览器</a>】或【<a target="_blank" href="https://www.xbext.com/">X浏览器</a>】，极简无广告（App大小不到2M），哪个能用好用选哪个就行（没有任何推广），感谢各位玩友的信任！</li>
 </ul>
 </div>
 
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">📖 功能说明：<span class="collide-try-update-date"></span></b></div>
 <span class="collide-try-each-item-margin">1️⃣ 支持一个主打角色、三个辅助角色，主要适用于黑娃、僵僵、朵朵、傀儡、双子、太平乐等角色『角度』和『走位』练习</span>
 <span class="collide-try-each-item-margin">2️⃣ 血量条仅用来区分队伍，因为血量伤害体系很复杂，目前不考虑去实现</span>
 <span class="collide-try-each-item-margin">3️⃣ 角色运动速度和距离可能和实战有一定差距，做到一模一样很难</span>
@@ -1372,11 +1681,27 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">5️⃣ 兼容手机、平板、电脑浏览器</span>
 
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.2.4 更新：<span class="collide-try-update-date">2024-08-06</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">👨‍🏫 温馨提示：<span class="collide-try-update-date"></span></b></div>
+<span class="collide-try-each-item-margin">浏览器会对打开过的网页做缓存，多次刷新只会去查询网页是否有变动，没变动是不会重新请求网页资源的，所以，<b>【刷新重选角色】要不了多少流量哦~</b></span>
+<span class="collide-try-each-item-margin">输入正确访问密钥后，<b>可以到设置里面下载离线版（没有网络也可以玩）</b>，点击下载的html文件会用默认浏览器打开，也可以长按文件，选择其他方式打开。</span>
+<span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
+
+
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.4.0 更新：<span class="collide-try-update-date">2024-08-12</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 重新加入了访问密钥（玩友私聊获取即可哦）
-2. 【关于应用】添加了网站被QQ浏览器屏蔽声明
+1. 自定义主题尝鲜版（支持设置背景图片，只会在应用内存储，不会上传哦~）
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.3.0 更新：<span
+                            class="collide-try-update-date">2024-08-08</span></b></div>
+                1. 优化傀儡、僵尸等角色瞄准时不灵敏的问题
+                2. 优化长按台面随机重置角色位置不灵敏的问题
+                3. 修复碰蛋时位置坐标会出现偏差的问题
+
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.4 更新：<span
+                            class="collide-try-update-date">2024-08-06</span></b></div>
+                1. 重新加入访问密钥（玩友私聊获取即可哦）
+                2. 【关于应用】添加网站被QQ浏览器屏蔽声明
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.3 更新：<span
                             class="collide-try-update-date">2024-08-05</span></b></div>
                 1. 游戏场景图形重叠问题优化
@@ -1384,68 +1709,68 @@ input:checked+.slider:before {
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.2 更新：<span
                             class="collide-try-update-date">2024-08-02</span></b></div>
-                1. 新增了【操作指南】说明，首次进入游戏时提示
-                2. 调整了双子图标（有显示问题可以反馈一下）
-                3. 更新了【关于应用】内容
+                1. 新增【操作指南】说明，首次进入游戏时提示
+                2. 调整双子图标（有显示问题可以反馈一下）
+                3. 更新【关于应用】内容
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.1 更新：<span
                             class="collide-try-update-date">2024-07-31</span></b></div>
-                1. 新增了【瞄准穿透】开关，弥补傀儡、僵尸等可穿透角色瞄准时的流畅灵敏度
+                1. 新增【瞄准穿透】开关，弥补傀儡、僵尸等可穿透角色瞄准时的流畅灵敏度
                 2. 补全角色录入（62个）
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.0 更新：<span
                             class="collide-try-update-date">2024-07-21</span></b></div>
-                1. 新增了【夏日主题】
+                1. 新增【夏日主题】
                 2. 主题模式随季节自动切换
                 3. 补全角色录入（61个）
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.5 更新：<span
                             class="collide-try-update-date">2024-07-18</span></b></div>
-                1. 新增了【显示角色运动路径】开关功能
-                2. 修复了移动端多点触碰可能出现卡死的问题
-                3. 加入了超时自动结束（默认20秒），避免程序一直卡死消耗性能
+                1. 新增【显示角色运动路径】开关功能
+                2. 修复移动端多点触碰可能出现卡死的问题
+                3. 加入超时自动结束（默认20秒），避免程序一直卡死消耗性能
                 4. 【保存离线版】（不用联网）改为【下载离线版】（要联网，更可靠）
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.4 更新：<span
                             class="collide-try-update-date">2024-05-24</span></b></div>
                 1. 兼容适配平板浏览器
                 2. 角色图标、场景主题图形大小调整
-                3. 加入了『告别』信息，退游一段时间
+                3. 加入『告别』信息，退游一段时间
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.3 更新：<span
                             class="collide-try-update-date">2024-04-10</span></b></div>
-                1. 新增了【显示角色坐标】功能
-                2. 新增了【分享/导入角色及坐标】功能
+                1. 新增【显示角色坐标】功能
+                2. 新增【分享/导入角色及坐标】功能
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.2 更新：<span
                             class="collide-try-update-date">2024-03-27</span></b></div>
                 1. 离线版调整为不需要输入访问密钥
-                2. 新增了切换【主角所在队颜色】功能
-                3. 优化了【只显示撞击台面】、【显示场景图形】开关，免刷新页面
+                2. 新增切换【主角所在队颜色】功能
+                3. 优化【只显示撞击台面】、【显示场景图形】开关，免刷新页面
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.1 更新：<span
                             class="collide-try-update-date">2024-03-18</span></b></div>
-                1. 新增了【显示砖格坐标】功能
-                2. 新增了【长按重置角色位置】功能
-                3. 优化了【显示台面边框】、【显示砖格坐标】开关，免刷新页面
+                1. 新增【显示砖格坐标】功能
+                2. 新增【长按重置角色位置】功能
+                3. 优化【显示台面边框】、【显示砖格坐标】开关，免刷新页面
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.0 更新：<span
                             class="collide-try-update-date">2024-03-13</span></b></div>
-                1. 新增了【瞄准显示路径】功能
-                2. 修复了【只瞄准不打】时的拖动问题
-                3. 加入了更新提示
-                4. 优化了拖动、瞄准时的动画渲染，减少性能消耗
+                1. 新增【瞄准显示路径】功能
+                2. 修复【只瞄准不打】时的拖动问题
+                3. 加入更新提示
+                4. 优化拖动、瞄准时的动画渲染，减少性能消耗
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.0.3 更新：<span
                             class="collide-try-update-date">2024-03-11</span></b></div>
-                1. 实现了傀儡拉回功能
-                2. 新增了太平乐练习选项
+                1. 实现傀儡拉回功能
+                2. 新增太平乐练习选项
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.0.2 更新：<span
                             class="collide-try-update-date">2024-03-09</span></b></div>
-                1. 修复了僵尸、傀儡瞄准时穿透问题
-                2. 实现了电音突破加速效果
-                3. 加入了访问密钥（玩友私聊获取即可哦）
+                1. 修复僵尸、傀儡瞄准时穿透问题
+                2. 实现电音突破加速效果
+                3. 加入访问密钥（玩友私聊获取即可哦）
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.0.1 更新：<span
                             class="collide-try-update-date">2024-03-07</span></b></div>
@@ -1624,7 +1949,9 @@ const packageVersion = __APP_VERSION__;
 //////////////////////////////////////////////////////////////////////
 
 // TODO 当前应用环境，发布时记得修改。prod-正式环境，不打日志；dev-开发环境；debug-调试环境
-const currActive = "dev";
+//const currActive = window.location.host.includes("m1yellow.cn") ? "prod" : "dev";
+const currActive = "dev"; // TODO 下载的离线版不是线上域名，但也是生产环境，不需要打日志
+
 function isProd() {
     if (currActive && currActive.toLowerCase() === "prod" || import.meta.env.PROD) return true;
     return false;
@@ -1878,6 +2205,8 @@ function captureMouse(element) {
         }, false);
     }
 
+    mouse.x = roundNumber(mouse.x, 4);
+    mouse.y = roundNumber(mouse.y, 4);
     return mouse;
 };
 
@@ -1905,6 +2234,8 @@ function getClickPos(e) {
     y -= offsetTop;
     clickPos.x = x * dpr;
     clickPos.y = y * dpr;
+    clickPos.x = roundNumber(clickPos.x, 4);
+    clickPos.y = roundNumber(clickPos.y, 4);
     mouse.x = clickPos.x;
     mouse.y = clickPos.y;
     console.log(">>>> getClickPos clickPos.x=" + clickPos.x + ", clickPos.y=" + clickPos.y);
@@ -1979,6 +2310,103 @@ function checkWebStorage() {
     */
 
     return result;
+}
+
+
+// 使用 IndexedDB 数据库 存储图片
+// https://www.cnblogs.com/zhang-zi-yi/p/12703656.html
+var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.OIndexedDB || window.msIndexedDB,
+    IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.OIDBTransaction || window.msIDBTransaction,
+    dbVersion = 3, // 版本 The requested version (2) is less than the existing version (3).
+    //idbOpenReq, // 打开数据请求
+    IDB, // IndexedDB 连接对象
+    dbName = "collide-try", // 要使用的数据库
+    tbName = "images"; // 要使用的数据库表
+
+if (!indexedDB) {
+    console.log(">>>> 浏览器不支持 IndexedDB V" + dbVersion);
+} else {
+    openIndexedDB();
+}
+
+// 打开数据库
+function openIndexedDB() {
+    // 打开数据库，不存在会自动先创建
+    let idbOpenReq = indexedDB.open(dbName, dbVersion);
+    // 数据库打开成功
+    idbOpenReq.onsuccess = function (event) {
+        IDB = idbOpenReq.result;
+        doIndexedDBOpenSuccess();
+        IDB.onerror = function (e) {
+            console.log(">>>> IndexedDB 连接错误：" + e.currentTarget.error.message);
+        }
+    }
+
+    // 数据库打开失败
+    idbOpenReq.onerror = function (e) {
+        console.log(">>>> IndexedDB 打开错误：" + e.currentTarget.error.message);
+    }
+
+    // 在数据库创建或者版本更新时，会触发onupgradeneeded事件
+    idbOpenReq.onupgradeneeded = function (e) {
+        IDB = e.target.result;
+        if (!IDB.objectStoreNames.contains(tbName)) {
+            // 如果表格不存在，创建一个新的表格
+            // （keyPath，主键 ； autoIncrement,是否自增），会返回一个对象（objectStore）
+            let objectStore = IDB.createObjectStore(tbName); // , { keyPath: 'id', autoIncrement: true }
+            // 指定可以被索引的字段，unique字段是否唯一
+            // objectStore.createIndex('fileName', 'name', { unique: false });
+        }
+    }
+}
+
+// 处理 IndexedDB 打开成功事项
+function doIndexedDBOpenSuccess() {
+    // 从IndexedDB读取图片，并设置body图片背景
+    if (sysConfig.isRoleChooseFinished)
+        doPageBgImage(currTheme.bgImage, true);
+}
+
+// 处理 IndexedDB 打开失败事项
+function doIndexedDBOpenError() {
+    // TODO 
+}
+
+// indexedDB 对象 IDB 是否初始化加载完成
+function checkIDBReady() {
+    if (!IDB) return false;
+    if (!IDB.name || !IDB.name.toLocaleLowerCase().startsWith(dbName)) return false;
+    return true;
+}
+
+// 将 blob 对象存储到数据库中
+function putImageInDb(blob, key) {
+    let transaction = getNewTransaction();
+    if (!transaction) return;
+    let put = transaction.objectStore(tbName).put(blob, key);
+}
+
+// 获取图片文件
+function getImageRequest(key) {
+    let transaction = getNewTransaction();
+    if (!transaction) return;
+    transaction.objectStore(tbName).get(key).onsuccess = (event) => {
+        // 异步回调
+        let blob = event.target.result;
+        if (blob) {
+            let url = window.URL.createObjectURL(blob);
+            //$('.img').attr('src', url);
+        }
+    }
+}
+
+// 获取一个新的数据库操作事务
+function getNewTransaction() {
+    if (!checkIDBReady()) {
+        console.log(">>>> IndexedDB 数据库连接对象暂未初始化完成");
+        return null;
+    }
+    return IDB.transaction([tbName], 'readwrite');
 }
 
 
@@ -2261,8 +2689,8 @@ function removeCoreScript(eles, eleIdOrClass) {
 let accessKey = null;
 let accessMsg = "🔑 请输入访问密钥";
 let codeStr = null;
-let encodeStr = "1QJdfWnasGak6KKMnrmpwA76B0+EXGgN2d2It/WGuji5FFu4bgmN65YX3uCxyzK2Xz9/9pI/LwkCtyAdSZjaBdbGaTMUjmZz2fETt/zKZyAaQXwaICrEcZvqQ++SQb1tfm8lLU38Ol1sRB9HyP5IUzWhPbIRg5aMRzNLPIRTLHl77nhT5E7sRf/tWuGUA6MzQUp50M7CDEA8Pb3uZ9SpozR7iy7VqxOhBfd3MFtsm6SUrM7hsgP2HU6LYdJ+lsR4HjyZuja/I2CqF39Yxme/B0a1OzDCAKELR351bGPOVzGuENtBXTuhX3Bea79LT3v0bVCVEBgmBTdWh1SCaoyVgkROh97k3dMtYz0qKo7/tYRWNU23lAjx7V0WEhQ5OuA3k27luX8tJuckKV9R0u9REcnASVKLmzUqcKEll9Rob/Wlo8dO13HZz7DHnbemPy3kHDLWorX2nKhcSrN77cthVoR2W/V0DcYo9Z09LER89rlr16lUxooek5oNgqPPH/RNHJfVGlRpX/CwDXFbvotf4rUk2ZIZTWIuO0raMM5G2XwE2x0WoLh4X7G43Zsk1UENDmQfUYQZn8c0rbzG3pJvOt0wy9ccmPnOhZAem6LyBibI79rigBGKgbk9zXbpcKrOQVt2WkNy6/yoYKYRVi2bfXY3mUjlrU1AsszmqaJ5/ie6oh0sAwca/GhFUuDfikM1OBH5ZcBgWXWwYirEaf9cAfc9nFof7K4vA1Vs8LeA4u8KDHD2T98T9WiWRSBFSE9KD8+qX6e5zvDB3RDHUKece3VXNSdhAP5PiHrzkg3AQA8i01ytU5hbQtVu1sDyB8dBUsMsKodSpGZBTspao9x3+/sCkXoL0mLWC3s/Sc3LdOIIp/KBuJ0rjyFfE7CAMss6qyrQpEIeJ6WDAP5PzEQTNYdEOGym6F3Y/LOyjF13hJmkIqeBMMjhLIiN7cDOiZXgQSu/SjPFSNA28CFcWA40um6xQl66eKDeBo8NZnkO1huY37FBhjdekbEeJKTGx/yO3CpDh8a2p014e/etpHKYyuxC4zEicC+cm+elmqQtXdwJCsYQnGHWY2pqv37ztd9xcsFk45ya37vANCGblPJ7Un7woxiZwdayiRpG0FqhJKSdykcUt/qgVCvCq6Hx5oT7l/P4s7kyD4oFVJymLYX8UhO9c/ur25CI2IT3nbDZzLr2urG7YjhFdbkeHlQr";
-let superKeyEnStr = "1QJCs2nasGbJvorcWXCJDKOKD63zawAl4Q/Y6bFmOGZKDSlRl98OSQ==";
+let encodeStr = "YwHbeQCJtGZPfr+u9WoKYi6jGxlFlvl7ghXRgjuVFVmHpLQ6T75565lGNizgqwE0Jd/79N7QpQd4NBaVucf86Eguz5bW+GTtgw9+/LBqqkch5tgcYDmrEfCBpPqOyXv7DxaZvkET+iaKrBfJSFZ5nbN9Jgw5UYuLQspKQsSIARb9WSC7zBu7ZhGnRbnO/4Otsrh7qUyOBQ+sexDgVkS9etPLr7te/5nuxpIVpA2ymjln8xYzQVkSp/t6FcLQGn9wXrzpwTEukbfjL+tIWJuasHcjgc09Cr4z/TwHrJMK2+0f8sbwBOYetyyXm7rnyhEq3axAk8d+OouwzQZIjWmDzrnaTCZhTyESvkc+xa+gtNR9GkqCf/yI8bmt8OPCWtqHqyL0G7h5WuPAxxZBl0n7sGYzJ6iSl97XUT5IqMBGha+AV3HjSPE/SxLpBPPOE1ImidW5Fp487Er+6Ft5iNDvsZ/c8jCQoA5pkrQYaqMOeITaWwOgwEOXFH5d7jBNTvJOn0j8PAJ1iJiWGqefxDudY99q8rrCWv5O5C12LLeUPR8gsmznFW8VzrMIz8O0+z/kj8Ea5Ujr0d78y8QtWxZhkkbHAqVmEb+KAp0vSmLkjbFSCkPSyiNpVA1jmzfGgS0upK8/E3AjTMO1H2PyTybfLAsL/aqGNho2ZJDuQmlw1KHlyqJNaJ/PSfJQITY2jCY/6HQPSfPX64aWbYzH9/YEtskzNXlTEDWlHNcUG+wcSpnvDuRCjos63eJsORS0kfVuKrQMVaBkxiGhLK4EZBCdqW2/ZoJuCogBXn4u3I2Uu6S3wJwqQuLuNHZz/rSmvyl69uWVicUxHRkOGJ05lBv/2Nd7Rl2ZZ0mNgCKk0nroS2Gf+wL50lUW1uQTs731WPbnEh3os+rTB7x6GZCHfpfagXtN2orBkWmdl0R02c0zmrzHIrE0PWNf8mFp3xdmVrrtO0bsKpUic5gXs6nRXB30O1ASgxA2iRmecHMJJZQLyKYzoVJDzi4tXROm5irpvdx+Hp9LrSgOfEpHAcWz9d+R2luQxI2KADc0RCJ61ITDp8gZmCqS++Howkinb2vAZOwJh3csLZMbxcBL4TIqHyQhP5JhFgk6L5YCuAFjGeCCgVW/3LmY90R1HnHjcs7GZFE4g1s2JYH48K2kLTo6uNT5P40lQLDW9U7+DvIrKKhxtQ+W97q9sjx3Jb1UeC8ihV+q1ytpshhnrCEFiMGH/nPTJBqz7xAMcFIE4OkIP1m7ajo0lyZljXsXX7t03eXXBIhyWPhmm6ARPvBMBihHq0Fp5Oi4AaqFyffGQ8/vqjXeSsypEhKtPKlfUR2zqVHhFCQ2jjjiK+MZo16YWgX0tc+KTrABjIzaqswu3MwkxU9krXIJTAlxa0UXiZzS";
+let superKeyEnStr = "YgMkRgU7s2awMzmVajymZgD/2uNnyhG1Ew1pfd5GNVRzS3wPXqo3Kg==";
 //superKeyEnStr = Aes.Ctr.encrypt("", "", 256);
 //console.log('>>>> superKeyEnStr=', superKeyEnStr);
 //encodeStr = Aes.Ctr.encrypt(codeStr, "", 256);
@@ -2474,7 +2902,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "240806"),
+    version: Number(packageVersion.replaceAll(".", "") + "240812"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -2509,7 +2937,8 @@ var sysConfig = {
     bounce: 0,
     // 蛋有弹性，碰撞可增加一定百分比的速度
     eggBounce: 0.2, // v * eggBounce 50 * 0.2 = 10
-    // 摩擦力 0.05 0.24 一个接近0.9的系数能很好的模拟出摩擦力的效果
+    // 摩擦力 f=μ×Fn（Fn：正压力，不一定等于施力物体的重力(mg) μ：动摩擦因数，是数值，无单位）
+    // 简单模拟 0.05 0.24 一个接近0.9的系数能很好的模拟出摩擦力的效果
     friction: 0.575,
     // 角色重量极重，对应数值，默认 100，其他角色相对这个值的比率取值
     maxWeightVal: 100,
@@ -2517,6 +2946,8 @@ var sysConfig = {
     emojiCrossRetryCount: 3,
     // 是否为展示demo
     isDemo: false,
+    // 网页背景图片key
+    bgImageKey: "COLLIDE-TRY-BG-IMAGE-THEME-",
     // 是否说再见，用于控制显示告别信息
     isSayGoodbye: true,
 
@@ -2581,6 +3012,8 @@ var userConfig = {
     roleSpeedAddVal: 0,
     // 卡顿自动恢复等待时间（单位：秒）
     animateAutoRestTime: 20,
+    // 是否使用自定义主题
+    isUseCustomTheme: false,
     // 斜边角度倾斜偏差（单位：格），用户设置看到的是这里的数值。第一个值对应点(0, 3)，其他点往顺时针方向递增
     //wan8CocosTableMoveVals: [0,0.05,-0.025,-0.025,0.05,-0.025,0.025,0.025], // 注意 undefined 找不到值，或者数值不对，需要清除 localStorage 缓存
     wan8CocosTableMoveVals: [0, 0.05, -0.05, -0.05, 0.12, -0.025, 0.025, 0.08],
@@ -2734,16 +3167,27 @@ class Ball {
 
     // 碰撞后立马更新，避免多次碰撞后才更新
     update() {
+        this.ax = roundNumber(this.ax, 4);
+        this.ay = roundNumber(this.ay, 4);
+        this.vx = roundNumber(this.vx, 4);
+        this.vy = roundNumber(this.vy, 4);
         this.vx += this.ax;
         this.vy += this.ay;
         this.x += this.vx;
         this.y += this.vy;
+        this.vx = roundNumber(this.vx, 4);
+        this.vy = roundNumber(this.vy, 4);
+        this.x = roundNumber(this.x, 4);
+        this.y = roundNumber(this.y, 4);
+        this.x0 = roundNumber(this.x0, 4);
+        this.y0 = roundNumber(this.y0, 4);
         console.log(">>>> Ball update " + this.getBallDesc() + " x=" + this.x + ", y=" + this.y);
         console.log(">>>> Ball update " + this.getBallDesc() + " x0=" + this.x0 + ", y0=" + this.y0);
         console.log(">>>> Ball update " + this.getBallDesc() + " vx=" + this.vx + ", vy=" + this.vy);
         console.log(">>>> Ball update " + this.getBallDesc() + " collidedCount=" + this.collidedCount);
         console.log(">>>> Ball update " + this.getBallDesc() + " wallCollidedCount=" + this.wallCollidedCount);
         console.log(">>>> Ball update " + this.getBallDesc() + " roleCollidedCount=" + this.roleCollidedCount);
+        console.log(">>>> Ball update " + this.getBallDesc() + " collidingNos=" + this.collidingNos);
         if (this.roleId === Role.KUKU.id) console.log(">>>> Ball update " + this.getBallDesc() + " addCount=" + this.addCount);
 
         if (this.isMainBall && this.roleId === Role.KUILEI.id && this.wallCollidedCount >= 3) { // 傀儡碰三次后，绳子速度停止
@@ -2795,17 +3239,18 @@ class Ball {
         this.context.globalCompositeOperation = "destination-over"; // 新的图层在老的图层下面，为了实现路径显示在角色上方
         if (params.composite) this.context.globalCompositeOperation = params.composite;
         if (this.isMainBall && this.roleId === Role.KUILEI.id && this.isMoving && !isKuileiPulling) { // 画绑在绳子上的娃娃【真是个细节狂魔啊】
-            this.context.arc(this.x, this.y, this.tryRadius, Math.PI / 180 * 0, Math.PI / 180 * 360);
-            this.context.fillStyle = "#415D9C";
+            // 已经用图标代替了
+            //this.context.arc(this.x, this.y, this.tryRadius, 0, roundNumber(Math.PI / 180 * 360, 4));
+            //this.context.fillStyle = "#415D9C";
         } else {
-            this.context.arc(this.x, this.y, this.radiusTmp, Math.PI / 180 * 0, Math.PI / 180 * 360);
+            this.context.arc(this.x, this.y, this.radiusTmp, 0, roundNumber(Math.PI / 180 * 360, 4));
             this.context.fillStyle = this.color;
         }
         this.context.fill(); // fill 实心；stroke 空心
         // 有露露，为僵僵加上玻璃球
         if (isLuluExist && this.roleId === Role.JIANGJIANG.id && this.id < 0) { // this.id < 0 先不画玻璃球了
             //this.context.globalCompositeOperation = "source-over";
-            this.context.arc(this.x, this.y - this.radius / 4, this.radius + 8 * dpr, Math.PI / 180 * 0, Math.PI / 180 * 360);
+            this.context.arc(this.x, roundNumber(this.y - this.radius / 4, 4), roundNumber(this.radius + 8 * dpr, 4), 0, roundNumber(Math.PI / 180 * 360, 4));
             this.context.fillStyle = "#C0E0F450";
             //this.context.shadowBlur = 10 * dpr; // 频繁绘制阴影会影响性能
             this.context.fill();
@@ -2859,9 +3304,13 @@ class Ball {
             ratio = 1.4;
             if (this.roleId === Role.HEIWA.id || this.roleId === Role.BAKE.id
                 || this.roleId === Role.X.id || this.roleId === Role.DUODUO.id
-                || this.roleId === Role.HUAQIANJI.id) ratio = 1.2;
+                || this.roleId === Role.HUAQIANJI.id) ratio = 1.2; // 图标偏大，手动调小一点
+
+            if (this.roleId === Role.ZHANAN.id) // 重画多次的图标
+                ratio = 1.0;
+
             let fontSize = roundNumber(sysConfig.girdSize * ratio, 4);
-            console.log(">>>> drawIcon" + this.getBallDesc() + " fontSize origin=" + fontSize);
+            //console.log(">>>> drawIcon" + this.getBallDesc() + " fontSize origin=" + fontSize);
 
             this.context.font = fontSize + "px Arial";
             metrics = this.context.measureText(content);
@@ -2874,7 +3323,7 @@ class Ball {
                 width = roundNumber(metrics.width, 4);
                 if (fontSize < 12) break; // 避免 width 计算异常，导致死循环
             }
-            while (width < sysConfig.girdSize * 1.2) {
+            while (width < sysConfig.girdSize * 1.0) { // sysConfig.girdSize * 1.2
                 fontSize += 1;
                 this.context.font = fontSize + "px Arial";
                 metrics = this.context.measureText(content);
@@ -2882,26 +3331,34 @@ class Ball {
                 if (fontSize > 100) break; // 避免 width 计算异常，导致死循环
             }
             fontSize = roundNumber(fontSize, 4);
-            console.log(">>>> drawIcon" + this.getBallDesc() + " fontSize final=" + fontSize);
+            //console.log(">>>> drawIcon" + this.getBallDesc() + " fontSize final=" + fontSize);
             this.iconSize = fontSize;
-        } else {
-            this.context.font = this.iconSize + "px Arial";
         }
+
+        this.context.font = this.iconSize + "px Arial";
 
         // 突破效果
         //if (this.upgradeEffect > 0) this.context.font = (fontSize + 10) + "px Arial";
 
         if (this.isMainBall && this.roleId === Role.KUILEI.id && this.isMoving) {
-            this.context.fillText(content, this.x, this.y);
-            //this.context.fillText(content, this.x0 === 0 ? this.x : this.x0, this.y0 === 0 ? this.y : this.y0);
+            //if (!isKuileiPulling) this.context.fillText(content, this.x0 === 0 ? this.x : this.x0, this.y0 === 0 ? this.y : this.y0); // 本体位置 需要画在路劲层
+            if (!isKuileiPulling) this.context.font = (this.iconSize - 3 * dpr) + "px Arial"; // 画完本体之后，调整图标大小，再画绳子娃娃图标
+            this.context.fillText(content, this.x, this.y); // 绳子娃娃位置
         } else if (this.roleId === Role.SHUANGZI.id && content === '👬') { // 双子图标重画
             if (os.isPc || !isTwinLeftIconShow || !isTwinRightIconShow || !iconType) {
-                this.context.fillText('🧍', this.x + (0.20 * sysConfig.girdSize), this.y - (0.1 * sysConfig.girdSize));
-                this.context.fillText('🧍‍♂️', this.x - (0.20 * sysConfig.girdSize), this.y + (0.1 * sysConfig.girdSize));
+                this.context.fillText('🧍', roundNumber(this.x + (0.20 * sysConfig.girdSize), 4), roundNumber(this.y - (0.1 * sysConfig.girdSize), 4));
+                this.context.fillText('🧍‍♂️', roundNumber(this.x - (0.20 * sysConfig.girdSize), 4), roundNumber(this.y + (0.1 * sysConfig.girdSize), 4));
             } else {
-                this.context.fillText('🏃‍♂️‍➡️', this.x + (0.20 * sysConfig.girdSize), this.y - (0.1 * sysConfig.girdSize));
-                this.context.fillText('🏃', this.x - (0.20 * sysConfig.girdSize), this.y + (0.1 * sysConfig.girdSize));
+                this.context.fillText('🏃‍♂️‍➡️', roundNumber(this.x + (0.20 * sysConfig.girdSize), 4), roundNumber(this.y - (0.1 * sysConfig.girdSize), 4));
+                this.context.fillText('🏃', roundNumber(this.x - (0.20 * sysConfig.girdSize), 4), roundNumber(this.y + (0.1 * sysConfig.girdSize), 4));
             }
+        } else if (this.roleId === Role.ZHANAN.id) { // 光影 扎男
+            // 多画几个
+            //this.context.fillText(content, roundNumber(this.x - (0.20 * sysConfig.girdSize), 4), roundNumber(this.y - (0.2 * sysConfig.girdSize), 4)); // 左上
+            this.context.fillText(content, this.x, roundNumber(this.y - (0.4 * sysConfig.girdSize), 4)); // 上
+            this.context.fillText(content, this.x, this.y); // 中间
+            //this.context.fillText(content, roundNumber(this.x + (0.20 * sysConfig.girdSize), 4), roundNumber(this.y + (0.2 * sysConfig.girdSize), 4)); // 右下
+            this.context.fillText(content, this.x, roundNumber(this.y + (0.4 * sysConfig.girdSize), 4)); // 下
         }
         else this.context.fillText(content, this.x, this.y);
         this.context.restore();
@@ -2916,13 +3373,12 @@ class Ball {
         this.context.save();
         this.context.beginPath();
         if (params.composite) this.context.globalCompositeOperation = params.composite;
-        let grd = this.context.createRadialGradient(this.x, this.y, 0.1 * this.radiusTmp, this.x, this.y, this.radiusTmp * 3);
+        let grd = this.context.createRadialGradient(this.x, this.y, roundNumber(0.1 * this.radiusTmp, 4), this.x, this.y, roundNumber(this.radiusTmp * 3, 4));
         grd.addColorStop(0.1, "#EEF0F2F0");
         grd.addColorStop(0.3, "#FFFE6150");
         grd.addColorStop(0.6, "#EEF0F280");
         grd.addColorStop(1, "#EEF0F200");
-        //this.context.arc(this.x, this.y, this.pathRadius, Math.PI / 180 * 0, Math.PI / 180 * 360);
-        this.context.arc(this.x, this.y, this.radiusTmp * 2.5, 0, Math.PI * 2, true);
+        this.context.arc(this.x, this.y, roundNumber(this.radiusTmp * 2.5, 4), 0, roundNumber(Math.PI * 2, 4), true);
         //this.context.fillStyle = "#EEF0F2"; // 设置颜色
         this.context.fillStyle = grd; // 使用渐变
         this.context.fill();
@@ -2942,29 +3398,29 @@ class Ball {
         this.context.save();
         this.context.beginPath();
         if (params.composite) this.context.globalCompositeOperation = params.composite;
-        this.context.arc(this.x, this.y, roundNumber(this.radiusTmp + 2 * dpr * sysConfig.pxRatio, 4), Math.PI / 180 * 0, Math.PI / 180 * 360);
+        this.context.arc(this.x, this.y, roundNumber(this.radiusTmp + 2 * dpr * sysConfig.pxRatio, 4), 0, roundNumber(Math.PI / 180 * 360, 4));
         this.context.strokeStyle = "#D75956";
         if (this.teamColor === 'b') this.context.strokeStyle = "#0A7AFD";
         this.context.closePath();
-        this.context.lineWidth = 2 * dpr * sysConfig.pxRatio;
+        this.context.lineWidth = roundNumber(2 * dpr * sysConfig.pxRatio, 4);
         this.context.stroke();
         this.context.restore();
     }
 
     // 绘制瞄准时被碰撞角色指示圈
-    drawTryCollidedCircle(params, ball) {
-        if (ball.isMainBall) return; // 瞄准时被碰撞角色为非主角
+    drawAimCircle(params) {
+        if (this.isMainBall) return; // 瞄准时被碰撞角色为非主角
         if (userConfig.isTestOnlyOne) return; // 单个角色测试时不画
         if (!params) params = GlobalParams.getCleanParams();
         let context = selectedBall.context;
         context.save();
         context.beginPath();
         if (params.composite) context.globalCompositeOperation = params.composite;
-        context.arc(ball.x, ball.y, roundNumber(ball.radiusTmp - 1 * dpr * sysConfig.pxRatio, 4), Math.PI / 180 * 0, Math.PI / 180 * 360);
-        context.strokeStyle = "#D75956";
-        if (ball.teamColor === 'b') context.strokeStyle = "#0A7AFD";
+        context.arc(this.x, this.y, roundNumber(this.radiusTmp - 1 * dpr * sysConfig.pxRatio, 4), 0, roundNumber(Math.PI / 180 * 360, 4));
+        context.strokeStyle = "#D84646";
+        if (this.teamColor === 'b') context.strokeStyle = "#2A7CE9";
         context.closePath();
-        context.lineWidth = 2 * dpr * sysConfig.pxRatio;
+        context.lineWidth = roundNumber(2 * dpr * sysConfig.pxRatio, 4);
         context.stroke();
         context.restore();
     }
@@ -2987,14 +3443,14 @@ class Ball {
         // TODO roundRect 兼容性有问题，老机型/老浏览器不支持
         try {
             //this.context.save00();
-            if (this.isMainBall && this.roleId === Role.KUILEI.id && this.isMoving && !isKuileiPulling) this.context.roundRect((this.x0 === 0 ? this.x : this.x0) - roundNumber(2.3 * sysConfig.girdSize / 2, 4), (this.y0 === 0 ? this.y : this.y0) - this.radiusTmp - roundNumber(0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2);
-            else this.context.roundRect(this.x - roundNumber(2.3 * sysConfig.girdSize / 2, 4), this.y - this.radiusTmp - roundNumber(0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2);
+            if (this.isMainBall && this.roleId === Role.KUILEI.id && this.isMoving && !isKuileiPulling) this.context.roundRect(roundNumber((this.x0 === 0 ? this.x : this.x0) - 2.3 * sysConfig.girdSize / 2, 4), roundNumber((this.y0 === 0 ? this.y : this.y0) - this.radiusTmp - 0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2);
+            else this.context.roundRect(roundNumber(this.x - 2.3 * sysConfig.girdSize / 2, 4), roundNumber(this.y - this.radiusTmp - 0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2);
         } catch (e) {
             doGlobalErrorMsg(e, false);
             //doGlobalError(e, (sysConfig && sysConfig.alertErrorCount)?sysConfig.alertErrorCount:3);
             // 使用原始方法绘制圆角矩形
-            if (this.isMainBall && this.roleId === Role.KUILEI.id && this.isMoving && !isKuileiPulling) fillRoundRect(this.context, (this.x0 === 0 ? this.x : this.x0) - roundNumber(2.3 * sysConfig.girdSize / 2, 4), (this.y0 === 0 ? this.y : this.y0) - this.radiusTmp - roundNumber(0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2, this.context.fillStyle);
-            else fillRoundRect(this.context, this.x - roundNumber(2.3 * sysConfig.girdSize / 2, 4), this.y - this.radiusTmp - roundNumber(0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2, this.context.fillStyle);
+            if (this.isMainBall && this.roleId === Role.KUILEI.id && this.isMoving && !isKuileiPulling) fillRoundRect(this.context, roundNumber((this.x0 === 0 ? this.x : this.x0) - 2.3 * sysConfig.girdSize / 2, 4), roundNumber((this.y0 === 0 ? this.y : this.y0) - this.radiusTmp - 0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2, this.context.fillStyle);
+            else fillRoundRect(this.context, roundNumber(this.x - 2.3 * sysConfig.girdSize / 2, 4), roundNumber(this.y - this.radiusTmp - 0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2, this.context.fillStyle);
         }
         this.context.fill();
         this.context.restore();
@@ -3027,7 +3483,7 @@ class Ball {
         gamePathContext.beginPath();
         //gamePathContext.globalCompositeOperation = "xor";
         if (params.composite) gamePathContext.globalCompositeOperation = params.composite;
-        gamePathContext.arc(this.x0, this.y0, this.pathRadius, Math.PI / 180 * 0, Math.PI / 180 * 360);
+        gamePathContext.arc(this.x0, this.y0, this.pathRadius, 0, roundNumber(Math.PI / 180 * 360, 4));
         gamePathContext.fillStyle = this.color;
         gamePathContext.closePath();
         gamePathContext.fill();
@@ -3036,8 +3492,8 @@ class Ball {
         gamePathContext.save();
         gamePathContext.beginPath();
         //gamePathContext.globalCompositeOperation = "xor";
-        gamePathContext.arc(this.x0, this.y0, this.radiusTmp, Math.PI / 180 * 0, Math.PI / 180 * 360);
-        gamePathContext.lineWidth = 1 * dpr * sysConfig.pxRatio;
+        gamePathContext.arc(this.x0, this.y0, this.radiusTmp, 0, roundNumber(Math.PI / 180 * 360, 4));
+        gamePathContext.lineWidth = roundNumber(1 * dpr * sysConfig.pxRatio, 4);
         gamePathContext.strokeStyle = this.color;
         gamePathContext.fillStyle = this.color;
         gamePathContext.closePath();
@@ -3046,6 +3502,26 @@ class Ball {
         gamePathContext.restore();
         // 重画被覆盖的角色图标
         this.drawIcon();
+        if (this.isMainBall && this.roleId === Role.KUILEI.id) this.drawBeginIcon(); // 画傀儡本体图标
+    }
+
+    // 绘制起点图标
+    drawBeginIcon(params) {
+        if (!this.isMainBall) return; // 非主球不画
+        console.log(">>>> drawBeginIcon " + this.getBallDesc());
+        if (!params) params = GlobalParams.getCleanParams();
+        let ctx = params.context;
+        if (!ctx) ctx = gamePathContext;
+        let content = Role.getRoleIconById(this.roleId);
+        if (!content) return;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.textAlign = "center";
+        ctx.textBaseline = 'middle';
+        ctx.font = this.iconSize + "px Arial";
+        ctx.fillText(content, this.x, this.y);
+        ctx.restore();
     }
 
     // 画连线撞击轨迹【画在路径层】
@@ -3058,14 +3534,16 @@ class Ball {
         gamePathContext.save();
         gamePathContext.beginPath();
         gamePathContext.globalCompositeOperation = "source-over";
-        gamePathContext.moveTo(p1.x, p1.y);
-        gamePathContext.lineTo(p2.x, p2.y);
-        gamePathContext.strokeStyle = "#cfe0d380";
-        if (userConfig.sceneThemeMode === 5) // 夏日主题
-            gamePathContext.strokeStyle = "#F9FBF580";
-        if (userConfig.currRole === Role.SHUANGZI.id && !this.isMainBall && this.roleId === Role.SHUANGZI.id) gamePathContext.strokeStyle = "#EADF5580"; // 双子分身路径颜色
-        if (this.roleId === Role.KUILEI.id) gamePathContext.strokeStyle = "#D61C24"; // 傀儡路径颜色
-        gamePathContext.lineWidth = this.pathRadius * sysConfig.pxRatio;
+        gamePathContext.moveTo(roundNumber(p1.x, 4), roundNumber(p1.y, 4));
+        gamePathContext.lineTo(roundNumber(p2.x, 4), roundNumber(p2.y, 4));
+        gamePathContext.strokeStyle = currTheme.plColor;
+        if (userConfig.currRole === Role.SHUANGZI.id && !this.isMainBall && this.roleId === Role.SHUANGZI.id)
+            gamePathContext.strokeStyle = currTheme.szbplColor; // 双子分身路径颜色
+        if (this.roleId === Role.KUILEI.id)
+            gamePathContext.strokeStyle = currTheme.klplColor; // 傀儡路径颜色
+        gamePathContext.lineWidth = currTheme.plWidth;
+        if (this.roleId === Role.KUILEI.id)
+            gamePathContext.lineWidth = currTheme.klplWidth;
         gamePathContext.stroke();
         gamePathContext.restore();
     }
@@ -3082,13 +3560,12 @@ class Ball {
         gamePathBallContext.beginPath(); // 开始一条路径，或重置当前的路径。
         gamePathBallContext.globalCompositeOperation = "xor";
         //gamePathBallContext.globalCompositeOperation = "destination-over"; // 新的图层在老的图层下面
-        gamePathBallContext.moveTo(p1.x, p1.y);
-        gamePathBallContext.lineTo(p2.x, p2.y);
-        gamePathBallContext.strokeStyle = "#cfe0d325";
-        if (userConfig.sceneThemeMode === 5) // 夏日主题
-            gamePathBallContext.strokeStyle = "#F9FBF540";
-        //if (!this.isMainBall && this.roleId === Role.SHUANGZI.id) gamePathBallContext.strokeStyle = "#EADF5525"; // 双子分身路径颜色
-        gamePathBallContext.lineWidth = this.radius * 2;
+        gamePathBallContext.moveTo(roundNumber(p1.x, 4), roundNumber(p1.y, 4));
+        gamePathBallContext.lineTo(roundNumber(p2.x, 4), roundNumber(p2.y, 4));
+        gamePathBallContext.strokeStyle = currTheme.rlColor;
+        if (!this.isMainBall && this.roleId === Role.SHUANGZI.id)
+            gamePathBallContext.strokeStyle = currTheme.szbrlColor; // 双子分身路径颜色
+        gamePathBallContext.lineWidth = roundNumber(this.radius * 2, 4);
         //gamePathBallContext.lineCap = "round"; // 圆角
         gamePathBallContext.stroke();
         gamePathBallContext.restore();
@@ -3099,7 +3576,7 @@ class Ball {
             gamePathBallContext.beginPath();
             //gamePathBallContext.globalCompositeOperation = "destination-over";
             gamePathBallContext.globalCompositeOperation = "xor";
-            gamePathBallContext.arc(p1.x, p1.y, this.radius, Math.PI / 180 * 0, Math.PI / 180 * 360);
+            gamePathBallContext.arc(p1.x, p1.y, this.radius, 0, roundNumber(Math.PI / 180 * 360, 4));
             gamePathBallContext.fillStyle = "#cfe0d380";
             gamePathBallContext.fill();
             gamePathBallContext.restore();
@@ -3114,7 +3591,7 @@ class Ball {
         if (isKuileiPulling) return; // 傀儡拉回时不画
         gamePathContext.save();
         gamePathContext.beginPath();
-        gamePathContext.arc(this.x, this.y, this.pathRadius, Math.PI / 180 * 0, Math.PI / 180 * 360);
+        gamePathContext.arc(this.x, this.y, this.pathRadius, 0, roundNumber(Math.PI / 180 * 360, 4));
         gamePathContext.fillStyle = "#cfe0d350";
         gamePathContext.closePath();
         gamePathContext.fill();
@@ -3129,21 +3606,21 @@ class Ball {
         // 绘制外虚线
         gamePathContext.save();
         gamePathContext.beginPath();
-        gamePathContext.arc(this.x, this.y, this.radius, Math.PI / 180 * 0, Math.PI / 180 * 360);
-        gamePathContext.lineWidth = 1 * dpr * sysConfig.pxRatio;
-        gamePathContext.strokeStyle = "#000";
-        if (userConfig.currRole === Role.SHUANGZI.id && !this.isMainBall && this.roleId === Role.SHUANGZI.id) gamePathContext.strokeStyle = "#fffa"; // 双子分身碰撞圈颜色
-        gamePathContext.setLineDash([3 * dpr * sysConfig.pxRatio, 3 * dpr * sysConfig.pxRatio]); // 虚线
+        gamePathContext.arc(this.x, this.y, this.radius, 0, roundNumber(Math.PI / 180 * 360, 4));
+        gamePathContext.lineWidth = currTheme.ccWidth;
+        gamePathContext.strokeStyle = currTheme.ccColor;
+        if (userConfig.currRole === Role.SHUANGZI.id && !this.isMainBall && this.roleId === Role.SHUANGZI.id)
+            gamePathContext.strokeStyle = currTheme.szccColor; // 双子分身碰撞圈颜色
+        gamePathContext.setLineDash([Math.round(3 * dpr * sysConfig.pxRatio), Math.round(3 * dpr * sysConfig.pxRatio)]); // 虚线
         gamePathContext.closePath();
         gamePathContext.stroke(); // 空心
         gamePathContext.restore();
-        // 绘制圆心
+        // 绘制圆心，不太明显，可以跟路径颜色一致
         gamePathContext.save();
         gamePathContext.beginPath();
-        gamePathContext.arc(this.x, this.y, roundNumber(this.pathRadius / 2, 4), Math.PI / 180 * 0, Math.PI / 180 * 360);
+        gamePathContext.arc(this.x, this.y, roundNumber(this.pathRadius / 2, 4), 0, roundNumber(Math.PI / 180 * 360, 4));
         //gamePathContext.fillStyle = this.color;
-        gamePathContext.fillStyle = "#cfe0d380";
-        if (this.isMainBall && this.roleId === Role.KUILEI.id) gamePathContext.fillStyle = "#D61C24";
+        gamePathContext.fillStyle = currTheme.plColor;
         gamePathContext.closePath();
         gamePathContext.fill();
         gamePathContext.restore();
@@ -3153,9 +3630,10 @@ class Ball {
         gamePathBallContext.save();
         gamePathBallContext.beginPath();
         gamePathBallContext.globalCompositeOperation = "destination-over";
-        gamePathBallContext.arc(this.x, this.y, this.radius, Math.PI / 180 * 0, Math.PI / 180 * 360);
+        gamePathBallContext.arc(this.x, this.y, this.radius, 0, roundNumber(Math.PI / 180 * 360, 4));
         //gamePathBallContext.fillStyle = this.color;
-        gamePathBallContext.fillStyle = "#cfe0d385";
+        //gamePathBallContext.fillStyle = "#cfe0d385";
+        gamePathBallContext.fillStyle = currTheme.plColor;
         gamePathBallContext.closePath();
         gamePathBallContext.fill();
         gamePathBallContext.restore();
@@ -3561,7 +4039,7 @@ class Role {
     static ZHADANKE = new Role(34, "💣", "炸弹客", "炸弹", "客", null);
     static HONGSANSAN = new Role(35, "🍄", "红伞伞", "蘑菇", "蘑", null);
     static WUKONG = new Role(36, "🐒", "悟空", "猴子", "猴", null);
-    static ZHANAN = new Role(37, "🔪", "光影战士", "扎男", "扎", null);
+    static ZHANAN = new Role(37, "🗡️", "光影战士", "扎男", "扎", null);
     static XIUNV = new Role(38, "👱‍♀️", "战斗修女", "修女", "修", null);
     static TONY = new Role(39, "💇‍♂️", "托尼老师", "托尼", "托", null);
     static RENZHE = new Role(40, "🎯", "李小忍", "忍者", "忍", null);
@@ -3911,6 +4389,165 @@ class RegularlyCollocation {
 
 
 //////////////////////////////////////////////////////////////////////
+// 【场景主题】 变量、方法区域
+//////////////////////////////////////////////////////////////////////    
+// 主题类
+class Theme {
+
+    constructor(id, name, bgColor, bgImage, bgImageIdbKey, tbColor, tblColor, tblWidth, glColor, glmColor, glWidth, gnColor, gndColor, gnSize,
+        plColor, plWidth, rlColor, klplColor, klplWidth, szbplColor, szbrlColor, ccColor, ccWidth, ccStyle, szccColor) {
+        this.id = id || 0; // 编号
+        this.name = name || "默认主题"; // 名称
+        this.bgColor = bgColor || "#7F70C3"; // 页面背景颜色
+        this.bgImage = bgImage || ""; // 页面背景图片
+        this.bgImageIdbKey = bgImageIdbKey || sysConfig.bgImageKey + this.id; // 页面背景图片indexedDB key
+        this.tbColor = tbColor || "#8d93d8"; // table 台面背景颜色
+        this.tblColor = tblColor || "#35357A"; // table line 台面边框线颜色
+        this.tblWidth = tblWidth || roundNumber(6.00 * dpr); // TODO table line 台面边框线宽度，根据设备 DPR 决定，在 init() 初始化的时候计算设置 0.27 * sysConfig.girdSizeCss * dpr
+        this.glColor = glColor || "#8384D1D0"; // gird line 砖格线颜色
+        this.glmColor = glmColor || "#6A6CBFD0"; // gird line middle 砖格线中间线颜色
+        this.glWidth = glWidth || roundNumber(1.00 * dpr * (os.isTablet ? 1.618 : 1)); // gird line 砖格线宽度，根据设备 DPR 决定
+        this.gnColor = gnColor || "#D2CCF1"; // gird number 砖格坐标数值颜色
+        this.gndColor = gndColor || "#D7D7DC"; // gird number dark 砖格坐标数值黑夜模式颜色
+        this.gnSize = gnSize || 24; // TODO gird number 砖格坐标数值显示大小，初始化的时候计算 htmlFontSizeNum * dpr * sysConfig.pxRatio + "px serif"
+        this.plColor = plColor || "#cfe0d380"; // point line 角色中心点运动路径颜色
+        this.plWidth = plWidth || roundNumber(5.20 / 2 * dpr * (os.isTablet ? 1.618 : 1)); // point line 角色中心点运动路径宽度 TODO 后续可改为按砖格的百分比来计算，就会更适配不同的设备
+        this.rlColor = rlColor || "#cfe0d325"; // role line 角色本体运动路径颜色
+        this.klplColor = klplColor || "#D61C24"; // kuilei point line 傀儡中心点运动路径颜色
+        this.klplWidth = klplWidth || roundNumber(7.00 / 2 * dpr * (os.isTablet ? 1.618 : 1)); // kuilei point line 傀儡中心点运动路径宽度
+        this.szbplColor = szbplColor || "#EADF5580"; // shaungzi back role line 双子分身中心点运动路径颜色
+        this.szbrlColor = szbrlColor || this.rlColor; // shaungzi back role line 双子分身本体运动路径颜色
+        this.ccColor = ccColor || "#000000"; // collide circle 碰撞指示圈颜色
+        this.ccWidth = ccWidth || roundNumber(1.00 * dpr * (os.isTablet ? 1.618 : 1)); // collide circle 碰撞指示圈宽度
+        this.ccStyle = ccStyle || 0; // collide circle 碰撞指示圈样式，0-虚线；1-实线
+        this.szccColor = szccColor || "#ffffffaa"; // shuangzi collide circle 双子分身碰撞指示圈颜色
+    }
+
+
+    static DEFAULT = new Theme(0, "默认主题", "#7F70C3");
+    //static WINTER_NEW_YEAR = new Theme(2, "新年主题", "#7F70C3");
+    static WINTER_SNOW = new Theme(1, "冰雪主题", "#C7D0E0", "", "", "#4B99C9", "#EEF0F2", 0, "#438EC2", "#3483B7", 0, "#687CA1", "#EEF0F2", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "");
+    static SPRING_RUSTICITY = new Theme(3, "田园主题", "#E6DD9C", "", "", "#9A9069", "#FBFAD0", 0, "#6B624060", "#6B6240D0", 0, "#252042", "#FBFAD0", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "");
+    static AUTUMN_INTERSTELLAR = new Theme(4, "星际主题", "#05132C", "", "", "#808080", "#D7D7DC", 0, "#696969A0", "#2F4F4FA0", 0, "#D7D7DC", "#D7D7DC", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "");
+    static SUMMER_SEASIDE = new Theme(5, "夏日主题", "#3C8BBB", "", "", "#FFBF6F", "#FAF9CB", 0, "#B7521AA0", "#B7521AD0", 0, "#2B117D", "#FBFAD0", 0, "#F9FBF580", 0, "#F9FBF540", "", 0, "#EADF5580", "", "", 0, 0, "");
+
+    static CURR_THEME_COPY = null;
+
+    static maxId = 0;
+    static getMaxId() {
+        if (this.maxId) return this.maxId;
+        for (let item in Theme) {
+            if (Theme[item].id > this.maxId) this.maxId = Theme[item].id;
+        }
+        return this.maxId;
+    }
+
+    static getCustomTheme() {
+        // 从缓存获取自定义主题
+        let customThemeStr = localStorage.getItem("collide-try-custom-theme");
+        if (customThemeStr) {
+            try {
+                let customTheme = JSON.parse(customThemeStr);
+                if (customTheme) return customTheme;
+            } catch (e) { }
+        }
+        //return this.getCurrTheme();
+        return null;
+    }
+
+    static getCurrTheme(id) {
+        if (!id && id !== 0) id = userConfig.sceneThemeMode;
+        for (let item in Theme) {
+            if (Theme[item].id === id) return Theme[item];
+        }
+        return this.DEFAULT;
+    }
+
+    static getCurrThemeCopy(id) {
+        this.setCurrThemeCopy(id);
+        return this.CURR_THEME_COPY;
+    }
+
+    static setCurrThemeCopy(id) {
+        if (this.CURR_THEME_COPY) return;
+        if (!id && id !== 0) id = userConfig.sceneThemeMode;
+        for (let item in Theme) {
+            if (Theme[item].id === id) {
+                this.CURR_THEME_COPY = JSON.parse(JSON.stringify(Theme[item]));
+                return;
+            }
+        }
+        this.CURR_THEME_COPY = JSON.parse(JSON.stringify(this.DEFAULT));
+    }
+
+    static getNameById(id) {
+        for (let item in Theme) {
+            if (Theme[item].id === id) return Theme[item].name;
+        }
+        return this.DEFAULT.name;
+    }
+
+    static getBgColorById(id) {
+        for (let item in Theme) {
+            if (Theme[item].id === id) return Theme[item].bgColor;
+        }
+        return this.DEFAULT.bgColor;
+    }
+
+    // 重新计算属性值
+    static reCalculate(theme) {
+        if (!theme) return;
+        theme.tblWidth = sceneLineRealWidth; // 台面边框线宽度
+        theme.gnSize = Math.round(htmlFontSizeNum * dpr * sysConfig.pxRatio); // 砖格坐标数值字体大小
+    }
+
+    // 判断是否为颜色码
+    static isColorCode(str) {
+        if (!str || typeof str !== "string" || str.replaceAll(" ", "") === "") return false;
+        if (!str.startsWith("#") || !(/^[A-Fa-f0-9]{3,8}$/.test(str.substring(1)))) return false;
+        let len = str.substring(1).length; // 去掉#，3、4、6、8 正常可用
+        if (len === 5 || len === 7) return false;
+        return true;
+    }
+
+    // 设置台面颜色透明
+    static setTbColor00(color) {
+        if (!color || !Theme.isColorCode(color)) return color;
+        // 不算#，3-补一位0；4-最后一位改0；6-补两位0；8-最后两位改0
+        // 算上#，往后顺移一位
+        if (color.length === 4) color = color + "0";
+        if (color.length === 5) color = color.substring(0, 4) + "0";
+        if (color.length === 7) color = color + "00";
+        if (color.length === 9) color = color.substring(0, 7) + "00";
+        return color;
+    }
+
+    // 获取不带透明度的颜色码+开头#
+    static getColorCodeNormal(color) {
+        if (!color || !Theme.isColorCode(color)) return color;
+        // 不算#，3-每一位重复一次；4-前三位每一位重复一次；6-直接返回；8-截取前6位
+        // 算上#，往后顺移一位
+        //if (color.length === 4) return color;
+        if (color.length === 5) color = color.substring(0, 4);
+        if (color.length === 4) {
+            // 短码形式，每一位重复一次
+            let colorNew = "";
+            for (let i = 1, len = color.length; i < len; i++) {
+                colorNew = colorNew + color.charAt(i) + color.charAt(i);
+            }
+            return "#" + colorNew;
+        }
+        if (color.length === 7) return color;
+        if (color.length === 9) return color.substring(0, 7);
+        return color;
+    }
+
+}
+
+//////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////
 // 【应用初始化】 变量、方法区域
 //////////////////////////////////////////////////////////////////////
 
@@ -3942,6 +4579,8 @@ var tablePolygon = [];
 var largeEmojiSizes = ['s', 'mm', 'm', 'fll', 'll', 'l', 'xl'];
 // emoji 大图形坐标列表 [{x:0,y:0,radius:0,icon:'🐂',size:'l',posIdx:0}]
 var largeEmojiPoints = [];
+// 当前主题
+var currTheme = null;
 
 
 onMounted(() => {
@@ -3973,6 +4612,8 @@ function init() {
     setUserConfig();
     // 设置初始主题
     setThemeBySeason();
+    if (userConfig.isUseCustomTheme) currTheme = Theme.getCustomTheme();
+    if (!currTheme) currTheme = Theme.getCurrThemeCopy();
     // 像素比例
     if (os.isTablet) sysConfig.pxRatio = 1.618;
     console.log(">>>> sysConfig.pxRatio=" + sysConfig.pxRatio);
@@ -3989,22 +4630,26 @@ function init() {
     // 调整边框宽度为 0.3 * girdSizeCss
     sysConfig.sceneLineWidth = roundNumber(0.27 * sysConfig.girdSizeCss, 4);
     console.log(">>>> sysConfig.sceneLineWidth=" + sysConfig.sceneLineWidth);
-    sceneLineRealWidth = roundNumber(sysConfig.sceneLineWidth * dpr, 4);
+    sceneLineRealWidth = roundNumber(sysConfig.sceneLineWidth * dpr);
     console.log(">>>> sceneLineRealWidth=" + sceneLineRealWidth);
-    // 设置弹窗滚动区域高度
+    if (!userConfig.isUseCustomTheme) { // 没有启用自定义主题时才重新计算，关联 Theme 类中的 reCalculate()
+        currTheme.tblWidth = sceneLineRealWidth; // 台面边框线宽度
+        currTheme.gnSize = Math.round(htmlFontSizeNum * dpr * sysConfig.pxRatio); // 砖格坐标数值字体大小
+    }
+    // 设置弹窗滚动区域高度 canvas.width * hRadio
     setDialogScrollMaxHeight(1.70);
     // 画布居中
     canvasAutoCenter();
     // 台面区域初始化
     tablePolygon = [
-        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 3), y: Math.round(sysConfig.cTop * dpr - sceneLineRealWidth + sysConfig.girdSize * 0) },
-        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 11), y: Math.round(sysConfig.cTop * dpr - sceneLineRealWidth + sysConfig.girdSize * 0) },
-        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 14 + sceneLineRealWidth), y: Math.round(sysConfig.cTop * dpr + sysConfig.girdSize * 3) },
-        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 14 + sceneLineRealWidth), y: Math.round(sysConfig.cTop * dpr + sysConfig.girdSize * 19) },
-        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 11), y: Math.round(sysConfig.cTop * dpr + sceneLineRealWidth + sysConfig.girdSize * 22) },
-        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 3), y: Math.round(sysConfig.cTop * dpr + sceneLineRealWidth + sysConfig.girdSize * 22) },
-        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 0 - sceneLineRealWidth), y: Math.round(sysConfig.cTop * dpr + sysConfig.girdSize * 19) },
-        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 0 - sceneLineRealWidth), y: Math.round(sysConfig.cTop * dpr + sysConfig.girdSize * 3) }
+        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 3), y: Math.round(sysConfig.cTop * dpr - currTheme.tblWidth + sysConfig.girdSize * 0) },
+        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 11), y: Math.round(sysConfig.cTop * dpr - currTheme.tblWidth + sysConfig.girdSize * 0) },
+        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 14 + currTheme.tblWidth), y: Math.round(sysConfig.cTop * dpr + sysConfig.girdSize * 3) },
+        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 14 + currTheme.tblWidth), y: Math.round(sysConfig.cTop * dpr + sysConfig.girdSize * 19) },
+        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 11), y: Math.round(sysConfig.cTop * dpr + currTheme.tblWidth + sysConfig.girdSize * 22) },
+        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 3), y: Math.round(sysConfig.cTop * dpr + currTheme.tblWidth + sysConfig.girdSize * 22) },
+        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 0 - currTheme.tblWidth), y: Math.round(sysConfig.cTop * dpr + sysConfig.girdSize * 19) },
+        { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 0 - currTheme.tblWidth), y: Math.round(sysConfig.cTop * dpr + sysConfig.girdSize * 3) }
     ];
     // 初始化鼠标位置
     captureMouse(canvas);
@@ -4033,7 +4678,7 @@ function init() {
     // 只显示台面，不设置角色【控制台报错可以不用管】
     if (!userConfig.isJustShowTable && userConfig.currRole > -1) {
         try {
-            if (!shareData) throw new Error(">>>> 分享角色和坐标数据异常");
+            if (!shareData) throw new Error();
             // 设置分享角色和位置
             setShareRoleAndPos(shareData);
             // 设置当前主角
@@ -4081,6 +4726,10 @@ function init() {
 
 
 onMounted(() => {
+    // 当 HTML 文档加载完毕后，立刻执行某个方法
+    // 通常用于 <body> 元素，在页面完全载入后(包括图片、css文件等等)执行脚本代码
+    // 等图片加载完成？网络不好的话，有点悬啊
+    //window.onload = function() {
     try {
         init();
     } catch (e) {
@@ -4090,6 +4739,7 @@ onMounted(() => {
         }
         doGlobalError(e, (sysConfig && sysConfig.alertErrorCount) ? sysConfig.alertErrorCount : 3);
     }
+    //}
 })
 
 
@@ -4340,7 +4990,6 @@ function initBallByRole(ball) {
         case Role.JIANGJIANG.id:
             ball.color = "#362CBC";
             ball.sizeRatio = Ball.SIZERATIO.S; // 小
-            ball.radius = roundNumber((sysConfig.girdSize * ball.sizeRatio / 2), 4);
             ball.mRatio = Ball.WEIGHTRATIO.M;
             if (ball.isMainBall) ball.vRatio = userConfig.isTestOnlyOne ? 1.05 : Ball.SPEEDRATIO.L; // 速度比率，比黑娃慢一级，为了模拟加速效果，速度可以设置大一点
             //if (ball.isMainBall) ball.v = 63.00; // 初始化的时候根据 vRatio 计算
@@ -4348,7 +4997,6 @@ function initBallByRole(ball) {
         case Role.DUODUO.id:
             ball.color = "#8C5E9D";
             ball.sizeRatio = Ball.SIZERATIO.L; // 大
-            ball.radius = roundNumber((sysConfig.girdSize * ball.sizeRatio / 2), 4);
             ball.mRatio = Ball.WEIGHTRATIO.S; // 轻
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
             break;
@@ -4730,7 +5378,7 @@ function initBallByRole(ball) {
     ball.radius = roundNumber((sysConfig.girdSize * ball.sizeRatio / 2), 4);
     if (ball.roleId != Role.KUILEI.id) ball.tryRadius = ball.radius;
     ball.radiusTmp = ball.radius;
-    ball.m = ball.mRatio * sysConfig.maxWeightVal;
+    ball.m = roundNumber(ball.mRatio * sysConfig.maxWeightVal, 4);
 
     console.log(">>>> initBallByRole ball: " + JSON.stringify(ball));
 
@@ -5076,8 +5724,8 @@ function setShareRoleAndPos(shareData) {
             teamColor: sBall.tc,
             roleId: sBall.rid,
             isMainBall: sBall.m ? true : false,
-            x: sBall.x,
-            y: sBall.y,
+            x: roundNumber(sBall.x, 4),
+            y: roundNumber(sBall.y, 4),
         });
         // 初始化其他参数
         initBallByRole(shareBall);
@@ -5087,7 +5735,7 @@ function setShareRoleAndPos(shareData) {
         balls.push(shareBall);
     }
 
-    // 是否位一个角色测试
+    // 是否为一个角色测试
     if (balls.length < 4) userConfig.isTestOnlyOne = true;
     else userConfig.isTestOnlyOne = false;
 
@@ -5138,6 +5786,9 @@ function putBallRandom(ball) {
         ball.x = randomPoint.x;
         ball.y = randomPoint.y;
     }
+
+    ball.x = roundNumber(ball.x, 4);
+    ball.y = roundNumber(ball.y, 4);
 }
 
 
@@ -5184,36 +5835,36 @@ function setBallOthersByRole(roleId) {
                 let otherCps = RegularlyCollocation.getRandomGroup(); // 对手搭配
                 //console.log(">>>> otherCps=" + otherCps.toString());
                 otherRoles = otherRoles.concat(otherCps);
-                if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.KUKU.id, Role.BAKE.id, Role.RABBIT.id];
+                //if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.KUKU.id, Role.BAKE.id, Role.RABBIT.id];
                 //console.log(">>>> otherRoles=" + otherRoles.toString());
                 break;
             case Role.DUODUO.id:
                 //otherRoles = [Role.BAKE.id, Role.KUILEI.id, Role.YINGYING.id];
                 //otherRoles = [Role.BAKE.id, Role.DUODUO.id, Role.BAKE.id];
                 otherRoles = [Role.DUODUO.cps[fullCloseInt(0, Role.DUODUO.cps.length - 1)]].concat(RegularlyCollocation.getRandomGroup());
-                if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.BAKE.id, Role.JOKER.id, Role.DIANYIN.id];
+                //if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.BAKE.id, Role.JOKER.id, Role.DIANYIN.id];
                 break;
             case Role.KUILEI.id:
                 //otherRoles = [Role.YINGYING.id, Role.BAKE.id, Role.DUODUO.id];
                 //otherRoles = [Role.JOKER.id, Role.BAKE.id, Role.DUODUO.id];
                 otherRoles = [Role.KUILEI.cps[fullCloseInt(0, Role.KUILEI.cps.length - 1)]].concat(RegularlyCollocation.getRandomGroup());
-                if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.JOKER.id, Role.JIANGJIANG.id, Role.MANWANG.id];
+                //if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.JOKER.id, Role.JIANGJIANG.id, Role.MANWANG.id];
                 break;
             case Role.SHUANGZI.id:
                 //otherRoles = [Role.JOKER.id, Role.JOKER.id, Role.RABBIT.id];
                 //otherRoles = [Role.JOKER.id, Role.SHUANGZI.id, Role.RABBIT.id];
                 //otherRoles = [Role.JOKER.id, Role.LEIMENG.id, Role.JIUWEIHU.id];
                 otherRoles = [Role.SHUANGZI.cps[fullCloseInt(0, Role.SHUANGZI.cps.length - 1)]].concat(RegularlyCollocation.getRandomGroup());
-                if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.DIANYIN.id, Role.BAKE.id, Role.RABBIT.id];
+                //if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.DIANYIN.id, Role.BAKE.id, Role.RABBIT.id];
                 break;
             case Role.KUKU.id:
                 //otherRoles = [Role.HEIWA.id, Role.BAKE.id, Role.DUODUO.id];
                 otherRoles = [Role.HEIWA.id].concat(RegularlyCollocation.getRandomGroup());
-                if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.HEIWA.id, Role.BAKE.id, Role.DUODUO.id];
+                //if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.HEIWA.id, Role.BAKE.id, Role.DUODUO.id];
                 break;
             case Role.LELE.id:
                 otherRoles = [Role.LELE.cps[fullCloseInt(0, Role.LELE.cps.length - 1)]].concat(RegularlyCollocation.getRandomGroup());
-                if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.HEIWA.id, Role.CAPTAIN.id, Role.YINGYING.id];
+                //if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.HEIWA.id, Role.CAPTAIN.id, Role.YINGYING.id];
                 break;
             default:
                 //otherRoles = [Role.WUGEGE.id, Role.LULU.id, Role.WUGEGE.id];
@@ -5222,7 +5873,7 @@ function setBallOthersByRole(roleId) {
                 //otherRoles = [Role.KUKU.id, Role.BAKE.id, Role.DUODUO.id];
                 //otherRoles = [Role.RABBIT.id, Role.RABBIT.id, Role.BAKE.id];
                 otherRoles = [Role.HEIWA.cps[fullCloseInt(0, Role.HEIWA.cps.length - 1)]].concat(RegularlyCollocation.getRandomGroup());
-                if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.LULU.id, Role.SANTAIZI.id, Role.LEIMENG.id];
+            //if (sysConfig.isSayGoodbye && !isProd()) otherRoles = [Role.LULU.id, Role.SANTAIZI.id, Role.LEIMENG.id];
         }
     }
 
@@ -5672,8 +6323,6 @@ function gameSceneInit() {
     let sceneInitTime0 = new Date().getTime();
     // 画游戏台面
     drawTable();
-    // 画蛋
-    if (isDuoduoExist) drawEggs();
     console.log(">>>> gameSceneInit 游戏场景初始化耗时：" + (new Date().getTime() - sceneInitTime0) + " ms");
 }
 
@@ -5737,11 +6386,29 @@ function drawTable() {
     if (userConfig.isShowTableBorder) doDrawTableLines();
     // 画砖格坐标
     if (userConfig.isShowGridCoordinate) drawSceneCoordinate();
-    // 夏日主题个别动物上台面
-    if (userConfig.sceneThemeMode === 5) {
-        drawIconRandom("🦀", "ss", 1, false, true, gameSceneCanvas);
-        drawIconRandom("🦀", "xxs", 2, false, true, gameSceneCanvas);
+    // 画蛋
+    if (isDuoduoExist) drawEggs();
+    if (userConfig.isShowSceneGraph) { // 是否显示场景图形
+        // 夏日主题个别动物上台面
+        if (userConfig.sceneThemeMode === 5) {
+            drawIconRandom("🦀", "ss", 1, false, true, gameSceneCanvas);
+            drawIconRandom("🦀", "xxs", 2, false, true, gameSceneCanvas);
+        }
     }
+}
+
+
+// 重新绘制游戏台面
+function reDrawTable() {
+    // 先清理画布
+    clearCanvasAll(gameSceneCanvas); // 台面层
+    clearCanvasAll(gameSceneLinesCanvas); // 台面边框层
+    clearCanvasAll(gameSceneCoordinateCanvas); // 台面砖格坐标层
+    clearCanvasAll(gameSceneEmojiCanvas); // emoji、svg 图形层
+    // 其他操作
+    largeEmojiPoints = []; // 大图形坐标列表重置
+    // 再重新绘制
+    drawTable();
 }
 
 
@@ -5751,7 +6418,7 @@ function drawSceneGrid() {
 
     gameSceneContext.save();
     gameSceneContext.beginPath();
-    gameSceneContext.lineWidth = roundNumber(1 * dpr * sysConfig.pxRatio, 4);
+    gameSceneContext.lineWidth = currTheme.glWidth;
     //gameSceneContext.shadowColor = '#5A5030';
     //gameSceneContext.shadowBlur = 1 * dpr;
 
@@ -5769,21 +6436,8 @@ function drawSceneGrid() {
         gameSceneContext.beginPath(); // 开启路径，设置不同的样式
         gameSceneContext.moveTo(0, sysConfig.girdSize * i); // -0.5是为了解决像素模糊问题
         gameSceneContext.lineTo(CanvasWidth, sysConfig.girdSize * i);
-        gameSceneContext.strokeStyle = "#8384D1D0"; // 默认主题
-        if (i === 11) gameSceneContext.strokeStyle = "#6A6CBFD0"; // 中间线突出一点
-        if (userConfig.sceneThemeMode === 1) { // 冰雪主题
-            gameSceneContext.strokeStyle = "#438EC2";
-            if (i === 11) gameSceneContext.strokeStyle = "#3483B7";
-        } else if (userConfig.sceneThemeMode === 3) { // 田园主题
-            gameSceneContext.strokeStyle = "#6B624060";
-            if (i === 11) gameSceneContext.strokeStyle = "#6B6240D0";
-        } else if (userConfig.sceneThemeMode === 4) { // 星际主题
-            gameSceneContext.strokeStyle = "#696969A0";
-            if (i === 11) gameSceneContext.strokeStyle = "#2F4F4FA0";
-        } else if (userConfig.sceneThemeMode === 5) { // 夏日主题
-            gameSceneContext.strokeStyle = "#B7521AA0";
-            if (i === 11) gameSceneContext.strokeStyle = "#B7521AD0";
-        }
+        gameSceneContext.strokeStyle = currTheme.glColor;
+        if (i === 11) gameSceneContext.strokeStyle = currTheme.glmColor;
         gameSceneContext.stroke();
     }
 
@@ -5794,21 +6448,8 @@ function drawSceneGrid() {
         gameSceneContext.beginPath(); // 开启路径，设置不同的样式
         gameSceneContext.moveTo(sysConfig.girdSize * j, 0);
         gameSceneContext.lineTo(sysConfig.girdSize * j, CanvasHeight);
-        gameSceneContext.strokeStyle = "#8384D1D0"; // 默认主题
-        if (j === 7) gameSceneContext.strokeStyle = "#6A6CBFD0";
-        if (userConfig.sceneThemeMode === 1) { // 冰雪主题
-            gameSceneContext.strokeStyle = "#438EC2";
-            if (j === 7) gameSceneContext.strokeStyle = "#3483B7";
-        } else if (userConfig.sceneThemeMode === 3) { // 田园主题
-            gameSceneContext.strokeStyle = "#6B624060";
-            if (j === 7) gameSceneContext.strokeStyle = "#6B6240D0";
-        } else if (userConfig.sceneThemeMode === 4) { // 星际主题
-            gameSceneContext.strokeStyle = "#696969A0";
-            if (j === 7) gameSceneContext.strokeStyle = "#2F4F4FA0";
-        } else if (userConfig.sceneThemeMode === 5) { // 夏日主题
-            gameSceneContext.strokeStyle = "#B7521AA0";
-            if (j === 7) gameSceneContext.strokeStyle = "#B7521AD0";
-        }
+        gameSceneContext.strokeStyle = currTheme.glColor;
+        if (j === 7) gameSceneContext.strokeStyle = currTheme.glmColor;
         gameSceneContext.stroke();
     }
 
@@ -5818,6 +6459,8 @@ function drawSceneGrid() {
 
 // 画间隔颜色的砖格
 function drawSceneGridRect() {
+    // 设置了背景图片不画
+    if (indexedDB && userConfig.isUseCustomTheme) return; // && isAImageFileName(currTheme.bgImage)
     gameSceneContext.save();
     gameSceneContext.beginPath();
     gameSceneContext.lineWidth = roundNumber(1 * dpr * sysConfig.pxRatio, 4);
@@ -5866,7 +6509,7 @@ function drawSceneCoordinate() {
     gameSceneCoordinateContext.save();
     gameSceneCoordinateContext.textAlign = "center";
     gameSceneCoordinateContext.textBaseline = 'middle';
-    gameSceneCoordinateContext.font = htmlFontSizeNum * dpr * sysConfig.pxRatio + "px serif";
+    gameSceneCoordinateContext.font = currTheme.gnSize + "px serif";
 
     // 移动坐标系到场景中心
     //gameSceneCoordinateContext.translate(roundNumber(gameSceneCoordinateCanvas.width / 2), roundNumber(gameSceneCoordinateCanvas.height / 2));
@@ -5874,7 +6517,7 @@ function drawSceneCoordinate() {
 
     // 间隔宽度
     let sceneLineNumMargin = roundNumber(sysConfig.sceneLineWidth * dpr * 1.3, 4);
-    if (userConfig.isShowTableBorder) sceneLineNumMargin += roundNumber(sysConfig.sceneLineWidth * dpr * 1.1, 4);
+    if (userConfig.isShowTableBorder) sceneLineNumMargin += roundNumber(currTheme.tblWidth * 1.1);
 
     let CanvasWidth = gameSceneCanvas.width;
     let CanvasHeight = gameSceneCanvas.height;
@@ -5886,21 +6529,8 @@ function drawSceneCoordinate() {
         // 切角砖格坐标不用画
         if ((i > -1 && i < 4) || (i > 19 && i < 22)) continue;
         gameSceneCoordinateContext.beginPath(); // 开启路径，设置不同的样式
-        gameSceneCoordinateContext.fillStyle = "#D2CCF1"; // 设置每个线条的颜色
-        if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
-        if (userConfig.sceneThemeMode === 1) { // 冰雪主题
-            gameSceneCoordinateContext.fillStyle = "#687CA1"; // 5A63D1
-            if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#EEF0F2";
-        } else if (userConfig.sceneThemeMode === 3) { // 田园主题
-            gameSceneCoordinateContext.fillStyle = "#252042";
-            if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#FBFAD0";
-        } else if (userConfig.sceneThemeMode === 4) { // 星际主题
-            gameSceneCoordinateContext.fillStyle = "#D7D7DC";
-            if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
-        } else if (userConfig.sceneThemeMode === 5) { // 夏日主题
-            gameSceneCoordinateContext.fillStyle = "#2B117D";
-            if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#FBFAD0";
-        }
+        gameSceneCoordinateContext.fillStyle = currTheme.gnColor; // 设置每个线条的颜色
+        if (isDarkMode) gameSceneCoordinateContext.fillStyle = currTheme.gndColor;
         gameSceneCoordinateContext.fillText(xLineNum + "", -(CanvasWidth / 2 + sceneLineNumMargin), -(CanvasHeight / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * i);
         gameSceneCoordinateContext.fillText(xLineNum + "", (CanvasWidth / 2 + sceneLineNumMargin), -(CanvasHeight / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * i);
         if (i < 11) xLineNum--;
@@ -5913,22 +6543,6 @@ function drawSceneCoordinate() {
     for (let j = 0; j < yLineTotals; j++) {
         // 切角砖格坐标不用画
         if ((j > -1 && j < 4) || (j > 11 && j < 14)) continue;
-        gameSceneCoordinateContext.beginPath();
-        gameSceneCoordinateContext.fillStyle = "#D2CCF1";
-        if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
-        if (userConfig.sceneThemeMode === 1) { // 冰雪主题
-            gameSceneCoordinateContext.fillStyle = "#687CA1";
-            if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#EEF0F2";
-        } else if (userConfig.sceneThemeMode === 3) { // 田园主题
-            gameSceneCoordinateContext.fillStyle = "#252042";
-            if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#FBFAD0";
-        } else if (userConfig.sceneThemeMode === 4) { // 星际主题
-            gameSceneCoordinateContext.fillStyle = "#D7D7DC";
-            if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#D7D7DC";
-        } else if (userConfig.sceneThemeMode === 5) { // 夏日主题
-            gameSceneCoordinateContext.fillStyle = "#2B117D";
-            if (isDarkMode) gameSceneCoordinateContext.fillStyle = "#FBFAD0";
-        }
         gameSceneCoordinateContext.fillText(yLineNum + "", -(CanvasWidth / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * j, -(CanvasHeight / 2 + sceneLineNumMargin));
         gameSceneCoordinateContext.fillText(yLineNum + "", -(CanvasWidth / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * j, (CanvasHeight / 2 + sceneLineNumMargin));
         if (j < 7) yLineNum--;
@@ -5941,16 +6555,10 @@ function drawSceneCoordinate() {
 
 // 画场景背景色
 function drawSceneBg() {
+    // 设置了背景图片不画
+    //if (indexedDB && userConfig.isUseCustomTheme && isAImageFileName(currTheme.bgImage)) return;
     gameSceneContext.save();
-    gameSceneContext.fillStyle = "#8d93d8"; // 默认主题-场地背景色
-    if (userConfig.sceneThemeMode === 1)
-        gameSceneContext.fillStyle = "#4B99C9"; // 冰雪主题-场地背景色
-    else if (userConfig.sceneThemeMode === 3)
-        gameSceneContext.fillStyle = "#9A9069"; // 田园主题-场地背景色
-    else if (userConfig.sceneThemeMode === 4)
-        gameSceneContext.fillStyle = "Gray"; // 星际主题-场地背景色
-    else if (userConfig.sceneThemeMode === 5)
-        gameSceneContext.fillStyle = "#FFBF6F"; // 夏日主题-场地背景色
+    gameSceneContext.fillStyle = currTheme.tbColor;
     gameSceneContext.fillRect(0, 0, gameSceneCanvas.width, gameSceneCanvas.height);
     // 设置dialog弹窗确认按钮颜色为场景背景色
     setDialogOkColor(gameSceneContext.fillStyle);
@@ -6033,7 +6641,6 @@ function doGraphClip(points, tCanvas) {
 function setSceneTheme() {
     switch (userConfig.sceneThemeMode) {
         case 1: // 冰雪主题
-            document.body.style.backgroundColor = '#C7D0E0';
             if (userConfig.isShowSceneGraph) { // 是否显示场景图形
                 // 桌面中心图形
                 //drawCenterGraphIcon();
@@ -6059,10 +6666,8 @@ function setSceneTheme() {
             }
             break;
         case 2: // 新年主题
-            document.body.style.backgroundColor = '#C7D0E0';
             break;
         case 3: // 田园主题
-            document.body.style.backgroundColor = '#E6DD9C';
             if (userConfig.isShowSceneGraph) {
                 // 花草树木，鸡鸭鹅狗猪牛羊【先后顺序可控制图形叠加效果】
                 drawIconUpAndDown("🌹", "xxs", 4, true);
@@ -6112,7 +6717,6 @@ function setSceneTheme() {
             }
             break;
         case 4: // 星际主题
-            document.body.style.backgroundColor = '#05132C';
             if (userConfig.isShowSceneGraph) {
                 // 画星系光亮
                 //drawGalaxyLight();
@@ -6145,7 +6749,6 @@ function setSceneTheme() {
             }
             break;
         case 5: // 夏日主题
-            document.body.style.backgroundColor = '#3C8BBB'; // 00ABDE
             if (userConfig.isShowSceneGraph) {
                 // 图形先后顺序可以控制叠加效果
                 drawIconUpAndDown("🏝️", "l", 1, true);
@@ -6191,7 +6794,6 @@ function setSceneTheme() {
             }
             break;
         default: // 默认主题
-            document.body.style.backgroundColor = '#7F70C3';
             //sysConfig.sceneLineWidth -= 2; // 边框窄一点
             if (userConfig.isShowSceneGraph) {
                 // 中心图形
@@ -6224,9 +6826,20 @@ function setSceneTheme() {
             }
     }
 
-    /* 额外处理 */
     // 默认主题剪掉左右边框
     //if (userConfig.sceneThemeMode === 0) clipDefaultTableLines();
+    // 设置主题背景颜色
+    setBodyBackgroundColor(Theme.getBgColorById(userConfig.sceneThemeMode));
+    // 设置自定义背景颜色
+    setBodyBackgroundColor(currTheme.bgColor);
+}
+
+
+// 设置body背景颜色
+function setBodyBackgroundColor(hex) {
+    if (!Theme.isColorCode(hex)) return; // 颜色码格式不正确
+    if (indexedDB && userConfig.isUseCustomTheme && isAImageFileName(currTheme.bgImage)) return; // 设置背景图片则返回
+    document.body.style.backgroundColor = hex;
 }
 
 
@@ -6248,27 +6861,19 @@ function drawTableLines() {
         gameSceneLinesContext.shadowColor = globalParams.shadowColor;
         gameSceneLinesContext.shadowBlur = globalParams.shadowBlur;
     }
-    gameSceneLinesContext.strokeStyle = "#35357A"; // 默认主题边框
-    if (userConfig.sceneThemeMode === 1)
-        gameSceneLinesContext.strokeStyle = "#EEF0F2"; // 冰雪主题边框
-    else if (userConfig.sceneThemeMode === 3)
-        gameSceneLinesContext.strokeStyle = "#FBFAD0"; // 田园主题边框
-    else if (userConfig.sceneThemeMode === 4)
-        gameSceneLinesContext.strokeStyle = "#D7D7DC"; // 星际主题边框 EBEBE9
-    else if (userConfig.sceneThemeMode === 5)
-        gameSceneLinesContext.strokeStyle = "#FAF9CB"; // 夏日主题边框 FAF9CB
-    gameSceneLinesContext.lineWidth = sceneLineRealWidth; // 设置线宽
+    gameSceneLinesContext.strokeStyle = currTheme.tblColor; // 边框颜色
+    gameSceneLinesContext.lineWidth = currTheme.tblWidth; // 边框线宽
     // 移动坐标系到场景中心
     gameSceneLinesContext.translate(roundNumber(gameSceneLinesCanvas.width / 2, 4), roundNumber(gameSceneLinesCanvas.height / 2, 4));
     gameSceneLinesContext.beginPath();
-    gameSceneLinesContext.moveTo(-sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[1], -sysConfig.girdSize * 11 - sceneLineRealWidth / 2); // 起点，对应左上第二个点
-    gameSceneLinesContext.lineTo(sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[2], -sysConfig.girdSize * 11 - sceneLineRealWidth / 2);
-    gameSceneLinesContext.lineTo(sysConfig.girdSize * 7 + sceneLineRealWidth / 2, -sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[3]);
-    gameSceneLinesContext.lineTo(sysConfig.girdSize * 7 + sceneLineRealWidth / 2, sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[4]);
-    gameSceneLinesContext.lineTo(sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[5], sysConfig.girdSize * 11 + sceneLineRealWidth / 3);
-    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[6], sysConfig.girdSize * 11 + sceneLineRealWidth / 3);
-    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 7 - sceneLineRealWidth / 2, sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[7]);
-    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 7 - sceneLineRealWidth / 2, -sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[0]);
+    gameSceneLinesContext.moveTo(-sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[1], -sysConfig.girdSize * 11 - currTheme.tblWidth / 2); // 起点，对应左上第二个点
+    gameSceneLinesContext.lineTo(sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[2], -sysConfig.girdSize * 11 - currTheme.tblWidth / 2);
+    gameSceneLinesContext.lineTo(sysConfig.girdSize * 7 + currTheme.tblWidth / 2, -sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[3]);
+    gameSceneLinesContext.lineTo(sysConfig.girdSize * 7 + currTheme.tblWidth / 2, sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[4]);
+    gameSceneLinesContext.lineTo(sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[5], sysConfig.girdSize * 11 + currTheme.tblWidth / 3);
+    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[6], sysConfig.girdSize * 11 + currTheme.tblWidth / 3);
+    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 7 - currTheme.tblWidth / 2, sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[7]);
+    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 7 - currTheme.tblWidth / 2, -sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[0]);
     gameSceneLinesContext.closePath(); // 闭合路径
     gameSceneLinesContext.stroke();
     gameSceneLinesContext.restore();
@@ -6462,14 +7067,14 @@ function drawTableArea(targetCanvas) {
     let ctx = targetCanvas.getContext('2d');
     ctx.save();
     ctx.beginPath();
-    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 3), (sysConfig.cTop * dpr - sceneLineRealWidth + sysConfig.girdSize * 0));
-    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 11), (sysConfig.cTop * dpr - sceneLineRealWidth + sysConfig.girdSize * 0));
-    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 14 + sceneLineRealWidth), (sysConfig.cTop * dpr + sysConfig.girdSize * 3));
-    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 14 + sceneLineRealWidth), (sysConfig.cTop * dpr + sysConfig.girdSize * 19));
-    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 11), (sysConfig.cTop * dpr + sceneLineRealWidth + sysConfig.girdSize * 22));
-    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 3), (sysConfig.cTop * dpr + sceneLineRealWidth + sysConfig.girdSize * 22));
-    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 0 - sceneLineRealWidth), (sysConfig.cTop * dpr + sysConfig.girdSize * 19));
-    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 0 - sceneLineRealWidth), (sysConfig.cTop * dpr + sysConfig.girdSize * 3));
+    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 3), (sysConfig.cTop * dpr - currTheme.tblWidth + sysConfig.girdSize * 0));
+    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 11), (sysConfig.cTop * dpr - currTheme.tblWidth + sysConfig.girdSize * 0));
+    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 14 + currTheme.tblWidth), (sysConfig.cTop * dpr + sysConfig.girdSize * 3));
+    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 14 + currTheme.tblWidth), (sysConfig.cTop * dpr + sysConfig.girdSize * 19));
+    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 11), (sysConfig.cTop * dpr + currTheme.tblWidth + sysConfig.girdSize * 22));
+    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 3), (sysConfig.cTop * dpr + currTheme.tblWidth + sysConfig.girdSize * 22));
+    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 0 - currTheme.tblWidth), (sysConfig.cTop * dpr + sysConfig.girdSize * 19));
+    ctx.lineTo((sysConfig.cLeft * dpr + sysConfig.girdSize * 0 - currTheme.tblWidth), (sysConfig.cTop * dpr + sysConfig.girdSize * 3));
     ctx.closePath();
 
     ctx.strokeStyle = '#000000';
@@ -6490,18 +7095,18 @@ function getEmojiPos(icon, size, width, height, posIdx, isSvg, targetCanvas, isC
         case 1: // 上/左方
             if (!os.isPc) { // 移动端/平板
                 pos.x = Math.round(fullOpen(width / 2, targetCanvas.width - width / 2));
-                pos.y = Math.round(fullOpen(sysConfig.cTop * dpr - graphViewAreaSize + height / 2, sysConfig.cTop * dpr - height / centerPointPer - sceneLineRealWidth));
+                pos.y = Math.round(fullOpen(sysConfig.cTop * dpr - graphViewAreaSize + height / 2, sysConfig.cTop * dpr - height / centerPointPer - currTheme.tblWidth));
             } else { // PC
-                pos.x = Math.round(fullOpen(sysConfig.cLeft * dpr - graphViewAreaSize + width / 2, sysConfig.cLeft * dpr - width / centerPointPer - sceneLineRealWidth));
+                pos.x = Math.round(fullOpen(sysConfig.cLeft * dpr - graphViewAreaSize + width / 2, sysConfig.cLeft * dpr - width / centerPointPer - currTheme.tblWidth));
                 pos.y = Math.round(fullOpen(height / 2, targetCanvas.height - height / 2));
             }
             break;
         case 2: // 下/右方
             if (!os.isPc) { // 移动端/平板
                 pos.x = Math.round(fullOpen(width / 2, targetCanvas.width - width / 2));
-                pos.y = Math.round(fullOpen(targetCanvas.height - sysConfig.cTop * dpr + height / centerPointPer + sceneLineRealWidth, targetCanvas.height + (graphViewAreaSize - sysConfig.cTop * dpr) - height / 2));
+                pos.y = Math.round(fullOpen(targetCanvas.height - sysConfig.cTop * dpr + height / centerPointPer + currTheme.tblWidth, targetCanvas.height + (graphViewAreaSize - sysConfig.cTop * dpr) - height / 2));
             } else { // PC
-                pos.x = Math.round(fullOpen(targetCanvas.width - sysConfig.cLeft * dpr + width / centerPointPer + sceneLineRealWidth, targetCanvas.width + (graphViewAreaSize - sysConfig.cLeft * dpr) - width / 2));
+                pos.x = Math.round(fullOpen(targetCanvas.width - sysConfig.cLeft * dpr + width / centerPointPer + currTheme.tblWidth, targetCanvas.width + (graphViewAreaSize - sysConfig.cLeft * dpr) - width / 2));
                 pos.y = Math.round(fullOpen(height / 2, targetCanvas.height - height / 2));
             }
             break;
@@ -6580,8 +7185,8 @@ function drawIconUpAndDown(icon, size, num, isNumRd, posIdx) {
             // if (count < 1) continue; // 不考虑 count，则图形可以超出边界
             // emoji 图形原点在中心
             //gameSceneEmojiContext.fillText(icon, 0, 0);
-            //if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr - graphViewAreaSize + height / 2, sysConfig.cTop * dpr - height / 2 - sceneLineRealWidth));
-            //if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(sysConfig.cLeft * dpr - graphViewAreaSize + width / 2, sysConfig.cLeft * dpr - width / 2 - sceneLineRealWidth), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
+            //if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr - graphViewAreaSize + height / 2, sysConfig.cTop * dpr - height / 2 - currTheme.tblWidth));
+            //if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(sysConfig.cLeft * dpr - graphViewAreaSize + width / 2, sysConfig.cLeft * dpr - width / 2 - currTheme.tblWidth), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
             let fillPos = getEmojiPos(icon, size, width, height, 1, false, gameSceneEmojiCanvas);
             if (!fillPos) continue;
             gameSceneEmojiContext.fillText(icon, fillPos.x, fillPos.y);
@@ -6601,8 +7206,8 @@ function drawIconUpAndDown(icon, size, num, isNumRd, posIdx) {
             count = Math.round(sysConfig.cTop * dpr / height);
             if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
             //if (count < 1) continue;
-            //if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2 + sceneLineRealWidth, gameSceneEmojiCanvas.height + (graphViewAreaSize - sysConfig.cTop * dpr) - height / 2));
-            //if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2 + sceneLineRealWidth, gameSceneEmojiCanvas.width + (graphViewAreaSize - sysConfig.cLeft * dpr) - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
+            //if (!os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height / 2 + currTheme.tblWidth, gameSceneEmojiCanvas.height + (graphViewAreaSize - sysConfig.cTop * dpr) - height / 2));
+            //if (os.isPc) gameSceneEmojiContext.fillText(icon, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width / 2 + currTheme.tblWidth, gameSceneEmojiCanvas.width + (graphViewAreaSize - sysConfig.cLeft * dpr) - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2));
             let fillPos = getEmojiPos(icon, size, width, height, 2, false, gameSceneEmojiCanvas);
             if (!fillPos) continue;
             gameSceneEmojiContext.fillText(icon, fillPos.x, fillPos.y);
@@ -6703,8 +7308,8 @@ function drawSvgUpAndDown(svgId, size, num, isNumRd, posIdx) {
                     //if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, sysConfig.cLeft * dpr - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
                     // SVG 图形原点在左上角
                     //gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, 0, 0, width, height);
-                    //if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr - graphViewAreaSize + height / 2, sysConfig.cTop * dpr - height - sceneLineRealWidth), width, height);
-                    //if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(sysConfig.cLeft * dpr - graphViewAreaSize + width / 2, sysConfig.cLeft * dpr - width - sceneLineRealWidth), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
+                    //if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(sysConfig.cTop * dpr - graphViewAreaSize + height / 2, sysConfig.cTop * dpr - height - currTheme.tblWidth), width, height);
+                    //if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(sysConfig.cLeft * dpr - graphViewAreaSize + width / 2, sysConfig.cLeft * dpr - width - currTheme.tblWidth), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height);
                     let fillPos = getEmojiPos(svgId, size, width, height, 1, true, gameSceneEmojiCanvas);
                     if (!fillPos) continue;
                     gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fillPos.x, fillPos.y, width, height);
@@ -6724,8 +7329,8 @@ function drawSvgUpAndDown(svgId, size, num, isNumRd, posIdx) {
                     count = Math.round(sysConfig.cTop * dpr / height);
                     if (os.isPc) count = Math.round(sysConfig.cLeft * dpr / width);
                     //if (count < 1) continue;
-                    //if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height + sceneLineRealWidth, gameSceneEmojiCanvas.height + (graphViewAreaSize - sysConfig.cTop * dpr) - height / 2), width, height);
-                    //if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width + sceneLineRealWidth, gameSceneEmojiCanvas.width + (graphViewAreaSize - sysConfig.cLeft * dpr) - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height)
+                    //if (!os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(width / 2, gameSceneEmojiCanvas.width - width / 2), fullOpen(gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + height + currTheme.tblWidth, gameSceneEmojiCanvas.height + (graphViewAreaSize - sysConfig.cTop * dpr) - height / 2), width, height);
+                    //if (os.isPc) gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fullOpen(gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + width + currTheme.tblWidth, gameSceneEmojiCanvas.width + (graphViewAreaSize - sysConfig.cLeft * dpr) - width / 2), fullOpen(height / 2, gameSceneEmojiCanvas.height - height / 2), width, height)
                     let fillPos = getEmojiPos(svgId, size, width, height, 2, true, gameSceneEmojiCanvas);
                     if (!fillPos) continue;
                     gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fillPos.x, fillPos.y, width, height);
@@ -7165,6 +7770,8 @@ function switchUserSettingDialog(isShow) {
             // 更新设置时间，刷新页面
             reloadAfterUserConfigSettingFinished(new Date().getTime(), true);
         }
+        // 自动收起自定义主题参数
+        //toggleCustomTheme(null, false);
     }
 }
 
@@ -7221,6 +7828,7 @@ function initUserSettingDialogVal() {
             } else if (typeof userConfig[f] === "boolean") { // 布尔类型
                 if (f === "isShowBallMovePath") togglePathBallMoveShow(userConfig[f]); // 切换运动路径层显示或隐藏
                 if (f === "isShowBallPath") togglePathBallShow(userConfig[f]); // 切换全路径层显示或隐藏
+                if (f === "isUseCustomTheme") switchCustomThemeCheckbox(userConfig[f]); // 切换自定义主题开关
                 if (!ele) continue;
                 if (userConfig[f]) ele.setAttribute("checked", true);
                 else ele.removeAttribute("checked");
@@ -7245,6 +7853,107 @@ function initUserSettingDialogVal() {
 
     } catch (e) { // userConfig 配置中，并不是所有字段都对应了页面设置，document.getElementById(f) 找不到会报异常，可以忽略
         doGlobalError(e, (sysConfig && sysConfig.alertErrorCount) ? sysConfig.alertErrorCount : 3);
+    }
+}
+
+
+// 切换自定义主题参数设置显示/隐藏
+function toggleCustomTheme(ele, isShow) {
+    let oneCustomThemeLi = document.querySelector(".user-setting-item-expand");
+    if (!oneCustomThemeLi) return;
+    let customThemeItems = document.getElementsByClassName("user-setting-item-expand");
+    if (!customThemeItems || customThemeItems.length < 1) return;
+    let svgArrow = document.getElementById("toggleCustomThemeSvgArrow");
+    let isShowing = oneCustomThemeLi.style.display && oneCustomThemeLi.style.display !== "none";
+    if (isShowing) { // 显示->关闭
+        if (isShow === false || typeof isShow === 'undefined') {
+            for (let i = 0, len = customThemeItems.length; i < len; i++) {
+                customThemeItems[i].style.display = "none";
+            }
+            // 箭头旋转到指向下
+            svgArrow.style.transform = 'inherit';
+        }
+    } else { // 关闭->显示
+        if (isShow === true || typeof isShow === 'undefined') {
+            for (let i = 0, len = customThemeItems.length; i < len; i++) {
+                customThemeItems[i].style.display = "flex";
+            }
+            // 箭头旋转到指向上
+            svgArrow.style.transform = 'rotate(180deg)';
+        }
+    }
+}
+
+
+// 根据 currTheme，初始化设置自定义主题的参数值
+function setCustomThemeVals() {
+    if (!userConfig.isUseCustomTheme) return;
+    if (!currTheme) return;
+    try {
+        let ele;
+        for (let f in currTheme) {
+            ele = document.getElementById(f);
+            if (!ele) continue;
+            ele.value = currTheme[f];
+        }
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+
+
+// 切换启用自定义主题开关
+function switchCustomThemeCheckbox(isShow) {
+    let customThemeItems = document.getElementsByClassName("custom-theme-item");
+    if (!customThemeItems || customThemeItems.length < 1) return;
+    let pageBgImageIcon = document.getElementById("pageBgImageIcon");
+    let customThemeInOut = document.getElementById("customThemeInOut");
+    if (isShow) {
+        // 文字颜色、输入框、文件图标恢复正常、显示主题导入导出
+        for (let i = 0, len = customThemeItems.length; i < len; i++) {
+            customThemeItems[i].classList.remove("user-setting-item-disabled");
+            customThemeItems[i].removeAttribute("disabled");
+        }
+        pageBgImageIcon.style.display = "inherit";
+        customThemeInOut.style.display = "inherit";
+        // 启用自定义主题
+        userConfig.isUseCustomTheme = true;
+        // 从当前对象新建一个自定义主题对象
+        let customTheme = Theme.getCustomTheme();
+        if (!customTheme) { // 缓存没找到，创建新的主题
+            customTheme = Theme.getCurrThemeCopy();
+            customTheme.id = Theme.getMaxId() + 1;
+            customTheme.name = "自定义主题01";
+            customTheme.bgImageIdbKey = sysConfig.bgImageKey + customTheme.id;
+            customTheme.tbColor = Theme.setTbColor00(customTheme.tbColor); // 台面背景透明
+        }
+        currTheme = customTheme;
+        // currTheme 同步到自定义主题
+        setCustomThemeVals();
+        // 更新显示自定义主题
+        doPageBgImage(currTheme.bgImage);
+        // 存储自定义主题
+        localStorage.setItem("collide-try-custom-theme", JSON.stringify(currTheme));
+        // localStorage 存储更新 userConfig 对象
+        localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
+    } else {
+        // 文字变灰色，输入框不能点击，隐藏文件图标、隐藏主题导入导出
+        for (let i = 0, len = customThemeItems.length; i < len; i++) {
+            customThemeItems[i].classList.add("user-setting-item-disabled");
+            customThemeItems[i].setAttribute("disabled", "disabled");
+        }
+        pageBgImageIcon.style.display = "none";
+        customThemeInOut.style.display = "none";
+        // 停用自定义主题
+        userConfig.isUseCustomTheme = false;
+        // 重置页面背景
+        resetPageBg();
+        // 重置自定义主题参数显示
+        //setCustomThemeVals();
+        // 删除自定义主题存储，可以留着，方便下次启用时继续编辑
+        //localStorage.removeItem('collide-try-custom-theme');
+        // localStorage 存储更新 userConfig 对象
+        localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
     }
 }
 
@@ -7291,13 +8000,16 @@ function switchCheckbox(label, key, params) {
     if (key === "isShowBallPath") togglePathBallShow(isShow);
     // 血量条切换显示
     if (key === "isShowRoleBloodLine") directPlayAgain(false);
+    // 启用自定义主题开关
+    if (key === "isUseCustomTheme") switchCustomThemeCheckbox(isShow);
+
     // 只显示撞击台面
     if (key === "isJustShowTable") {
         toggleOnlyTable(isShow);
         if (!balls || balls.length < 1) sysConfig.isNeedReload = true;
     }
     // 切换显示场景图形
-    if (key === "isShowSceneGraph") toggleSceneGraph(isShow);
+    if (key === "isShowSceneGraph") toggleSceneGraph(isShow, true);
 
     // 需要刷新页面的设置
     if (key === "isTestOnlyOne") sysConfig.isNeedReload = true;
@@ -7366,13 +8078,12 @@ function toggleOnlyTable(isShow) {
 
 
 // 切换显示场景图形，隐藏emoji等图形层
-function toggleSceneGraph(isShow) {
+function toggleSceneGraph(isShow, isReDraw) {
     if (isShow) { // 显示
         gameSceneGraphCanvas.style.display = "unset";
-        if (isCanvasBlank(gameSceneEmojiCanvas)) { // 空画布，需要重新绘制
+        gameSceneEmojiCanvas.style.display = "unset";
+        if (isReDraw && isCanvasBlank(gameSceneEmojiCanvas)) { // 需要重画且画布为空，再重新绘制图形
             setSceneTheme();
-        } else {
-            gameSceneEmojiCanvas.style.display = "unset";
         }
     } else { // 不显示
         gameSceneGraphCanvas.style.display = "none";
@@ -7878,6 +8589,290 @@ function doAnimateAutoRestTime(str) {
 }
 
 
+// 自定义主题input输入框
+onMounted(() => {
+    const themeParamInputItems = document.getElementsByClassName("custom-theme-item-input");
+    for (let i = 0, len = themeParamInputItems.length; i < len; i++) {
+        let ele = themeParamInputItems[i];
+        ele.addEventListener("change", (e) => {
+            //console.log(e.target.id);
+            if (!e || !e.target || !e.target.id) return;
+            doEventDefault(e);
+            if (!userConfig.isUseCustomTheme) return;
+            let inVal = e.target.value;
+            inVal = inVal.replaceAll(" ", "");
+            e.target.value = inVal;
+            if (e.target.id === "name") { // 主题名称
+                if (inVal.length < 1) {
+                    alert("主题名称不能为空");
+                    return;
+                }
+                if (inVal.length > 7) {
+                    alert("主题名称长度不能超过7");
+                    return;
+                }
+            } else if (e.target.id === "bgImage") { // 主题背景图片
+                if (!isAImageFileName(inVal)) {
+                    alert("请检查背景图片格式(jpg/jpeg/png/gif)");
+                    return;
+                }
+            } else if (["tblWidth", "glWidth", "gnSize", "plWidth", "ccWidth"].includes(e.target.id)) { // 数值输入框
+                if (inVal.length < 1) {
+                    inVal = 0;
+                    e.target.value = inVal;
+                }
+                if (!isNumber(inVal)) {
+                    alert("请输入正确的数值");
+                    return;
+                }
+                if (inVal.length > 5) {
+                    alert("数值长度不能超过5");
+                    return;
+                }
+                // 输入框默认字符类型转换为数值类型
+                inVal = Number(inVal);
+                inVal = roundNumber(inVal);
+            } else { // 其他-颜色码类型输入框
+                if (inVal !== "" && !Theme.isColorCode(inVal)) {
+                    alert("请输入正确的颜色码（格式：#FFFFFFFF）");
+                    return;
+                }
+            }
+            // 旧值
+            let oldVal = currTheme[e.target.id];
+            // 两值相等不处理
+            if (inVal === oldVal) return;
+            // 更新到 currTheme
+            currTheme[e.target.id] = inVal;
+
+            if (e.target.id === "bgColor") { // 处理背景颜色
+                doPageBg(inVal);
+            } else if (!["name"].includes(e.target.id)) {
+                // 应用修改
+                doUpdateCustomTheme();
+            }
+
+            // 存储更新 localStorage
+            localStorage.setItem("collide-try-custom-theme", JSON.stringify(currTheme));
+            console.log(">>>> 自定义主题参数 currTheme." + e.target.id + " 已更新存储到 localStorage");
+            localStorage.setItem("collide-try-user-settings", JSON.stringify(userConfig));
+            console.log(">>>> 自定义主题参数 userConfig in localStorage updated.");
+        });
+    }
+})
+
+/*
+// 处理输入法把弹窗顶上去的问题
+const vh = window.visualViewport.height;
+if (!os.isPc) window.visualViewport.addEventListener('resize', function () {
+    // 变动大于 10%，且input聚焦，才调整
+    if ((vh - window.visualViewport.height) / vh >= 0.10
+        && pageBgInput == document.activeElement) {
+        userSettingDialog.style.top = "50vh";
+    } else {
+        userSettingDialog.style.top = "0";
+    }
+});
+*/
+
+// 处理修改背景颜色
+function doPageBg(str) {
+    if (str === 0) {
+        //if (isAImageFileName(currTheme.bgImage)) { // 之前是图片背景
+        // 恢复设置图片背景时关闭的场景图形
+        userConfig.isShowSceneGraph = true;
+        // 场景图形层显示
+        toggleSceneGraph(true);
+        // 恢复到自带主题
+        currTheme = Theme.getCurrTheme();
+        // 重新计算变化属性值
+        Theme.reCalculate(currTheme);
+        // 重新绘制游戏台面
+        reDrawTable();
+        //}
+    }
+
+    currTheme.bgImage = ""; // 重置背景图片
+    document.body.style.backgroundImage = null;
+    if (Theme.isColorCode(str)) setBodyBackgroundColor(str); // 设置背景颜色
+    else setBodyBackgroundColor(Theme.getBgColorById(userConfig.sceneThemeMode)); // 恢复所选主题默认的背景颜色
+}
+
+// 重置页面背景
+function resetPageBg() {
+    doPageBg(0);
+}
+
+
+// 更新主题修改
+function doUpdateCustomTheme() {
+    // 重新绘制游戏台面
+    reDrawTable();
+}
+
+
+// 导入导出主题配置
+onMounted(() => {
+    const customThemeInputFile = document.getElementById("customThemeInputFile");
+    const customThemeConfigItems = document.getElementsByClassName("custom-theme-conf-inout");
+    for (let i = 0, len = customThemeConfigItems.length; i < len; i++) {
+        let ele = customThemeConfigItems[i];
+        ele.addEventListener("click", (e) => {
+            //console.log(e.target.id);
+            if (!e || !e.target || !e.target.id) return;
+            doEventDefault(e);
+            if (!userConfig.isUseCustomTheme) return;
+            if (e.target.id === "customThemeInput") { // 导入
+                customThemeInputFile.click();
+            } else if (e.target.id === "customThemeOutput") { // 导出
+                saveStringContentToFile(JSON.stringify(currTheme));
+            }
+        });
+    }
+    customThemeInputFile.addEventListener("click", (e) => {
+        // 处理事件默认行为，防止事件冒泡 【会导致不能弹出文件管理器】
+        //doEventDefault(e);
+
+    });
+    customThemeInputFile.addEventListener("change", function () {
+        if (customThemeInputFile.files[0]) {
+            let fName = customThemeInputFile.files[0].name;
+            //fName = getFileShortName(fName, 5);
+            //console.log(fName);
+            if (!fName) {
+                alert("主题配置文件名称识别失败");
+                return;
+            }
+            let size = customThemeInputFile.files[0].size;
+            if (size > 1 * 1024 * 1024) { // 限制1M以内
+                alert("主题配置文件不大于1M");
+                return;
+            }
+
+            try {
+                importThemeConfig(customThemeInputFile.files[0]);
+            } catch (e) {
+                alert("导入主题配置失败");
+                console.log(">>>> 导入主题配置失败：" + e.message);
+            }
+        } else {
+            //console.log("未选择文件");
+        }
+    });
+})
+
+
+// 指定页面背景图片
+onMounted(() => {
+    const pageBgImageIcon = document.getElementById("pageBgImageIcon");
+    const pageBgImageFile = document.getElementById("pageBgImageFile");
+    pageBgImageIcon.addEventListener("click", (e) => {
+        // 处理事件默认行为，防止事件冒泡
+        doEventDefault(e);
+        // 点击文件图标触发选择文件点击事件
+        pageBgImageFile.click();
+    });
+    pageBgImageFile.addEventListener("click", (e) => {
+        // 处理事件默认行为，防止事件冒泡 【会导致不能弹出文件管理器】
+        //doEventDefault(e);
+        //alert("请选择一张图片");
+        //pageBgImageFile.value = null; // 清空已选择的文件
+        if (!userConfig.isUseCustomTheme) return;
+        if (!indexedDB) {
+            alert("你的浏览器不支持 IndexedDB V" + dbVersion + "，请更换其他浏览器重试");
+        }
+    });
+    if (indexedDB) pageBgImageFile.addEventListener("change", function () {
+        if (pageBgImageFile.files[0]) {
+            let fName = pageBgImageFile.files[0].name;
+            fName = getFileShortName(fName, 5);
+            //console.log(fName);
+            if (!fName) {
+                alert("图片名称识别失败");
+                return;
+            }
+            let size = pageBgImageFile.files[0].size;
+            if (size > 10 * 1024 * 1024) { // 限制10M以内
+                alert("图片不能大于10M");
+                return;
+            }
+
+            try {
+                // 存入IndexedDB
+                //alert(pageBgImageFile.files[0] instanceof Blob);
+                putImageInDb(pageBgImageFile.files[0], currTheme.bgImageIdbKey);
+                // 从IndexedDB读取图片，并设置body图片背景
+                doPageBgImage(fName, false);
+            } catch (e) {
+                alert("设置背景图片失败：\n" + e.stack);
+                doGlobalErrorMsg(e, false);
+            }
+        } else {
+            //console.log("未选择文件");
+        }
+    });
+})
+
+
+// 处理修改背景图片
+function doPageBgImage(fName, isOnlySetBg) {
+
+    if (!userConfig.isUseCustomTheme || !isAImageFileName(fName)) return;
+
+    let transaction = IDB.transaction([tbName], 'readwrite');
+    let tableStore = transaction.objectStore(tbName);
+    // 从indexedDB读取图片设置背景
+    doSetBodyBgImage(tableStore, fName);
+
+    if (!isOnlySetBg) {
+        //if (!isAImageFileName(currTheme.bgImage)) { // 之前不是图片背景
+        // 更新存储背景图片
+        currTheme.bgImage = fName;
+        // 设置场景图形不显示
+        userConfig.isShowSceneGraph = false;
+        // 场景图形层隐藏
+        toggleSceneGraph(false);
+        // 重新绘制游戏台面
+        reDrawTable();
+        //}
+    }
+
+    // 更新自定义主题存储
+    localStorage.setItem("collide-try-custom-theme", JSON.stringify(currTheme));
+}
+
+
+// 执行设置图片背景操作
+function doSetBodyBgImage(tableStore, fName) {
+    let getKeyReq = tableStore.get(currTheme.bgImageIdbKey);
+    getKeyReq.onsuccess = (event) => {
+        // 注意是异步回调，不阻塞主线程
+        let blob = event.target.result;
+        if (blob) {
+            let url = window.URL.createObjectURL(blob);
+            //console.log(url);
+            // 设置 body 图片背景
+            document.body.style.backgroundImage = `url('${url}')`; // 图片地址
+            document.body.style.backgroundPosition = "center"; // 图片位置
+            if (os.isPc) {
+                document.body.style.backgroundRepeat = "repeat"; // 图片平铺
+                document.body.style.backgroundSize = "contain"; // 填充页面
+            } else {
+                document.body.style.backgroundRepeat = "no-repeat"; // 图片不平铺
+                document.body.style.backgroundSize = "cover"; // 单个封面
+            }
+            // 设置文件名称显示
+            document.getElementById("bgImage").value = fName;
+        } else { // 文件获取失败
+            document.getElementById("bgImage").value = "";
+        }
+    }
+    getKeyReq.onerror = function (event) {
+        document.getElementById("bgImage").value = "";
+    }
+}
+
+
 // 斜边倾斜偏差输入框失去焦点时，保存数据
 onMounted(() => {
     const wan8CocosTableMoveValsInput = document.getElementById("wan8CocosTableMoveVals");
@@ -7976,6 +8971,30 @@ function resetUserSettings() {
         // clear() 会清除当前网页域名下的缓存数据！影响本站其他应用缓存数据！注意，所有 html 本地文件，只算一个 file:// 域
         //localStorage.clear();
         //sessionStorage.clear();
+        // 删除 IndexedDB 数据库【会导致IDB undefined，刷新页面没用，重启浏览器才能恢复正常】
+        // TODO 最好是清除表数据就行了，数据库和表留着，避免重新创建
+        if (indexedDB) {
+            /*
+            let dbDelReq = indexedDB.deleteDatabase(dbName);
+            dbDelReq.onerror = (e) => {
+                console.log(e.currentTarget.error.message);
+                //alert(e.currentTarget.error.message);
+            }
+            */
+            // 开启一个事务
+            const transaction = IDB.transaction(tbName, 'readwrite');
+            // 获取对象存储
+            const objectStore = transaction.objectStore(tbName);
+            // 清除对象存储中的所有数据
+            const clearRequest = objectStore.clear();
+            clearRequest.onsuccess = () => {
+                //alert(">>>> " + tbName + " 表数据清空完成");
+                console.log(">>>> " + tbName + " 表数据清空完成");
+            }
+            clearRequest.onerror = (event) => {
+                console.log(">>>> " + tbName + " 表数据清空出错：" + event.target.error);
+            }
+        }
         // 刷新页面【vue 重新加载后，历史记录清空】
         location.reload();
         // href 或 replace 都可以替换当前 history 跳转页面，避免一步一步返回
@@ -7986,6 +9005,81 @@ function resetUserSettings() {
         //window.history.go(0);
     } else { // 取消
 
+    }
+}
+
+
+// 导入主题配置
+function importThemeConfig(file) {
+    let reader = new FileReader();
+    reader.readAsText(file, "UTF-8"); // TODO 注意是异步读取文件内容，几 KB 的小文件还是很快的
+    reader.onload = function (e) {
+        //let content = e.target.result;
+        let content = reader.result;
+        //console.log(content);
+        if (!content) return;
+        let customThemeIn;
+        try {
+            customThemeIn = JSON.parse(content);
+        } catch (e2) {
+            alert("配置文件解析失败");
+            console.log(">>>> importThemeConfig JSON.parse error: " + e.message);
+            return;
+        }
+        for (let f in currTheme) {
+            currTheme[f] = customThemeIn[f];
+        }
+        // 更新 localStorage 中的 currTheme
+        localStorage.setItem('collide-try-custom-theme', JSON.stringify(currTheme));
+        console.log(">>>> importThemeConfig currTheme in localStorage updated.");
+        // 提示、刷新
+        alert("主题配置导入完成");
+        location.reload();
+    }
+    reader.onerror = function (e) {
+        //console.log(reader.error);
+        console.log(">>>> importThemeConfig error: " + e.message);
+    }
+}
+
+
+// 保存文本内容到文件
+function saveStringContentToFile(content) {
+    if (!content) return;
+    let objectURL, aTag, blob, file;
+    try {
+        let fName = "collide-try-theme-" + sysConfig.version + ".txt";
+        if (!objectURL) file = new File([content], {
+            type: "text/plain;charset=utf-8"
+        });
+        // 生成链接
+        if (!objectURL) objectURL = (window.URL || window.webkitURL).createObjectURL(file);
+        // 创建一个 a 标签Tag
+        aTag = document.createElement('a');
+        //aTag.style.display = 'none';
+        //aTag.setAttribute('id', 'blob-download-save-to-local');
+        // 设置文件的下载地址
+        aTag.href = objectURL;
+        console.log(">>>> saveStringContentToFile aTag.href=" + aTag.href);
+        //aTag.target = '_blank';
+        //document.body.appendChild(aTag);
+        // 设置保存后的文件名称
+        aTag.download = fName;
+        console.log(">>>> saveStringContentToFile aTag.download=" + aTag.download);
+        //if (!os.isPc) alert(">>>> saveLocalHtml aTag.download=" + aTag.download);
+        // 点击触发
+        aTag.click();
+        //aTag.remove();
+        //document.body.removeChild(aTag);
+    } catch (e) {
+        doGlobalError(e, (sysConfig && sysConfig.alertErrorCount) ? sysConfig.alertErrorCount : 3);
+    } finally {
+        setTimeout(function () {
+            // 释放掉blob对象，减少内存占用 TODO 【移动端因为太快释放了资源，导致一直提示“处理 blob 数据中...”，不能正常下载】
+            if (objectURL) URL.revokeObjectURL(objectURL);
+            // 移除元素，body没有添加就不用移除
+            //if (aTag) aTag.remove();
+        }, 20000); // 20 秒后再执行
     }
 }
 
@@ -8351,6 +9445,40 @@ function pointLineDistance(point, start, end) {
 }
 
 
+// https://codereview.stackexchange.com/questions/192477/circle-line-segment-collision
+// 线段与圆是否相交，由于线段是定长的，检测不准确。向量形式的检测后续再研究
+// Function to check intercept of line seg and circle
+// A,B end points of line segment
+// C center of circle
+// radius of circle
+// returns true if touching or crossing else false   
+function doesLineInterceptCircle(A, B, C, radius) {
+    var dist;
+    const v1x = B.x - A.x;
+    const v1y = B.y - A.y;
+    const v2x = C.x - A.x;
+    const v2y = C.y - A.y;
+    // get the unit distance along the line of the closest point to
+    // circle center
+    const u = (v2x * v1x + v2y * v1y) / (v1y * v1y + v1x * v1x);
+
+
+    // if the point is on the line segment get the distance squared
+    // from that point to the circle center
+    if (u >= 0 && u <= 1) {
+        dist = (A.x + v1x * u - C.x) ** 2 + (A.y + v1y * u - C.y) ** 2;
+    } else {
+        // if closest point not on the line segment
+        // use the unit distance to determine which end is closest
+        // and get dist square to circle
+        dist = u < 0 ?
+            (A.x - C.x) ** 2 + (A.y - C.y) ** 2 :
+            (B.x - C.x) ** 2 + (B.y - C.y) ** 2;
+    }
+    return dist < radius * radius;
+}
+
+
 // canvas制作圆角矩形（包括填充矩形的功能）兼容旧机型和浏览器
 // https://juejin.cn/post/6977212150439739423
 /**该方法用来绘制一个有填充色的圆角矩形 
@@ -8426,6 +9554,80 @@ function drawRoundRectPath(cxt, width, height, radius) {
     //右边线  
     cxt.lineTo(width, height - radius);
     cxt.closePath();
+}
+
+
+/**
+     * 将颜色值rgb格式转换为hex的格式
+     * https://blog.csdn.net/qq_44645934/article/details/134617398
+     * @param {rgb} rgb 需要转换的rgb字符串
+     * @return {string} 带#的颜色码
+     */
+function rgbToHex(rgb) {
+    if (!rgb) return "";
+    let arr = rgb
+        .replace("rgb", "")
+        .replace("(", "")
+        .replace(")", "")
+        .replaceAll(" ", "")
+        .split(",");
+    // 转十六进制
+    let h = parseInt(arr[0]).toString(16).padStart(2, '0');
+    let e = parseInt(arr[1]).toString(16).padStart(2, '0');
+    let x = parseInt(arr[2]).toString(16).padStart(2, '0');
+    return "#" + h + e + x;
+}
+//let rgb = "rgb(5, 19, 44)";
+//console.log(rgbToHex(rgb)); // #05132c
+
+
+/**
+ * 将颜色值hex格式转换为rgb的格式
+ * @param {hex} hex 字符串
+ * @return {string} rgb 字符串
+ */
+function hexToRgb(hex) {
+    let str = hex.replace("#", "");
+    if (str.length % 3) {
+        return "hex格式不正确！";
+    }
+    // 获取截取的字符长度
+    let count = str.length / 3;
+    // 根据字符串的长度判断是否需要进行幂次方
+    let power = 6 / str.length;
+    let r = parseInt("0x" + str.substring(0 * count, 1 * count)) ** power;
+    let g = parseInt("0x" + str.substring(1 * count, 2 * count)) ** power;
+    let b = parseInt("0x" + str.substring(2 * count)) ** power;
+
+    return `rgb(${r}, ${g}, ${b})`;
+}
+//let hex = "#05132c";
+//console.log(hexToRgb(hex)); // rgb(5, 19, 44)
+
+
+// 文件名缩短
+function getFileShortName(name, len) {
+    if (!name || typeof name !== 'string' || name.replaceAll(" ", "") === "") return "";
+    if (name.length <= len) return name;
+    let nameSegs = name.split(".");
+    if (nameSegs.length < 2) return name;
+    let suffix = nameSegs[nameSegs.length - 1].replaceAll(" ", "");
+    if (suffix) suffix = "." + suffix;
+    if (name.length - suffix.length <= len) return name;
+    let result = name.substring(0, len) + "~" + suffix;
+    return result;
+}
+
+
+// 判断是否为图片，简单从文件名后缀判断
+function isAImageFileName(name) {
+    if (!name || typeof name !== 'string' || name.replaceAll(" ", "") === "") return false;
+    let nameSegs = name.split(".");
+    if (nameSegs.length < 2) return false;
+    let suffix = nameSegs[nameSegs.length - 1];
+    suffix = suffix.replaceAll(" ", "").toLowerCase();
+    if (["jpg", "jpeg", "png", "gif"].indexOf(suffix) < 0) return false;
+    return true;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -8770,15 +9972,22 @@ function checkOtherBalls(ball, isCheck) {
                 }
                 */
 
+                //console.log(">>>> do2BallsCollidedMV2 params=" + JSON.stringify(collideParams));
                 if (userConfig.currRole === Role.JIANGJIANG.id) {
-                    do2BallsCollidedMV2(ball, b, isCheck, false, collideParams);
+                    //do2BallsCollidedMV2(ball, b, isCheck, false, collideParams);
+                    doBackToBorderBallsCollided(ball, b, isCheck);
                 } else if (userConfig.currRole === Role.KUILEI.id) {
                     if (isKuileiPulling) do2BallsCollidedMV2(ball, b, true, false, collideParams);
-                    else do2BallsCollidedMV2(ball, b, isCheck, false, collideParams);
-                } else do2BallsCollidedMV2(ball, b, true, false, collideParams);
+                    //else do2BallsCollidedMV2(ball, b, isCheck, false, collideParams);
+                    else doBackToBorderBallsCollided(ball, b, isCheck);
+                } else {
+                    if (isCheck) doBackToBorderBallsCollided(ball, b, true);
+                    else do2BallsCollidedMV2(ball, b, true, false, collideParams);
+                }
 
-                // 显示瞄准碰撞指示圈【瞄准时不停地检测，导致指示圈有闪动，后续再搞】
-                //if (isCheck) ball.drawTryCollidedCircle(null, b);
+                // TODO 显示瞄准碰撞指示圈【瞄准时会不停地拖动检测，导致指示圈有闪动，后续再搞】
+                // 还要考虑同时碰墙、碰蛋、碰多个角色时怎么显示
+                //if (isCheck) b.drawAimCircle();
 
                 console.log(">>>> checkOtherBalls-" + ball.getBallDesc() + "-撞击点坐标：x=" + ball.x + ", y=" + ball.y);
                 if (isCheck && recordCollidedPoint(ball)) return true; // 注意只是结束循环
@@ -9059,8 +10268,8 @@ function doDianyinSpeed(ball0, ball1) {
 function doLeleSpeed(ball0, ball1) {
     if (userConfig.currRole !== Role.LELE.id) return;
     if (!isLeleCollided(ball0, ball1)) return;
-    // 突破后，碰到存活角色（队友和对手都算），自身加速30%，手动调整比例，跟实战对比
-    const leleRatio = 1.50;
+    // 突破后，碰到存活角色（队友和对手都算），自身加速30%，后面加强到40%了，手动调整比例，跟实战对比
+    const leleRatio = 1.70; // 30%->1.5 40%->2.0 太快
     if (ball0.roleId === Role.LELE.id) { // ball0 为太平乐
         if (!isSpeedMax(ball0)) {
             ball0.vx *= leleRatio;
@@ -9098,7 +10307,10 @@ function checkEggs(ball, isCheck) {
                 //setXOrY(ball, collidedP0, true);
                 */
 
-                do2BallsCollidedMV2(ball, e, true, false, collideParams);
+                // 位置调整有偏差
+                //do2BallsCollidedMV2(ball, e, true, false, collideParams);
+                // 使用回退方式调整位置
+                doBackToBorderBallsCollided(ball, e, true);
 
                 console.log(">>>> checkEggs-" + ball.getBallDesc() + "-撞击点坐标：x=" + ball.x + ", y=" + ball.y);
                 if (isCheck && recordCollidedPoint(ball)) return true;
@@ -9210,14 +10422,16 @@ function do2BallsCollided(ball0, ball1) {
 
 
 // 小球带质量碰撞反弹
-var collideParams = { bounce: 0.70, eggId: -1 };
+var collideParams = { friction: 0.70, bounce: 0.70, eggId: -1, verCode: 0 };
 onMounted(() => {
-    collideParams.bounce = sysConfig.bounce ? sysConfig.bounce : (sysConfig.friction + 0.00);
+    collideParams.friction = sysConfig.friction;
+    collideParams.bounce = sysConfig.bounce ? sysConfig.bounce : (sysConfig.friction + 0.2 * balls[0].m); // 简单模拟摩擦力 f=0.2*m
     collideParams.eggId = Ball.SPECIALROLEID.eggId;
+    collideParams.verCode = sysConfig.version;
     if (!collideParams.bounce) collideParams.bounce = 0.70;
     if (!collideParams.eggId) collideParams.eggId = -1;
     console.log(">>>> do2BallsCollidedMV2 params=" + JSON.stringify(collideParams));
-})
+});
 //function do2BallsCollidedMV2(ball0, ball1, isChPos, isChVel, params) {}
 
 
@@ -9225,6 +10439,20 @@ onMounted(() => {
 function drawAndUpdate(ball, isCheck) {
     // 所有碰撞检测未完成，不绘制，也不更新速度，直接返回
     if (!ball.isCheckFinished) return;
+
+    // 画被瞄准角色指示圈
+    /* TODO 有很多空闲时间再研究向量了，不在自己的专业领域，真的很耗费时间精力！！
+    if (isCheck) balls.forEach(b => {
+        if (b.isMainBall) return; // continue
+        // 检测拖动点到主球圆心的线段与非主球是否相交
+        let start = {x: mouse.x, y: mouse.y}; // 线段起点-拖动点
+        let end = {x: ball.x, y: ball.y}; // 线段终点-主球圆心
+        let o = {x: b.x, y: b.y}; // 非主球圆心
+        // 定长线段检测与圆相交，不能满足实际需求，实际需要的是检测变长线段与圆相交【真的没时间折腾了，先放一放，并且加了指示圈也没有好多少】
+        if (doesLineInterceptCircle(start, end, o, b.radius)) b.drawAimCircle();
+    });
+    */
+
     // 小球位置没动不画
     if (ball.isMainBall) { // 只检测主球
         if (!isBallDrawAndUpdate(ball, 1)) return;
@@ -9349,7 +10577,9 @@ function isCollisionBallAndBall(ball0, ball1) {
     }
     // 双子本体与分身不会碰撞，会穿透
     let twinCheck = isTwinSelf(ball0, ball1);
+    //console.log(">>>> isCollisionBallAndBall twinCheck=" + twinCheck);
     result = !twinCheck && (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 <= ((KLRadius ? KLRadius : ball0.radius) + ball1.radius) ** 2;
+    //console.log(">>>> isCollisionBallAndBall 2 balls check result=" + result);
 
     // 如果是碰蛋检测，直接返回
     if (ball1.roleId === Ball.SPECIALROLEID.eggId) return result;
@@ -9376,6 +10606,7 @@ function isCollisionBallAndBall(ball0, ball1) {
     if ((userConfig.currRole === Role.JIANGJIANG.id || (userConfig.currRole === Role.KUILEI.id && !isKuileiPulling)) &&
         colliding01 && colliding01 === ball0.collidingNos[ball1.no - 1]) result = false;
 
+    //console.log(">>>> isCollisionBallAndBall final result=" + result);
     return result;
 }
 
@@ -9682,15 +10913,55 @@ function doTryMoveBallFirstCollidedPos() {
 
         // 达到次数后，就算没找到，也退出，避免死循环
         count++;
-        console.log(">>>> doTryMoveBallFirstCollidedPos count=" + count);
-        if (count > 100) break;
+        if (count >= 100) break;
     }
+    console.log(">>>> doTryMoveBallFirstCollidedPos count=" + count);
     console.log(">>>> 找到第一个撞击点坐标：x=" + tryMoveBallFirstCollidedPos.x + ", y=" + tryMoveBallFirstCollidedPos.y);
     isFirstCollidedPointFounded = true;
     // 重置标志
     if (tryMoveBall.isCollided) tryMoveBall.isCollided = false;
     // 重置速度
     doTryMoveBallFinished();
+}
+
+
+// 两球碰撞后，主球位置后退到碰撞边界
+function doBackToBorderBallsCollided(ball0, ball1, isCheck) {
+    if (!ball0 || !ball1) return;
+    if (!ball0.vx && !ball0.vy) return;
+    if (!isCheck) return;
+    let count = 0; // 循环计数，避免死循环
+    let bvx = 0, bvy = 0, bpx = 1, bvxyp = Math.abs(roundNumber(ball0.vx / ball0.vy)); // 后退的速度方向和大小
+    //if (!isNumber(bvxyp)) alert(bvxyp); // Infinity
+    while (is2CirclesCollided(ball0, ball1)) {
+        // 把速度大的设置为 bpx
+        if (Math.abs(ball0.vx) >= Math.abs(ball0.vy)) {
+            // 每次后退比例
+            if (ball0.vx > 0) bvx = bpx;
+            if (ball0.vx < 0) bvx = -bpx;
+            if (ball0.vy > 0) bvy = roundNumber(bpx / bvxyp, 4);
+            if (ball0.vy < 0) bvy = -roundNumber(bpx / bvxyp, 4);
+        } else {
+            if (ball0.vx > 0) bvx = roundNumber(bpx * bvxyp, 4);
+            if (ball0.vx < 0) bvx = -roundNumber(bpx * bvxyp, 4);
+            if (ball0.vy > 0) bvy = bpx;
+            if (ball0.vy < 0) bvy = -bpx;
+        }
+        // 反向移动
+        ball0.x -= bvx;
+        ball0.y -= bvy;
+
+        // 假定角色最大 3 格，每格最大 70 像素，count 最大 200 左右
+        count++;
+        if (count >= 200) break;
+    }
+    console.log(">>>> doBackToBorderBallsCollided count=" + count);
+
+    // 取上一次碰撞坐标，因为 while 结束之后，是没有碰撞的坐标
+    if (bvx || bvy) {
+        ball0.x += bvx;
+        ball0.y += bvy;
+    }
 }
 
 
@@ -9810,7 +11081,9 @@ function doKuileiPullBack(ball) {
         || ball.roleId !== Role.KUILEI.id || ball.wallCollidedCount < 2
         || !userConfig.isKuileiPullBack || isKuileiPulling
         || ball.roleCollidedCount < 1) return;
-    // 清空路径层画布
+    // 清空路径层画布 这里会导致傀儡主球画面闪动一下，因为主球原始位置画在路径层
+    // 先在主球层画一次当前位置
+    ball.draw();
     doClearPathCanvas();
     // 傀儡先停止运动
     ball.vx = 0;
@@ -9832,8 +11105,8 @@ function doKuileiPullBack(ball) {
 function setBallPosToBeginPoint(ball) {
     ball.x = ball.x0;
     ball.y = ball.y0;
-    // TODO 手动产生一个很小的变动，坐标一样会导致主球路径清理不掉
-    ball.x0 -= 0.000001;
+    // TODO 手动产生一个很小的变动(要确保roundNumber能改变数值)，坐标一样会导致主球路径在拉回时清理不掉
+    ball.x0 -= 0.0005;
 }
 
 
@@ -9861,12 +11134,14 @@ function getVxVy(p1, p2, v, ball) {
     let vy = Math.sin(radians) * (v ? v : targetBall.v);
     //console.log('>>>> vx=' + vx + '; vy=' + vy);
 
-    // TODO 运动反向取反，模拟玩吧撞击王者
+    // TODO 运动方向取反，模拟玩吧撞击王者
     if (ball) {
         ball.vx = -vx;
         ball.vy = -vy;
     }
 
+    vx = roundNumber(vx, 4);
+    vy = roundNumber(vy, 4);
     return { vx: -vx, vy: -vy };
 }
 
@@ -9888,7 +11163,7 @@ function showMovePath() {
 }
 
 
-// 绘制瞄准线，小球中心点与碰撞点连线
+// 绘制瞄准路径、瞄准圈，小球中心点与碰撞点连线
 // 获取了第一个碰撞点，就不用反向，直接连接球位置与第一个撞击点位置即可
 function drawLine2Point(p1, p2) {
     if (!selectedBall || !selectedBall.isMainBall) return; // 非主球不画
@@ -9898,9 +11173,7 @@ function drawLine2Point(p1, p2) {
     context.globalCompositeOperation = "destination-over";
     context.moveTo(p1.x, p1.y); // 起始位置
     context.lineTo(p2.x, p2.y); // 结束位置
-    context.strokeStyle = '#cfe0d330';
-    if (userConfig.sceneThemeMode === 5) // 夏日主题
-        context.strokeStyle = "#F9FBF540";
+    context.strokeStyle = currTheme.rlColor;
     context.lineWidth = selectedBall.radius * 2;
     if (selectedBall.isMainBall && selectedBall.roleId === Role.KUILEI.id) context.lineWidth = selectedBall.tryRadius * 2;
     context.lineCap = "round"; // 圆角
@@ -9911,12 +11184,11 @@ function drawLine2Point(p1, p2) {
     context.save();
     context.beginPath();
     context.arc(p2.x, p2.y, selectedBall.tryRadius, Math.PI / 180 * 0, Math.PI / 180 * 360);
-    context.lineWidth = 1 * dpr * sysConfig.pxRatio;
-    context.strokeStyle = "#E6ECFF75";
-    if (userConfig.sceneThemeMode === 5) // 夏日主题
-        context.strokeStyle = "#F9FBF5A0";
-    context.setLineDash([6 * dpr * sysConfig.pxRatio, 3 * dpr * sysConfig.pxRatio]);
-    if (selectedBall.isMainBall && selectedBall.roleId === Role.KUILEI.id) context.setLineDash([2 * dpr * sysConfig.pxRatio, 2 * dpr * sysConfig.pxRatio]);
+    context.lineWidth = currTheme.ccWidth;
+    let tcColor = Theme.getColorCodeNormal(currTheme.plColor) + "A0";
+    context.strokeStyle = Theme.isColorCode(tcColor) ? tcColor : "#F9FBF5A0";
+    context.setLineDash([Math.round(6 * dpr * sysConfig.pxRatio), Math.round(3 * dpr * sysConfig.pxRatio)]);
+    if (selectedBall.isMainBall && selectedBall.roleId === Role.KUILEI.id) context.setLineDash([Math.round(2 * dpr * sysConfig.pxRatio), Math.round(2 * dpr * sysConfig.pxRatio)]);
     context.closePath();
     context.stroke(); // 空心
     context.restore();
@@ -10041,6 +11313,7 @@ function onMouseMove(isPlay2) {
         }
         //selectedBall.x0 = mouse.x;
         //selectedBall.y0 = mouse.y;
+
         // 双子分身位置处理
         afterTwins(false);
 
@@ -10076,12 +11349,12 @@ function onMouseMove(isPlay2) {
             getVxVy(null, null, null, selectedBall);
         }
         // 更新移动的球
-        tryMoveBall.x = selectedBall.x;
-        tryMoveBall.y = selectedBall.y;
-        //tryMoveBall.x0 = selectedBall.x;
-        //tryMoveBall.y0 = selectedBall.y;
-        tryMoveBall.vx = selectedBall.vx;
-        tryMoveBall.vy = selectedBall.vy;
+        tryMoveBall.x = roundNumber(selectedBall.x, 4);
+        tryMoveBall.y = roundNumber(selectedBall.y, 4);
+        //tryMoveBall.x0 = tryMoveBall.x;
+        //tryMoveBall.y0 = tryMoveBall.y;
+        tryMoveBall.vx = roundNumber(selectedBall.vx, 4);
+        tryMoveBall.vy = roundNumber(selectedBall.vy, 4);
         // 准备 tryMoveBall
         preTryMoveBall(1);
         // 尝试模拟运动找到第一个撞击点
@@ -10160,7 +11433,10 @@ function onMouseOrTouchMove(e) {
     //console.log(e);
     doEventDefault(e);
     // 解决部分机型，手指没有move，touchmove事件仍会被调用的问题
-    if (longPressPoint.x !== mouse.x || longPressPoint.y !== mouse.y) {
+    // 太精确的全等会导致触摸稍微抖动一下就会重置定时器，导致长按不灵敏
+    //if (longPressPoint.x !== mouse.x || longPressPoint.y !== mouse.y) {
+    // 允许手指有半径为10像素的范围抖动
+    if (!is2CirclesCollided({ x: longPressPoint.x, y: longPressPoint.y, radius: 10 }, { x: mouse.x, y: mouse.y, radius: 10 })) {
         // 有拖动行为，重置长按定时器
         longPressTimer && clearTimeout(longPressTimer);
         longPressTimer = 0;
@@ -10410,7 +11686,8 @@ function doEventDefault(e) {
     }
 
     let ele = e.target;
-    if (ele && ele.tagName && ele.tagName.toLowerCase() === "a") return;
+    if (ele && ele.tagName && ele.tagName.toLowerCase() === "a") return; // a 链接
+    if (ele && ele.tagName && ele.tagName.toLowerCase() === "input") return; // input file 选择
 
     // 阻止浏览器默认行为
     if (e.preventDefault) { // 非IE
