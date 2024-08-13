@@ -1054,7 +1054,7 @@ input:checked+.slider:before {
             </div>
             <ul id="role-list-area">
                 <li id="role-heiwa" class="role-list" @click="chooseRole($event.target, Role.HEIWA.id);">
-                    <div class="role-list-icon-name"><span class="role-list-icon">🍼</span><span
+                    <div class="role-list-icon-name"><span class="role-list-icon">👶🏽</span><span
                             class="role-list-name">圣婴大王（黑娃）</span></div>
                 </li>
                 <li id="role-jiangjiang" class="role-list" @click="chooseRole($event.target, Role.JIANGJIANG.id);">
@@ -1294,7 +1294,7 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
-                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">台面边框线宽度</span>
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">台面边框线宽</span>
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
@@ -3302,7 +3302,7 @@ class Ball {
         if (this.iconSize < 10) {
             let metrics, width, ratio;
             ratio = 1.4;
-            if (this.roleId === Role.HEIWA.id || this.roleId === Role.BAKE.id
+            if (this.roleId === Role.BAKE.id
                 || this.roleId === Role.X.id || this.roleId === Role.DUODUO.id
                 || this.roleId === Role.HUAQIANJI.id) ratio = 1.2; // 图标偏大，手动调小一点
 
@@ -4002,7 +4002,7 @@ class Role {
     */
 
     //static HEIWA = {id:0, icon:"🍼", fullName:"圣婴大王", shortName:"黑娃", oneName:"娃", cps:null};
-    static HEIWA = new Role(0, "🍼", "圣婴大王", "黑娃", "娃", null);
+    static HEIWA = new Role(0, "👶🏽", "圣婴大王", "黑娃", "娃", null);
     static JIANGJIANG = new Role(1, "🧟‍♂", "波比僵僵", "僵尸", "僵", null);
     static DUODUO = new Role(2, "🥚", "风铃朵朵", "朵朵", "朵", null);
     static KUILEI = new Role(3, "🦊", "傀儡娃娃", "傀儡", "傀", null);
@@ -4403,10 +4403,10 @@ class Theme {
         this.bgImageIdbKey = bgImageIdbKey || sysConfig.bgImageKey + this.id; // 页面背景图片indexedDB key
         this.tbColor = tbColor || "#8d93d8"; // table 台面背景颜色
         this.tblColor = tblColor || "#35357A"; // table line 台面边框线颜色
-        this.tblWidth = tblWidth || roundNumber(6.00 * dpr); // TODO table line 台面边框线宽度，根据设备 DPR 决定，在 init() 初始化的时候计算设置 0.27 * sysConfig.girdSizeCss * dpr
+        this.tblWidth = tblWidth || roundNumber(6.00 * dpr); // TODO table line 台面边框线宽，根据设备 DPR 决定，在 init() 初始化的时候计算设置 0.27 * sysConfig.girdSizeCss * dpr
         this.glColor = glColor || "#8384D1D0"; // gird line 砖格线颜色
         this.glmColor = glmColor || "#6A6CBFD0"; // gird line middle 砖格线中间线颜色
-        this.glWidth = glWidth || roundNumber(1.00 * dpr * (os.isTablet ? 1.618 : 1)); // gird line 砖格线宽度，根据设备 DPR 决定
+        this.glWidth = glWidth || roundNumber(1.00 * dpr * (os.isTablet ? 1.618 : 1)); // gird line 砖格线宽，根据设备 DPR 决定
         this.gnColor = gnColor || "#D2CCF1"; // gird number 砖格坐标数值颜色
         this.gndColor = gndColor || "#D7D7DC"; // gird number dark 砖格坐标数值黑夜模式颜色
         this.gnSize = gnSize || 24; // TODO gird number 砖格坐标数值显示大小，初始化的时候计算 htmlFontSizeNum * dpr * sysConfig.pxRatio + "px serif"
@@ -4497,7 +4497,7 @@ class Theme {
     // 重新计算属性值
     static reCalculate(theme) {
         if (!theme) return;
-        theme.tblWidth = sceneLineRealWidth; // 台面边框线宽度
+        theme.tblWidth = sceneLineRealWidth; // 台面边框线宽
         theme.gnSize = Math.round(htmlFontSizeNum * dpr * sysConfig.pxRatio); // 砖格坐标数值字体大小
     }
 
@@ -4633,7 +4633,7 @@ function init() {
     sceneLineRealWidth = roundNumber(sysConfig.sceneLineWidth * dpr);
     console.log(">>>> sceneLineRealWidth=" + sceneLineRealWidth);
     if (!userConfig.isUseCustomTheme) { // 没有启用自定义主题时才重新计算，关联 Theme 类中的 reCalculate()
-        currTheme.tblWidth = sceneLineRealWidth; // 台面边框线宽度
+        currTheme.tblWidth = sceneLineRealWidth; // 台面边框线宽
         currTheme.gnSize = Math.round(htmlFontSizeNum * dpr * sysConfig.pxRatio); // 砖格坐标数值字体大小
     }
     // 设置弹窗滚动区域高度 canvas.width * hRadio
@@ -9048,7 +9048,7 @@ function saveStringContentToFile(content) {
     if (!content) return;
     let objectURL, aTag, blob, file;
     try {
-        let fName = "collide-try-theme-" + sysConfig.version + ".txt";
+        let fName = "collide-try-theme-" + currTheme.name + "-" + sysConfig.version + ".txt";
         if (!objectURL) file = new File([content], {
             type: "text/plain;charset=utf-8"
         });
