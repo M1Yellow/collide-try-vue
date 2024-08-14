@@ -3558,7 +3558,7 @@ class Ball {
         if (isKuileiPulling) return; // 傀儡拉回时不画
         gamePathBallContext.save();
         gamePathBallContext.beginPath(); // 开始一条路径，或重置当前的路径。
-        gamePathBallContext.globalCompositeOperation = "xor";
+        gamePathBallContext.globalCompositeOperation = "xor"; // 显示新的图层和旧的图层，不显示重叠的图层
         //gamePathBallContext.globalCompositeOperation = "destination-over"; // 新的图层在老的图层下面
         gamePathBallContext.moveTo(roundNumber(p1.x, 4), roundNumber(p1.y, 4));
         gamePathBallContext.lineTo(roundNumber(p2.x, 4), roundNumber(p2.y, 4));
@@ -3629,7 +3629,8 @@ class Ball {
         // 绘制小球实体填充
         gamePathBallContext.save();
         gamePathBallContext.beginPath();
-        gamePathBallContext.globalCompositeOperation = "destination-over";
+        //gamePathBallContext.globalCompositeOperation = "destination-over"; // 在下方
+        gamePathBallContext.globalCompositeOperation = "xor"; // 显示新的图层和旧的图层，不显示重叠的图层
         gamePathBallContext.arc(this.x, this.y, this.radius, 0, roundNumber(Math.PI / 180 * 360, 4));
         //gamePathBallContext.fillStyle = this.color;
         //gamePathBallContext.fillStyle = "#cfe0d385";
@@ -4067,6 +4068,88 @@ class Role {
     static TUYA = new Role(62, "👨‍🎨", "涂鸦战士", "涂鸦", "涂", null);
 
 
+    // 角色类型分类：超肉、肉、杀、肉杀、乱碰、被乱碰、陷阱、标记、自动打(毒素、喷火等技能)、回血、复活/名刀、加速、减速、加护盾、加伤害、减伤害、反弹伤害
+    // 肉，血量在最高血量(638) * 80% 以上，或带回血，假定 638 * 0.8 -> 510+；超肉，90%+ 638 * 0.8 -> 570+ 或带回血
+    static BLOOD540 = [Role.NURSE.id, Role.CHUZI.id, Role.HONGZHAJI.id, Role.JIUWEIHU.id, Role.BAKE.id, Role.KUKU.id, Role.JUNDUN.id, Role.YINGYING.id,
+    Role.HUAQIANJI.id, Role.MANWANG.id, Role.BAIGUJING.id, Role.CAPTAIN.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.JOKER.id,];
+    static BLOOD500 = [Role.MOUSE.id, Role.LIANGLIANG.id, Role.SHITOUREN.id, Role.MAGICLION.id, Role.PUMPKIN.id, Role.BZGIRL.id, Role.KUILEI.id,
+    Role.LANPANG.id, Role.YEREN.id, Role.SANTAIZI.id, Role.WUNV.id, Role.LULU.id, Role.XIUNV.id,
+    ];
+
+    // 超杀，单回合本体伤害+技能伤害 180+
+    static SUPER_KILLER = [Role.DIANYIN.id, Role.ZHANAN.id, Role.HONGZHAJI.id, Role.HEIWA.id, Role.BZGIRL.id, Role.JIANGJIANG.id,
+    Role.LINGLING.id, Role.KUILEI.id, Role.TIEMIAN.id,];
+    // 杀，单回合本体伤害+技能伤害 90+
+    static KILLER = [Role.RABBIT.id, Role.RENZHE.id, Role.SHITOUREN.id, Role.MAGICLION.id, Role.KAIER.id, Role.QUANBA.id, Role.YINGYING.id,
+    Role.HUABANTU.id, Role.CAPTAIN.id, Role.XIXUEGUI.id, Role.SHUANGZI.id, Role.LANLAN.id, Role.LANGZAI.id, Role.LEIMENG.id, Role.SANTAIZI.id,
+    Role.WUGEGE.id, Role.NUANYANG.id, Role.QIANGWEI.id,
+    ];
+
+    // 肉杀，血量(算回血)在 500+，单回合能稳定打出伤害 140+ 计算超肉+肉集合与超杀+杀集合的交集
+    static BLOOOD_KILLER = arrayIntersect(arrayUnionSet(this.BLOOD540, this.BLOOD500), arrayUnionSet(this.SUPER_KILLER, this.KILLER));
+
+    // 乱碰
+    static CHAOS_MAKER = [Role.DIANYIN.id, Role.BZGIRL.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.LANPANG.id, Role.LELE.id, Role.WUGEGE.id,
+    Role.WUKONG.id, Role.HEIWA.id, Role.HUABANTU.id, Role.KUKU.id,
+    ];
+    // 被乱碰
+    static CHAOS_CONSUMER = [Role.RABBIT.id, Role.DIANYIN.id, Role.ZHANAN.id, Role.RENZHE.id, Role.YOUXIA.id, Role.JOKER.id, Role.NUANYANG.id,
+    Role.TUYA.id, Role.YINGYING.id, Role.HEIWA.id, Role.CAPTAIN.id, Role.XIXUEGUI.id, Role.WUNV.id, Role.ZHADANKE.id,
+    ];
+    // 克制乱碰
+    static CHAOS_BLOCKS = [Role.PUMPKIN.id, Role.HONGZHAJI.id, Role.ZHANAN.id, Role.RENZHE.id, Role.BAIGUJING.id, Role.GUISHUSHI.id, Role.HUOWANG.id,
+    Role.HONGSANSAN.id, Role.ZHADANKE.id, Role.HUAQIANJI.id, Role.YEREN.id, Role.TUYA.id,
+    ];
+
+    // 陷阱
+    static TRAP_MAKER = [Role.BAIGUJING.id, Role.GUISHUSHI.id, Role.HUOWANG.id, Role.YEREN.id, Role.JOKER.id, Role.HONGSANSAN.id, Role.ZHADANKE.id,
+    Role.TUYA.id, Role.TONY.id,
+    ];
+
+    // 自身标记
+    static MARK_MAKER_SELF = [Role.BAIGUJING.id, Role.CAPTAIN.id, Role.LANLAN.id,
+    Role.LANGZAI.id, Role.HUOWANG.id, Role.MIAOJIANG.id, Role.WUNV.id, Role.YOUFANG.id, Role.XIUNV.id,
+    ];
+    // 本队标记
+    static MARK_MAKER = [Role.YINGYING.id, Role.HUAQIANJI.id, Role.JUNDUN.id,];
+
+    // 自动打(毒素、喷火等技能)
+    static AUTO_ATTACK = [Role.RABBIT.id, Role.LIANGLIANG.id, Role.LAILAI.id, Role.SHITOUREN.id, Role.MAGICLION.id, Role.DUODUO.id,
+    Role.MIAOJIANG.id, Role.SANTAIZI.id,
+    ];
+
+    // 自身回血
+    static BLOOD_BACK_SELF = [Role.CHUZI.id, Role.CAPTAIN.id, Role.XIXUEGUI.id, Role.NUANYANG.id,];
+    // 本队回血（要么只给队友加、要么本队都加）
+    static BLOOD_BACK = [Role.ZHANAN.id, Role.NURSE.id, Role.GUISHUSHI.id, Role.JIUWEIHU.id,];
+
+    // 复活/名刀
+    static REBIRTH = [Role.BAKE.id, Role.MUSHI.id,];
+
+    // 加速辅助
+    static FAST_MAKER = [Role.KUKU.id, Role.LULU.id,];
+    // 给对手减速
+    static SLOW_MAKER = [Role.HONGSANSAN.id, Role.ZHADANKE.id, Role.MANWANG.id,];
+
+    // 自身加护盾
+    static SHIELD_MAKER_SELF = [];
+    // 本队加护盾（要么只给队友加、要么本队都加）
+    static SHIELD_MAKER = [Role.JUNDUN.id, Role.LEIMENG.id, Role.LULU.id, Role.YINGYING.id,];
+
+    // 自身攻击力加成
+    static ADD_ATTACK_SELF = [Role.KAIER.id, Role.NIUXIAOMANG.id, Role.QUANBA.id, Role.HEIWA.id, Role.BZGIRL.id, Role.JIANGJIANG.id, Role.LINGLING.id,
+    Role.SHUANGZI.id, Role.HUAQIANJI.id, Role.LANLAN.id, Role.LEIMENG.id, Role.MUSHI.id, Role.TUYA.id, Role.TONY.id, Role.WUGEGE.id, Role.ZHANGYUGE.id,
+    ];
+    // 本队攻击力加成（要么只给队友加、要么本队都加）
+    static ADD_ATTACK = [Role.MANWANG.id, Role.TUYA.id, Role.TONY.id, Role.WUGEGE.id, Role.XIUNV.id,];
+
+    // 减对手伤害
+    static SUB_ATTACK = [Role.LELE.id, Role.TUYA.id,];
+
+    // 反弹伤害
+    static TRANS_ATTACK = [Role.BAKE.id, Role.NUANYANG.id, Role.HONGSANSAN.id, Role.ZHADANKE.id,];
+
+
     static maxRoleId = -1;
 
     static getRoleById(id) {
@@ -4157,7 +4240,21 @@ class Role {
         return fullCloseInt(0, this.maxRoleId);
     }
 
+    // 初始化合适搭配，最合适搭配 + 其他合适搭配
     static initRoleCps() {
+        /*
+        // TODO 分类拼接没有自定义数组那么自由！总会出现不合适却在里面，合适的又不在的麻烦！大量拼接还会消耗更多性能和内存
+        // 乱碰+本队回血+超肉+肉杀+本队攻击加成+本队加护盾-去重-去本身
+        this.HEIWA.cps = arrayMinus(arrayUnique(this.CHAOS_MAKER.concat(this.BLOOD_BACK).concat(this.BLOOD540).concat(this.BLOOOD_KILLER).concat(this.ADD_ATTACK).concat(this.SHIELD_MAKER).concat(this.REBIRTH)), [Role.HEIWA.id, Role.DIANYIN.id]);
+        // 加速辅助+对手减速+本队回血+本队标记+超肉+肉杀+本队攻击加成+本队加护盾+复活-去重-去本身
+        this.JIANGJIANG.cps = arrayMinus(arrayUnique(this.FAST_MAKER.concat(this.SLOW_MAKER).concat(this.BLOOD_BACK).concat(this.MARK_MAKER).concat(this.BLOOD540).concat(this.BLOOOD_KILLER).concat(this.ADD_ATTACK).concat(this.SHIELD_MAKER).concat(this.REBIRTH)), [Role.JIANGJIANG.id]);
+        // 超肉+本队回血+复活-去重-去本身
+        this.DUODUO.cps = arrayMinus(arrayUnique(this.BLOOD540.concat(this.BLOOD_BACK).concat(this.REBIRTH)), [Role.DUODUO.id, Role.KUKU.id, Role.YINGYING.id, Role.MANWANG.id, Role.BAIGUJING.id]);
+        // 被乱碰-去重-去本身
+        this.KUILEI.cps = arrayMinus(arrayUnique(this.CHAOS_CONSUMER), [Role.KUILEI.id]);
+        // 自动打+超杀-去重-去本身
+        this.BAKE.cps = arrayMinus(arrayUnique([Role.XIUNV.id].concat(this.SUPER_KILLER).concat(this.AUTO_ATTACK)), [Role.BAKE.id]);
+        */
         this.HEIWA.cps = [Role.KUKU.id, Role.LELE.id, Role.LULU.id, Role.JIUWEIHU.id, Role.NURSE.id, Role.CHUZI.id, Role.TONY.id, Role.SHUANGZI.id, Role.WUGEGE.id, Role.WUKONG.id, Role.HUABANTU.id, Role.LANPANG.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
         this.JIANGJIANG.cps = [Role.KUKU.id, Role.LULU.id, Role.JIUWEIHU.id, Role.NURSE.id, Role.CHUZI.id, Role.MANWANG.id, Role.HUAQIANJI.id, Role.BAKE.id, Role.YINGYING.id, Role.WUGEGE.id, Role.ZHADANKE.id, Role.HONGSANSAN.id, Role.XIXUEGUI.id, Role.SANTAIZI.id];
         this.DUODUO.cps = [Role.HUAQIANJI.id, Role.BAKE.id, Role.CHUZI.id, Role.JOKER.id, Role.NURSE.id, Role.JIUWEIHU.id, Role.HONGZHAJI.id, Role.MIAOJIANG.id, Role.MUSHI.id];
@@ -4221,7 +4318,7 @@ class Role {
         this.YEREN.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.HUABANTU.id, Role.LANPANG.id, Role.MAGICLION.id, Role.JIANGJIANG.id, Role.NUANYANG.id, Role.CAPTAIN.id, Role.XIUNV.id, Role.ZHADANKE.id, Role.HONGSANSAN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
         this.BAIGUJING.cps = [Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.HUABANTU.id, Role.NIUXIAOMANG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
         this.TUYA.cps = [Role.JIUWEIHU.id, Role.NURSE.id, Role.ZHANAN.id, Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.HUABANTU.id, Role.NIUXIAOMANG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
-        // TODO 后续需要抽取分类，不然很难维护
+
     }
 
 }
@@ -4229,7 +4326,7 @@ class Role {
 Role.initRoleCps();
 
 
-// 常用搭配类
+// 常用大奖赛搭配类
 class RegularlyCollocation {
 
     constructor(id, group) {
@@ -4237,7 +4334,9 @@ class RegularlyCollocation {
         this.group = group;
     }
 
-    // 🥚、🧟、❄️、🤡、8g 每个分配一百万个id
+    // 🥚、🧟、❄️、🤡、8g 等TOP角色大奖赛常用组合，每个分配一百万个id
+    // 🥚
+    static group1000000 = new RegularlyCollocation(1000000, [Role.DUODUO.id, Role.BAKE.id]);
     static group1000001 = new RegularlyCollocation(1000001, [Role.DUODUO.id, Role.BAKE.id]);
     static group1000002 = new RegularlyCollocation(1000002, [Role.DUODUO.id, Role.HUAQIANJI.id]);
     static group1000003 = new RegularlyCollocation(1000003, [Role.DUODUO.id, Role.CHUZI.id]);
@@ -4246,7 +4345,10 @@ class RegularlyCollocation {
     static group1000006 = new RegularlyCollocation(1000006, [Role.DUODUO.id, Role.MIAOJIANG.id]);
     static group1000007 = new RegularlyCollocation(1000007, [Role.DUODUO.id, Role.NURSE.id]);
     static group1000008 = new RegularlyCollocation(1000008, [Role.DUODUO.id, Role.JIUWEIHU.id]);
+    static group1000009 = new RegularlyCollocation(1000009, [Role.DUODUO.id, Role.MUSHI.id]);
 
+    // 🧟
+    static group2000000 = new RegularlyCollocation(2000000, [Role.JIANGJIANG.id, Role.MANWANG.id]);
     static group2000001 = new RegularlyCollocation(2000001, [Role.JIANGJIANG.id, Role.LULU.id]);
     static group2000002 = new RegularlyCollocation(2000002, [Role.JIANGJIANG.id, Role.KUKU.id]);
     static group2000003 = new RegularlyCollocation(2000003, [Role.JIANGJIANG.id, Role.JIUWEIHU.id]);
@@ -4260,6 +4362,8 @@ class RegularlyCollocation {
     static group2000011 = new RegularlyCollocation(2000011, [Role.JIANGJIANG.id, Role.HONGSANSAN.id]);
     static group2000012 = new RegularlyCollocation(2000012, [Role.JIANGJIANG.id, Role.SANTAIZI.id]);
 
+    // ❄️
+    static group3000000 = new RegularlyCollocation(3000000, [Role.YINGYING.id, Role.CAPTAIN.id]);
     static group3000001 = new RegularlyCollocation(3000001, [Role.YINGYING.id, Role.LELE.id]);
     static group3000002 = new RegularlyCollocation(3000002, [Role.YINGYING.id, Role.CAPTAIN.id]);
     static group3000003 = new RegularlyCollocation(3000003, [Role.YINGYING.id, Role.KUILEI.id]);
@@ -4275,6 +4379,8 @@ class RegularlyCollocation {
     static group3000013 = new RegularlyCollocation(3000013, [Role.YINGYING.id, Role.HONGSANSAN.id]);
     static group3000014 = new RegularlyCollocation(3000014, [Role.YINGYING.id, Role.SANTAIZI.id]);
 
+    // 🤡
+    static group4000000 = new RegularlyCollocation(4000000, [Role.JOKER.id, Role.KUILEI.id]);
     static group4000001 = new RegularlyCollocation(4000001, [Role.JOKER.id, Role.WUGEGE.id]);
     static group4000002 = new RegularlyCollocation(4000002, [Role.JOKER.id, Role.RABBIT.id]);
     static group4000003 = new RegularlyCollocation(4000003, [Role.JOKER.id, Role.LELE.id]);
@@ -4295,7 +4401,13 @@ class RegularlyCollocation {
     static group4000018 = new RegularlyCollocation(4000018, [Role.JOKER.id, Role.YINGYING.id]);
     static group4000019 = new RegularlyCollocation(4000019, [Role.JOKER.id, Role.LINGLING.id]);
     static group4000020 = new RegularlyCollocation(4000020, [Role.JOKER.id, Role.LANLAN.id]);
+    static group4000021 = new RegularlyCollocation(4000021, [Role.JOKER.id, Role.HUABANTU.id]);
+    static group4000022 = new RegularlyCollocation(4000022, [Role.JOKER.id, Role.BAIGUJING.id]);
+    static group4000023 = new RegularlyCollocation(4000023, [Role.JOKER.id, Role.NUANYANG.id]);
+    static group4000024 = new RegularlyCollocation(4000024, [Role.JOKER.id, Role.QIANGWEI.id]);
+    static group4000025 = new RegularlyCollocation(4000025, [Role.JOKER.id, Role.ZHANAN.id]);
 
+    // 8g
     static group5000000 = new RegularlyCollocation(5000000, [Role.BAKE.id, Role.DUODUO.id]);
     static group5000001 = new RegularlyCollocation(5000001, [Role.BAKE.id, Role.WUGEGE.id]);
     static group5000002 = new RegularlyCollocation(5000002, [Role.BAKE.id, Role.RABBIT.id]);
@@ -4305,33 +4417,120 @@ class RegularlyCollocation {
     static group5000006 = new RegularlyCollocation(5000006, [Role.BAKE.id, Role.LEIMENG.id]);
     static group5000007 = new RegularlyCollocation(5000007, [Role.BAKE.id, Role.BZGIRL.id]);
     static group5000008 = new RegularlyCollocation(5000008, [Role.BAKE.id, Role.LANGZAI.id]);
-    static group5000009 = new RegularlyCollocation(5000009, [Role.BAKE.id, Role.BZGIRL.id]);
+    static group5000009 = new RegularlyCollocation(5000009, [Role.BAKE.id, Role.MAGICLION.id]);
     static group5000010 = new RegularlyCollocation(5000010, [Role.BAKE.id, Role.XIUNV.id]);
     static group5000011 = new RegularlyCollocation(5000011, [Role.BAKE.id, Role.LANLAN.id]);
     static group5000012 = new RegularlyCollocation(5000012, [Role.BAKE.id, Role.SANTAIZI.id]);
 
+    // 🚢
+    static group6000000 = new RegularlyCollocation(6000000, [Role.CAPTAIN.id, Role.YINGYING.id]);
+    static group6000001 = new RegularlyCollocation(6000001, [Role.CAPTAIN.id, Role.BZGIRL.id]);
+    static group6000002 = new RegularlyCollocation(6000002, [Role.CAPTAIN.id, Role.JOKER.id]);
+    static group6000003 = new RegularlyCollocation(6000003, [Role.CAPTAIN.id, Role.JIANGJIANG.id]);
+    static group6000004 = new RegularlyCollocation(6000004, [Role.CAPTAIN.id, Role.CHUZI.id]);
+    static group6000005 = new RegularlyCollocation(6000005, [Role.CAPTAIN.id, Role.ZHANAN.id]);
+    static group6000006 = new RegularlyCollocation(6000006, [Role.CAPTAIN.id, Role.HONGZHAJI.id]);
+    static group6000007 = new RegularlyCollocation(6000007, [Role.CAPTAIN.id, Role.NUANYANG.id]);
+    static group6000008 = new RegularlyCollocation(6000008, [Role.CAPTAIN.id, Role.QIANGWEI.id]);
+
+    // 双子
+    static group7000000 = new RegularlyCollocation(7000000, [Role.SHUANGZI.id, Role.JOKER.id]);
+    static group7000001 = new RegularlyCollocation(7000001, [Role.SHUANGZI.id, Role.DIANYIN.id]);
+    static group7000002 = new RegularlyCollocation(7000002, [Role.SHUANGZI.id, Role.RABBIT.id]);
+    static group7000003 = new RegularlyCollocation(7000003, [Role.SHUANGZI.id, Role.HEIWA.id]);
+    static group7000004 = new RegularlyCollocation(7000004, [Role.SHUANGZI.id, Role.YOUXIA.id]);
+    static group7000005 = new RegularlyCollocation(7000005, [Role.SHUANGZI.id, Role.ZHANAN.id]);
+    static group7000006 = new RegularlyCollocation(7000006, [Role.SHUANGZI.id, Role.YINGYING.id]);
+    static group7000007 = new RegularlyCollocation(7000007, [Role.SHUANGZI.id, Role.CAPTAIN.id]);
+    static group7000008 = new RegularlyCollocation(7000008, [Role.SHUANGZI.id, Role.RENZHE.id]);
+    static group7000009 = new RegularlyCollocation(7000009, [Role.SHUANGZI.id, Role.BAIGUJING.id]);
+    static group7000010 = new RegularlyCollocation(7000010, [Role.SHUANGZI.id, Role.LINGLING.id]);
+    static group7000011 = new RegularlyCollocation(7000011, [Role.SHUANGZI.id, Role.XIXUEGUI.id]);
+    static group7000012 = new RegularlyCollocation(7000012, [Role.SHUANGZI.id, Role.HUOWANG.id]);
+    static group7000013 = new RegularlyCollocation(7000013, [Role.SHUANGZI.id, Role.YEREN.id]);
+
+    // 🦊 傀儡
+    static group8000000 = new RegularlyCollocation(8000000, [Role.KUILEI.id, Role.JOKER.id]);
+    static group8000001 = new RegularlyCollocation(8000001, [Role.KUILEI.id, Role.YINGYING.id]);
+    static group8000002 = new RegularlyCollocation(8000002, [Role.KUILEI.id, Role.DIANYIN.id]);
+    static group8000003 = new RegularlyCollocation(8000003, [Role.KUILEI.id, Role.ZHANAN.id]);
+    static group8000004 = new RegularlyCollocation(8000004, [Role.KUILEI.id, Role.YOUXIA.id]);
+    static group8000005 = new RegularlyCollocation(8000005, [Role.KUILEI.id, Role.LINGLING.id]);
+    static group8000006 = new RegularlyCollocation(8000006, [Role.KUILEI.id, Role.XIXUEGUI.id]);
+    static group8000007 = new RegularlyCollocation(8000007, [Role.KUILEI.id, Role.RABBIT.id]);
+    static group8000008 = new RegularlyCollocation(8000008, [Role.KUILEI.id, Role.BAIGUJING.id]);
+    static group8000009 = new RegularlyCollocation(8000009, [Role.KUILEI.id, Role.RENZHE.id]);
+    static group8000010 = new RegularlyCollocation(8000010, [Role.KUILEI.id, Role.WUNV.id]);
+
+    // 🦊 狐尾
+    static group9000000 = new RegularlyCollocation(9000000, [Role.JIUWEIHU.id, Role.JIANGJIANG.id]);
+    static group9000001 = new RegularlyCollocation(9000001, [Role.JIUWEIHU.id, Role.NURSE.id]);
+    static group9000002 = new RegularlyCollocation(9000002, [Role.JIUWEIHU.id, Role.HEIWA.id]);
+    static group9000003 = new RegularlyCollocation(9000003, [Role.JIUWEIHU.id, Role.HONGZHAJI.id]);
+    static group9000004 = new RegularlyCollocation(9000004, [Role.JIUWEIHU.id, Role.DUODUO.id]);
+    static group9000005 = new RegularlyCollocation(9000005, [Role.JIUWEIHU.id, Role.LEIMENG.id]);
+    static group9000006 = new RegularlyCollocation(9000006, [Role.JIUWEIHU.id, Role.ZHANAN.id]);
+    static group9000007 = new RegularlyCollocation(9000007, [Role.JIUWEIHU.id, Role.TUYA.id]);
+    static group9000008 = new RegularlyCollocation(9000008, [Role.JIUWEIHU.id, Role.CHUZI.id]);
+    static group9000009 = new RegularlyCollocation(9000009, [Role.JIUWEIHU.id, Role.RABBIT.id]);
+    static group9000010 = new RegularlyCollocation(9000010, [Role.JIUWEIHU.id, Role.BZGIRL.id]);
+    static group9000011 = new RegularlyCollocation(9000011, [Role.JIUWEIHU.id, Role.LINGLING.id]);
+    static group9000012 = new RegularlyCollocation(9000012, [Role.JIUWEIHU.id, Role.XIXUEGUI.id]);
+    static group9000013 = new RegularlyCollocation(9000013, [Role.JIUWEIHU.id, Role.HUAQIANJI.id]);
+    static group9000014 = new RegularlyCollocation(9000014, [Role.JIUWEIHU.id, Role.LANLAN.id]);
+    static group9000015 = new RegularlyCollocation(9000015, [Role.JIUWEIHU.id, Role.JIANSHI.id]);
+    static group9000016 = new RegularlyCollocation(9000016, [Role.JIUWEIHU.id, Role.WUGEGE.id]);
+
+    // 光影 扎男
+    static group10000000 = new RegularlyCollocation(10000000, [Role.ZHANAN.id, Role.JIUWEIHU.id]);
+    static group10000001 = new RegularlyCollocation(10000001, [Role.ZHANAN.id, Role.WUKONG.id]);
+    static group10000002 = new RegularlyCollocation(10000002, [Role.ZHANAN.id, Role.TUYA.id]);
+    static group10000003 = new RegularlyCollocation(10000003, [Role.ZHANAN.id, Role.BZGIRL.id]);
+    static group10000004 = new RegularlyCollocation(10000004, [Role.ZHANAN.id, Role.SHUANGZI.id]);
+    static group10000005 = new RegularlyCollocation(10000005, [Role.ZHANAN.id, Role.JIANGJIANG.id]);
+    static group10000006 = new RegularlyCollocation(10000006, [Role.ZHANAN.id, Role.HONGZHAJI.id]);
+    static group10000007 = new RegularlyCollocation(10000007, [Role.ZHANAN.id, Role.NIUXIAOMANG.id]);
+    static group10000008 = new RegularlyCollocation(10000008, [Role.ZHANAN.id, Role.DIANYIN.id]);
+    static group10000009 = new RegularlyCollocation(10000009, [Role.ZHANAN.id, Role.RABBIT.id]);
+    static group10000010 = new RegularlyCollocation(10000010, [Role.ZHANAN.id, Role.YOUXIA.id]);
+    static group10000011 = new RegularlyCollocation(10000011, [Role.ZHANAN.id, Role.HUABANTU.id]);
+    static group10000012 = new RegularlyCollocation(10000012, [Role.ZHANAN.id, Role.CAPTAIN.id]);
+    static group10000013 = new RegularlyCollocation(10000013, [Role.ZHANAN.id, Role.XIXUEGUI.id]);
+    static group10000014 = new RegularlyCollocation(10000014, [Role.ZHANAN.id, Role.WUGEGE.id]);
+    static group10000015 = new RegularlyCollocation(10000015, [Role.ZHANAN.id, Role.JIANSHI.id]);
+    static group10000016 = new RegularlyCollocation(10000016, [Role.ZHANAN.id, Role.SANTAIZI.id]);
+    static group10000017 = new RegularlyCollocation(10000017, [Role.ZHANAN.id, Role.JOKER.id]);
+    static group10000018 = new RegularlyCollocation(10000018, [Role.ZHANAN.id, Role.NUANYANG.id]);
+    static group10000019 = new RegularlyCollocation(10000019, [Role.ZHANAN.id, Role.QIANGWEI.id]);
+    static group10000020 = new RegularlyCollocation(10000020, [Role.ZHANAN.id, Role.WUNV.id]);
+
 
     // 其他强势搭配
-    static group100000001 = new RegularlyCollocation(100000001, [Role.JIUWEIHU.id, Role.LEIMENG.id]);
-    static group100000002 = new RegularlyCollocation(100000002, [Role.JIUWEIHU.id, Role.NURSE.id]);
-    static group100000003 = new RegularlyCollocation(100000003, [Role.JIUWEIHU.id, Role.HONGZHAJI.id]);
-    static group100000004 = new RegularlyCollocation(100000004, [Role.CHUZI.id, Role.MAGICLION.id]);
-    static group100000005 = new RegularlyCollocation(100000005, [Role.BZGIRL.id, Role.DIANYIN.id]);
-    static group100000006 = new RegularlyCollocation(100000006, [Role.ZHADANKE.id, Role.HONGSANSAN.id]);
-    static group100000007 = new RegularlyCollocation(100000007, [Role.LELE.id, Role.RABBIT.id]);
-    static group100000008 = new RegularlyCollocation(100000008, [Role.LELE.id, Role.DIANYIN.id]);
-    static group100000009 = new RegularlyCollocation(100000009, [Role.LULU.id, Role.CAPTAIN.id]);
-    static group100000010 = new RegularlyCollocation(100000010, [Role.KUKU.id, Role.TIEMIAN.id]);
-    static group100000011 = new RegularlyCollocation(100000011, [Role.RABBIT.id, Role.MAGICLION.id]);
-    static group100000012 = new RegularlyCollocation(100000012, [Role.RABBIT.id, Role.PUMPKIN.id]);
-    static group100000013 = new RegularlyCollocation(100000013, [Role.QUANBA.id, Role.HUAQIANJI.id]);
-    static group100000014 = new RegularlyCollocation(100000014, [Role.QUANBA.id, Role.CHUZI.id]);
-    static group100000015 = new RegularlyCollocation(100000015, [Role.SANTAIZI.id, Role.DIANYIN.id]);
-    static group100000016 = new RegularlyCollocation(100000016, [Role.SANTAIZI.id, Role.RABBIT.id]);
-    static group100000017 = new RegularlyCollocation(100000017, [Role.KUKU.id, Role.RABBIT.id]);
-    static group100000018 = new RegularlyCollocation(100000018, [Role.KUKU.id, Role.DIANYIN.id]);
-    static group100000019 = new RegularlyCollocation(100000019, [Role.NURSE.id, Role.CHUZI.id]);
-    static group100000020 = new RegularlyCollocation(100000020, [Role.JIUWEIHU.id, Role.CHUZI.id]);
+    static group10000000000 = new RegularlyCollocation(10000000000, [Role.ZHADANKE.id, Role.HONGSANSAN.id]);
+    static group10000000001 = new RegularlyCollocation(10000000001, [Role.CHUZI.id, Role.MAGICLION.id]);
+    static group10000000002 = new RegularlyCollocation(10000000002, [Role.CHUZI.id, Role.NURSE.id]);
+    static group10000000003 = new RegularlyCollocation(10000000003, [Role.CHUZI.id, Role.QUANBA.id]);
+    static group10000000004 = new RegularlyCollocation(10000000004, [Role.LELE.id, Role.HEIWA.id]);
+    static group10000000005 = new RegularlyCollocation(10000000005, [Role.LELE.id, Role.RABBIT.id]);
+    static group10000000006 = new RegularlyCollocation(10000000006, [Role.LELE.id, Role.DIANYIN.id]);
+    static group10000000007 = new RegularlyCollocation(10000000007, [Role.RABBIT.id, Role.MAGICLION.id]);
+    static group10000000008 = new RegularlyCollocation(10000000008, [Role.RABBIT.id, Role.PUMPKIN.id]);
+    static group10000000009 = new RegularlyCollocation(10000000009, [Role.MUSHI.id, Role.RABBIT.id]);
+    static group10000000010 = new RegularlyCollocation(10000000010, [Role.MUSHI.id, Role.QUANBA.id]);
+    static group10000000011 = new RegularlyCollocation(10000000011, [Role.HUAQIANJI.id, Role.QUANBA.id]);
+    static group10000000012 = new RegularlyCollocation(10000000012, [Role.HUAQIANJI.id, Role.PUMPKIN.id]);
+    static group10000000013 = new RegularlyCollocation(10000000013, [Role.HUAQIANJI.id, Role.NURSE.id]);
+    static group10000000014 = new RegularlyCollocation(10000000014, [Role.BZGIRL.id, Role.DIANYIN.id]);
+    static group10000000015 = new RegularlyCollocation(10000000015, [Role.BZGIRL.id, Role.RABBIT.id]);
+    static group10000000016 = new RegularlyCollocation(10000000016, [Role.KUKU.id, Role.HEIWA.id]);
+    static group10000000017 = new RegularlyCollocation(10000000017, [Role.KUKU.id, Role.TIEMIAN.id]);
+    static group10000000018 = new RegularlyCollocation(10000000018, [Role.KUKU.id, Role.RABBIT.id]);
+    static group10000000019 = new RegularlyCollocation(10000000019, [Role.KUKU.id, Role.DIANYIN.id]);
+    static group10000000020 = new RegularlyCollocation(10000000020, [Role.LULU.id, Role.CAPTAIN.id]);
+    static group10000000021 = new RegularlyCollocation(10000000021, [Role.SANTAIZI.id, Role.LEIMENG.id]);
+    static group10000000022 = new RegularlyCollocation(10000000022, [Role.SANTAIZI.id, Role.DIANYIN.id]);
+    static group10000000023 = new RegularlyCollocation(10000000023, [Role.SANTAIZI.id, Role.RABBIT.id]);
+    // next 24
 
 
     static maxGroupId = 0;
@@ -4368,19 +4567,19 @@ class RegularlyCollocation {
             }
             if (RegularlyCollocation[item].id === id) currItem = RegularlyCollocation[item];
         }
-        return group1000001;
+        return this.group1000000;
     }
 
     static getRandomGroup() {
-        let idx = fullCloseInt(1, this.getGroupSum());
+        let idx = fullCloseInt(0, this.getGroupSum());
         //console.log(">>>> RegularlyCollocation getRandomGroup idx=" + idx);
-        let i = 1;
+        let i = 0;
         for (let item in RegularlyCollocation) {
             if (!RegularlyCollocation[item].id) continue;
             if (i === idx) return RegularlyCollocation[item].group;
             i++;
         }
-        return group1000001.group;
+        return this.group1000000.group;
     }
 
 }
@@ -4722,6 +4921,12 @@ function init() {
     if (sysConfig.isRoleChooseFinished) gameSceneInit(); // 选择角色后才渲染场景，优化性能
     // 显示操作指南弹窗
     if (sysConfig.isRoleChooseFinished) showHowToPlay(true);
+}
+
+
+// 不刷新页面，重新初始化页面数据
+function reInit() {
+
 }
 
 
@@ -9283,7 +9488,7 @@ function fullOpen(n, m) {
 }
 
 
-// [n, m] 整数
+// [n, m] 整数 Math.random() -> [0, 1) 之间的伪随机浮点数
 function fullCloseInt(n, m) {
     return Math.floor(Math.random() * (m - n + 1)) + n;
 }
@@ -9315,6 +9520,33 @@ function hashCode(str) {
         hash |= 0; // Convert to 32bit integer
     }
     return hash;
+}
+
+
+//https://blog.csdn.net/qq_45039540/article/details/112554604
+//交集
+function arrayIntersect(a, b) {
+    return a.filter(function (v) { return b.indexOf(v) > -1 });
+}
+//差集
+function arrayMinus(a, b) {
+    return a.filter(function (v) { return b.indexOf(v) == -1 });
+}
+//补集
+function arrayComplement(a, b) {
+    return a.filter(function (v) { return !(b.indexOf(v) > -1) }).concat(b.filter(function (v) { return !(a.indexOf(v) > -1) }));
+}
+//并集
+function arrayUnionSet(a, b) {
+    return a.concat(b.filter(function (v) { return !(a.indexOf(v) > -1) }));
+}
+//去重
+function arrayUnique(array) {
+    let n = [];
+    for (let i = 0; i < array.length; i++) {
+        if (n.indexOf(array[i]) == -1) n.push(array[i]);
+    }
+    return n;
 }
 
 
