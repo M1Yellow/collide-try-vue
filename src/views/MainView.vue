@@ -213,6 +213,11 @@ canvas {
     display: none;
 }
 
+.collide-try-left-tiny-dialog {
+    left: 40px;
+    right: unset;
+}
+
 .collide-try-tiny-dialog-msg {
     text-align: right;
     vertical-align: middle;
@@ -236,6 +241,10 @@ canvas {
     font-size: 14px;
 }
 
+.collide-try-left-tiny-dialog-ok {
+    text-align: left;
+}
+
 .collide-try-tiny-dialog-ok span {
     text-align: center;
     vertical-align: middle;
@@ -247,6 +256,23 @@ canvas {
     border-radius: 5px;
     border: 1px black;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    cursor: pointer;
+}
+
+
+/* 左上角重选角色提示弹窗样式 */
+#re-choose-role-icon {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 0;
+}
+
+#re-choose-role-icon>span {
+    padding: 2px;
+    font-size: 16px;
+    text-align: center;
+    vertical-align: middle;
     cursor: pointer;
 }
 
@@ -325,11 +351,13 @@ canvas {
     border-radius: 10px 10px 0 0;
     background: #edeff6;
     text-align: center;
+    vertical-align: middle;
 }
 
 #role-list-head-msg {
-    padding: 3px 0 2px 0;
+    padding: 12px 0;
     font-size: 24px;
+    line-height: 24px;
 }
 
 #role-list-head-desc {
@@ -338,16 +366,22 @@ canvas {
 }
 
 #role-list-head-setting-icon {
-    width: 100%;
     position: absolute;
-    font-size: 22px;
-    top: 4px;
-    left: -4px;
+    width: 100%;
+    font-size: 24px;
+    line-height: 24px;
+    top: 7px;
+    right: 7px;
     text-align: right;
+    display: inline-flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 #role-list-head-setting-icon span {
-    font-size: 22px;
+    font-size: 18px;
     cursor: pointer;
 }
 
@@ -372,13 +406,13 @@ canvas {
 /* 选择角色列表icon、name表格样式 */
 .role-list-icon-name {
     display: inline-grid;
-    grid-template-columns: 46px 170px;
+    grid-template-columns: 50px 180px;
     grid-template-rows: 100%;
     align-content: center;
     justify-content: center;
     align-items: baseline;
     justify-items: stretch;
-    padding-left: 10px;
+    /*padding-left: 10px;*/
 }
 
 .role-list-icon-name span {
@@ -386,12 +420,13 @@ canvas {
 }
 
 .role-list-icon {
-    text-align: center;
+    text-align: right;
     vertical-align: middle;
 }
 
 .role-list-name {
     text-align: left;
+    margin-left: 10px;
 }
 
 /* 选择角色双子图标重画 */
@@ -457,25 +492,33 @@ canvas {
     border-radius: 10px 10px 0 0;
     background: #edeff6;
     text-align: center;
+    vertical-align: middle;
 }
 
 #user-setting-head-msg {
-    padding: 5px 0 5px 0;
+    padding: 12px 0;
     font-size: 24px;
+    line-height: 24px;
 }
 
 #user-setting-head-desc {
-    padding: 0 0 3px 0;
+    padding: 0 0 5px 0;
     font-size: 10px;
 }
 
 #user-setting-close-icon {
     position: absolute;
     width: 100%;
-    font-size: 18px;
-    top: 6px;
-    left: -6px;
+    font-size: 24px;
+    line-height: 24px;
+    top: 7px;
+    right: 7px;
     text-align: right;
+    display: inline-flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 #user-setting-close-icon span {
@@ -723,7 +766,7 @@ canvas {
 }
 
 #about-app-title svg {
-    width: 20px;
+    width: 25px;
     height: 20px;
     vertical-align: sub;
     padding-right: 5px;
@@ -1036,6 +1079,16 @@ input:checked+.slider:before {
         </div>
         <!-- 弹窗遮罩 -->
         <div id="dialog-mask" ref="dialogMask" class="collide-try-dialog"></div>
+        <!-- 左上角选择角色提示 -->
+        <div id="re-choose-role-icon"><span @click="switchChooseRoleDialog(true);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+        <div id="re-choose-role-entry-dialog"
+            class="collide-try-dialog collide-try-tiny-dialog collide-try-left-tiny-dialog" style="display: none;">
+            <div id="re-choose-role-entry-dialog-msg" class="collide-try-tiny-dialog-msg"><span>👈</span>点击左上角可以重新选择角色哦~
+            </div>
+            <div id="re-choose-role-entry-dialog-ok" class="collide-try-tiny-dialog-ok collide-try-left-tiny-dialog-ok"
+                @click="closeReChooseRoleEntryDialog();"><span class="collide-try-dialog-ok">可以的</span></div>
+        </div>
         <!-- 右上角设置提示 -->
         <div id="game-setting-icon"><span @click="switchUserSettingDialog(true);">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
         <div id="game-setting-entry-dialog" ref="gameSettingEntryDialog"
@@ -1049,8 +1102,11 @@ input:checked+.slider:before {
         <div id="choose-role-dialog" ref="chooseRoleDialog" class="collide-try-dialog">
             <div id="role-list-head">
                 <div id="role-list-head-msg">👇请选择角色</div>
-                <div id="role-list-head-setting-icon"><span @click="switchUserSettingDialog(true);">⚙️</span></div>
-                <div id="role-list-head-desc">（重新打开页面/刷新即可再次选角色）</div>
+                <div id="role-list-head-setting-icon"><span id="choose-role-to-setting-entry"
+                        @click="switchUserSettingDialog(true);" style="display: none;">⚙️</span><span
+                        id="choose-role-close-btn" @click="switchChooseRoleDialog(false);"
+                        style="display: none;">❎</span></div>
+                <!--<div id="role-list-head-desc">（重新打开页面/刷新即可再次选角色）</div>-->
             </div>
             <ul id="role-list-area">
                 <li id="role-heiwa" class="role-list" @click="chooseRole($event.target, Role.HEIWA.id);">
@@ -1079,6 +1135,10 @@ input:checked+.slider:before {
                         <span class="role-list-name">怪盗双子（双子）</span>
                     </div>
                 </li>
+                <li id="role-lele" class="role-list" @click="chooseRole($event.target, Role.DIANYIN.id);">
+                    <div class="role-list-icon-name"><span class="role-list-icon">🎵</span><span
+                            class="role-list-name">电音少女（电音）</span></div>
+                </li>
                 <li id="role-lele" class="role-list" @click="chooseRole($event.target, Role.LELE.id);">
                     <div class="role-list-icon-name"><span class="role-list-icon">🥙</span><span
                             class="role-list-name">太平乐（乐乐）</span></div>
@@ -1106,7 +1166,7 @@ input:checked+.slider:before {
             <div id="user-setting-head">
                 <div id="user-setting-head-msg">参数设置</div>
                 <div id="user-setting-close-icon"><span @click="switchUserSettingDialog(false);">❎</span></div>
-                <div id="user-setting-head-desc"></div>
+                <!--<div id="user-setting-head-desc"></div>-->
             </div>
             <ul id="user-setting-area">
                 <li class="user-setting-item li-space-between-center">
@@ -1130,11 +1190,12 @@ input:checked+.slider:before {
                             <input type="checkbox" id="isUseCustomTheme">
                             <div class="slider round"></div>
                         </label>
+                        <input id="customThemeInitStatus" type="hidden" value="0">
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
                     <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">导入/导出主题</span>
-                    <span id="customThemeInOut" class="user-setting-item-switch-right">
+                    <span id="customThemeInOut" class="user-setting-item-switch-right" style="display: none;">
                         <button class="collide-try-btn bg-lv2 custom-theme-conf-inout" id="customThemeInput">导入</button>
                         <button class="collide-try-btn bg-lv1 custom-theme-conf-inout"
                             id="customThemeOutput">导出</button>
@@ -1687,10 +1748,16 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.4.0 更新：<span class="collide-try-update-date">2024-08-12</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.0 更新：<span class="collide-try-update-date">2024-08-15</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 自定义主题尝鲜版（支持设置背景图片，只会在应用内存储，不会上传哦~）
+1. 刷新页面重选角色改为点击左上角重选角色，不用频繁刷新页面，节省性能
+2. 选择角色列表新增【电音少女】选项
+3. 修复自定义主题已知的问题
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.4.0 更新：<span
+                            class="collide-try-update-date">2024-08-12</span></b></div>
+                1. 自定义主题尝鲜版（支持设置背景图片，只会在应用内存储，不会上传哦~）
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.3.0 更新：<span
                             class="collide-try-update-date">2024-08-08</span></b></div>
                 1. 优化傀儡、僵尸等角色瞄准时不灵敏的问题
@@ -2214,6 +2281,8 @@ function captureMouse(element) {
 // 获取鼠标点击坐标
 let clickPos = null;
 function getClickPos(e) {
+    // 只显示台面，不处理点击事件
+    if (userConfig.isJustShowTable) return;
     if (!e || e.type === "touchend") return;
     //console.log(e);
     //console.log(e.target);
@@ -2854,6 +2923,7 @@ let gameMaskContext = gameMaskCanvas ? gameMaskCanvas.getContext('2d') : null;
 let dialogMask = document.getElementById('dialog-mask'); // 选择角色弹窗遮罩
 let chooseRoleDialog = document.getElementById('choose-role-dialog'); // 选择角色弹窗
 let userSettingDialog = document.getElementById('user-setting-dialog'); // 参数设置弹窗
+let reChooseRoleEntryDialog = document.getElementById('re-choose-role-entry-dialog'); // 重新选择角色入口提示
 let gameSettingEntryDialog = document.getElementById('game-setting-entry-dialog'); // 游戏设置提示
 let gameSettingMainRoleDialog = document.getElementById('game-setting-main-role-dialog'); // 游戏设置-主角设置提示
 let aboutAppDialog = document.getElementById('user-setting-about-app-dialog'); // 参数设置-关于应用
@@ -2887,6 +2957,7 @@ onMounted(() => {
     dialogMask = document.getElementById('dialog-mask'); // 选择角色弹窗遮罩
     chooseRoleDialog = document.getElementById('choose-role-dialog'); // 选择角色弹窗
     userSettingDialog = document.getElementById('user-setting-dialog'); // 参数设置弹窗
+    reChooseRoleEntryDialog = document.getElementById('re-choose-role-entry-dialog'); // 重新选择角色入口提示
     gameSettingEntryDialog = document.getElementById('game-setting-entry-dialog'); // 游戏设置提示
     gameSettingMainRoleDialog = document.getElementById('game-setting-main-role-dialog'); // 游戏设置-主角设置提示
     aboutAppDialog = document.getElementById('user-setting-about-app-dialog'); // 参数设置-关于应用
@@ -2902,7 +2973,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "240812"),
+    version: Number(packageVersion.replaceAll(".", "") + "240815"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -4852,18 +4923,21 @@ function init() {
     ];
     // 初始化鼠标位置
     captureMouse(canvas);
+    // 初始化台面切角
+    initTableAngle();
     // 根据用户选择设置当前角色
-    //userConfig.currRole = Role.HEIWA.id;
-    //userConfig.currRole = Role.JIANGJIANG.id;
-    // 导入了角色和坐标数据，不用选角色
-    if (userConfig.shareRoleAndPos) {
-        try {
-            shareData = JSON.parse(userConfig.shareRoleAndPos);
-            console.log(shareData);
-        } catch (e) { }
-    }
-    if (!shareData) setCurrRole();
-    if (userConfig.currRole < 0) userConfig.currRole = 0;
+    initRoles();
+    // 角色运动路径判断显示
+    if (userConfig.isShowBallMovePath) gamePathCanvas.style.display = "inherit";
+    // 角色全路径判断显示
+    if (userConfig.isShowBallPath) gamePathBallCanvas.style.display = "inherit";
+    // 游戏桌面场景初始化，需要放在角色设置之后，因为场景会根据角色变化
+    if (sysConfig.isRoleChooseFinished) gameSceneInit(); // 选择角色后才渲染场景，优化性能
+}
+
+
+// 初始化台面切角
+function initTableAngle() {
     // 设置台面切角偏差距离。注意放在初始化切割斜边之前
     if (sysConfig.isWan8CocosTable) {
         // 使用多点精确控制方式
@@ -4874,6 +4948,22 @@ function init() {
     set4AngleLine();
     // 初始化设置四条切角线中点坐标
     set4AngleLineMiddlePoint(lines);
+}
+
+
+// 初始化角色
+function initRoles() {
+    //userConfig.currRole = Role.HEIWA.id;
+    //userConfig.currRole = Role.JIANGJIANG.id;
+    // 导入了角色和坐标数据，不用选角色
+    if (userConfig.shareRoleAndPos) {
+        try {
+            shareData = JSON.parse(userConfig.shareRoleAndPos);
+            console.log(shareData);
+        } catch (e) { }
+    }
+    if (!shareData) setCurrRoleV2();
+    if (userConfig.currRole < 0) userConfig.currRole = 0;
     // 只显示台面，不设置角色【控制台报错可以不用管】
     if (!userConfig.isJustShowTable && userConfig.currRole > -1) {
         try {
@@ -4882,8 +4972,9 @@ function init() {
             setShareRoleAndPos(shareData);
             // 设置当前主角
             if (balls && balls.length > 0) userConfig.currRole = balls[0].roleId;
-            // 标记角色已经选择完成
-            sysConfig.isRoleChooseFinished = true;
+            // TODO 导入角色也算选择角色
+            if (userConfig.currRole > -1) localStorage.setItem('collide-try-role-chose', userConfig.currRole);
+            console.log(">>>> 导入角色和位置操作完成");
         } catch (e) {
             console.log(">>>> setShareRoleAndPos error: " + e.message);
             // 设置主球
@@ -4895,6 +4986,8 @@ function init() {
         } finally {
             // 加载之后，清除导入数据【放到onMouseMove方法再处理】
             //clearShareRoleAndPos();
+            // 标记角色已经选择完成
+            if (userConfig.currRole > -1) sysConfig.isRoleChooseFinished = true;
         }
         // 设置双子分身
         if (userConfig.currRole === Role.SHUANGZI.id) setTwins();
@@ -4913,20 +5006,32 @@ function init() {
         // 设置摩擦力
         setFriction();
     }
-    // 角色运动路径判断显示
-    if (userConfig.isShowBallMovePath) gamePathCanvas.style.display = "inherit";
-    // 角色全路径判断显示
-    if (userConfig.isShowBallPath) gamePathBallCanvas.style.display = "inherit";
-    // 游戏桌面场景初始化，需要放在角色设置之后，因为场景会根据角色变化
-    if (sysConfig.isRoleChooseFinished) gameSceneInit(); // 选择角色后才渲染场景，优化性能
-    // 显示操作指南弹窗
-    if (sysConfig.isRoleChooseFinished) showHowToPlay(true);
 }
 
 
-// 不刷新页面，重新初始化页面数据
-function reInit() {
-
+// 不刷新页面【重新选角色】，重新初始化页面数据
+function reInit(isImport, isKeepDialog) {
+    // 停止当前回合运动状态
+    resetBallsSpeed(balls);
+    // 重置全局变量
+    balls = [];
+    eggs = [];
+    let isDuoduoExistBak = isDuoduoExist;
+    // 重新初始化角色
+    initRoles();
+    if (userConfig.isJustShowTable) return;
+    // 判断是否需要重新画台面，选择前后只要有朵朵就需要重画
+    if (isDuoduoExistBak || isDuoduoExist) reDrawTableAndEgg();
+    // 重置动画渲染相关变量
+    resetAnimate();
+    // 模拟重打清屏重新开始新的渲染
+    if (isImport) directPlayAgain(true);
+    else directPlayAgain(false);
+    // 重新渲染
+    //isAnimated = false;
+    //if (!isPlaying) animate();
+    // 完成后关闭选择角色弹窗
+    if (!isKeepDialog) switchChooseRoleDialog(false);
 }
 
 
@@ -5119,6 +5224,44 @@ function setCurrRole() {
         if (userConfig.isRandomRole) userConfig.currRole = Role.getRandomRoleId();
         if (userConfig.isFlashRole) setRolesFlash(userConfig.gameRoleIds, true);
         // 存到 sessionStorage【PC浏览器刷新不会失效，关闭页面会失效】
+        //if (userConfig.currRole > -1) sessionStorage.setItem('collide-try-role-chose', userConfig.currRole);
+        // TODO 存到 localStorage，兼容一些浏览器（Via）刷新后 sessionStorage 失效，导致一直弹出选择角色问题
+        //if (userConfig.currRole > -1) localStorage.setItem('collide-try-role-chose', userConfig.currRole);
+        // localStorage 存储更新 userConfig 对象
+        if (userConfig.currRole > -1) localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
+    }
+
+    console.log(">>>> userConfig.currRole=" + userConfig.currRole);
+}
+
+
+// 设置当前角色（不刷新页面版本，选择的角色永久存储在localStorage）
+function setCurrRoleV2() {
+    // 一直从 localStorage 读取
+    try {
+        let roleValStr = localStorage.getItem('collide-try-role-chose');
+        // 如果不是数字类型
+        if (!(!isNaN(parseFloat(roleValStr)) && isFinite(roleValStr))) throw new Error(">>>> 角色选择出现错误！请重新选择或联系开发者");
+        userConfig.currRole = Number(roleValStr);
+    } catch (e) {
+        //console.log(">>>> localStorage getItem error: " + e.message);
+        userConfig.currRole = -1;
+    }
+    // 还是没找到，再弹出角色选择窗
+    if (userConfig.currRole < 0) {
+        switchChooseRoleDialog(true);
+        //return;
+        //alert(">>>> 角色选择出现错误！请联系开发者");
+        //throw new Error("角色选择出现错误！请联系开发者");
+    }
+
+    // 标记角色选择完成
+    if (userConfig.currRole > -1) sysConfig.isRoleChooseFinished = true;
+
+    if (userConfig.isRandomRole || userConfig.isFlashRole) {
+        if (userConfig.isRandomRole) userConfig.currRole = Role.getRandomRoleId();
+        if (userConfig.isFlashRole) setRolesFlash(userConfig.gameRoleIds, true);
+        // 存到 sessionStorage 【刷新不会失效，关闭这个页面会失效】
         //if (userConfig.currRole > -1) sessionStorage.setItem('collide-try-role-chose', userConfig.currRole);
         // TODO 存到 localStorage，兼容一些浏览器（Via）刷新后 sessionStorage 失效，导致一直弹出选择角色问题
         //if (userConfig.currRole > -1) localStorage.setItem('collide-try-role-chose', userConfig.currRole);
@@ -5827,6 +5970,7 @@ function canvasAutoCenter() {
 
 // 设置四根切角线
 function set4AngleLine() {
+    lines = []; // 避免重复添加
     // TODO 上面两个切角，起点选x坐标小的，确保旋转后小球碰撞前的相对坐标y为正
     lines.push(new Line(context, { // 左上
         x1: 0,
@@ -5858,6 +6002,7 @@ function set4AngleLine() {
 
 // 设置四条切角线中点坐标
 function set4AngleLineMiddlePoint(lines) {
+    linesMiddlePoints = []; // 避免重复添加
     lines.some(line => {
         let p = getLineMiddlePoint({ x: line.x1, y: line.y1 }, { x: line.x2, y: line.y2 });
         //console.log(">>>> p=" + JSON.stringify(p));
@@ -5906,6 +6051,7 @@ function getOneAngleLineIndex(ball) {
 // 清除设置分享数据
 function clearShareRoleAndPos() {
     // 加载之后，清除导入数据
+    shareData = null;
     userConfig.shareRoleAndPos = "";
     localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
     console.log(">>>> clearShareRoleAndPos userConfig in localStorage updated.");
@@ -6603,7 +6749,7 @@ function drawTable() {
 }
 
 
-// 重新绘制游戏台面
+// 重新绘制游戏台面和场景
 function reDrawTable() {
     // 先清理画布
     clearCanvasAll(gameSceneCanvas); // 台面层
@@ -6611,9 +6757,57 @@ function reDrawTable() {
     clearCanvasAll(gameSceneCoordinateCanvas); // 台面砖格坐标层
     clearCanvasAll(gameSceneEmojiCanvas); // emoji、svg 图形层
     // 其他操作
-    largeEmojiPoints = []; // 大图形坐标列表重置
+    // 大图形坐标列表重置，用来检测图形重叠
+    largeEmojiPoints = [];
     // 再重新绘制
     drawTable();
+}
+
+
+// 重新绘制游戏台面
+function reDrawTableAndEgg() {
+    // 先清理画布
+    clearCanvasAll(gameSceneCanvas); // 台面层
+    // 重新绘制台面
+    // 填充背景色
+    drawSceneBg();
+    // 画网格，在背景色之后
+    drawSceneGrid();
+    // 夏日主题画间隔颜色的砖格
+    if (userConfig.sceneThemeMode === 5) drawSceneGridRect();
+    // 墙面切角
+    clipTableAngles();
+    // 画蛋
+    if (isDuoduoExist) drawEggs();
+    if (userConfig.isShowSceneGraph) { // 是否显示场景图形
+        // 夏日主题个别动物上台面
+        if (userConfig.sceneThemeMode === 5) {
+            drawIconRandom("🦀", "ss", 1, false, true, gameSceneCanvas);
+            drawIconRandom("🦀", "xxs", 2, false, true, gameSceneCanvas);
+        }
+    }
+}
+
+
+// 重新绘制场景图形（emoji、svg）
+function reDrawSceneGraph() {
+    // 先清空图形层画布
+    clearCanvasAll(gameSceneEmojiCanvas); // emoji、svg 图形层
+    // 大图形坐标列表重置，用来检测图形重叠
+    largeEmojiPoints = [];
+    // 设置场景主题，未选择角色，不渲染场景，节省性能
+    if (userConfig.currRole > -1) setSceneTheme();
+}
+
+
+// 重画台面边框和砖格坐标
+function reDrawTableLineAndGirdNum() {
+    clearCanvasAll(gameSceneLinesCanvas); // 台面边框层
+    clearCanvasAll(gameSceneCoordinateCanvas); // 台面砖格坐标层
+    // 画台面边框，放在主题设置之后，确保边框覆盖emoji图形
+    if (userConfig.isShowTableBorder) doDrawTableLines();
+    // 画砖格坐标
+    if (userConfig.isShowGridCoordinate) drawSceneCoordinate();
 }
 
 
@@ -7829,7 +8023,13 @@ function chooseRole(ele, roleId) {
     // 更新 localStorage 中的 userConfig
     if (userConfig.currRole > -1) localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
     // 刷新页面
-    location.reload();
+    //location.reload();
+    // 不刷新页面重新选角色
+    reInit();
+    // 显示操作指南弹窗
+    if (sysConfig.isRoleChooseFinished) showHowToPlay(true);
+    // 显示左上角重新选择角色提示
+    if (sysConfig.isRoleChooseFinished) showReChooseRoleEntryDialog();
 }
 
 
@@ -7865,6 +8065,28 @@ function switchDialogShow(dialogEle, isShow, params) {
     } else { // 关闭
         dialogEle.style.display = "none";
     }
+}
+
+
+// 显示左上角重新选择角色入口提示
+function showReChooseRoleEntryDialog() {
+    // 有其他弹窗时，不显示
+    if (isDialogShowing(chooseRoleDialog) || isDialogShowing(userSettingDialog) || isDialogShowing(howToPlayDialog)) return;
+    let t0 = localStorage.getItem('collide-try-re-choose-role-entry-time');
+    if (!t0) t0 = "0";
+    t0 = Number(t0);
+    if (t0 > 0) { // 已经弹过提示了，不再提示
+        return;
+    }
+    switchDialogShow(reChooseRoleEntryDialog, true);
+}
+
+// 关闭左上角重新选择角色入口提示，不再提示
+function closeReChooseRoleEntryDialog() {
+    switchDialogShow(reChooseRoleEntryDialog, false, { display: "none" });
+    localStorage.setItem('collide-try-re-choose-role-entry-time', new Date().getTime());
+    // 提示完左边重选角色入口，再提示右边的设置入口
+    showGameSettingEntryDialog();
 }
 
 
@@ -7945,8 +8167,34 @@ function showHowToPlay(isShow) {
             switchUserSettingDialog(true);
         }
         */
-        // 显示右上角设置入口提示
-        showGameSettingEntryDialog();
+        // 显示左上角重选角色入口提示
+        showReChooseRoleEntryDialog();
+    }
+}
+
+
+// 切换显示选择角色弹窗
+function switchChooseRoleDialog(isShow) {
+    // 弹窗右上角显示按钮判断
+    switchChooseRoleBtnShow();
+    if (isShow) { // 显示
+        dialogMask.style.display = "unset"; // 显示选择角色遮罩层
+        chooseRoleDialog.style.display = "unset"; // 显示选择角色弹窗
+    } else { // 关闭
+        dialogMask.style.display = "none"; // 隐藏选择角色遮罩层
+        chooseRoleDialog.style.display = "none"; // 隐藏选择角色弹窗
+    }
+}
+
+
+// 根据是否已经选过角色，判断选择角色弹窗右上角是设置⚙入口，还是关闭❎按钮
+function switchChooseRoleBtnShow() {
+    if (userConfig.currRole < 0) { // 第一次进入页面或者清缓存重置后，显示设置入口
+        document.getElementById("choose-role-to-setting-entry").style.display = "unset";
+        document.getElementById("choose-role-close-btn").style.display = "none";
+    } else { // 点击左上角进入的重新选择角色，显示关闭按钮
+        document.getElementById("choose-role-to-setting-entry").style.display = "none";
+        document.getElementById("choose-role-close-btn").style.display = "unset";
     }
 }
 
@@ -8033,7 +8281,7 @@ function initUserSettingDialogVal() {
             } else if (typeof userConfig[f] === "boolean") { // 布尔类型
                 if (f === "isShowBallMovePath") togglePathBallMoveShow(userConfig[f]); // 切换运动路径层显示或隐藏
                 if (f === "isShowBallPath") togglePathBallShow(userConfig[f]); // 切换全路径层显示或隐藏
-                if (f === "isUseCustomTheme") switchCustomThemeCheckbox(userConfig[f]); // 切换自定义主题开关
+                if (f === "isUseCustomTheme" && userConfig[f]) switchCustomThemeCheckbox(userConfig[f]); // 切换自定义主题开关
                 if (!ele) continue;
                 if (userConfig[f]) ele.setAttribute("checked", true);
                 else ele.removeAttribute("checked");
@@ -8107,12 +8355,13 @@ function setCustomThemeVals() {
 }
 
 
-// 切换启用自定义主题开关
+// 切换【启用自定义主题】开关
 function switchCustomThemeCheckbox(isShow) {
     let customThemeItems = document.getElementsByClassName("custom-theme-item");
     if (!customThemeItems || customThemeItems.length < 1) return;
     let pageBgImageIcon = document.getElementById("pageBgImageIcon");
     let customThemeInOut = document.getElementById("customThemeInOut");
+    let customThemeInitStatus = document.getElementById("customThemeInitStatus");
     if (isShow) {
         // 文字颜色、输入框、文件图标恢复正常、显示主题导入导出
         for (let i = 0, len = customThemeItems.length; i < len; i++) {
@@ -8132,15 +8381,23 @@ function switchCustomThemeCheckbox(isShow) {
             customTheme.bgImageIdbKey = sysConfig.bgImageKey + customTheme.id;
             customTheme.tbColor = Theme.setTbColor00(customTheme.tbColor); // 台面背景透明
         }
+        //if (currTheme.id === customTheme.id) return; // 主题相同，不重复设置
+        // 根据自定义主题参数是否初始化完成
+        // 以及判断 currTheme 和缓存中的 customTheme 是否有变化，有变化才执行设置
+        if (customThemeInitStatus.value === "1" && isObjEquals(currTheme, customTheme)) return;
         currTheme = customTheme;
         // currTheme 同步到自定义主题
         setCustomThemeVals();
         // 更新显示自定义主题
-        doPageBgImage(currTheme.bgImage);
+        reDrawTableAndEgg(); // 重画台面和蛋
+        reDrawTableLineAndGirdNum(); // 重画台面边框和砖格坐标
+        doPageBgImage(currTheme.bgImage); // 背景图片在读取数据库成功的时候会设置
+        // 标记自定义主题参数初始化完成
+        customThemeInitStatus.value = "1";
         // 存储自定义主题
         localStorage.setItem("collide-try-custom-theme", JSON.stringify(currTheme));
         // localStorage 存储更新 userConfig 对象
-        localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
+        //localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
     } else {
         // 文字变灰色，输入框不能点击，隐藏文件图标、隐藏主题导入导出
         for (let i = 0, len = customThemeItems.length; i < len; i++) {
@@ -8150,7 +8407,7 @@ function switchCustomThemeCheckbox(isShow) {
         pageBgImageIcon.style.display = "none";
         customThemeInOut.style.display = "none";
         // 停用自定义主题
-        userConfig.isUseCustomTheme = false;
+        //userConfig.isUseCustomTheme = false;
         // 重置页面背景
         resetPageBg();
         // 重置自定义主题参数显示
@@ -8158,7 +8415,7 @@ function switchCustomThemeCheckbox(isShow) {
         // 删除自定义主题存储，可以留着，方便下次启用时继续编辑
         //localStorage.removeItem('collide-try-custom-theme');
         // localStorage 存储更新 userConfig 对象
-        localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
+        //localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
     }
 }
 
@@ -8211,13 +8468,20 @@ function switchCheckbox(label, key, params) {
     // 只显示撞击台面
     if (key === "isJustShowTable") {
         toggleOnlyTable(isShow);
-        if (!balls || balls.length < 1) sysConfig.isNeedReload = true;
+        //if (!balls || balls.length < 1) sysConfig.isNeedReload = true;
+        // 重新初始化
+        reInit(false, true);
     }
     // 切换显示场景图形
     if (key === "isShowSceneGraph") toggleSceneGraph(isShow, true);
 
-    // 需要刷新页面的设置
-    if (key === "isTestOnlyOne") sysConfig.isNeedReload = true;
+    // 切换到单个角色测试，需要刷新页面的设置
+    //if (key === "isTestOnlyOne") sysConfig.isNeedReload = true;
+    if (key === "isTestOnlyOne") {
+        clearCanvasAll(canvas); // 清空主运动层画布
+        // 重新初始化
+        reInit(false, true);
+    }
 
     // localStorage 存储更新 userConfig 对象
     localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
@@ -8314,7 +8578,9 @@ function setSceneThemeVal(ele, val) {
     localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
 
     // 修改了主题，需要刷新页面
-    sysConfig.isNeedReload = true;
+    //sysConfig.isNeedReload = true;
+    // 不刷新重画主题
+    resetPageBg();
 }
 
 
@@ -8517,7 +8783,9 @@ function importShareContent() {
     rpShareImport.disabled = true;
 
     // 需要重新刷新页面
-    sysConfig.isNeedReload = true;
+    //sysConfig.isNeedReload = true;
+    // 不刷新页面导入角色和坐标
+    reInit(true, true);
 
     setTimeout(() => {
         rpShareImport.innerText = "导入";
@@ -8675,10 +8943,17 @@ function doGameRoleIds(val, idx) {
     console.log(">>>> doGameRoleIds userConfig.gameRoleIds in localStorage updated.");
 
     // 指定了游戏角色，需要刷新页面
-    sysConfig.isNeedReload = true;
+    //sysConfig.isNeedReload = true;
 
-    // 设置了主角，提示主角需要在【极速开始】选项才会生效
-    if (val && idx === 0) showGameSettingMainRoleDialog();
+    // 如果设置了主角，不刷新直接进极速模式
+    if (val && idx === 0) {
+        // 提示主角需要在【极速开始】选项才会生效
+        showGameSettingMainRoleDialog();
+        userConfig.isFlashRole = true;
+        setRolesFlash(userConfig.gameRoleIds, true);
+    }
+    // 改变了非主角，不刷新重新初始化角色数据
+    reInit(false, true);
 }
 
 
@@ -8701,7 +8976,10 @@ function resetGameRoleIds(ele) {
     console.log(">>>> resetGameRoleIds userConfig.gameRoleIds in localStorage updated.");
 
     // 重置指定游戏角色，需要刷新页面
-    sysConfig.isNeedReload = true;
+    //sysConfig.isNeedReload = true;
+
+    // 不刷新，按当前选择主角或模式重新初始化角色数据
+    reInit(false, true);
 }
 
 
@@ -8894,6 +9172,8 @@ function doPageBg(str) {
         Theme.reCalculate(currTheme);
         // 重新绘制游戏台面
         reDrawTable();
+        // 设置完成
+        console.log(">>>> resetPageBg finished.");
         //}
     }
 
@@ -9039,6 +9319,8 @@ function doPageBgImage(fName, isOnlySetBg) {
         toggleSceneGraph(false);
         // 重新绘制游戏台面
         reDrawTable();
+        // 设置完成
+        console.log(">>>> doPageBgImage finished.");
         //}
     }
 
@@ -9118,7 +9400,14 @@ function doWan8CocosTableMoveVals(str) {
     console.log(">>>> doWan8CocosTableMoveVals userConfig.wan8CocosTableMoveVals in localStorage updated.");
 
     // 修改了台面斜边倾斜角度，需要刷新页面
-    sysConfig.isNeedReload = true;
+    //sysConfig.isNeedReload = true;
+
+    // 初始化台面切角
+    initTableAngle();
+    // 重画台面
+    reDrawTableAndEgg();
+    clearCanvasAll(gameSceneLinesCanvas);
+    if (userConfig.isShowTableBorder) doDrawTableLines();
 }
 
 
@@ -9553,6 +9842,51 @@ function arrayUnique(array) {
 // 两平面⚪是否碰撞 两圆碰撞 两球碰撞
 function is2CirclesCollided(ball0, ball1) {
     return (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 <= (ball0.radius + ball1.radius) ** 2;
+}
+
+
+// 判断两个对象是否相等
+function isObjEquals(s, t) {
+    return !isObjectChanged(s, t);
+}
+
+// 判断对象是否改变
+// https://blog.csdn.net/qq_25742631/article/details/105581625
+function isObjectChanged(source, comparison) {
+    const iterable = (data) => ['Object', 'Array'].includes(getDataType(data));
+    if (!iterable(source)) {
+        throw new Error(`source should be a Object or Array , but got ${getDataType(source)}`);
+    }
+
+    if (getDataType(source) !== getDataType(comparison)) {
+        return true;
+    }
+
+    const sourceKeys = Object.keys(source);
+
+    const comparisonKeys = Object.keys({
+        ...source,
+        ...comparison
+    });
+
+    if (sourceKeys.length !== comparisonKeys.length) {
+        return true;
+    }
+
+    return comparisonKeys.some(key => {
+        if (iterable(source[key])) {
+            return isObjectChanged(source[key], comparison[key]);
+        } else {
+            return source[key] !== comparison[key];
+        }
+    });
+}
+
+// 判断数据类型
+function getDataType(data) {
+    const temp = Object.prototype.toString.call(data);
+    const type = temp.match(/\b\w+\b/g);
+    return (type.length < 2) ? 'Undefined' : type[1];
 }
 
 
@@ -10226,6 +10560,8 @@ function checkOtherBalls(ball, isCheck) {
 
                 // 碰到就停止
                 if (userConfig.isStopAfterCollided) {
+                    // 调整碰撞位置
+                    doBackToBorderBallsCollided(ball, b, true);
                     ball.vx = 0;
                     ball.vy = 0;
                     //ball.isMoving = false;
@@ -10657,7 +10993,9 @@ function do2BallsCollided(ball0, ball1) {
 var collideParams = { friction: 0.70, bounce: 0.70, eggId: -1, verCode: 0 };
 onMounted(() => {
     collideParams.friction = sysConfig.friction;
-    collideParams.bounce = sysConfig.bounce ? sysConfig.bounce : (sysConfig.friction + 0.2 * balls[0].m); // 简单模拟摩擦力 f=0.2*m
+    // 简单模拟摩擦力 f=0.2*m
+    let m0 = balls.length > 0 ? balls[0].m : 70;
+    collideParams.bounce = sysConfig.bounce ? sysConfig.bounce : (sysConfig.friction + 0.2 * m0);
     collideParams.eggId = Ball.SPECIALROLEID.eggId;
     collideParams.verCode = sysConfig.version;
     if (!collideParams.bounce) collideParams.bounce = 0.70;
@@ -10917,6 +11255,29 @@ let isAnimated = false; // 渲染完成
 let isMoving = true; // 是否在运动
 let isPlaying = true; // 是否在玩
 let isKuileiPulling = false; // 傀儡是否正在拉回
+
+
+// 重置动画渲染相关变量
+function resetAnimate() {
+    selectedBall = null;
+    if (balls && balls.length > 0) tryMoveBall = new Ball(context, {
+        no: balls[0].no,
+        roleId: balls[0].roleId,
+        isMainBall: true,
+        x: 0,
+        y: 0,
+        vx: 0,
+        vy: 0,
+        radius: balls[0].radius,
+        color: balls[0].color
+    });
+    tryMoveBallFirstCollidedPos = { x: 0, y: 0 };
+    tryMoveBallCollidedPoints = [];
+    isAnimated = false;
+    //isMoving = true;
+    //isPlaying = true;
+    isKuileiPulling = false;
+}
 
 
 // 动画渲染入口
@@ -11536,6 +11897,9 @@ function onMouseMove(isPlay2) {
     tryMoveBallFirstCollidedPos.y = 0;
     tryMoveBallCollidedPoints = [];
 
+    // 双击重打进来的，不处理拖动
+    //if (isPlay2 || !isMouseMoving) return;
+
     //console.log(">>>> onMouseMove isChgPosFinished=" + selectedBall.isChgPosFinished);
     if (!selectedBall.isChgPosFinished) { // 还在拖动
         //console.log(">>>> onMouseMove mouse.x=" + mouse.x + ", mouse.y=" + mouse.y);
@@ -11767,6 +12131,7 @@ function doClick(e) {
     isMouseMoving = false;
 
     if (!selectedBall) return; // 没用选中球
+    if (userConfig.isJustShowTable) return; // 只显示台面，不处理点击事件
 
     //console.log(">>>> isChgPosFinished=" + selectedBall.isChgPosFinished);
     //if (selectedBall) console.log(">>>> isBallReady=" + isBallReady(selectedBall));
@@ -11827,6 +12192,7 @@ function doClick(e) {
 
 // 双击后处理逻辑【移动端双击还有点问题】
 function doDbClick(e) {
+    if (userConfig.isJustShowTable) return; // 只显示台面，不处理点击事件
     // 三连击计数
     //preTripleClick(e, true);
     // 双击主球，免拖动，直接开打
@@ -11838,6 +12204,7 @@ function doDbClick(e) {
 let tripleClick = 0;
 let tripleClickTimer = 0;
 function doTripleClick(e) {
+    if (userConfig.isJustShowTable) return; // 只显示台面，不处理点击事件
     //alert(">>>> 三连击");
     // 所有角色重新设置随机位置
     putAllBallsRandom();
@@ -11873,6 +12240,8 @@ function doLongPress(e) {
     if (!userConfig.isLongPressRandom) return;
     // 移动端目前只支持单点触碰
     if (!os.isPc && currTouchPointNum !== 1) return;
+    // 只显示台面，不处理点击事件
+    if (userConfig.isJustShowTable) return;
     // 按角色不重置，只能按空白区域
     if (isBallsSelected(balls)) return;
     //alert(">>>> 长按");
