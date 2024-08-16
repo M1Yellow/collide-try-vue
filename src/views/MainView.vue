@@ -3621,7 +3621,8 @@ class Ball {
 
     // 绘制小球本体运动路径
     drawBallPath(p1, p2) {
-        //if (!userConfig.isShowBallPath) return;
+        //if (!userConfig.isShowBallPath) return; // 方便直接显示路径
+        if (this.isMainBall && this.roleId === Role.KUILEI.id) return; // 傀儡不画
         if (!this.isMoving) return;
         if (!this.isMainBall && this.roleId !== Role.SHUANGZI.id) return; // 非主球不画，双子分身除外
         if (!this.isMainBall && this.roleId === Role.SHUANGZI.id && !userConfig.isTestOnlyOne && this.no > 1 && this.no < 5) return;
@@ -4225,6 +4226,7 @@ class Role {
 
     static getRoleById(id) {
         for (let item in Role) {
+            if (!Role[item] || Role[item].id === undefined || Role[item].id < 0) continue;
             if (Role[item].id === id) return Role[item];
         }
         return null;
@@ -4232,6 +4234,7 @@ class Role {
 
     static getFullNameById(id) {
         for (let item in Role) {
+            if (!Role[item] || Role[item].id === undefined || Role[item].id < 0) continue;
             //console.log(item + ".id = " + Role[item].id);
             //console.log(item + ".fullName = " + Role[item].fullName);
             if (Role[item].id === id) return Role[item].fullName;
@@ -4241,6 +4244,7 @@ class Role {
 
     static getIdByFullName(fName) {
         for (let item in Role) {
+            if (!Role[item] || Role[item].fullName === undefined || Role[item].id < 0) continue;
             if (Role[item].fullName === fName) return Role[item].id;
         }
         return -1;
@@ -4249,7 +4253,7 @@ class Role {
     static getFullNameByKeyWord(kw) {
         if (!kw) return "";
         for (let item in Role) {
-            if (!Role[item].fullName || !Role[item].shortName) continue;
+            if (!Role[item] || !Role[item].fullName || !Role[item].shortName) continue;
             if (Role[item].fullName.includes(kw) || Role[item].shortName.includes(kw)) return Role[item].fullName;
         }
         return "";
@@ -4261,6 +4265,7 @@ class Role {
             //console.log(">>>> Role.getIdsByFullNames fName=" + fNames[i]);
             //console.log(">>>> Role.getIdsByFullNames fName is string=" + (typeof fNames[i] === "string"));
             for (let item in Role) {
+                if (!Role[item] || Role[item].fullName === undefined || Role[item].id < 0) continue;
                 if (Role[item].fullName === fNames[i]) ids.push(Role[item].id);
             }
         }
@@ -4273,6 +4278,7 @@ class Role {
             //console.log(">>>> Role.getFullNamesByIds id=" + ids[i]);
             //console.log(">>>> Role.getFullNamesByIds id is number=" + (typeof ids[i] === "number"));
             for (let item in Role) {
+                if (!Role[item] || Role[item].id === undefined || Role[item].id < 0) continue;
                 if (Role[item].id === Number(ids[i])) fNames.push(Role[item].fullName);
             }
         }
@@ -4282,6 +4288,7 @@ class Role {
 
     static getShortNameById(id) {
         for (let item in Role) {
+            if (!Role[item] || Role[item].id === undefined || Role[item].id < 0) continue;
             if (Role[item].id === id) return Role[item].shortName;
         }
         return "";
@@ -4289,6 +4296,7 @@ class Role {
 
     static getRoleIconById(id) {
         for (let item in Role) {
+            if (!Role[item] || Role[item].id === undefined || Role[item].id < 0) continue;
             if (Role[item].id === id) return Role[item].icon;
         }
         return "";
@@ -4297,6 +4305,7 @@ class Role {
     static getRoleArray() {
         let roleArr = [];
         for (let item in Role) {
+            if (!Role[item] || Role[item].id === undefined || Role[item].id < 0) continue;
             if (Role[item].id > -1 && Role[item].id != 10) roleArr.push(item);
         }
         return roleArr;
@@ -4305,6 +4314,7 @@ class Role {
     static getRandomRoleId() {
         if (this.maxRoleId >= 0) return fullCloseInt(0, this.maxRoleId);
         for (let item in Role) {
+            if (!Role[item] || Role[item].id === undefined || Role[item].id < 0) continue;
             //console.log(">>>> maxRoleId=" + this.maxRoleId);
             if (Role[item].id > this.maxRoleId) this.maxRoleId = Role[item].id;
         }
@@ -4611,7 +4621,7 @@ class RegularlyCollocation {
     static getMaxGroupId() {
         if (this.maxGroupId > 0) return this.maxGroupId;
         for (let item in RegularlyCollocation) {
-            if (!RegularlyCollocation[item].id) continue;
+            if (!RegularlyCollocation[item] || RegularlyCollocation[item].id === undefined || RegularlyCollocation[item].id < 0) continue;
             if (RegularlyCollocation[item].id > this.maxGroupId) this.maxGroupId = RegularlyCollocation[item].id;
         }
         return this.maxGroupId;
@@ -4620,7 +4630,7 @@ class RegularlyCollocation {
     static getGroupSum() {
         if (this.groupSum > 0) return this.groupSum;
         for (let item in RegularlyCollocation) {
-            if (!RegularlyCollocation[item].id) continue;
+            if (!RegularlyCollocation[item] || RegularlyCollocation[item].id === undefined || RegularlyCollocation[item].id < 0) continue;
             if (RegularlyCollocation[item].id > 0) this.groupSum += 1;
         }
         //console.log(">>>> RegularlyCollocation groupSum=" + this.groupSum); // 41
@@ -4631,7 +4641,7 @@ class RegularlyCollocation {
         let currItem = null;
         let targetItem = null;
         for (let item in RegularlyCollocation) {
-            if (!RegularlyCollocation[item].id) continue;
+            if (!RegularlyCollocation[item] || RegularlyCollocation[item].id === undefined || RegularlyCollocation[item].id < 0) continue;
             if (currItem) {
                 targetItem = RegularlyCollocation[item];
                 return targetItem;
@@ -4646,7 +4656,7 @@ class RegularlyCollocation {
         //console.log(">>>> RegularlyCollocation getRandomGroup idx=" + idx);
         let i = 0;
         for (let item in RegularlyCollocation) {
-            if (!RegularlyCollocation[item].id) continue;
+            if (!RegularlyCollocation[item] || RegularlyCollocation[item].id === undefined || RegularlyCollocation[item].id < 0) continue;
             if (i === idx) return RegularlyCollocation[item].group;
             i++;
         }
@@ -4707,6 +4717,7 @@ class Theme {
     static getMaxId() {
         if (this.maxId) return this.maxId;
         for (let item in Theme) {
+            if (!Theme[item] || Theme[item].id === undefined || Theme[item].id < 0) continue;
             if (Theme[item].id > this.maxId) this.maxId = Theme[item].id;
         }
         return this.maxId;
@@ -4728,6 +4739,7 @@ class Theme {
     static getCurrTheme(id) {
         if (!id && id !== 0) id = userConfig.sceneThemeMode;
         for (let item in Theme) {
+            if (!Theme[item] || Theme[item].id === undefined || Theme[item].id < 0) continue;
             if (Theme[item].id === id) return Theme[item];
         }
         return this.DEFAULT;
@@ -4742,6 +4754,7 @@ class Theme {
         if (this.CURR_THEME_COPY) return;
         if (!id && id !== 0) id = userConfig.sceneThemeMode;
         for (let item in Theme) {
+            if (!Theme[item] || Theme[item].id === undefined || Theme[item].id < 0) continue;
             if (Theme[item].id === id) {
                 this.CURR_THEME_COPY = JSON.parse(JSON.stringify(Theme[item]));
                 return;
@@ -4752,6 +4765,7 @@ class Theme {
 
     static getNameById(id) {
         for (let item in Theme) {
+            if (!Theme[item] || Theme[item].id === undefined || Theme[item].id < 0) continue;
             if (Theme[item].id === id) return Theme[item].name;
         }
         return this.DEFAULT.name;
@@ -4759,6 +4773,7 @@ class Theme {
 
     static getBgColorById(id) {
         for (let item in Theme) {
+            if (!Theme[item] || Theme[item].id === undefined || Theme[item].id < 0) continue;
             if (Theme[item].id === id) return Theme[item].bgColor;
         }
         return this.DEFAULT.bgColor;
@@ -4862,8 +4877,8 @@ onMounted(() => {
 })
 
 
-// 应用初始化
-function init() {
+// 初始化应用参数
+function initAppParams() {
     // 设置应用全名（名称+版本名）
     setAppFullName();
     // 设置应用更新内容
@@ -4925,14 +4940,6 @@ function init() {
     captureMouse(canvas);
     // 初始化台面切角
     initTableAngle();
-    // 根据用户选择设置当前角色
-    initRoles();
-    // 角色运动路径判断显示
-    if (userConfig.isShowBallMovePath) gamePathCanvas.style.display = "inherit";
-    // 角色全路径判断显示
-    if (userConfig.isShowBallPath) gamePathBallCanvas.style.display = "inherit";
-    // 游戏桌面场景初始化，需要放在角色设置之后，因为场景会根据角色变化
-    if (sysConfig.isRoleChooseFinished) gameSceneInit(); // 选择角色后才渲染场景，优化性能
 }
 
 
@@ -4964,48 +4971,58 @@ function initRoles() {
     }
     if (!shareData) setCurrRoleV2();
     if (userConfig.currRole < 0) userConfig.currRole = 0;
-    // 只显示台面，不设置角色【控制台报错可以不用管】
-    if (!userConfig.isJustShowTable && userConfig.currRole > -1) {
-        try {
-            if (!shareData) throw new Error();
-            // 设置分享角色和位置
-            setShareRoleAndPos(shareData);
-            // 设置当前主角
-            if (balls && balls.length > 0) userConfig.currRole = balls[0].roleId;
-            // TODO 导入角色也算选择角色
-            if (userConfig.currRole > -1) localStorage.setItem('collide-try-role-chose', userConfig.currRole);
-            console.log(">>>> 导入角色和位置操作完成");
-        } catch (e) {
-            console.log(">>>> setShareRoleAndPos error: " + e.message);
-            // 设置主球
-            setBallMain();
-            // 设置其他小球
-            if (!userConfig.isTestOnlyOne) setBallOthersByRole(userConfig.currRole);
-            // 设置小丑分身【放在角色设置完成后】
-            setRoleJoker();
-        } finally {
-            // 加载之后，清除导入数据【放到onMouseMove方法再处理】
-            //clearShareRoleAndPos();
-            // 标记角色已经选择完成
-            if (userConfig.currRole > -1) sysConfig.isRoleChooseFinished = true;
-        }
-        // 设置双子分身
-        if (userConfig.currRole === Role.SHUANGZI.id) setTwins();
-        // 设置完所有角色之后，设置主角所属队颜色
-        resetMainTeamColorRandom(userConfig.mainTeamColor);
-        // 初始化角色碰撞标志位
-        setBallCollidingNos();
-        // 设置完角色后，检测角色是否存在
-        checkRoleExist();
-        // 僵尸露露组合，加快速度
-        if (userConfig.currRole === Role.JIANGJIANG.id && isLuluExist) balls[0].vRatio = 1.03;
-        // 设置蛋
-        if (isDuoduoExist) setEggs();
-        // 设置速度
-        setSpeed();
-        // 设置摩擦力
-        setFriction();
+    // 只显示台面，隐藏主运动层、主球运动层、清空路径层
+    if (userConfig.isJustShowTable) toggleOnlyTable(true);
+    try {
+        if (!shareData) throw new Error();
+        // 设置分享角色和位置
+        setShareRoleAndPos(shareData);
+        // 设置当前主角
+        if (balls && balls.length > 0) userConfig.currRole = balls[0].roleId;
+        // TODO 导入角色也算选择角色
+        if (userConfig.currRole > -1) localStorage.setItem('collide-try-role-chose', userConfig.currRole);
+        console.log(">>>> 导入角色和位置操作完成");
+    } catch (e) {
+        console.log(">>>> setShareRoleAndPos error: " + e.message);
+        // 设置主球
+        setBallMain();
+        // 设置其他小球
+        if (!userConfig.isTestOnlyOne) setBallOthersByRole(userConfig.currRole);
+        // 设置小丑分身【放在角色设置完成后】
+        setRoleJoker();
+    } finally {
+        // 加载之后，清除导入数据【放到onMouseMove方法再处理】
+        //clearShareRoleAndPos();
+        // 标记角色已经选择完成
+        if (userConfig.currRole > -1) sysConfig.isRoleChooseFinished = true;
     }
+    // 设置双子分身
+    if (userConfig.currRole === Role.SHUANGZI.id) setTwins();
+    // 设置完所有角色之后，设置主角所属队颜色
+    resetMainTeamColorRandom(userConfig.mainTeamColor);
+    // 初始化角色碰撞标志位
+    setBallCollidingNos();
+    // 设置完角色后，检测角色是否存在
+    checkRoleExist();
+    // 僵尸露露组合，加快速度
+    if (userConfig.currRole === Role.JIANGJIANG.id && isLuluExist) balls[0].vRatio = 1.03;
+    // 设置蛋
+    if (isDuoduoExist) setEggs();
+    // 设置速度
+    setSpeed();
+    // 设置摩擦力
+    setFriction();
+}
+
+
+// 初始化其他参数
+function initOthers() {
+    // 角色运动路径判断显示
+    if (userConfig.isShowBallMovePath) gamePathCanvas.style.display = "inherit";
+    // 角色全路径判断显示
+    if (userConfig.isShowBallPath) gamePathBallCanvas.style.display = "inherit";
+    // 游戏桌面场景初始化，需要放在角色设置之后，因为场景会根据角色变化
+    if (sysConfig.isRoleChooseFinished) gameSceneInit(); // 选择角色后才渲染场景，优化性能
 }
 
 
@@ -5016,10 +5033,11 @@ function reInit(isImport, isKeepDialog) {
     // 重置全局变量
     balls = [];
     eggs = [];
+    // 重置分享数据
+    shareData = null;
     let isDuoduoExistBak = isDuoduoExist;
     // 重新初始化角色
     initRoles();
-    if (userConfig.isJustShowTable) return;
     // 判断是否需要重新画台面，选择前后只要有朵朵就需要重画
     if (isDuoduoExistBak || isDuoduoExist) reDrawTableAndEgg();
     // 重置动画渲染相关变量
@@ -5027,11 +5045,24 @@ function reInit(isImport, isKeepDialog) {
     // 模拟重打清屏重新开始新的渲染
     if (isImport) directPlayAgain(true);
     else directPlayAgain(false);
+    // 解除 directPlayAgain() 选中的主球
+    selectedBall = null;
     // 重新渲染
     //isAnimated = false;
     //if (!isPlaying) animate();
     // 完成后关闭选择角色弹窗
     if (!isKeepDialog) switchChooseRoleDialog(false);
+}
+
+
+// TODO 应用初始化
+function init() {
+    // 初始化应用参数
+    initAppParams();
+    // 初始化选择角色
+    initRoles();
+    // 初始化其他参数
+    initOthers();
 }
 
 
@@ -8376,11 +8407,13 @@ function switchCustomThemeCheckbox(isShow) {
         let customTheme = Theme.getCustomTheme();
         if (!customTheme) { // 缓存没找到，创建新的主题
             customTheme = Theme.getCurrThemeCopy();
-            customTheme.id = Theme.getMaxId() + 1;
+            customTheme.id = Theme.getMaxId() + 1; // 这里的 customTheme.id 跟 customTheme.bgImageIdbKey 关联
             customTheme.name = "自定义主题01";
             customTheme.bgImageIdbKey = sysConfig.bgImageKey + customTheme.id;
             customTheme.tbColor = Theme.setTbColor00(customTheme.tbColor); // 台面背景透明
         }
+        // 判断使用新id，避免跟应用自带主题id冲突
+        if (customTheme.id <= Theme.getMaxId()) customTheme.id = Theme.getMaxId() + 1;
         //if (currTheme.id === customTheme.id) return; // 主题相同，不重复设置
         // 根据自定义主题参数是否初始化完成
         // 以及判断 currTheme 和缓存中的 customTheme 是否有变化，有变化才执行设置
@@ -8467,10 +8500,13 @@ function switchCheckbox(label, key, params) {
 
     // 只显示撞击台面
     if (key === "isJustShowTable") {
+        // 隐藏/显示图层的方式
         toggleOnlyTable(isShow);
         //if (!balls || balls.length < 1) sysConfig.isNeedReload = true;
         // 重新初始化
-        reInit(false, true);
+        //reInit(false, true);
+        // 重新渲染
+        //animate();
     }
     // 切换显示场景图形
     if (key === "isShowSceneGraph") toggleSceneGraph(isShow, true);
@@ -8534,14 +8570,18 @@ function toggleTeamColor() {
 // 切换只显示撞击台面，隐藏角色层
 function toggleOnlyTable(isShow) {
     // 清空路径层
-    clearCanvasAll(gamePathCanvas);
-    clearCanvasAll(gamePathBallCanvas);
+    //clearCanvasAll(gamePathCanvas);
+    //clearCanvasAll(gamePathBallCanvas);
     if (isShow) { // 只显示台面
         canvas.style.display = "none";
         gameMainBallCanvas.style.display = "none";
+        gamePathCanvas.style.display = "none";
+        gamePathBallCanvas.style.display = "none";
     } else { // 取消只显示台面
         canvas.style.display = "unset";
         gameMainBallCanvas.style.display = "unset";
+        gamePathCanvas.style.display = "unset";
+        gamePathBallCanvas.style.display = "unset";
     }
 }
 
@@ -9177,10 +9217,19 @@ function doPageBg(str) {
         //}
     }
 
-    currTheme.bgImage = ""; // 重置背景图片
-    document.body.style.backgroundImage = null;
-    if (Theme.isColorCode(str)) setBodyBackgroundColor(str); // 设置背景颜色
+    // 重置body背景图片
+    resetBodyImage(str, false);
+}
+
+// 重置页面背景图片
+function resetBodyImage(bgColor, isStore) {
+    currTheme.bgImage = ""; // 主题图片清空
+    document.body.style.backgroundImage = null; // body图片清空
+    if (Theme.isColorCode(bgColor)) setBodyBackgroundColor(bgColor); // 设置背景颜色
     else setBodyBackgroundColor(Theme.getBgColorById(userConfig.sceneThemeMode)); // 恢复所选主题默认的背景颜色
+    if (isStore) {
+        localStorage.setItem("collide-try-custom-theme", JSON.stringify(currTheme));
+    }
 }
 
 // 重置页面背景
@@ -9261,13 +9310,13 @@ onMounted(() => {
         // 处理事件默认行为，防止事件冒泡 【会导致不能弹出文件管理器】
         //doEventDefault(e);
         //alert("请选择一张图片");
-        //pageBgImageFile.value = null; // 清空已选择的文件
+        pageBgImageFile.value = ""; // 清空已选择的文件，没效果
         if (!userConfig.isUseCustomTheme) return;
         if (!indexedDB) {
             alert("你的浏览器不支持 IndexedDB V" + dbVersion + "，请更换其他浏览器重试");
         }
     });
-    if (indexedDB) pageBgImageFile.addEventListener("change", function () {
+    if (indexedDB) pageBgImageFile.addEventListener("change", (event) => {
         if (pageBgImageFile.files[0]) {
             let fName = pageBgImageFile.files[0].name;
             fName = getFileShortName(fName, 5);
@@ -9288,6 +9337,9 @@ onMounted(() => {
                 putImageInDb(pageBgImageFile.files[0], currTheme.bgImageIdbKey);
                 // 从IndexedDB读取图片，并设置body图片背景
                 doPageBgImage(fName, false);
+                // 清空已选择的文件，解决第二次选择相同的文件不会触发change
+                event.target.value = ""; // 没效果
+                pageBgImageFile.value = ""; // 没效果
             } catch (e) {
                 alert("设置背景图片失败：\n" + e.stack);
                 doGlobalErrorMsg(e, false);
@@ -9515,20 +9567,46 @@ function importThemeConfig(file) {
         let customThemeIn;
         try {
             customThemeIn = JSON.parse(content);
+            console.log(">>>> importThemeConfig: " + content);
+            if (customThemeIn.id <= Theme.getMaxId()) {
+                alert("导入主题与应用自带主题冲突");
+                console.log(">>>> 导入主题与应用自带主题冲突 id: " + customThemeIn.id + "-" + Theme.getNameById(customThemeIn.id));
+                return;
+            }
         } catch (e2) {
             alert("配置文件解析失败");
             console.log(">>>> importThemeConfig JSON.parse error: " + e.message);
             return;
         }
+
+        if (currTheme.id <= Theme.getMaxId()) {
+            alert("应用自带的主题不支持修改");
+            console.log(">>>> 应用自带的主题不支持修改 id: " + currTheme.id + "-" + Theme.getNameById(currTheme.id));
+            return;
+        }
+
         for (let f in currTheme) {
             currTheme[f] = customThemeIn[f];
         }
+
+        // 有图片则设置背景图片并重画台面
+        if (isAImageFileName(currTheme.bgImage) && currTheme.bgImageIdbKey) doPageBgImage(currTheme.bgImage);
+        // 没有图片则清空之前的图片，并重画台面
+        else {
+            // 重置body背景图片
+            resetBodyImage(currTheme.bgColor, false);
+            // 重画整个台面（台面、边框、坐标、图形）
+            reDrawTable();
+        }
+
         // 更新 localStorage 中的 currTheme
         localStorage.setItem('collide-try-custom-theme', JSON.stringify(currTheme));
         console.log(">>>> importThemeConfig currTheme in localStorage updated.");
-        // 提示、刷新
+
         alert("主题配置导入完成");
-        location.reload();
+        //location.reload();
+        // 设置完成
+        console.log(">>>> importThemeConfig finished.");
     }
     reader.onerror = function (e) {
         //console.log(reader.error);
@@ -12150,8 +12228,8 @@ function doClick(e) {
         oldBallPos.y = selectedBall.y;
         // 备份原始位置坐标
         setBallsPosBack(true);
-        // 初始化双子分身
-        if (selectedBall.isMainBall && selectedBall.roleId === Role.SHUANGZI.id) doTwins(selectedBall);
+        // 初始化双子分身，只瞄准不打不设置
+        if (selectedBall.isMainBall && selectedBall.roleId === Role.SHUANGZI.id && !userConfig.isJustTrying) doTwins(selectedBall);
         // 重置角色字段属性值
         resetRoleField();
         // 瞄准松手开打之前，再次更新速度，避免瞄准看到的跟实际打的方向因为手抖导致偏差
