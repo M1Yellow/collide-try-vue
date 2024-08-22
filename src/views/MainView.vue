@@ -1184,7 +1184,9 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
-                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">启用自定义</span>
+                    <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">启用自定义<span
+                            id="resetThemeDefault" class="reset-btn" @click="resetThemeDefault($event.target);"
+                            title="重置主题" style="display: none;"> 🔄 </span></span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isUseCustomTheme');">
                             <input type="checkbox" id="isUseCustomTheme">
@@ -1216,7 +1218,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="bgColor" value="#FFFFFFFF" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1239,7 +1241,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="tbColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1248,7 +1250,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="tblColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1257,7 +1259,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="glColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1266,7 +1268,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="glmColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1275,7 +1277,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="gnColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1285,7 +1287,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="gndColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1295,7 +1297,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="plColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1305,7 +1307,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="rlColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1313,7 +1315,7 @@ input:checked+.slider:before {
       <li class="user-setting-item user-setting-item-expand li-space-between-center">
         <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">傀儡运动路径颜色</span>
         <span class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
-          <input type="text" class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled" id="klplColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+          <input type="text" class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item" id="klplColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
         </span>
       </li>
       -->
@@ -1323,7 +1325,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="szbplColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1331,7 +1333,7 @@ input:checked+.slider:before {
       <li class="user-setting-item user-setting-item-expand li-space-between-center">
         <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">分身本体路径颜色</span>
         <span class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
-          <input type="text" class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled" id="szbrlColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+          <input type="text" class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item" id="szbrlColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
         </span>
       </li>
       -->
@@ -1340,7 +1342,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="ccColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1350,7 +1352,7 @@ input:checked+.slider:before {
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
-                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
                             id="szccColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
@@ -1748,12 +1750,18 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.0 更新：<span class="collide-try-update-date">2024-08-15</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.1 更新：<span class="collide-try-update-date">2024-08-21</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 刷新页面重选角色改为点击左上角重选角色，不用频繁刷新页面，节省性能
-2. 选择角色列表新增【电音少女】选项
-3. 修复自定义主题已知的问题
+1. 新增双击砖格坐标补全数字功能
+2. 加入自定义主题【取色器】，改颜色更便捷
+3. 完善自定义主题重置功能
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.0 更新：<span
+                            class="collide-try-update-date">2024-08-15</span></b></div>
+                1. 刷新页面重选角色改为点击左上角重选角色，不用频繁刷新页面，节省性能
+                2. 选择角色列表新增【电音少女】选项
+                3. 修复自定义主题已知的问题
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.4.0 更新：<span
                             class="collide-try-update-date">2024-08-12</span></b></div>
                 1. 自定义主题尝鲜版（支持设置背景图片，只会在应用内存储，不会上传哦~）
@@ -2011,6 +2019,612 @@ const packageVersion = __APP_VERSION__;
 "use strict"; var Aes = {}; if (Aes.cipher = function (e, r) { for (var o = 4, n = r.length / o - 1, t = [[], [], [], []], s = 0; 4 * o > s; s++)t[s % 4][Math.floor(s / 4)] = e[s]; t = Aes.addRoundKey(t, r, 0, o); for (var f = 1; n > f; f++)t = Aes.subBytes(t, o), t = Aes.shiftRows(t, o), t = Aes.mixColumns(t, o), t = Aes.addRoundKey(t, r, f, o); t = Aes.subBytes(t, o), t = Aes.shiftRows(t, o), t = Aes.addRoundKey(t, r, n, o); for (var a = new Array(4 * o), s = 0; 4 * o > s; s++)a[s] = t[s % 4][Math.floor(s / 4)]; return a }, Aes.keyExpansion = function (e) { for (var r = 4, o = e.length / 4, n = o + 6, t = new Array(r * (n + 1)), s = new Array(4), f = 0; o > f; f++) { var a = [e[4 * f], e[4 * f + 1], e[4 * f + 2], e[4 * f + 3]]; t[f] = a } for (var f = o; r * (n + 1) > f; f++) { t[f] = new Array(4); for (var i = 0; 4 > i; i++)s[i] = t[f - 1][i]; if (f % o == 0) { s = Aes.subWord(Aes.rotWord(s)); for (var i = 0; 4 > i; i++)s[i] ^= Aes.rCon[f / o][i] } else o > 6 && f % o == 4 && (s = Aes.subWord(s)); for (var i = 0; 4 > i; i++)t[f][i] = t[f - o][i] ^ s[i] } return t }, Aes.subBytes = function (e, r) { for (var o = 0; 4 > o; o++)for (var n = 0; r > n; n++)e[o][n] = Aes.sBox[e[o][n]]; return e }, Aes.shiftRows = function (e, r) { for (var o = new Array(4), n = 1; 4 > n; n++) { for (var t = 0; 4 > t; t++)o[t] = e[n][(t + n) % r]; for (var t = 0; 4 > t; t++)e[n][t] = o[t] } return e }, Aes.mixColumns = function (e, r) { for (var o = 0; 4 > o; o++) { for (var n = new Array(4), t = new Array(4), s = 0; 4 > s; s++)n[s] = e[s][o], t[s] = 128 & e[s][o] ? e[s][o] << 1 ^ 283 : e[s][o] << 1; e[0][o] = t[0] ^ n[1] ^ t[1] ^ n[2] ^ n[3], e[1][o] = n[0] ^ t[1] ^ n[2] ^ t[2] ^ n[3], e[2][o] = n[0] ^ n[1] ^ t[2] ^ n[3] ^ t[3], e[3][o] = n[0] ^ t[0] ^ n[1] ^ n[2] ^ t[3] } return e }, Aes.addRoundKey = function (e, r, o, n) { for (var t = 0; 4 > t; t++)for (var s = 0; n > s; s++)e[t][s] ^= r[4 * o + s][t]; return e }, Aes.subWord = function (e) { for (var r = 0; 4 > r; r++)e[r] = Aes.sBox[e[r]]; return e }, Aes.rotWord = function (e) { for (var r = e[0], o = 0; 3 > o; o++)e[o] = e[o + 1]; return e[3] = r, e }, Aes.sBox = [99, 124, 119, 123, 242, 107, 111, 197, 48, 1, 103, 43, 254, 215, 171, 118, 202, 130, 201, 125, 250, 89, 71, 240, 173, 212, 162, 175, 156, 164, 114, 192, 183, 253, 147, 38, 54, 63, 247, 204, 52, 165, 229, 241, 113, 216, 49, 21, 4, 199, 35, 195, 24, 150, 5, 154, 7, 18, 128, 226, 235, 39, 178, 117, 9, 131, 44, 26, 27, 110, 90, 160, 82, 59, 214, 179, 41, 227, 47, 132, 83, 209, 0, 237, 32, 252, 177, 91, 106, 203, 190, 57, 74, 76, 88, 207, 208, 239, 170, 251, 67, 77, 51, 133, 69, 249, 2, 127, 80, 60, 159, 168, 81, 163, 64, 143, 146, 157, 56, 245, 188, 182, 218, 33, 16, 255, 243, 210, 205, 12, 19, 236, 95, 151, 68, 23, 196, 167, 126, 61, 100, 93, 25, 115, 96, 129, 79, 220, 34, 42, 144, 136, 70, 238, 184, 20, 222, 94, 11, 219, 224, 50, 58, 10, 73, 6, 36, 92, 194, 211, 172, 98, 145, 149, 228, 121, 231, 200, 55, 109, 141, 213, 78, 169, 108, 86, 244, 234, 101, 122, 174, 8, 186, 120, 37, 46, 28, 166, 180, 198, 232, 221, 116, 31, 75, 189, 139, 138, 112, 62, 181, 102, 72, 3, 246, 14, 97, 53, 87, 185, 134, 193, 29, 158, 225, 248, 152, 17, 105, 217, 142, 148, 155, 30, 135, 233, 206, 85, 40, 223, 140, 161, 137, 13, 191, 230, 66, 104, 65, 153, 45, 15, 176, 84, 187, 22], Aes.rCon = [[0, 0, 0, 0], [1, 0, 0, 0], [2, 0, 0, 0], [4, 0, 0, 0], [8, 0, 0, 0], [16, 0, 0, 0], [32, 0, 0, 0], [64, 0, 0, 0], [128, 0, 0, 0], [27, 0, 0, 0], [54, 0, 0, 0]], "undefined" != typeof module && module.exports && (module.exports = Aes), "undefined" != typeof module && module.exports) var Aes = require("./aes.js"); Aes.Ctr = {}, Aes.Ctr.encrypt = function (e, r, o) { var n = 16; if (128 != o && 192 != o && 256 != o) throw new Error("Key size is not 128 / 192 / 256"); e = String(e).utf8Encode(), r = String(r).utf8Encode(); for (var t = o / 8, s = new Array(t), f = 0; t > f; f++)s[f] = f < r.length ? r.charCodeAt(f) : 0; var a = Aes.cipher(s, Aes.keyExpansion(s)); a = a.concat(a.slice(0, t - 16)); for (var i = new Array(n), d = (new Date).getTime(), u = d % 1e3, c = Math.floor(d / 1e3), p = Math.floor(65535 * Math.random()), f = 0; 2 > f; f++)i[f] = u >>> 8 * f & 255; for (var f = 0; 2 > f; f++)i[f + 2] = p >>> 8 * f & 255; for (var f = 0; 4 > f; f++)i[f + 4] = c >>> 8 * f & 255; for (var A = "", f = 0; 8 > f; f++)A += String.fromCharCode(i[f]); for (var y = Aes.keyExpansion(a), h = Math.ceil(e.length / n), l = "", v = 0; h > v; v++) { for (var g = 0; 4 > g; g++)i[15 - g] = v >>> 8 * g & 255; for (var g = 0; 4 > g; g++)i[15 - g - 4] = v / 4294967296 >>> 8 * g; for (var w = Aes.cipher(i, y), b = h - 1 > v ? n : (e.length - 1) % n + 1, C = new Array(b), f = 0; b > f; f++)C[f] = w[f] ^ e.charCodeAt(v * n + f), C[f] = String.fromCharCode(C[f]); l += C.join(""), "undefined" != typeof WorkerGlobalScope && self instanceof WorkerGlobalScope && v % 1e3 == 0 && self.postMessage({ progress: v / h }) } return l = (A + l).base64Encode() }, Aes.Ctr.decrypt = function (e, r, o) { var n = 16; if (128 != o && 192 != o && 256 != o) throw new Error("Key size is not 128 / 192 / 256"); e = String(e).base64Decode(), r = String(r).utf8Encode(); for (var t = o / 8, s = new Array(t), f = 0; t > f; f++)s[f] = f < r.length ? r.charCodeAt(f) : 0; var a = Aes.cipher(s, Aes.keyExpansion(s)); a = a.concat(a.slice(0, t - 16)); for (var i = new Array(8), d = e.slice(0, 8), f = 0; 8 > f; f++)i[f] = d.charCodeAt(f); for (var u = Aes.keyExpansion(a), c = Math.ceil((e.length - 8) / n), p = new Array(c), A = 0; c > A; A++)p[A] = e.slice(8 + A * n, 8 + A * n + n); e = p; for (var y = "", A = 0; c > A; A++) { for (var h = 0; 4 > h; h++)i[15 - h] = A >>> 8 * h & 255; for (var h = 0; 4 > h; h++)i[15 - h - 4] = (A + 1) / 4294967296 - 1 >>> 8 * h & 255; for (var l = Aes.cipher(i, u), v = new Array(e[A].length), f = 0; f < e[A].length; f++)v[f] = l[f] ^ e[A].charCodeAt(f), v[f] = String.fromCharCode(v[f]); y += v.join(""), "undefined" != typeof WorkerGlobalScope && self instanceof WorkerGlobalScope && A % 1e3 == 0 && self.postMessage({ progress: A / c }) } return y = y.utf8Decode() }, "undefined" == typeof String.prototype.utf8Encode && (String.prototype.utf8Encode = function () { return unescape(encodeURIComponent(this)) }), "undefined" == typeof String.prototype.utf8Decode && (String.prototype.utf8Decode = function () { try { return decodeURIComponent(escape(this)) } catch (e) { return this } }), "undefined" == typeof String.prototype.base64Encode && (String.prototype.base64Encode = function () { if ("undefined" != typeof btoa) return btoa(this); if ("undefined" != typeof Buffer) return new Buffer(this, "binary").toString("base64"); throw new Error("No Base64 Encode") }), "undefined" == typeof String.prototype.base64Decode && (String.prototype.base64Decode = function () { if ("undefined" != typeof atob) return atob(this); if ("undefined" != typeof Buffer) return new Buffer(this, "base64").toString("binary"); throw new Error("No Base64 Decode") }), "undefined" != typeof module && module.exports && (module.exports = Aes.Ctr);
 
 
+// https://github.com/zhouatie/plugin/tree/master/colorpicker
+(function () {
+
+    var util = {
+        css: function (elem, obj) {
+            for (var i in obj) {
+                elem.style[i] = obj[i];
+            }
+        },
+        hasClass: function (elem, classN) {
+            var className = elem.getAttribute("class");
+            return className.indexOf(classN) != -1;
+        },
+        // 判断是否为颜色码
+        isColorCode: function (str) {
+            if (!str || typeof str !== "string" || str.replaceAll(" ", "") === "") return false;
+            if (!str.startsWith("#") || !(/^[A-Fa-f0-9]{3,8}$/.test(str.substring(1)))) return false;
+            let len = str.substring(1).length; // 去掉#，3、4、6、8 正常可用
+            if (len === 5 || len === 7) return false;
+            return true;
+        },
+        // 颜色短码补全（8位形式）
+        getFullColorCode: function (code) {
+            if (!code || !this.isColorCode(code)) return code;
+            // 不算#，3、4 位短码，每一位重复一次
+            // 算上#，往后顺移一位
+            code = code.slice(1);
+            if (code.length == 3) return '#' + code[0] + code[0] + code[1] + code[1] + code[2] + code[2] + "ff";
+            if (code.length == 4) return '#' + code[0] + code[0] + code[1] + code[1] + code[2] + code[2] + code[3] + code[3];
+            if (code.length == 6) return '#' + code + "ff";
+            return '#' + code;
+        },
+        // 获取不带透明度的颜色码+开头#
+        getColorCodeNormal: function (code) {
+            if (!code || !this.isColorCode(code)) return code;
+            // 不算#，3-每一位重复一次；4-前三位每一位重复一次；6-直接返回；8-截取前6位
+            code = code.slice(1);
+            if (code.length === 4) code = code.substring(0, 3);
+            if (code.length === 3) return '#' + code[0] + code[0] + code[1] + code[1] + code[2] + code[2];
+            if (code.length === 6) return '#' + code;
+            if (code.length > 6) return '#' + code.substring(0, 6);
+            return '#' + code;
+        }
+    };
+
+    function Colorpicker(elem) {
+
+        this.bindElem = elem; // 绑定的元素
+        this.elem_wrap = null; // 最外层容器
+        this.fixedBg = null; // 拾色器后面固定定位的透明div 用于点击隐藏拾色器
+        this.elem_colorPickerPancel = null; // 整个取色器面板
+        this.elem_colorPancel = null; // 色彩面板
+        this.elem_picker = null; // 拾色器色块按钮
+        this.elem_barPicker1 = null; // 颜色条
+        this.elem_barPicker2 = null; // 透明条
+        this.elem_hexInput = null; // 显示hex的表单
+        this.elem_showColor = null; // 显示当前颜色
+        this.elem_opacityPancel = null; // 透明度背景元素
+        this.elem_showModeBtn = null; // 切换输入框模式按钮
+        this.elem_inputWrap = null; // 输入框外层容器
+
+        this.pancelLeft = 0;
+        this.pancelTop = 0;
+
+        this.downX = 0;
+        this.downY = 0;
+        this.moveX = 0;
+        this.moveY = 0;
+
+        this.pointLeft = 0;
+        this.pointTop = 0;
+
+        this.current_mode = 'hex'; // input框当前的模式
+
+        this.rgba = {
+            r: 0,
+            g: 0,
+            b: 0,
+            a: 1
+        };
+
+        this.hsb = {
+            h: 0,
+            s: 100,
+            b: 100
+        };
+
+        try {
+            this.init();
+        } catch (e) {
+            console.log(e.message);
+        }
+    };
+    /*
+    var default = {
+        elem:obj,
+        cards:['#000','#fff'],
+        afterCreat : fn
+    }
+    */
+    Colorpicker.Opt = {
+        singleton: false, // TODO 后续考虑修改，单例并不一定就好，需要更新不同绑定元素及事件
+        bindClass: '',
+        initColor: "rgb(255,0,0)",
+        allMode: ['hex', 'rgb']
+    }
+
+    Colorpicker.create = function (opt) {
+        for (var prop in opt) {
+            Colorpicker.Opt[prop] = opt[prop];
+        };
+
+        var elemArr = document.getElementsByClassName(Colorpicker.Opt.bindClass);
+
+        for (var i = 0; i < elemArr.length; i++) {
+            elemArr[i].colorpicker = new Colorpicker(elemArr[i]);
+        }
+
+    }
+
+    Colorpicker.prototype = {
+        render: function () {
+            var tpl = '<div style="position: fixed; top: 0px; right: 0px; bottom: 0px; left: 0px;"></div>' +
+                '<div style="position: inherit; z-index: 100;">' +
+                '<div class="colorpicker-pancel" style="background: rgb(255, 255, 255); border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px; box-sizing: initial; width: 225px; font-family: Menlo;"><div style="width: 100%; padding-bottom: 55%; position: relative; border-radius: 2px 2px 0px 0px; overflow: hidden;">' +
+                '<div class="color-pancel" style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; background: rgb(' + this.rgba.r + ',' + this.rgba.g + ',' + this.rgba.b + ')">' +
+                '<style>' +
+                '.saturation-white {background: -webkit-linear-gradient(to right, #fff, rgba(255,255,255,0));background: linear-gradient(to right, #fff, rgba(255,255,255,0));}' +
+                '.saturation-black {background: -webkit-linear-gradient(to top, #000, rgba(0,0,0,0));background: linear-gradient(to top, #000, rgba(0,0,0,0));}' +
+                '</style>' +
+                '<div class="saturation-white" style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px;">' +
+                '<div class="saturation-black" style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px;"></div>' +
+                '<div class="pickerBtn" style="position: absolute; top: 0%; left: 100%; cursor: default;">' +
+                '<div style="width: 14px; height: 14px; border-radius: 50%; box-shadow: rgb(255, 255, 255) 0px 0px 0px 1px inset; transform: translate(-6px, -6px);"></div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div style="padding: 16px 16px 12px;">' +
+                '<div class="flexbox-fix" style="display: flex;">' +
+                '<div style="width: 32px; display: inline-flex; flex-direction: row; justify-content: flex-start; align-items: center;">' +
+                '<div style="width: 20px; height: 20px; border-radius: 50%; position: relative; overflow: hidden;">' +
+                '<div class="colorpicker-showColor" style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; border-radius: 50%; box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px inset; background:rgb(' + this.rgba.r + ',' + this.rgba.g + ',' + this.rgba.b + '); z-index: 2;"></div>' +
+                '<div class="" style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==&quot;) left center;"></div></div></div><div style="-webkit-box-flex: 1; flex: 1 1 0%;"><div style="height: 12px; position: relative; margin-bottom: 12px;"><div style="position: absolute; top: 0px;' + 'right: 0px; bottom: 0px; left: 0px;"><div class="hue-horizontal" style="padding: 0px 2px; position: relative; height: 100%;">' +
+                '<style>' +
+                '.hue-horizontal {background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);background: -webkit-linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);}' +
+                '.hue-vertical {background: linear-gradient(to top, #f00 0%, #ff0 17%, #0f0 33%,#0ff 50%, #00f 67%, #f0f 83%, #f00 100%);background: -webkit-linear-gradient(to top, #f00 0%, #ff0 17%,#0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);}' +
+                '</style>' +
+                '<div  class="colorBar-color-picker" style="position: absolute; left: 0%;">' +
+                '<div style="width: 14px; height: 14px; border-radius: 50%; transform: translate(-6px, -1px); background-color: rgb(248, 248, 248); box-shadow: rgba(0, 0, 0, 0.37) 0px 1px 4px 0px;">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div style="height: 12px; position: relative;">' +
+                '<div style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px;">' +
+                '<div style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; overflow: hidden;">' +
+                '<div style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==&quot;) left center;"></div>' +
+                '</div>' +
+                '<div style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; background: linear-gradient(to right, rgba(' + this.rgba.r + ',' + this.rgba.g + ',' + this.rgba.b + ',0) 0%, rgb(' + this.rgba.r + ',' + this.rgba.g + ',' + this.rgba.b + ') 100%);"></div>' +
+                '<div style="position: relative; height: 100%;">' +
+                '<div class="colorBar-opacity-picker" style="position: absolute; left: 100%;">' +
+                '<div style="width: 14px; height: 14px; border-radius: 50%; transform: translate(-6px, -1px); background-color: rgb(248, 248, 248); box-shadow: rgba(0, 0, 0, 0.37) 0px 1px 4px 0px;"></div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="flexbox-fix" style="padding-top: 10px; display: flex;">' +
+                '<div class="flexbox-fix colorpicker-inputWrap" style="-webkit-box-flex: 1; flex: 1 1 0%; display: flex; margin-left: -6px;">';
+
+            tpl += this.getInputTpl();
+            tpl += '</div>' +
+                '<div class="colorpicker-showModeBtn" style="width: 32px; text-align: right; position: relative; display: none;">' +
+                '<div style="margin-right: -4px;  cursor: pointer; position: relative;">' +
+                '<svg viewBox="0 0 24 24" style="width: 24px; height: 24px; border: 1px solid transparent; border-radius: 5px;"><path fill="#333" d="M12,5.83L15.17,9L16.58,7.59L12,3L7.41,7.59L8.83,9L12,5.83Z"></path><path fill="#333" d="M12,18.17L8.83,15L7.42,16.41L12,21L16.59,16.41L15.17,15Z"></path></svg>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+
+            return tpl;
+        },
+        getInputTpl: function () {
+            var current_mode_html = "";
+            switch (this.current_mode) {
+                case 'hex':
+                    var hex = "#" + this.rgbToHex(this.HSBToRGB(this.hsb));
+
+                    current_mode_html += '<div style="padding-left: 6px; width: 100%;">' +
+                        '<div style="position: relative;">' +
+                        '<input class="colorpicker-hexInput" value="' + hex + '" maxlength="9" spellcheck="false" style="font-size: 11px; color: rgb(51, 51, 51); width: 100%; border-radius: 2px; border: none; box-shadow: rgb(218, 218, 218) 0px 0px 0px 1px inset; height: 21px; text-align: center;">' +
+                        '<span style="text-transform: uppercase; font-size: 11px; line-height: 11px; color: rgb(150, 150, 150); text-align: center; display: block; margin-top: 12px; display: none;">hex</span>' +
+                        '</div>' +
+                        '</div>';
+                    break;
+                case 'rgb':
+                    for (var i = 0; i < 3; i++) {
+
+                        current_mode_html += '<div style="padding-left: 6px; width: 100%;">' +
+                            '<div style="position: relative;">' +
+                            '<input class="colorpicker-hexInput" value="' + this.rgba['rgb'[i]] + '" maxlength="3" spellcheck="false" style="font-size: 11px; color: rgb(51, 51, 51); width: 100%; border-radius: 2px; border: none; box-shadow: rgb(218, 218, 218) 0px 0px 0px 1px inset; height: 21px; text-align: center;">' +
+                            '<span style="text-transform: uppercase; font-size: 11px; line-height: 11px; color: rgb(150, 150, 150); text-align: center; display: block; margin-top: 12px;">' + ('rgb'[i]) + '</span>' +
+                            '</div>' +
+                            '</div>';
+                    }
+                default:
+
+            }
+            return current_mode_html;
+        },
+        init: function () {
+            var _this = this,
+                initColor = (this.bindElem && this.bindElem.value && util.isColorCode(this.bindElem.value)) ? this.rgbToStr(this.hexToRgb(this.bindElem.value)) : Colorpicker.Opt.initColor,
+                rgb = initColor.slice(4, -1).split(",");
+
+            this.rgba.r = parseInt(rgb[0]);
+            this.rgba.g = parseInt(rgb[1]);
+            this.rgba.b = parseInt(rgb[2]);
+            this.rgba.a = Number(rgb[3]);
+
+            var body = document.getElementsByTagName("body")[0],
+                div = document.createElement("div");
+
+            div.innerHTML = this.render();
+            div.classList.add("colorpicker-pancel-wrap");
+            body.appendChild(div);
+
+            this.elem_wrap = div;
+            this.fixedBg = div.children[0];
+            this.elem_colorPickerPancel = div.getElementsByClassName("colorpicker-pancel")[0];
+            this.total_pancel_width = this.elem_colorPickerPancel.offsetWidth;
+            this.total_pancel_height = this.elem_colorPickerPancel.offsetHeight;
+            this.elem_colorPancel = div.getElementsByClassName("color-pancel")[0];
+            this.pancel_width = this.elem_colorPancel.offsetWidth;
+            this.pancel_height = this.elem_colorPancel.offsetHeight;
+            this.elem_picker = div.getElementsByClassName("pickerBtn")[0];
+            this.elem_showColor = div.getElementsByClassName("colorpicker-showColor")[0];
+            this.elem_barPicker1 = div.getElementsByClassName("colorBar-color-picker")[0];
+            this.elem_barPicker2 = div.getElementsByClassName("colorBar-opacity-picker")[0];
+            this.elem_hexInput = div.getElementsByClassName("colorpicker-hexInput")[0];
+            this.elem_showModeBtn = div.getElementsByClassName("colorpicker-showModeBtn")[0];
+            this.elem_inputWrap = div.getElementsByClassName("colorpicker-inputWrap")[0];
+            this.elem_opacityPancel = this.elem_barPicker2.parentNode.parentNode.children[1];
+
+            // var rect = this.bindElem.getBoundingClientRect();
+            var elem = this.bindElem;
+            var top = elem.offsetTop;
+            var left = elem.offsetLeft;
+            /*
+            while(elem.offsetParent) {
+                top += elem.offsetParent.offsetTop;
+                left += elem.offsetParent.offsetLeft;
+                elem = elem.offsetParent;
+            }
+            */
+
+            // 居中
+            top = Math.round(document.body.clientHeight / 6);
+            left = Math.round(document.body.clientWidth - this.pancel_width);
+            // 右下角（输入法会挡住输入框）
+            //top = Math.round(document.body.clientHeight - this.total_pancel_height - 50);
+            //left = Math.round(document.body.clientWidth - this.total_pancel_width - 20);
+            // 下方
+            //top = Math.round(document.body.clientHeight - this.total_pancel_height - 50);
+            //left = Math.round((document.body.clientWidth - this.pancel_width) / 2);
+            //this.bindElem.offsetHeight = 0; // 只读
+
+            this.pancelLeft = left;
+            //this.pancelTop = top + this.bindElem.offsetHeight;
+            this.pancelTop = top;
+
+            util.css(div, {
+                "position": "absolute",
+                "z-index": 999999999,
+                "display": 'none',
+                "left": left + "px",
+                //"top": top + this.bindElem.offsetHeight + "px"
+                "top": top + "px"
+            });
+
+            this.bindMove(this.elem_colorPancel, this.setPosition, true);
+            this.bindMove(this.elem_barPicker1.parentNode, this.setBar, false);
+            this.bindMove(this.elem_barPicker2.parentNode, this.setBar, false);
+
+            this.bindElem.addEventListener("click", function () {
+                _this.show();
+            }, false);
+
+            this.fixedBg.addEventListener("click", function (e) {
+                _this.hide();
+            }, false)
+
+            this.elem_showModeBtn.addEventListener("click", function () {
+                _this.switch_current_mode();
+            }, false)
+
+            this.elem_wrap.addEventListener("input", function (e) {
+                var target = e.target,
+                    value = target.value;
+
+                _this.setColorByInput(value);
+            }, false)
+        },
+        setPosition: function (x, y) {
+            var LEFT = parseInt(x - this.pancelLeft),
+                TOP = parseInt(y - this.pancelTop);
+
+            this.pointLeft = Math.max(0, Math.min(LEFT, this.pancel_width));
+            this.pointTop = Math.max(0, Math.min(TOP, this.pancel_height));
+
+            util.css(this.elem_picker, {
+                left: this.pointLeft + "px",
+                top: this.pointTop + "px"
+            })
+            this.hsb.s = parseInt(100 * this.pointLeft / this.pancel_width);
+            this.hsb.b = parseInt(100 * (this.pancel_height - this.pointTop) / this.pancel_height);
+
+            this.setShowColor();
+            this.setValue(this.rgba);
+
+        },
+        setBar: function (elem, x) {
+            var elem_bar = elem.getElementsByTagName("div")[0],
+                rect = elem.getBoundingClientRect(),
+                elem_width = elem.offsetWidth,
+                X = Math.max(0, Math.min(x - rect.x, elem_width));
+
+            if (elem_bar === this.elem_barPicker1) {
+                util.css(elem_bar, {
+                    left: X + "px"
+                });
+                this.hsb.h = parseInt(360 * X / elem_width);
+            } else {
+                util.css(elem_bar, {
+                    left: X + "px"
+                });
+                this.rgba.a = X / elem_width;
+            }
+
+            this.setPancelColor(this.hsb.h);
+            this.setShowColor();
+            this.setValue(this.rgba);
+
+        },
+        setPancelColor: function (h) {
+            var rgb = this.HSBToRGB({ h: h, s: 100, b: 100 });
+
+            util.css(this.elem_colorPancel, {
+                background: 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + this.rgba.a + ')'
+            });
+        },
+        setShowColor: function () {
+            var rgb = this.HSBToRGB(this.hsb);
+
+            this.rgba.r = rgb.r;
+            this.rgba.g = rgb.g;
+            this.rgba.b = rgb.b;
+
+            util.css(this.elem_showColor, {
+                background: 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + this.rgba.a + ')'
+            });
+
+            util.css(this.elem_opacityPancel, {
+                background: 'linear-gradient(to right, rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0) 0%, rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',1))'
+            });
+        },
+        setValue: function (rgb) {
+            var hex = "#" + this.rgbToHex(rgb);
+            this.elem_inputWrap.innerHTML = this.getInputTpl();
+            // this.bindElem.setAttribute("colorpickerOfColor",'#'+hex);
+            // util.css(this.bindElem,{
+            //     background:"#"+hex
+            // })
+            Colorpicker.Opt.change(this.bindElem, hex);
+
+        },
+        setColorByInput: function (value) {
+            if (!util.isColorCode(value)) return;
+            var _this = this;
+            switch (this.current_mode) {
+                case "hex":
+                    value = util.getFullColorCode(value);
+                    this.hsb = this.hexToHsb(value);
+                    break;
+                case 'rgb':
+                    var inputs = this.elem_wrap.getElementsByTagName("input"),
+                        rgb = {
+                            r: inputs[0].value ? parseInt(inputs[0].value) : 0,
+                            g: inputs[1].value ? parseInt(inputs[1].value) : 0,
+                            b: inputs[2].value ? parseInt(inputs[2].value) : 0
+                        };
+
+                    this.hsb = this.rgbToHsb(rgb);
+            }
+
+            this.changeViewByHsb();
+        },
+        changeViewByHsb: function () {
+            this.pointLeft = parseInt(this.hsb.s * this.pancel_width / 100);
+            this.pointTop = parseInt((100 - this.hsb.b) * this.pancel_height / 100);
+            util.css(this.elem_picker, {
+                left: this.pointLeft + "px",
+                top: this.pointTop + "px"
+            });
+
+            this.setPancelColor(this.hsb.h);
+            this.setShowColor();
+            util.css(this.elem_barPicker1, {
+                left: this.hsb.h / 360 * (this.elem_barPicker1.parentNode.offsetWidth) + "px"
+            });
+
+            var hex = '#' + this.rgbToHex(this.HSBToRGB(this.hsb));
+            if (!util.isColorCode(hex)) return;
+            Colorpicker.Opt.change(this.bindElem, hex);
+            // this.bindElem.setAttribute("colorpickerOfColor",hex);
+            // util.css(this.bindElem,{
+            //     background:hex
+            // })
+        },
+        switch_current_mode: function () {
+            this.current_mode = this.current_mode == 'hex' ? 'rgb' : 'hex';
+            this.elem_inputWrap.innerHTML = this.getInputTpl();
+        },
+        bindMove: function (elem, fn, bool) {
+            var _this = this;
+
+            function mousemove(e) {
+                if (e.pageX && typeof e.pageX === "number") {
+                    _this.moveX = e.pageX;
+                    _this.moveY = e.pageY;
+                } else if (e.touches && e.touches[0]) {
+                    _this.moveX = e.touches[0].pageX;
+                    _this.moveY = e.touches[0].pageY;
+                } else if (e.changedTouches && e.changedTouches[0]) { // touchend
+                    _this.moveX = e.changedTouches[0].pageX;
+                    _this.moveY = e.changedTouches[0].pageY;
+                }
+                bool ? fn.call(_this, _this.moveX, _this.moveY) : fn.call(_this, elem, _this.moveX, _this.moveY);
+                e.preventDefault();
+            }
+
+            function mouseup(e) {
+                document.removeEventListener("mousemove", mousemove, false)
+                document.removeEventListener("mouseup", mouseup, false)
+            }
+
+            if (os.isPc) elem.addEventListener("mousedown", (e) => {
+                _this.downX = e.pageX;
+                _this.downY = e.pageY;
+                bool ? fn.call(_this, _this.downX, _this.downY) : fn.call(_this, elem, _this.downX, _this.downY);
+
+                document.addEventListener("mousemove", mousemove, false);
+                document.addEventListener("mouseup", mouseup, false);
+            }, false);
+
+            // 移动端开始触摸事件
+            var currTouchPointNum = 0;
+            if (!os.isPc) elem.addEventListener('touchstart', (e) => {
+                //console.log(e);
+                e.preventDefault();
+                currTouchPointNum = e.touches.length;
+                // 目前只支持单点触碰
+                if (currTouchPointNum !== 1) return;
+
+            }, false);
+
+            var lastTouchEnd = 0;
+            if (!os.isPc) elem.addEventListener('touchend', (e) => {
+                //console.log(e);
+                //alert(e.touches.length);
+                e.preventDefault();
+                //if (e.type !== "touchend" && e.touches.length !== 0) return;
+                if (currTouchPointNum !== 1) return;
+
+                let now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) { // 200~300
+                    //alert(">>>> 双击了");
+                    //doDbClick(e);
+                } else {
+                    //alert(">>>> 单击了");
+                    //doClick(e);
+                    mousemove(e);
+                }
+                lastTouchEnd = now;
+            }, false);
+
+            // 移动端滑动事件
+            if (!os.isPc) elem.addEventListener('touchmove', (e) => {
+                if (currTouchPointNum !== 1) return;
+                mousemove(e);
+            }, false);
+        },
+        show: function () {
+            util.css(this.elem_wrap, {
+                "display": "block"
+            });
+
+            if (util.isColorCode(this.bindElem.value)) {
+                let value = util.getFullColorCode(this.bindElem.value);
+                this.rgba = this.hexToRgb(value);
+                this.hsb = this.hexToHsb(value);
+                this.setColorByInput(value);
+                this.setValue(this.rgba);
+                // 透明进度条定位
+                let p2Left = this.elem_opacityPancel.getBoundingClientRect().left;
+                //console.log(p2Left);
+                let p2Width = this.elem_opacityPancel.offsetWidth;
+                let a = 1, aStr = value.substring(7);
+                if (aStr && aStr.length == 2) a = Math.floor(parseInt(aStr, 16) / 255 * 100) / 100;
+                let x = p2Left + p2Width * a;
+                this.setBar(this.elem_barPicker2.parentNode, x);
+            }
+
+            var hex = "#" + this.rgbToHex(this.rgba);
+            Colorpicker.Opt.show(this.bindElem, hex);
+        },
+        hide: function () {
+            util.css(this.elem_wrap, {
+                "display": "none"
+            });
+            var hex = "#" + this.rgbToHex(this.rgba);
+            Colorpicker.Opt.hide(this.bindElem, hex);
+        },
+        HSBToRGB: function (hsb) {
+            var rgb = {};
+            var h = Math.round(hsb.h);
+            var s = Math.round(hsb.s * 255 / 100);
+            var v = Math.round(hsb.b * 255 / 100);
+
+            if (s == 0) {
+                rgb.r = rgb.g = rgb.b = v;
+            } else {
+                var t1 = v;
+                var t2 = (255 - s) * v / 255;
+                var t3 = (t1 - t2) * (h % 60) / 60;
+
+                if (h == 360) h = 0;
+
+                if (h < 60) { rgb.r = t1; rgb.b = t2; rgb.g = t2 + t3 }
+                else if (h < 120) { rgb.g = t1; rgb.b = t2; rgb.r = t1 - t3 }
+                else if (h < 180) { rgb.g = t1; rgb.r = t2; rgb.b = t2 + t3 }
+                else if (h < 240) { rgb.b = t1; rgb.r = t2; rgb.g = t1 - t3 }
+                else if (h < 300) { rgb.b = t1; rgb.g = t2; rgb.r = t2 + t3 }
+                else if (h < 360) { rgb.r = t1; rgb.g = t2; rgb.b = t1 - t3 }
+                else { rgb.r = 0; rgb.g = 0; rgb.b = 0 }
+            }
+
+            return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b) };
+        },
+        rgbToHex: function (rgb) {
+            //debugger;
+            var hex = [
+                rgb.r.toString(16),
+                rgb.g.toString(16),
+                rgb.b.toString(16),
+                Math.round(255 * (rgb.a !== undefined && rgb.a >= 0 && rgb.a <= 1 ? rgb.a : (this.rgba.a !== undefined && this.rgba.a >= 0 && this.rgba.a <= 1 ? this.rgba.a : 1))).toString(16)
+            ];
+            hex.map(function (str, i) {
+                if (str.length == 1) {
+                    hex[i] = '0' + str;
+                }
+            });
+
+            return hex.join('');
+        },
+        hexToRgb: function (hex) {
+            var a = parseInt(((hex.indexOf('#') > -1 && hex.length == 9) ? hex.substring(7, 9) : "FF"), 16) * (1 / 255);
+            var hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1, 7) : hex), 16);
+            return { r: hex >> 16, g: (hex & 0x00FF00) >> 8, b: (hex & 0x0000FF), a: Number(a.toFixed(2)) };
+        },
+        hexToHsb: function (hex) {
+            return this.rgbToHsb(this.hexToRgb(hex));
+        },
+        rgbToHsb: function (rgb) {
+            var hsb = { h: 0, s: 0, b: 0 };
+            var min = Math.min(rgb.r, rgb.g, rgb.b);
+            var max = Math.max(rgb.r, rgb.g, rgb.b);
+            var delta = max - min;
+            hsb.b = max;
+            hsb.s = max != 0 ? 255 * delta / max : 0;
+            if (hsb.s != 0) {
+                if (rgb.r == max) hsb.h = (rgb.g - rgb.b) / delta;
+                else if (rgb.g == max) hsb.h = 2 + (rgb.b - rgb.r) / delta;
+                else hsb.h = 4 + (rgb.r - rgb.g) / delta;
+            } else hsb.h = -1;
+            hsb.h *= 60;
+            if (hsb.h < 0) hsb.h += 360;
+            hsb.s *= 100 / 255;
+            hsb.b *= 100 / 255;
+            return hsb;
+        },
+        rgbToStr: function (rgb) {
+            let a = (rgb.a !== undefined && rgb.a >= 0 && rgb.a <= 1) ? rgb.a : 1;
+            return `rgb(${rgb.r}, ${rgb.g}, ${rgb.b}, ${a})`;
+        }
+    }
+
+    window.Colorpicker = Colorpicker;
+})()
+
+
 //////////////////////////////////////////////////////////////////////
 // 【框架全局】 变量、方法区域
 //////////////////////////////////////////////////////////////////////
@@ -2142,7 +2756,6 @@ function printStack() {
 }
 
 
-// 判断客户端
 // 判断客户端
 const os = function () {
     let ua = navigator.userAgent,
@@ -2283,7 +2896,8 @@ let clickPos = null;
 function getClickPos(e) {
     // 只显示台面，不处理点击事件
     if (userConfig.isJustShowTable) return;
-    if (!e || e.type === "touchend") return;
+    if (!e) return;
+    //if (!e || e.type === "touchend") return;
     //console.log(e);
     //console.log(e.target);
     let element = e.target;
@@ -2291,13 +2905,16 @@ function getClickPos(e) {
     let offsetTop = element.offsetTop;
     //console.log(">>>> getClickPos offsetLeft:" + offsetLeft + ", offsetTop:" + offsetTop);
     clickPos = { x: 0, y: 0 };
-    let x, y;
+    let x = 0, y = 0;
     if (e.pageX && typeof e.pageX === "number") {
         x = e.pageX;
         y = e.pageY;
-    } else if (e.touches[0]) {
+    } else if (e.touches && e.touches[0]) {
         x = e.touches[0].pageX;
         y = e.touches[0].pageY;
+    } else if (e.changedTouches && e.changedTouches[0]) { // touchend
+        x = e.changedTouches[0].pageX;
+        y = e.changedTouches[0].pageY;
     }
     x -= offsetLeft;
     y -= offsetTop;
@@ -2476,6 +3093,19 @@ function getNewTransaction() {
         return null;
     }
     return IDB.transaction([tbName], 'readwrite');
+}
+
+// 清空 indexedDB 表数据存储
+function clearTable(tbName) {
+    const transaction = IDB.transaction(tbName, 'readwrite');
+    const objectStore = transaction.objectStore(tbName);
+    const clearRequest = objectStore.clear();
+    clearRequest.onsuccess = () => {
+        console.log(">>>> " + tbName + " 表数据清空完成");
+    }
+    clearRequest.onerror = (event) => {
+        console.log(">>>> " + tbName + " 表数据清空出错：" + event.target.error);
+    }
 }
 
 
@@ -2973,7 +3603,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "240815"),
+    version: Number(packageVersion.replaceAll(".", "") + "240821"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3057,6 +3687,8 @@ var userConfig = {
     isShowTableBorder: true,
     // 是否显示砖格坐标
     isShowGridCoordinate: true,
+    // 是否显示砖格全坐标（显示切角砖格）
+    isShowGridCoordinateFull: false,
     // 是否显示场景图形
     isShowSceneGraph: true,
     // 是否显示角色血量条
@@ -3609,7 +4241,7 @@ class Ball {
         gamePathContext.lineTo(roundNumber(p2.x, 4), roundNumber(p2.y, 4));
         gamePathContext.strokeStyle = currTheme.plColor;
         if (userConfig.currRole === Role.SHUANGZI.id && !this.isMainBall && this.roleId === Role.SHUANGZI.id)
-            gamePathContext.strokeStyle = currTheme.szbplColor; // 双子分身路径颜色
+            gamePathContext.strokeStyle = currTheme.szbplColor; // 双子分身运动路径颜色
         if (this.roleId === Role.KUILEI.id)
             gamePathContext.strokeStyle = currTheme.klplColor; // 傀儡路径颜色
         gamePathContext.lineWidth = currTheme.plWidth;
@@ -3636,7 +4268,8 @@ class Ball {
         gamePathBallContext.lineTo(roundNumber(p2.x, 4), roundNumber(p2.y, 4));
         gamePathBallContext.strokeStyle = currTheme.rlColor;
         if (!this.isMainBall && this.roleId === Role.SHUANGZI.id)
-            gamePathBallContext.strokeStyle = currTheme.szbrlColor; // 双子分身路径颜色
+            //gamePathBallContext.strokeStyle = currTheme.szbrlColor; // 双子分身本体路径颜色
+            gamePathBallContext.strokeStyle = currTheme.rlColor; // 双子分身本体路径颜色可以跟本体一致
         gamePathBallContext.lineWidth = roundNumber(this.radius * 2, 4);
         //gamePathBallContext.lineCap = "round"; // 圆角
         gamePathBallContext.stroke();
@@ -4746,8 +5379,16 @@ class Theme {
     }
 
     static getCurrThemeCopy(id) {
-        this.setCurrThemeCopy(id);
-        return this.CURR_THEME_COPY;
+        //this.setCurrThemeCopy(id);
+        //return this.CURR_THEME_COPY;
+        if (!id && id !== 0) id = userConfig.sceneThemeMode;
+        for (let item in Theme) {
+            if (!Theme[item] || Theme[item].id === undefined || Theme[item].id < 0) continue;
+            if (Theme[item].id === id) {
+                return JSON.parse(JSON.stringify(Theme[item]));
+            }
+        }
+        return JSON.parse(JSON.stringify(this.DEFAULT));
     }
 
     static setCurrThemeCopy(id) {
@@ -4796,35 +5437,38 @@ class Theme {
     }
 
     // 设置台面颜色透明
-    static setTbColor00(color) {
-        if (!color || !Theme.isColorCode(color)) return color;
+    static setTbColor00(code) {
+        if (!code || !this.isColorCode(code)) return code;
         // 不算#，3-补一位0；4-最后一位改0；6-补两位0；8-最后两位改0
-        // 算上#，往后顺移一位
-        if (color.length === 4) color = color + "0";
-        if (color.length === 5) color = color.substring(0, 4) + "0";
-        if (color.length === 7) color = color + "00";
-        if (color.length === 9) color = color.substring(0, 7) + "00";
-        return color;
+        code = code.slice(1);
+        if (code.length === 3) return this.getFullColorCode("#" + code + "0");
+        if (code.length === 4) return this.getFullColorCode("#" + code.substring(0, 3) + "0");
+        if (code.length === 6) return "#" + code + "00";
+        if (code.length === 8) return "#" + code.substring(0, 6) + "00";
+        return "#" + code;
     }
 
     // 获取不带透明度的颜色码+开头#
-    static getColorCodeNormal(color) {
-        if (!color || !Theme.isColorCode(color)) return color;
+    static getColorCodeNormal(code) {
+        if (!code || !this.isColorCode(code)) return code;
         // 不算#，3-每一位重复一次；4-前三位每一位重复一次；6-直接返回；8-截取前6位
-        // 算上#，往后顺移一位
-        //if (color.length === 4) return color;
-        if (color.length === 5) color = color.substring(0, 4);
-        if (color.length === 4) {
-            // 短码形式，每一位重复一次
-            let colorNew = "";
-            for (let i = 1, len = color.length; i < len; i++) {
-                colorNew = colorNew + color.charAt(i) + color.charAt(i);
-            }
-            return "#" + colorNew;
-        }
-        if (color.length === 7) return color;
-        if (color.length === 9) return color.substring(0, 7);
-        return color;
+        code = code.slice(1);
+        if (code.length === 4) code = code.substring(0, 3);
+        if (code.length === 3) return '#' + code[0] + code[0] + code[1] + code[1] + code[2] + code[2];
+        if (code.length === 6) return '#' + code;
+        if (code.length > 6) return '#' + code.substring(0, 6);
+        return "#" + code;
+    }
+
+    // 颜色短码补全（8位形式）
+    static getFullColorCode(code) {
+        if (!code || !this.isColorCode(code)) return code;
+        // 不算#，3、4 位短码，每一位重复一次
+        code = code.slice(1);
+        if (code.length == 3) return '#' + code[0] + code[0] + code[1] + code[1] + code[2] + code[2] + "ff";
+        if (code.length == 4) return '#' + code[0] + code[0] + code[1] + code[1] + code[2] + code[2] + code[3] + code[3];
+        if (code.length == 6) return '#' + code + "ff";
+        return "#" + code;
     }
 
 }
@@ -5801,7 +6445,8 @@ function setPageSize() {
         //alert(">>>> 屏幕分辨率-width: " + window.screen.width + ", 屏幕分辨率-height: " + window.screen.height);
         //alert(">>>> 网页可见区域-width: " + document.body.clientWidth + ", 网页可见区域-height: " + document.body.clientHeight);
         //alert(">>>> 屏幕可用工作区域-width: " + window.screen.availWidth + ", 屏幕可用工作区域-height: " + window.screen.availHeight);
-        canvas.width = window.screen.width * sysConfig.sceneWidthRatio;
+        //canvas.width = window.screen.width * sysConfig.sceneWidthRatio;
+        canvas.width = document.body.clientWidth * sysConfig.sceneWidthRatio;
         //canvas.width = document.body.clientWidth * 0.8; // 网页可见区域宽
         //canvas.width = window.screen.availWidth * 0.8; // 屏幕可用工作区域宽度
         sysConfig.girdSizeCss = roundNumber(canvas.width / 14, 4);
@@ -5928,6 +6573,11 @@ function setPageSize() {
 function setDialogScrollMaxHeight(hRadio) {
     let targetHeight = Math.round(canvas.width * hRadio);
     let targetCssHeight = Math.round(sysConfig.cssWidth * hRadio);
+
+    // 高度不能超过或太接近页面可见高度
+    if (targetHeight >= gameSceneCanvas.height - 40) targetHeight = Math.round(gameSceneCanvas.height * 0.85);
+    if (targetCssHeight >= document.body.clientHeight - 40) targetCssHeight = Math.round(document.body.clientHeight * 0.85);
+
     // 选择角色列表
     let targetElm = document.getElementById('role-list-area');
     if (targetElm) {
@@ -6770,7 +7420,7 @@ function drawTable() {
     if (userConfig.isShowGridCoordinate) drawSceneCoordinate();
     // 画蛋
     if (isDuoduoExist) drawEggs();
-    if (userConfig.isShowSceneGraph) { // 是否显示场景图形
+    if (userConfig.isShowSceneGraph && !userConfig.isUseCustomTheme) { // 是否显示场景图形
         // 夏日主题个别动物上台面
         if (userConfig.sceneThemeMode === 5) {
             drawIconRandom("🦀", "ss", 1, false, true, gameSceneCanvas);
@@ -6781,7 +7431,8 @@ function drawTable() {
 
 
 // 重新绘制游戏台面和场景
-function reDrawTable() {
+function reDrawTable(drawArr) {
+    /*
     // 先清理画布
     clearCanvasAll(gameSceneCanvas); // 台面层
     clearCanvasAll(gameSceneLinesCanvas); // 台面边框层
@@ -6792,6 +7443,14 @@ function reDrawTable() {
     largeEmojiPoints = [];
     // 再重新绘制
     drawTable();
+    */
+    const isAll = (!drawArr || drawArr.length < 1);
+    // 1-重新绘制游戏台面
+    if (isAll || drawArr.includes(1)) reDrawTableAndEgg();
+    // 2-重画台面边框和砖格坐标
+    if (isAll || drawArr.includes(2)) reDrawTableLineAndGirdNum();
+    // 3-重新绘制场景图形（emoji、svg）
+    if (isAll || drawArr.includes(3)) reDrawSceneGraph();
 }
 
 
@@ -6810,7 +7469,7 @@ function reDrawTableAndEgg() {
     clipTableAngles();
     // 画蛋
     if (isDuoduoExist) drawEggs();
-    if (userConfig.isShowSceneGraph) { // 是否显示场景图形
+    if (userConfig.isShowSceneGraph && !userConfig.isUseCustomTheme) { // 是否显示场景图形
         // 夏日主题个别动物上台面
         if (userConfig.sceneThemeMode === 5) {
             drawIconRandom("🦀", "ss", 1, false, true, gameSceneCanvas);
@@ -6941,7 +7600,7 @@ function drawSceneCoordinate() {
     gameSceneCoordinateContext.textBaseline = 'middle';
     gameSceneCoordinateContext.font = currTheme.gnSize + "px serif";
 
-    // 移动坐标系到场景中心
+    // 移动坐标系到画布中心
     //gameSceneCoordinateContext.translate(roundNumber(gameSceneCoordinateCanvas.width / 2), roundNumber(gameSceneCoordinateCanvas.height / 2));
     gameSceneCoordinateContext.translate(gameSceneCoordinateCanvas.width / 2, gameSceneCoordinateCanvas.height / 2);
 
@@ -6953,33 +7612,77 @@ function drawSceneCoordinate() {
     let CanvasHeight = gameSceneCanvas.height;
 
     // 画左右边界砖格坐标
-    let xLineTotals = 22;
-    let xLineNum = 8;
-    for (let i = 0; i < xLineTotals; i++) {
+    let xLineTotals = 22; // 多少个横排
+    let xLineNum = 8; // 开始值
+    if (userConfig.isShowGridCoordinateFull) xLineNum = 11; // 显示完全坐标（包括切角砖格）
+    for (let i = 1; i <= xLineTotals; i++) {
         // 切角砖格坐标不用画
-        if ((i > -1 && i < 4) || (i > 19 && i < 22)) continue;
+        if (!userConfig.isShowGridCoordinateFull && ((i > -1 && i < 4) || (i > 19 && i <= 22))) continue;
         gameSceneCoordinateContext.beginPath(); // 开启路径，设置不同的样式
         gameSceneCoordinateContext.fillStyle = currTheme.gnColor; // 设置每个线条的颜色
         if (isDarkMode) gameSceneCoordinateContext.fillStyle = currTheme.gndColor;
-        gameSceneCoordinateContext.fillText(xLineNum + "", -(CanvasWidth / 2 + sceneLineNumMargin), -(CanvasHeight / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * i);
-        gameSceneCoordinateContext.fillText(xLineNum + "", (CanvasWidth / 2 + sceneLineNumMargin), -(CanvasHeight / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * i);
+        gameSceneCoordinateContext.fillText(xLineNum, -(CanvasWidth / 2 + sceneLineNumMargin), -(CanvasHeight / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * i);
+        gameSceneCoordinateContext.fillText(xLineNum, (CanvasWidth / 2 + sceneLineNumMargin), -(CanvasHeight / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * i);
         if (i < 11) xLineNum--;
         if (i > 11) xLineNum++;
     }
 
     // 画上下边界砖格坐标
-    let yLineTotals = 14;
-    let yLineNum = 4;
-    for (let j = 0; j < yLineTotals; j++) {
+    let yLineTotals = 14; // 多少个竖排
+    let yLineNum = 4; // 开始值
+    if (userConfig.isShowGridCoordinateFull) yLineNum = 7; // 显示完全坐标（包括切角砖格）
+    for (let j = 1; j <= yLineTotals; j++) {
         // 切角砖格坐标不用画
-        if ((j > -1 && j < 4) || (j > 11 && j < 14)) continue;
-        gameSceneCoordinateContext.fillText(yLineNum + "", -(CanvasWidth / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * j, -(CanvasHeight / 2 + sceneLineNumMargin));
-        gameSceneCoordinateContext.fillText(yLineNum + "", -(CanvasWidth / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * j, (CanvasHeight / 2 + sceneLineNumMargin));
+        if (!userConfig.isShowGridCoordinateFull && ((j > -1 && j < 4) || (j > 11 && j <= 14))) continue;
+        gameSceneCoordinateContext.fillText(yLineNum, -(CanvasWidth / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * j, -(CanvasHeight / 2 + sceneLineNumMargin));
+        gameSceneCoordinateContext.fillText(yLineNum, -(CanvasWidth / 2 + sysConfig.girdSize / 2) + sysConfig.girdSize * j, (CanvasHeight / 2 + sceneLineNumMargin));
         if (j < 7) yLineNum--;
         if (j > 7) yLineNum++;
     }
 
     gameSceneCoordinateContext.restore();
+}
+
+
+// 判断坐标是否在砖格坐标区域
+function isInGirdNumArea(p) {
+    if (!p) return false;
+
+    let result = false;
+
+    gameSceneCoordinateContext.save();
+    gameSceneCoordinateContext.textAlign = "center";
+    gameSceneCoordinateContext.textBaseline = 'middle';
+    gameSceneCoordinateContext.font = currTheme.gnSize + "px serif";
+
+    // 移动坐标系到画布中心
+    //gameSceneCoordinateContext.translate(gameSceneCoordinateCanvas.width / 2, gameSceneCoordinateCanvas.height / 2);
+    // 间隔宽度
+    let sceneLineNumMargin = roundNumber(sysConfig.sceneLineWidth * dpr * 1.3, 4);
+    if (userConfig.isShowTableBorder) sceneLineNumMargin += roundNumber(currTheme.tblWidth * 1.1);
+    sceneLineNumMargin = sceneLineNumMargin / 4;
+
+    // 获取坐标数值字体宽度
+    let metrics, width;
+    metrics = gameSceneCoordinateContext.measureText("11");
+    width = roundNumber(metrics.width + sysConfig.girdSize * 0.4, 4);
+    //console.log(width);
+
+    // 检测点击坐标是否在砖格坐标数值区域
+    if (
+        ((p.y >= (sysConfig.cTop * dpr - sceneLineNumMargin - width) && p.y <= (sysConfig.cTop * dpr + canvas.height + sceneLineNumMargin + width)) // y 轴区域限制
+            && ((p.x >= (sysConfig.cLeft * dpr - sceneLineNumMargin - width) && p.x <= (sysConfig.cLeft * dpr - sceneLineNumMargin)) // x 轴左半区域
+                || (p.x >= (sysConfig.cLeft * dpr + canvas.width + sceneLineNumMargin) && p.x <= (sysConfig.cLeft * dpr + canvas.width + sceneLineNumMargin + width)) // x 轴右半区域
+            ))
+        ||
+        ((p.x >= (sysConfig.cLeft * dpr - sceneLineNumMargin - width) && p.x <= (sysConfig.cLeft * dpr + canvas.width + sceneLineNumMargin + width)) // x 轴区域限制
+            && ((p.y >= (sysConfig.cTop * dpr - sceneLineNumMargin - width) && p.y <= (sysConfig.cTop * dpr - sceneLineNumMargin)) // y 轴上半区域
+                || (p.y >= (sysConfig.cTop * dpr + canvas.height + sceneLineNumMargin) && p.y <= (sysConfig.cTop * dpr + canvas.height + sceneLineNumMargin + width)))) // y 轴下半区域
+    ) result = true;
+
+    gameSceneCoordinateContext.restore();
+
+    return result;
 }
 
 
@@ -8362,10 +9065,59 @@ function toggleCustomTheme(ele, isShow) {
             for (let i = 0, len = customThemeItems.length; i < len; i++) {
                 customThemeItems[i].style.display = "flex";
             }
+            // 设置默认颜色和取色器
+            setColorPicker();
             // 箭头旋转到指向上
             svgArrow.style.transform = 'rotate(180deg)';
         }
     }
+}
+
+
+// 设置默认颜色和取色器
+function setColorPicker() {
+    var colorItems = document.getElementsByClassName("theme-color-item");
+    if (!colorItems || colorItems.length < 1)
+        return;
+    // 设置默认颜色
+    /*
+    for (let i = 0, len = colorItems.length; i < len; i++) {
+        if (colorItems[i].value)
+            colorItems[i].style.backgroundColor = colorItems[i].value;
+        //colorItems[i].value = "";
+    }
+    */
+    // 设置取色器
+    Colorpicker.create({
+        bindClass: 'theme-color-item',
+        //initColor: '',
+        change: function (elem, hex) {
+            // console.log(elem, hex);
+            //elem.style.backgroundColor = hex;
+            elem.value = hex;
+            if (elem.fireEvent) {
+                elem.fireEvent('onchange');
+            } else { // google chrome
+                let ev = document.createEvent("HTMLEvents");
+                //event.initEvent(eventType,canBubble,cancelable)
+                //eventType:字符串值，事件的类型
+                //canBubble：事件是否冒泡
+                //cancelable：是否可以用preventDefault()方法取消事件
+                ev.initEvent("change", false, true);
+                elem.dispatchEvent(ev);
+            }
+        },
+        show: function (elem, hex) {
+            // 打开取色器，暂时隐藏设置弹窗
+            dialogMask.style.display = "none";
+            userSettingDialog.style.display = "none";
+        },
+        hide: function (elem, hex) {
+            // 关闭取色器，恢复设置弹窗显示
+            dialogMask.style.display = "unset";
+            userSettingDialog.style.display = "unset";
+        }
+    });
 }
 
 
@@ -8386,6 +9138,30 @@ function setCustomThemeVals() {
 }
 
 
+// 重置主题
+function resetThemeDefault() {
+    if (confirm("⚠️ 确定要重置自定义主题参数吗？（建议先导出当前参数配置，以便下次重新调整）")) { // 确认
+        // 重画场景 方法内部会设置为之前选择的主题
+        resetPageBg();
+        // 创建一个新主题
+        currTheme = Theme.getCurrThemeCopy();
+        currTheme.id = Theme.getMaxId() + 1;
+        currTheme.name = "自定义主题01";
+        currTheme.bgImageIdbKey = sysConfig.bgImageKey + currTheme.id;
+        //currTheme.tbColor = Theme.setTbColor00(currTheme.tbColor); // 台面背景透明
+        // 更新页面显示
+        setCustomThemeVals();
+        // 清空 indexedDB 图片存储
+        if (indexedDB) clearTable(tbName);
+        // 更新存储
+        localStorage.setItem("collide-try-custom-theme", JSON.stringify(currTheme));
+        localStorage.setItem("collide-try-user-settings", JSON.stringify(userConfig));
+    } else { // 取消
+
+    }
+}
+
+
 // 切换【启用自定义主题】开关
 function switchCustomThemeCheckbox(isShow) {
     let customThemeItems = document.getElementsByClassName("custom-theme-item");
@@ -8393,6 +9169,7 @@ function switchCustomThemeCheckbox(isShow) {
     let pageBgImageIcon = document.getElementById("pageBgImageIcon");
     let customThemeInOut = document.getElementById("customThemeInOut");
     let customThemeInitStatus = document.getElementById("customThemeInitStatus");
+    let resetThemeDefault = document.getElementById("resetThemeDefault");
     if (isShow) {
         // 文字颜色、输入框、文件图标恢复正常、显示主题导入导出
         for (let i = 0, len = customThemeItems.length; i < len; i++) {
@@ -8401,6 +9178,7 @@ function switchCustomThemeCheckbox(isShow) {
         }
         pageBgImageIcon.style.display = "inherit";
         customThemeInOut.style.display = "inherit";
+        resetThemeDefault.style.display = "unset";
         // 启用自定义主题
         userConfig.isUseCustomTheme = true;
         // 从当前对象新建一个自定义主题对象
@@ -8439,6 +9217,7 @@ function switchCustomThemeCheckbox(isShow) {
         }
         pageBgImageIcon.style.display = "none";
         customThemeInOut.style.display = "none";
+        resetThemeDefault.style.display = "none";
         // 停用自定义主题
         //userConfig.isUseCustomTheme = false;
         // 重置页面背景
@@ -8476,6 +9255,13 @@ function switchCheckbox(label, key, params) {
             document.getElementById("isShowBallPath").removeAttribute("checked");
             togglePathBallShow(isShow);
         }
+        if (key === "isShowGridCoordinate") { // 砖格坐标总开关关闭，关联的砖格全坐标开关也关闭
+            userConfig.isShowGridCoordinateFull = false;
+            //document.getElementById("isShowGridCoordinateFull").removeAttribute("checked");
+        }
+        if (key === "isShowGridCoordinateFull") { // 砖格全坐标开关关闭，关联的砖格坐标总开关保持原样，并判断是否显示坐标
+            if (userConfig.isShowGridCoordinate) isShow = true;
+        }
     } else { // 开关未打开，点击后打开
         switchEle.setAttribute("checked", true);
         isShow = true;
@@ -8484,6 +9270,10 @@ function switchCheckbox(label, key, params) {
             userConfig.isShowBallMovePath = true;
             document.getElementById("isShowBallMovePath").setAttribute("checked", true);
             togglePathBallMoveShow(isShow);
+        }
+        if (key === "isShowGridCoordinateFull") { // 砖格全坐标开关打开，关联的砖格坐标总开关也得打开
+            userConfig.isShowGridCoordinate = true;
+            document.getElementById("isShowGridCoordinate").setAttribute("checked", true);
         }
     }
 
@@ -8664,12 +9454,14 @@ function setMainTeamColorText(val) {
 
 // 切换显示运动路径层画布
 function togglePathBallMoveShow(isShow) {
+    if (isShow && userConfig.isJustShowTable) return; // 只显示台面时，不显示路径
     switchCanvasShow(gamePathCanvas, isShow);
 }
 
 
 // 切换显示本体路径层画布
 function togglePathBallShow(isShow) {
+    if (isShow && userConfig.isJustShowTable) return; // 只显示台面时，不显示路径
     switchCanvasShow(gamePathBallCanvas, isShow);
 }
 
@@ -9117,6 +9909,12 @@ onMounted(() => {
     const themeParamInputItems = document.getElementsByClassName("custom-theme-item-input");
     for (let i = 0, len = themeParamInputItems.length; i < len; i++) {
         let ele = themeParamInputItems[i];
+        ele.addEventListener("click", (e) => {
+            if (!e || !e.target || !e.target.id) return;
+            doEventDefault(e);
+            if (!userConfig.isUseCustomTheme) return;
+
+        });
         ele.addEventListener("change", (e) => {
             //console.log(e.target.id);
             if (!e || !e.target || !e.target.id) return;
@@ -9168,18 +9966,26 @@ onMounted(() => {
             // 更新到 currTheme
             currTheme[e.target.id] = inVal;
 
-            if (e.target.id === "bgColor") { // 处理背景颜色
+            if (e.target.id === "name") { // 主题名称，不处理
+
+            } else if (e.target.id === "bgColor") { // 处理背景颜色
                 doPageBg(inVal);
-            } else if (!["name"].includes(e.target.id)) {
-                // 应用修改
-                doUpdateCustomTheme();
+            } else if (["tbColor", "glColor", "glmColor", "glWidth"].includes(e.target.id)) { // 处理台面参数变动
+                // 更新主题参数，只重画台面
+                doUpdateCustomTheme([1]);
+            } else if (["tblColor", "tblWidth"].includes(e.target.id)) { // 处理台面边框参数变动
+                // 更新主题参数，只重画边框
+                doUpdateCustomTheme([2]);
+            } else if (["gnColor", "gndColor", "gnSize"].includes(e.target.id)) { // 处理台面砖格坐标参数变动
+                // 更新主题参数，只重画砖格坐标数值
+                doUpdateCustomTheme([2]);
             }
 
             // 存储更新 localStorage
             localStorage.setItem("collide-try-custom-theme", JSON.stringify(currTheme));
             console.log(">>>> 自定义主题参数 currTheme." + e.target.id + " 已更新存储到 localStorage");
-            localStorage.setItem("collide-try-user-settings", JSON.stringify(userConfig));
-            console.log(">>>> 自定义主题参数 userConfig in localStorage updated.");
+            //localStorage.setItem("collide-try-user-settings", JSON.stringify(userConfig));
+            //console.log(">>>> 自定义主题参数 userConfig in localStorage updated.");
         });
     }
 })
@@ -9199,8 +10005,8 @@ if (!os.isPc) window.visualViewport.addEventListener('resize', function () {
 */
 
 // 处理修改背景颜色
-function doPageBg(str) {
-    if (str === 0) {
+function doPageBg(code) {
+    if (typeof code !== "string") {
         //if (isAImageFileName(currTheme.bgImage)) { // 之前是图片背景
         // 恢复设置图片背景时关闭的场景图形
         userConfig.isShowSceneGraph = true;
@@ -9211,14 +10017,14 @@ function doPageBg(str) {
         // 重新计算变化属性值
         Theme.reCalculate(currTheme);
         // 重新绘制游戏台面
-        reDrawTable();
+        reDrawTable(code);
         // 设置完成
         console.log(">>>> resetPageBg finished.");
         //}
     }
 
     // 重置body背景图片
-    resetBodyImage(str, false);
+    resetBodyImage(code, false);
 }
 
 // 重置页面背景图片
@@ -9233,15 +10039,15 @@ function resetBodyImage(bgColor, isStore) {
 }
 
 // 重置页面背景
-function resetPageBg() {
-    doPageBg(0);
+function resetPageBg(code) {
+    doPageBg(code);
 }
 
 
 // 更新主题修改
-function doUpdateCustomTheme() {
+function doUpdateCustomTheme(code) {
     // 重新绘制游戏台面
-    reDrawTable();
+    reDrawTable(code);
 }
 
 
@@ -9365,6 +10171,8 @@ function doPageBgImage(fName, isOnlySetBg) {
         //if (!isAImageFileName(currTheme.bgImage)) { // 之前不是图片背景
         // 更新存储背景图片
         currTheme.bgImage = fName;
+        // 台面设置为透明
+        currTheme.tbColor = Theme.setTbColor00(currTheme.tbColor);
         // 设置场景图形不显示
         userConfig.isShowSceneGraph = false;
         // 场景图形层隐藏
@@ -9378,6 +10186,8 @@ function doPageBgImage(fName, isOnlySetBg) {
 
     // 更新自定义主题存储
     localStorage.setItem("collide-try-custom-theme", JSON.stringify(currTheme));
+    // localStorage 存储更新 userConfig 对象
+    localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
 }
 
 
@@ -9519,28 +10329,7 @@ function resetUserSettings() {
         //sessionStorage.clear();
         // 删除 IndexedDB 数据库【会导致IDB undefined，刷新页面没用，重启浏览器才能恢复正常】
         // TODO 最好是清除表数据就行了，数据库和表留着，避免重新创建
-        if (indexedDB) {
-            /*
-            let dbDelReq = indexedDB.deleteDatabase(dbName);
-            dbDelReq.onerror = (e) => {
-                console.log(e.currentTarget.error.message);
-                //alert(e.currentTarget.error.message);
-            }
-            */
-            // 开启一个事务
-            const transaction = IDB.transaction(tbName, 'readwrite');
-            // 获取对象存储
-            const objectStore = transaction.objectStore(tbName);
-            // 清除对象存储中的所有数据
-            const clearRequest = objectStore.clear();
-            clearRequest.onsuccess = () => {
-                //alert(">>>> " + tbName + " 表数据清空完成");
-                console.log(">>>> " + tbName + " 表数据清空完成");
-            }
-            clearRequest.onerror = (event) => {
-                console.log(">>>> " + tbName + " 表数据清空出错：" + event.target.error);
-            }
-        }
+        if (indexedDB) clearTable(tbName);
         // 刷新页面【vue 重新加载后，历史记录清空】
         location.reload();
         // href 或 replace 都可以替换当前 history 跳转页面，避免一步一步返回
@@ -9598,6 +10387,9 @@ function importThemeConfig(file) {
             // 重画整个台面（台面、边框、坐标、图形）
             reDrawTable();
         }
+
+        // 刷新页面数据显示
+        setCustomThemeVals();
 
         // 更新 localStorage 中的 currTheme
         localStorage.setItem('collide-try-custom-theme', JSON.stringify(currTheme));
@@ -10202,11 +10994,10 @@ function drawRoundRectPath(cxt, width, height, radius) {
 
 
 /**
-     * 将颜色值rgb格式转换为hex的格式
-     * https://blog.csdn.net/qq_44645934/article/details/134617398
-     * @param {rgb} rgb 需要转换的rgb字符串
-     * @return {string} 带#的颜色码
-     */
+ * 将颜色值rgb格式转换为hex的格式
+ * @param {rgb} rgb 需要转换的rgb字符串
+ * @return {string} 带#的颜色码
+ */
 function rgbToHex(rgb) {
     if (!rgb) return "";
     let arr = rgb
@@ -10219,10 +11010,13 @@ function rgbToHex(rgb) {
     let h = parseInt(arr[0]).toString(16).padStart(2, '0');
     let e = parseInt(arr[1]).toString(16).padStart(2, '0');
     let x = parseInt(arr[2]).toString(16).padStart(2, '0');
-    return "#" + h + e + x;
+    let a = arr[3] ? (Math.round(255 * Number(arr[3])).toString(16).padStart(2, '0')) : "ff";
+    return ("#" + h + e + x + a).toLocaleLowerCase();
 }
 //let rgb = "rgb(5, 19, 44)";
 //console.log(rgbToHex(rgb)); // #05132c
+//let rgb = "rgb(5, 19, 44, 0.5)";
+//console.log(rgbToHex(rgb)); // #05132c80
 
 
 /**
@@ -10231,22 +11025,15 @@ function rgbToHex(rgb) {
  * @return {string} rgb 字符串
  */
 function hexToRgb(hex) {
-    let str = hex.replace("#", "");
-    if (str.length % 3) {
-        return "hex格式不正确！";
-    }
-    // 获取截取的字符长度
-    let count = str.length / 3;
-    // 根据字符串的长度判断是否需要进行幂次方
-    let power = 6 / str.length;
-    let r = parseInt("0x" + str.substring(0 * count, 1 * count)) ** power;
-    let g = parseInt("0x" + str.substring(1 * count, 2 * count)) ** power;
-    let b = parseInt("0x" + str.substring(2 * count)) ** power;
-
-    return `rgb(${r}, ${g}, ${b})`;
+    var a = parseInt(((hex.indexOf('#') > -1 && hex.length == 9) ? hex.substring(7, 9) : "FF"), 16) * (1 / 255);
+    var hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1, 7) : hex), 16);
+    //return {r: hex >> 16, g: (hex & 0x00FF00) >> 8, b: (hex & 0x0000FF), a: Number(a.toFixed(2))};
+    return `rgb(${hex >> 16}, ${(hex & 0x00FF00) >> 8}, ${(hex & 0x0000FF)}, ${a.toFixed(2)})`;
 }
 //let hex = "#05132c";
-//console.log(hexToRgb(hex)); // rgb(5, 19, 44)
+//console.log(hexToRgb(hex)); // rgb(5, 19, 44, 1.00)
+//let hex = "#05132c80";
+//console.log(hexToRgb(hex)); // rgb(5, 19, 44, 0.50)
 
 
 // 文件名缩短
@@ -11885,7 +12672,7 @@ const getAngleY = ({ x: x1, y: y1 }, { x: x2, y: y2 }) => {
 
 
 //////////////////////////////////////////////////////////////////////
-// 【点击、拖动事件】 变量、方法区域
+// 【点击、拖动监听事件】 变量、方法区域
 //////////////////////////////////////////////////////////////////////
 // 长按定时器
 let longPressTimer = 0;
@@ -11934,6 +12721,18 @@ onMounted(() => {
         longPressPoint.y = mouse.y;
         longPressTimer && clearTimeout(longPressTimer);
         longPressTimer = setTimeout(() => { doLongPress(e) }, 500);
+    }, false);
+
+
+    // 砖格坐标画布开始触摸事件
+    if (!os.isPc) gameSceneCoordinateCanvas.addEventListener('touchstart', (e) => {
+        //console.log(e);
+        doEventDefault(e);
+        currTouchPointNum = e.touches.length;
+        // 目前只支持单点触碰
+        if (currTouchPointNum !== 1) return;
+        //getClickPos(e);
+
     }, false);
 })
 
@@ -12152,24 +12951,39 @@ onMounted(() => {
 })
 
 
-// 单击开始往指定方向运动
-// 事件顺序 mousedown、mouseup、click，前一个事件执行完毕才会执行下一个事件
 onMounted(() => {
+    // 单击开始往指定方向运动
+    // 事件顺序 mousedown、mouseup、click，前一个事件执行完毕才会执行下一个事件
     if (os.isPc) canvas.addEventListener('click', (e) => {
         doEventDefault(e);
         getClickPos(e);
         doClick(e);
 
     }, false);
-})
 
-
-// 双击允许拖动小球位置
-onMounted(() => {
+    // 双击允许拖动小球位置
     if (os.isPc) canvas.addEventListener('dblclick', (e) => {
         doEventDefault(e);
         doDbClick(e);
 
+    }, false);
+
+    // 砖格坐标层点击事件，点击坐标，切换长短显示
+    if (os.isPc) gameSceneCoordinateCanvas.addEventListener('click', (e) => {
+        doEventDefault(e);
+        // 切换完全坐标
+        //getClickPos(e);
+    }, false);
+
+    if (os.isPc) gameSceneCoordinateCanvas.addEventListener('dblclick', (e) => {
+        doEventDefault(e);
+        // 切换完全坐标
+        let p = getClickPos(e);
+        if (isInGirdNumArea(p)) {
+            userConfig.isShowGridCoordinateFull = !userConfig.isShowGridCoordinateFull;
+            switchCanvasShow(gameSceneCoordinateCanvas, true);
+            localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
+        }
     }, false);
 })
 
@@ -12196,6 +13010,30 @@ onMounted(() => {
             doClick(e);
         }
         lastTouchEnd = now;
+    }, false);
+
+
+    // 砖格坐标层点击事件，点击坐标，切换长短显示
+    if (!os.isPc) gameSceneCoordinateCanvas.addEventListener('touchend', (e) => {
+        //console.log(e);
+        //alert(e.touches.length);
+        doEventDefault(e);
+        if (currTouchPointNum !== 1) return;
+
+        let now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) { // 200~300
+            //alert(">>>> 双击了");
+            // 切换完全坐标
+            let p = getClickPos(e);
+            if (isInGirdNumArea(p)) {
+                userConfig.isShowGridCoordinateFull = !userConfig.isShowGridCoordinateFull;
+                switchCanvasShow(gameSceneCoordinateCanvas, true);
+                localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
+            }
+        } else {
+            //alert(">>>> 单击了");
+        }
+        lastTouchEnd = now; // 共用一个事件标志会导致判断错乱问题，目前业务不多，没有冲突，先这样
     }, false);
 })
 
