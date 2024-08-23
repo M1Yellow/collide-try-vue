@@ -1219,7 +1219,7 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="bgColor" value="#FFFFFFFF" maxlength="9" disabled="disabled">
+                            id="bgColor" value="#ffffffff" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <li id="page-color-image" class="user-setting-item user-setting-item-expand li-space-between-center">
@@ -1242,7 +1242,7 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="tbColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="tbColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
@@ -1251,7 +1251,7 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="tblColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="tblColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
@@ -1260,7 +1260,7 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="glColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="glColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
@@ -1269,7 +1269,7 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="glmColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="glmColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
@@ -1278,7 +1278,7 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="gnColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="gnColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
@@ -1288,7 +1288,7 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="gndColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="gndColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
@@ -1298,7 +1298,7 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="plColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="plColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
@@ -1308,14 +1308,14 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="rlColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="rlColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <!--
       <li class="user-setting-item user-setting-item-expand li-space-between-center">
         <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">傀儡运动路径颜色</span>
         <span class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
-          <input type="text" class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item" id="klplColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+          <input type="text" class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item" id="klplColor" value="#ffffff00" maxlength="9" disabled="disabled">
         </span>
       </li>
       -->
@@ -1326,14 +1326,14 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="szbplColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="szbplColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <!--
       <li class="user-setting-item user-setting-item-expand li-space-between-center">
         <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">分身本体路径颜色</span>
         <span class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
-          <input type="text" class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item" id="szbrlColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+          <input type="text" class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item" id="szbrlColor" value="#ffffff00" maxlength="9" disabled="disabled">
         </span>
       </li>
       -->
@@ -1343,7 +1343,7 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="ccColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="ccColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
@@ -1353,7 +1353,7 @@ input:checked+.slider:before {
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
                         <input type="text"
                             class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
-                            id="szccColor" value="#FFFFFF00" maxlength="9" disabled="disabled">
+                            id="szccColor" value="#ffffff00" maxlength="9" disabled="disabled">
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
@@ -2210,7 +2210,8 @@ const packageVersion = __APP_VERSION__;
             var current_mode_html = "";
             switch (this.current_mode) {
                 case 'hex':
-                    var hex = "#" + this.rgbToHex(this.HSBToRGB(this.hsb));
+                    //var hex = "#"+this.rgbToHex(this.HSBToRGB(this.hsb)); // 转换会导致误差
+                    var hex = util.getFullColorCode(this.bindElem.value);
 
                     current_mode_html += '<div style="padding-left: 6px; width: 100%;">' +
                         '<div style="position: relative;">' +
@@ -2235,6 +2236,9 @@ const packageVersion = __APP_VERSION__;
             return current_mode_html;
         },
         init: function () {
+            // 颜色码统一转小写
+            if (this.bindElem && this.bindElem.value) this.bindElem.value = this.bindElem.value.toLocaleLowerCase();
+
             var _this = this,
                 initColor = (this.bindElem && this.bindElem.value && util.isColorCode(this.bindElem.value)) ? this.rgbToStr(this.hexToRgb(this.bindElem.value)) : Colorpicker.Opt.initColor,
                 rgb = initColor.slice(4, -1).split(",");
@@ -2391,7 +2395,8 @@ const packageVersion = __APP_VERSION__;
             });
         },
         setValue: function (rgb) {
-            var hex = "#" + this.rgbToHex(rgb);
+            //var hex = "#"+this.rgbToHex(rgb); // 转换会导致误差
+            var hex = util.getFullColorCode(this.bindElem.value);
             this.elem_inputWrap.innerHTML = this.getInputTpl();
             // this.bindElem.setAttribute("colorpickerOfColor",'#'+hex);
             // util.css(this.bindElem,{
@@ -2405,7 +2410,6 @@ const packageVersion = __APP_VERSION__;
             var _this = this;
             switch (this.current_mode) {
                 case "hex":
-                    value = util.getFullColorCode(value);
                     this.hsb = this.hexToHsb(value);
                     break;
                 case 'rgb':
@@ -2435,7 +2439,8 @@ const packageVersion = __APP_VERSION__;
                 left: this.hsb.h / 360 * (this.elem_barPicker1.parentNode.offsetWidth) + "px"
             });
 
-            var hex = '#' + this.rgbToHex(this.HSBToRGB(this.hsb));
+            //var hex = '#'+this.rgbToHex(this.HSBToRGB(this.hsb)); // 转换会导致误差
+            var hex = util.getFullColorCode(this.bindElem.value);
             if (!util.isColorCode(hex)) return;
             Colorpicker.Opt.change(this.bindElem, hex);
             // this.bindElem.setAttribute("colorpickerOfColor",hex);
@@ -2524,7 +2529,7 @@ const packageVersion = __APP_VERSION__;
             if (util.isColorCode(this.bindElem.value)) {
                 let value = util.getFullColorCode(this.bindElem.value);
                 this.rgba = this.hexToRgb(value);
-                this.hsb = this.hexToHsb(value);
+                //this.hsb = this.hexToHsb(value); // setColorByInput 方法中有
                 this.setColorByInput(value);
                 this.setValue(this.rgba);
                 // 透明进度条定位
@@ -7483,6 +7488,7 @@ function reDrawTableAndEgg() {
 function reDrawSceneGraph() {
     // 先清空图形层画布
     clearCanvasAll(gameSceneEmojiCanvas); // emoji、svg 图形层
+    clearCanvasAll(gameSceneGraphCanvas); // graph 特殊图形层
     // 大图形坐标列表重置，用来检测图形重叠
     largeEmojiPoints = [];
     // 设置场景主题，未选择角色，不渲染场景，节省性能
@@ -9202,6 +9208,7 @@ function switchCustomThemeCheckbox(isShow) {
         // 更新显示自定义主题
         reDrawTableAndEgg(); // 重画台面和蛋
         reDrawTableLineAndGirdNum(); // 重画台面边框和砖格坐标
+        resetPageBg(currTheme.bgColor); // 重置页面背景
         doPageBgImage(currTheme.bgImage); // 背景图片在读取数据库成功的时候会设置
         // 标记自定义主题参数初始化完成
         customThemeInitStatus.value = "1";
@@ -9393,8 +9400,10 @@ function toggleSceneGraph(isShow, isReDraw) {
 
 // 设置场景主题值
 function setSceneThemeVal(ele, val) {
-    if (!ele) return;
     //console.log(ele);
+    if (!ele) return;
+    if (val === undefined || val < 0) return;
+    if (val === userConfig.sceneThemeMode) return;
 
     if (val === 2) { // 新年主题暂未实现
         alert("🏮：敬请期待哦~");
@@ -9953,11 +9962,14 @@ onMounted(() => {
                 // 输入框默认字符类型转换为数值类型
                 inVal = Number(inVal);
                 inVal = roundNumber(inVal);
-            } else { // 其他-颜色码类型输入框
+            } else if (e.target.id.toLocaleLowerCase().indexOf("color")) { // 颜色码类型输入框
                 if (inVal !== "" && !Theme.isColorCode(inVal)) {
-                    alert("请输入正确的颜色码（格式：#FFFFFFFF）");
+                    alert("请输入正确的颜色码（格式：#ffffffff）");
                     return;
                 }
+                // 颜色码统一小写
+                inVal = inVal.toLocaleLowerCase();
+                e.target.value = inVal;
             }
             // 旧值
             let oldVal = currTheme[e.target.id];
@@ -11672,26 +11684,23 @@ function doDianyinSpeed(ball0, ball1) {
     if (!isDianyinCollided(ball0, ball1)) return;
     //console.log(">>>> doDianyinSpeed isDianyinCollided=true");
     // 突破后，碰到存活对手，自身加速20%，手动调整比例，跟实战对比
-    //const dianyinRatio = 1.40;
-    let dianyinRatio, speed0; // 改为原始速度的比例
+    let dianyinRatio = 0.20, addSpeed, speed0; // 改为原始速度的比例
     if (ball0.roleId === Role.DIANYIN.id) { // ball0 为电音
         ball0.upgradeEffect = 1; // 设置突破效果
         if (!isSpeedMax(ball0)) {
             speed0 = getBallSpeed0(ball0);
-            dianyinRatio = speed0 * 0.18; // 20% 偏快，手动调整
-            //console.log(">>>> doDianyinSpeed dianyinRatio", dianyinRatio);
-            //ball0.vx *= dianyinRatio;
-            //ball0.vy *= dianyinRatio;
-            ball0.vx += (ball0.vx >= 0 ? dianyinRatio : -dianyinRatio);
-            ball0.vy += (ball0.vy >= 0 ? dianyinRatio : -dianyinRatio);
+            addSpeed = speed0 * dianyinRatio; // 20% 偏快，手动调整
+            //console.log(">>>> doDianyinSpeed addSpeed", addSpeed);
+            ball0.vx += (ball0.vx >= 0 ? addSpeed : -addSpeed); // 负数为反向加速
+            ball0.vy += (ball0.vy >= 0 ? addSpeed : -addSpeed);
         }
     } else { // ball1 为电音
         ball1.upgradeEffect = 1;
         if (!isSpeedMax(ball1)) {
             speed0 = getBallSpeed0(ball1);
-            dianyinRatio = speed0 * 0.18;
-            ball1.vx += (ball1.vx >= 0 ? dianyinRatio : -dianyinRatio);
-            ball1.vy += (ball1.vy >= 0 ? dianyinRatio : -dianyinRatio);
+            addSpeed = speed0 * dianyinRatio;
+            ball1.vx += (ball1.vx >= 0 ? addSpeed : -addSpeed);
+            ball1.vy += (ball1.vy >= 0 ? addSpeed : -addSpeed);
         }
     }
 }
