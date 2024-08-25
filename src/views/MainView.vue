@@ -1143,6 +1143,10 @@ input:checked+.slider:before {
                     <div class="role-list-icon-name"><span class="role-list-icon">🥙</span><span
                             class="role-list-name">太平乐（乐乐）</span></div>
                 </li>
+                <li id="role-lele" class="role-list" @click="chooseRole($event.target, Role.WUKONG.id);">
+                    <div class="role-list-icon-name"><span class="role-list-icon">🐒</span><span
+                            class="role-list-name">黑神话（悟空）</span></div>
+                </li>
                 <li id="role-huaqianji" class="role-list" @click="chooseRole($event.target, Role.HUAQIANJI.id);">
                     <div class="role-list-icon-name"><span class="role-list-icon">🚀</span><span
                             class="role-list-name">花千机（炮弹）</span></div>
@@ -1357,6 +1361,16 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item user-setting-item-expand li-space-between-center">
+                    <span
+                        class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">猴子分身提示路径颜色</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text"
+                            class="user-setting-item-right-input-color-code custom-theme-item custom-theme-item-input user-setting-item-disabled theme-color-item"
+                            id="wkShowColor" value="#ffffff00" maxlength="9" disabled="disabled">
+                    </span>
+                </li>
+                <li class="user-setting-item user-setting-item-expand li-space-between-center">
                     <span class="user-setting-item-msg-left custom-theme-item user-setting-item-disabled">台面边框线宽</span>
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
@@ -1561,6 +1575,15 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item li-space-between-center">
+                    <span class="user-setting-item-msg-left">显示猴子分身提示</span>
+                    <span class="user-setting-item-switch-right">
+                        <label class="switch" @click="switchCheckbox($event, 'isShowWkPath');">
+                            <input type="checkbox" id="isShowWkPath">
+                            <div class="slider round"></div>
+                        </label>
+                    </span>
+                </li>
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">双击屏幕回退</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isDbclickBack');">
@@ -1750,12 +1773,17 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.1 更新：<span class="collide-try-update-date">2024-08-21</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.2 更新：<span class="collide-try-update-date">2024-08-25</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 新增双击砖格坐标补全数字功能
-2. 加入自定义主题【取色器】，改颜色更便捷
-3. 完善自定义主题重置功能
+1. 选择角色列表新增【黑神话（悟空）】选项
+2. 修复自定义主题已知的问题
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.1 更新：<span
+                            class="collide-try-update-date">2024-08-21</span></b></div>
+                1. 新增双击砖格坐标补全数字功能
+                2. 加入自定义主题【取色器】，改颜色更便捷
+                3. 完善自定义主题重置功能
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.0 更新：<span
                             class="collide-try-update-date">2024-08-15</span></b></div>
                 1. 刷新页面重选角色改为点击左上角重选角色，不用频繁刷新页面，节省性能
@@ -2206,13 +2234,11 @@ const packageVersion = __APP_VERSION__;
 
             return tpl;
         },
-        getInputTpl: function () {
+        getInputTpl: function (hex) {
             var current_mode_html = "";
             switch (this.current_mode) {
                 case 'hex':
-                    //var hex = "#"+this.rgbToHex(this.HSBToRGB(this.hsb)); // 转换会导致误差
-                    var hex = util.getFullColorCode(this.bindElem.value);
-
+                    //var hex = "#"+this.rgbToHex(this.HSBToRGB(this.hsb));
                     current_mode_html += '<div style="padding-left: 6px; width: 100%;">' +
                         '<div style="position: relative;">' +
                         '<input class="colorpicker-hexInput" value="' + hex + '" maxlength="9" spellcheck="false" style="font-size: 11px; color: rgb(51, 51, 51); width: 100%; border-radius: 2px; border: none; box-shadow: rgb(218, 218, 218) 0px 0px 0px 1px inset; height: 21px; text-align: center;">' +
@@ -2222,7 +2248,6 @@ const packageVersion = __APP_VERSION__;
                     break;
                 case 'rgb':
                     for (var i = 0; i < 3; i++) {
-
                         current_mode_html += '<div style="padding-left: 6px; width: 100%;">' +
                             '<div style="position: relative;">' +
                             '<input class="colorpicker-hexInput" value="' + this.rgba['rgb'[i]] + '" maxlength="3" spellcheck="false" style="font-size: 11px; color: rgb(51, 51, 51); width: 100%; border-radius: 2px; border: none; box-shadow: rgb(218, 218, 218) 0px 0px 0px 1px inset; height: 21px; text-align: center;">' +
@@ -2394,10 +2419,10 @@ const packageVersion = __APP_VERSION__;
                 background: 'linear-gradient(to right, rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0) 0%, rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',1))'
             });
         },
-        setValue: function (rgb) {
-            //var hex = "#"+this.rgbToHex(rgb); // 转换会导致误差
-            var hex = util.getFullColorCode(this.bindElem.value);
-            this.elem_inputWrap.innerHTML = this.getInputTpl();
+        setValue: function (value) {
+            var hex = value;
+            if (typeof hex !== "string" || !hex.startsWith("#")) hex = "#" + this.rgbToHex(value); // 转换会导致误差
+            this.elem_inputWrap.innerHTML = this.getInputTpl(hex);
             // this.bindElem.setAttribute("colorpickerOfColor",'#'+hex);
             // util.css(this.bindElem,{
             //     background:"#"+hex
@@ -2423,9 +2448,9 @@ const packageVersion = __APP_VERSION__;
                     this.hsb = this.rgbToHsb(rgb);
             }
 
-            this.changeViewByHsb();
+            this.changeViewByHsb(value);
         },
-        changeViewByHsb: function () {
+        changeViewByHsb: function (value) {
             this.pointLeft = parseInt(this.hsb.s * this.pancel_width / 100);
             this.pointTop = parseInt((100 - this.hsb.b) * this.pancel_height / 100);
             util.css(this.elem_picker, {
@@ -2440,7 +2465,7 @@ const packageVersion = __APP_VERSION__;
             });
 
             //var hex = '#'+this.rgbToHex(this.HSBToRGB(this.hsb)); // 转换会导致误差
-            var hex = util.getFullColorCode(this.bindElem.value);
+            var hex = value;
             if (!util.isColorCode(hex)) return;
             Colorpicker.Opt.change(this.bindElem, hex);
             // this.bindElem.setAttribute("colorpickerOfColor",hex);
@@ -2530,8 +2555,6 @@ const packageVersion = __APP_VERSION__;
                 let value = util.getFullColorCode(this.bindElem.value);
                 this.rgba = this.hexToRgb(value);
                 //this.hsb = this.hexToHsb(value); // setColorByInput 方法中有
-                this.setColorByInput(value);
-                this.setValue(this.rgba);
                 // 透明进度条定位
                 let p2Left = this.elem_opacityPancel.getBoundingClientRect().left;
                 //console.log(p2Left);
@@ -2539,7 +2562,10 @@ const packageVersion = __APP_VERSION__;
                 let a = 1, aStr = value.substring(7);
                 if (aStr && aStr.length == 2) a = Math.floor(parseInt(aStr, 16) / 255 * 100) / 100;
                 let x = p2Left + p2Width * a;
-                this.setBar(this.elem_barPicker2.parentNode, x);
+                this.setBar(this.elem_barPicker2.parentNode, x); // setBar 方法内部也会 setValue
+                // 设置默认颜色
+                this.setColorByInput(value);
+                this.setValue(value);
             }
 
             var hex = "#" + this.rgbToHex(this.rgba);
@@ -3608,7 +3634,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "240821"),
+    version: Number(packageVersion.replaceAll(".", "") + "240825"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3706,6 +3732,8 @@ var userConfig = {
     isPiercesTry: false,
     // 瞄准显示路径，只对僵尸、傀儡等可穿透角色有效
     isShowTryFullPath: false,
+    // 显示猴子分身提示
+    isShowWkPath: true,
     // 瞄准显示路径，指定碰撞几次的路径
     tryFullPathPointNum: 6,
     // 长按重置角色位置
@@ -4007,6 +4035,12 @@ class Ball {
                 content = '🏃‍♂️‍➡️';
             }
         }
+
+        // 猴子分身
+        if (userConfig.currRole === Role.WUKONG.id && this.roleId === Role.WUKONG.id && !this.isMainBall && this.teamColor === balls[0].teamColor) {
+            content = '🐵';
+        }
+
         if (this.iconSize < 10) {
             let metrics, width, ratio;
             ratio = 1.4;
@@ -4138,6 +4172,8 @@ class Ball {
         if (!userConfig.isShowRoleBloodLine) return;
         //if (userConfig.isTestOnlyOne) return; // 单个角色测试时不画
         if (!this.x || !this.y || this.x < 0 || this.y < 0 || !isFinite(this.x) || !isFinite(this.y)) return;
+        if (this.roleId === Role.WUKONG.id && !this.isMainBall && userConfig.isTestOnlyOne) return; // 猴子分身不画
+        if (this.roleId === Role.WUKONG.id && !this.isMainBall && this.no > 4) return; // 猴子分身不画
         if (!params) params = GlobalParams.getCleanParams();
         this.context.save();
         this.context.beginPath();
@@ -4211,6 +4247,37 @@ class Ball {
         // 重画被覆盖的角色图标
         this.drawIcon();
         if (this.isMainBall && this.roleId === Role.KUILEI.id) this.drawBeginIcon(); // 画傀儡本体图标
+    }
+
+    // 绘制分身起点位置
+    drawBuddyBeginPoint(params) {
+        if (!params) params = GlobalParams.getCleanParams();
+        console.log(">>>> drawBuddyBeginPoint " + this.getBallDesc());
+        let color = params.color;
+        if (!color) color = this.color;
+        let ctx = params.ctx;
+        if (!ctx) ctx = gamePathContext;
+        // 画圆心点
+        ctx.save();
+        ctx.beginPath();
+        //ctx.globalCompositeOperation = "xor";
+        if (params.composite) ctx.globalCompositeOperation = params.composite;
+        ctx.arc(this.x0, this.y0, this.pathRadius, 0, roundNumber(Math.PI / 180 * 360, 4));
+        ctx.fillStyle = color;
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        // 画外部实线圆圈
+        ctx.save();
+        ctx.beginPath();
+        //ctx.globalCompositeOperation = "xor";
+        ctx.arc(this.x0, this.y0, this.radiusTmp, 0, roundNumber(Math.PI / 180 * 360, 4));
+        ctx.lineWidth = roundNumber(1 * dpr * sysConfig.pxRatio, 4);
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+        ctx.closePath();
+        ctx.stroke();
+        ctx.restore();
     }
 
     // 绘制起点图标
@@ -4378,6 +4445,16 @@ function isBallDrawAndUpdate(ball, caseNo) {
         }
     }
 
+    // 猴子及分身
+    if (userConfig.currRole === Role.WUKONG.id && ball && ball.roleId === Role.WUKONG.id && ball.teamColor === balls[0].teamColor) {
+        // 本体
+        if (ball.isMainBall) {
+
+        } else { // 分身
+            return !selectedBall;
+        }
+    }
+
     return checkAnyBallPosChanged(caseNo) || checkAnyBallCollided(caseNo);
 }
 
@@ -4448,17 +4525,20 @@ function isRoleHideBody(ball) {
 
 
 // 重置角色字段属性值
-function resetRoleField() {
-    if (!balls || balls.length < 1) return;
-    for (let i = 0, len = balls.length; i < len; i++) {
-        if (!balls[i]) continue;
+function resetRoleField(roles) {
+    if (!roles) roles = balls;
+    if (!roles || roles.length < 1) return;
+    for (let i = 0, len = roles.length; i < len; i++) {
+        if (!roles[i]) continue;
         // 重置酷酷加速次数
-        if (balls[i].roleId === Role.KUKU.id && balls[i].addCount) balls[i].addCount = 0;
+        if (roles[i].roleId === Role.KUKU.id && roles[i].addCount) roles[i].addCount = 0;
         // 重置所有角色碰撞次数
-        if (balls[i].collidedCount) balls[i].collidedCount = 0;
-        if (balls[i].wallCollidedCount) balls[i].wallCollidedCount = 0;
-        if (balls[i].roleCollidedCount) balls[i].roleCollidedCount = 0;
+        if (roles[i].collidedCount) roles[i].collidedCount = 0;
+        if (roles[i].wallCollidedCount) roles[i].wallCollidedCount = 0;
+        if (roles[i].roleCollidedCount) roles[i].roleCollidedCount = 0;
     }
+    // 重置碰撞标志位
+    setBallCollidingNos(roles);
 }
 
 
@@ -4483,12 +4563,20 @@ function setBallsPosBack(isBack) {
 
 
 // 初始化各个小球的碰撞标志位
-function setBallCollidingNos() {
-    if (!balls || balls.length < 1) return;
-    let len = balls.length;
-    balls.forEach(b => {
+function setBallCollidingNos(roles) {
+    if (!roles) roles = balls;
+    if (!roles || roles.length < 1) return;
+    let len = roles.length;
+    if (buddies && buddies.length > 0 && roles !== buddies) len += buddies.length;
+    roles.forEach(b => {
+        //b.collidingNos = new Array(len).fill(false);  // 频繁创建数组对象，会增加 GC 时间
         for (let i = 0; i < len; i++) {
-            //if (!b.collidingNos) b.collidingNos = [];
+            b.collidingNos[i] = false; // TODO b.collidingNos 存在扩大后没有正常缩小的问题
+        }
+    });
+    if (!buddies || buddies.length < 1 || roles === buddies) return;
+    buddies.forEach(b => {
+        for (let i = 0; i < len; i++) {
             b.collidingNos[i] = false;
         }
     });
@@ -5313,7 +5401,7 @@ class RegularlyCollocation {
 class Theme {
 
     constructor(id, name, bgColor, bgImage, bgImageIdbKey, tbColor, tblColor, tblWidth, glColor, glmColor, glWidth, gnColor, gndColor, gnSize,
-        plColor, plWidth, rlColor, klplColor, klplWidth, szbplColor, szbrlColor, ccColor, ccWidth, ccStyle, szccColor) {
+        plColor, plWidth, rlColor, klplColor, klplWidth, szbplColor, szbrlColor, ccColor, ccWidth, ccStyle, szccColor, wkShowColor) {
         this.id = id || 0; // 编号
         this.name = name || "默认主题"; // 名称
         this.bgColor = bgColor || "#7F70C3"; // 页面背景颜色
@@ -5339,15 +5427,16 @@ class Theme {
         this.ccWidth = ccWidth || roundNumber(1.00 * dpr * (os.isTablet ? 1.618 : 1)); // collide circle 碰撞指示圈宽度
         this.ccStyle = ccStyle || 0; // collide circle 碰撞指示圈样式，0-虚线；1-实线
         this.szccColor = szccColor || "#ffffffaa"; // shuangzi collide circle 双子分身碰撞指示圈颜色
+        this.wkShowColor = wkShowColor || "#1B1D2230"; // 猴子分身提示路径颜色
     }
 
 
     static DEFAULT = new Theme(0, "默认主题", "#7F70C3");
     //static WINTER_NEW_YEAR = new Theme(2, "新年主题", "#7F70C3");
-    static WINTER_SNOW = new Theme(1, "冰雪主题", "#C7D0E0", "", "", "#4B99C9", "#EEF0F2", 0, "#438EC2", "#3483B7", 0, "#687CA1", "#EEF0F2", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "");
-    static SPRING_RUSTICITY = new Theme(3, "田园主题", "#E6DD9C", "", "", "#9A9069", "#FBFAD0", 0, "#6B624060", "#6B6240D0", 0, "#252042", "#FBFAD0", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "");
-    static AUTUMN_INTERSTELLAR = new Theme(4, "星际主题", "#05132C", "", "", "#808080", "#D7D7DC", 0, "#696969A0", "#2F4F4FA0", 0, "#D7D7DC", "#D7D7DC", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "");
-    static SUMMER_SEASIDE = new Theme(5, "夏日主题", "#3C8BBB", "", "", "#FFBF6F", "#FAF9CB", 0, "#B7521AA0", "#B7521AD0", 0, "#2B117D", "#FBFAD0", 0, "#F9FBF580", 0, "#F9FBF540", "", 0, "#EADF5580", "", "", 0, 0, "");
+    static WINTER_SNOW = new Theme(1, "冰雪主题", "#C7D0E0", "", "", "#4B99C9", "#EEF0F2", 0, "#438EC2", "#3483B7", 0, "#687CA1", "#EEF0F2", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "", "#1B1D2230");
+    static SPRING_RUSTICITY = new Theme(3, "田园主题", "#E6DD9C", "", "", "#9A9069", "#FBFAD0", 0, "#6B624060", "#6B6240D0", 0, "#252042", "#FBFAD0", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "", "#1B1D2230");
+    static AUTUMN_INTERSTELLAR = new Theme(4, "星际主题", "#05132C", "", "", "#808080", "#D7D7DC", 0, "#696969A0", "#2F4F4FA0", 0, "#D7D7DC", "#D7D7DC", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "", "#1B1D2230");
+    static SUMMER_SEASIDE = new Theme(5, "夏日主题", "#3C8BBB", "", "", "#FFBF6F", "#FAF9CB", 0, "#B7521AA0", "#B7521AD0", 0, "#2B117D", "#FBFAD0", 0, "#F9FBF580", 0, "#F9FBF540", "", 0, "#EADF5580", "", "", 0, 0, "", "#1B1D2230");
 
     static CURR_THEME_COPY = null;
 
@@ -5497,6 +5586,8 @@ var eggs = [];
 var tempCheckBall;
 // 分身对象，设置跟主球一样的context，便于拖动时清理画布
 var twinBall;
+// 猴子等角色分身
+var buddies = [];
 // 角色是否存在判断标识
 var isDuoduoExist = false;
 var isLuluExist = false;
@@ -5515,6 +5606,8 @@ var largeEmojiSizes = ['s', 'mm', 'm', 'fll', 'll', 'l', 'xl'];
 var largeEmojiPoints = [];
 // 当前主题
 var currTheme = null;
+// 猴子分身坐标
+var monkeysPos, monkeysTargetPos;
 
 
 onMounted(() => {
@@ -5585,6 +5678,8 @@ function initAppParams() {
         { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 0 - currTheme.tblWidth), y: Math.round(sysConfig.cTop * dpr + sysConfig.girdSize * 19) },
         { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 0 - currTheme.tblWidth), y: Math.round(sysConfig.cTop * dpr + sysConfig.girdSize * 3) }
     ];
+    // 猴子分身坐标初始化
+    setMonkeysPos();
     // 初始化鼠标位置
     captureMouse(canvas);
     // 初始化台面切角
@@ -5647,6 +5742,8 @@ function initRoles() {
     }
     // 设置双子分身
     if (userConfig.currRole === Role.SHUANGZI.id) setTwins();
+    // 设置猴子分身
+    if (userConfig.currRole === Role.WUKONG.id) setMonkeys();
     // 设置完所有角色之后，设置主角所属队颜色
     resetMainTeamColorRandom(userConfig.mainTeamColor);
     // 初始化角色碰撞标志位
@@ -5664,14 +5761,20 @@ function initRoles() {
 }
 
 
-// 初始化其他参数
-function initOthers() {
+// 初始化一次
+function initOnce() {
     // 角色运动路径判断显示
     if (userConfig.isShowBallMovePath) gamePathCanvas.style.display = "inherit";
     // 角色全路径判断显示
     if (userConfig.isShowBallPath) gamePathBallCanvas.style.display = "inherit";
     // 游戏桌面场景初始化，需要放在角色设置之后，因为场景会根据角色变化
     if (sysConfig.isRoleChooseFinished) gameSceneInit(); // 选择角色后才渲染场景，优化性能
+}
+
+
+// 初始化其他参数
+function initOthers() {
+    // TODO
 }
 
 
@@ -5688,7 +5791,9 @@ function reInit(isImport, isKeepDialog) {
     // 重新初始化角色
     initRoles();
     // 判断是否需要重新画台面，选择前后只要有朵朵就需要重画
-    if (isDuoduoExistBak || isDuoduoExist) reDrawTableAndEgg();
+    //if (isDuoduoExistBak || isDuoduoExist) reDrawTableAndEgg();
+    // 为了避免后续各种判断，每次都重新画
+    reDrawTableAndEgg();
     // 重置动画渲染相关变量
     resetAnimate();
     // 模拟重打清屏重新开始新的渲染
@@ -5710,7 +5815,9 @@ function init() {
     initAppParams();
     // 初始化选择角色
     initRoles();
-    // 初始化其他参数
+    // 初始化一次的配置
+    initOnce();
+    // 初始化其他配置
     initOthers();
 }
 
@@ -6231,10 +6338,10 @@ function initBallByRole(ball) {
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
             break;
         case Role.WUKONG.id:
-            if (!ball.color) ball.color = "#CC5F22"; // 取的默认皮肤头发深颜色
+            if (!ball.color) ball.color = "#1B1D22"; // 取的默认皮肤头发深颜色-CC5F22
             ball.sizeRatio = Ball.SIZERATIO.S; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
-            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 快，实战更接近极快
             break;
         case Role.ZHANAN.id:
             if (!ball.color) ball.color = "#4A406D"; // 取的默认皮肤飞行器翅膀颜色
@@ -7137,6 +7244,158 @@ function setTwins() {
 }
 
 
+// 初始设置猴子分身坐标
+function setMonkeysPos() {
+    // 猴子分身位置坐标
+    monkeysPos = [
+        { x: 3.1 * sysConfig.girdSize, y: 2.9 * sysConfig.girdSize },
+        { x: 11.5 * sysConfig.girdSize, y: 3.4 * sysConfig.girdSize },
+        { x: 2.3 * sysConfig.girdSize, y: 18.4 * sysConfig.girdSize },
+        { x: 11.1 * sysConfig.girdSize, y: 18.8 * sysConfig.girdSize }
+    ];
+
+    // 猴子分身目标点位置坐标
+    monkeysTargetPos = [
+        { x: 13 * sysConfig.girdSize, y: 11 * sysConfig.girdSize },
+        { x: 7 * sysConfig.girdSize, y: 21 * sysConfig.girdSize },
+        { x: 7 * sysConfig.girdSize, y: 1 * sysConfig.girdSize },
+        { x: 1 * sysConfig.girdSize, y: 11 * sysConfig.girdSize }
+    ];
+}
+
+
+// 设置猴子分身
+function setMonkeys() {
+    if (!balls || balls.length < 1) return;
+    // 重置分身数组
+    buddies = [];
+    // 目前猴子有4个分身
+    for (let i = 0, len = 4; i < len; i++) {
+        let otherBall = new Ball(gameMainBallContext, {
+            no: balls.length + i + 1,
+            teamColor: balls[0].teamColor,
+            color: '#CC5F22', //《黑神话：悟空》衣服颜色-1B1D22
+            roleId: Role.WUKONG.id,
+            isMainBall: false,
+            x: 0,
+            y: 0,
+            vx: 0,
+            vy: 0
+        });
+        // 初始化其他参数
+        initBallByRole(otherBall);
+        // 设置随机位置坐标
+        //putBallRandom(otherBall);
+        // 指定初始位置
+        otherBall.x = monkeysPos[i].x;
+        otherBall.y = monkeysPos[i].y;
+        otherBall.x0 = otherBall.x;
+        otherBall.y0 = otherBall.y;
+        buddies.push(otherBall);
+    }
+}
+
+
+// 判断猴子分身
+function isMonkeys() {
+    if (!buddies || buddies.length < 1) return false;
+    for (let i = 0, len = buddies.length; i < len; i++) {
+        if (buddies[i].roleId != Role.WUKONG.id) return false;
+    }
+    return true;
+}
+
+
+// 判断是否包含所有猴子分身
+function isContainFullMonkeys() {
+    if (!balls || balls.length < 1) return false;
+    let count = 0;
+    for (let i = 0, len = balls.length; i < len; i++) {
+        if (balls[i].roleId == Role.WUKONG.id && !balls[i].isMainBall) count++;
+    }
+    if (count < 4) return false;
+    return true;
+}
+
+
+// 重置分身属性变量
+function resetBuddies() {
+    if (!buddies || buddies.length < 1) return;
+    // 重置角色字段属性值
+    resetRoleField(buddies);
+    // 重置速度和位置
+    for (let i = 0, len = buddies.length; i < len; i++) {
+        buddies[i].vx = 0;
+        buddies[i].vy = 0;
+        buddies[i].x = 0
+        buddies[i].y = 0
+        buddies[i].x0 = 0
+        buddies[i].y0 = 0
+        if (isMonkeys()) { // 猴子分身
+            buddies[i].x = monkeysPos[i].x;
+            buddies[i].y = monkeysPos[i].y;
+            buddies[i].x0 = buddies[i].x;
+            buddies[i].y0 = buddies[i].y;
+        }
+    }
+}
+
+
+// 初始化猴子分身速度
+function initBuddiesSpeed() {
+    if (!buddies || buddies.length < 1) return;
+    if (!isMonkeys()) return;
+    if (balls[0].roleId != Role.WUKONG.id) return;
+    if (balls[0].v <= 0) return;
+    for (let i = 0, len = buddies.length; i < len; i++) {
+        getVxVy({ x: monkeysTargetPos[i].x, y: monkeysTargetPos[i].y }, { x: monkeysPos[i].x, y: monkeysPos[i].y }, balls[0].v, buddies[i]);
+    }
+}
+
+
+// 准备猴子分身
+function preMonkeys() {
+    if (!balls || balls.length < 1) return;
+    // 创建分身，balls 数组加入 buddies
+    if (!buddies || buddies.length < 1) setMonkeys();
+    // 初始化参数
+    initBuddiesSpeed();
+    // balls 数组加入 buddies
+    if (!isContainFullMonkeys()) balls = balls.concat(buddies);
+}
+
+
+// 猴子分身运动完成后
+function afterMonkeys() {
+    // balls 数组移除 buddies
+    if (isContainFullMonkeys()) balls = balls.splice(0, balls.length - buddies.length);
+    // 重置参数
+    resetBuddies();
+}
+
+
+// 画猴子分身起始位置
+function drawMonkeysStart() {
+    if (!buddies || buddies.length < 1) return;
+    if (!isMonkeys()) return;
+    if (balls[0].roleId != Role.WUKONG.id) return;
+    for (let i = 0, len = buddies.length; i < len; i++) {
+        buddies[i].drawBuddyBeginPoint({ ctx: gameSceneContext, color: currTheme.wkShowColor ? currTheme.wkShowColor : "#1B1D2230" });
+    }
+}
+
+
+// 画猴子分身运动方向
+function drawMonkeysMoveLine() {
+    if (!buddies || buddies.length < 1) return;
+    if (!isMonkeys()) return;
+    if (balls[0].roleId != Role.WUKONG.id) return;
+    for (let i = 0, len = buddies.length; i < len; i++) {
+        drawArrow(gameSceneContext, monkeysPos[i].x, monkeysPos[i].y, monkeysTargetPos[i].x, monkeysTargetPos[i].y, 30, roundNumber(0.80 * sysConfig.girdSize, 4), roundNumber(3.20 * dpr * sysConfig.pxRatio, 4), currTheme.wkShowColor ? currTheme.wkShowColor : "#1B1D2230"); // "#7F726E"
+    }
+}
+
+
 // 随机设置主角所在队颜色
 function resetMainTeamColorRandom(mtc) {
     if (!balls || balls.length < 1) return;
@@ -7425,6 +7684,11 @@ function drawTable() {
     if (userConfig.isShowGridCoordinate) drawSceneCoordinate();
     // 画蛋
     if (isDuoduoExist) drawEggs();
+    // 画猴子分身起点和运动方向
+    if (userConfig.currRole == Role.WUKONG.id && userConfig.isShowWkPath) {
+        drawMonkeysStart();
+        drawMonkeysMoveLine();
+    }
     if (userConfig.isShowSceneGraph && !userConfig.isUseCustomTheme) { // 是否显示场景图形
         // 夏日主题个别动物上台面
         if (userConfig.sceneThemeMode === 5) {
@@ -7474,6 +7738,11 @@ function reDrawTableAndEgg() {
     clipTableAngles();
     // 画蛋
     if (isDuoduoExist) drawEggs();
+    // 画猴子分身起点和运动方向
+    if (userConfig.currRole == Role.WUKONG.id && userConfig.isShowWkPath) {
+        drawMonkeysStart();
+        drawMonkeysMoveLine();
+    }
     if (userConfig.isShowSceneGraph && !userConfig.isUseCustomTheme) { // 是否显示场景图形
         // 夏日主题个别动物上台面
         if (userConfig.sceneThemeMode === 5) {
@@ -9136,6 +9405,8 @@ function setCustomThemeVals() {
         for (let f in currTheme) {
             ele = document.getElementById(f);
             if (!ele) continue;
+            // 颜色码转小写
+            if (currTheme[f] && typeof currTheme[f] === "string" && currTheme[f].startsWith("#")) currTheme[f] = currTheme[f].toLocaleLowerCase();
             ele.value = currTheme[f];
         }
     } catch (e) {
@@ -9208,7 +9479,7 @@ function switchCustomThemeCheckbox(isShow) {
         // 更新显示自定义主题
         reDrawTableAndEgg(); // 重画台面和蛋
         reDrawTableLineAndGirdNum(); // 重画台面边框和砖格坐标
-        resetPageBg(currTheme.bgColor); // 重置页面背景
+        resetPageBgColor(currTheme.bgColor); // 重置页面背景颜色
         doPageBgImage(currTheme.bgImage); // 背景图片在读取数据库成功的时候会设置
         // 标记自定义主题参数初始化完成
         customThemeInitStatus.value = "1";
@@ -9294,6 +9565,8 @@ function switchCheckbox(label, key, params) {
     if (key === "isShowRoleBloodLine") directPlayAgain(false);
     // 启用自定义主题开关
     if (key === "isUseCustomTheme") switchCustomThemeCheckbox(isShow);
+    // 显示猴子分身提示
+    if (key === "isShowWkPath") reDrawTableAndEgg();
 
     // 只显示撞击台面
     if (key === "isJustShowTable") {
@@ -9982,7 +10255,7 @@ onMounted(() => {
 
             } else if (e.target.id === "bgColor") { // 处理背景颜色
                 doPageBg(inVal);
-            } else if (["tbColor", "glColor", "glmColor", "glWidth"].includes(e.target.id)) { // 处理台面参数变动
+            } else if (["tbColor", "glColor", "glmColor", "wkShowColor", "glWidth"].includes(e.target.id)) { // 处理台面参数变动
                 // 更新主题参数，只重画台面
                 doUpdateCustomTheme([1]);
             } else if (["tblColor", "tblWidth"].includes(e.target.id)) { // 处理台面边框参数变动
@@ -10043,8 +10316,8 @@ function doPageBg(code) {
 function resetBodyImage(bgColor, isStore) {
     currTheme.bgImage = ""; // 主题图片清空
     document.body.style.backgroundImage = null; // body图片清空
-    if (Theme.isColorCode(bgColor)) setBodyBackgroundColor(bgColor); // 设置背景颜色
-    else setBodyBackgroundColor(Theme.getBgColorById(userConfig.sceneThemeMode)); // 恢复所选主题默认的背景颜色
+    // 重置页面背景颜色
+    resetPageBgColor(bgColor);
     if (isStore) {
         localStorage.setItem("collide-try-custom-theme", JSON.stringify(currTheme));
     }
@@ -10053,6 +10326,13 @@ function resetBodyImage(bgColor, isStore) {
 // 重置页面背景
 function resetPageBg(code) {
     doPageBg(code);
+}
+
+
+// 重置页面背景颜色
+function resetPageBgColor(code) {
+    if (Theme.isColorCode(code)) setBodyBackgroundColor(code); // 设置背景颜色
+    else setBodyBackgroundColor(Theme.getBgColorById(userConfig.sceneThemeMode)); // 恢复所选主题默认的背景颜色
 }
 
 
@@ -11072,6 +11352,48 @@ function isAImageFileName(name) {
     if (["jpg", "jpeg", "png", "gif"].indexOf(suffix) < 0) return false;
     return true;
 }
+
+
+// 画箭头
+//https://fedev.cn/canvas/drawing-arrow.html
+function drawArrow(ctx, fromX, fromY, toX, toY, theta, headlen, width, color) {
+
+    theta = typeof (theta) != 'undefined' ? theta : 30;
+    headlen = typeof (theta) != 'undefined' ? headlen : 10;
+    width = typeof (width) != 'undefined' ? width : 1;
+    color = typeof (color) != 'color' ? color : '#000';
+
+    // 计算各角度和对应的P2,P3坐标
+    var angle = Math.atan2(fromY - toY, fromX - toX) * 180 / Math.PI,
+        angle1 = (angle + theta) * Math.PI / 180,
+        angle2 = (angle - theta) * Math.PI / 180,
+        topX = headlen * Math.cos(angle1),
+        topY = headlen * Math.sin(angle1),
+        botX = headlen * Math.cos(angle2),
+        botY = headlen * Math.sin(angle2);
+
+    ctx.save();
+    ctx.beginPath();
+
+    var arrowX = fromX - topX,
+        arrowY = fromY - topY;
+
+    ctx.moveTo(arrowX, arrowY);
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(toX, toY);
+    arrowX = toX + topX;
+    arrowY = toY + topY;
+    ctx.moveTo(arrowX, arrowY);
+    ctx.lineTo(toX, toY);
+    arrowX = toX + botX;
+    arrowY = toY + botY;
+    ctx.lineTo(arrowX, arrowY);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.stroke();
+    ctx.restore();
+}
+
 
 //////////////////////////////////////////////////////////////////////
 
@@ -12481,10 +12803,13 @@ function doAfterBallStopped(balls) {
         // 傀儡打完后
         if (userConfig.currRole === Role.KUILEI.id && balls[i].roleId === Role.KUILEI.id && balls[i].isMainBall)
             doKuilei(balls[i]);
-        // 双子打完后
-        if (userConfig.currRole === Role.SHUANGZI.id && balls[i].roleId === Role.SHUANGZI.id && balls[i].isMainBall)
-            afterTwins(selectedBall ? false : true);
     }
+
+    // 双子打完后
+    if (userConfig.currRole === Role.SHUANGZI.id) afterTwins(selectedBall ? false : true);
+
+    // 猴子本体打完后
+    if (userConfig.currRole === Role.WUKONG.id) afterMonkeys();
 
     // 重置角色字段属性值，主要是碰撞次数清零
     resetRoleField();
@@ -13077,6 +13402,8 @@ function doClick(e) {
         setBallsPosBack(true);
         // 初始化双子分身，只瞄准不打不设置
         if (selectedBall.isMainBall && selectedBall.roleId === Role.SHUANGZI.id && !userConfig.isJustTrying) doTwins(selectedBall);
+        // 猴子分身
+        if (selectedBall.isMainBall && selectedBall.roleId === Role.WUKONG.id && !userConfig.isJustTrying) preMonkeys();
         // 重置角色字段属性值
         resetRoleField();
         // 瞄准松手开打之前，再次更新速度，避免瞄准看到的跟实际打的方向因为手抖导致偏差
