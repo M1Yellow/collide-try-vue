@@ -1773,11 +1773,15 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.2 更新：<span class="collide-try-update-date">2024-08-25</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.3 更新：<span class="collide-try-update-date">2024-08-28</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 选择角色列表新增【黑神话（悟空）】选项
-2. 修复自定义主题已知的问题
+1. 重新调整角色速度和摩擦力，让运动碰撞更接近实战
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.2 更新：<span
+                            class="collide-try-update-date">2024-08-25</span></b></div>
+                1. 选择角色列表新增【悟空】选项
+                2. 修复自定义主题已知的问题
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.1 更新：<span
                             class="collide-try-update-date">2024-08-21</span></b></div>
                 1. 新增双击砖格坐标补全数字功能
@@ -3634,7 +3638,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "240825"),
+    version: Number(packageVersion.replaceAll(".", "") + "240828"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3894,7 +3898,8 @@ class Ball {
     // 速度常量，极慢-0.70；慢-0.75；中等-0.80；快-0.90；极快-1.00
     static SPEEDRATIO = { XS: 0.70, S: 0.75, M: 0.80, L: 0.90, XL: 1.00 }
     // 质量常量，极轻-0.20；轻-0.40；中等-0.60；重-0.80；极重-1.00
-    static WEIGHTRATIO = { XS: 0.20, S: 0.40, M: 0.60, L: 0.80, XL: 1.00 }
+    //static WEIGHTRATIO = { XS: 0.20, S: 0.40, M: 0.60, L: 0.80, XL: 1.00 }
+    static WEIGHTRATIO = { XS: 0.30, S: 0.45, M: 0.60, L: 0.80, XL: 1.00 }
     // 分身初始位置
     static BODY2POS = { x: -1000, y: -1000 }
     // 特殊角色id
@@ -4598,6 +4603,7 @@ function preTwins(ball) {
     twinBall.x0 = 0;
     twinBall.y0 = 0;
     // 速度与本体相反，分身就稍微后跑了一点，距离比本体少，手动加一点速度
+    twinBall.v = ball.v; // checkFriction() 方法需要用于计算摩擦力
     twinBall.vx = -ball.vx * 1.0275;
     twinBall.vy = -ball.vy * 1.0275;
     //console.log(">>>> twinBall:", twinBall);
@@ -7325,6 +7331,7 @@ function resetBuddies() {
     resetRoleField(buddies);
     // 重置速度和位置
     for (let i = 0, len = buddies.length; i < len; i++) {
+        buddies[i].v = 0;
         buddies[i].vx = 0;
         buddies[i].vy = 0;
         buddies[i].x = 0
@@ -7348,6 +7355,7 @@ function initBuddiesSpeed() {
     if (balls[0].roleId != Role.WUKONG.id) return;
     if (balls[0].v <= 0) return;
     for (let i = 0, len = buddies.length; i < len; i++) {
+        buddies[i].v = balls[0].v; // checkFriction() 方法需要用于计算摩擦力
         getVxVy({ x: monkeysTargetPos[i].x, y: monkeysTargetPos[i].y }, { x: monkeysPos[i].x, y: monkeysPos[i].y }, balls[0].v, buddies[i]);
     }
 }
@@ -7588,10 +7596,12 @@ function getBallSpeed0(ball) {
 
 // 根据手机dpr获取黑娃的速度，其他角色速度取黑娃相对值，比如僵尸的速度是黑娃的0.9倍
 function getHeiwaSpeedByDpr() {
-    // 不同设备黑娃横打的时间相同 t=d/v=46*girdSize/48.412=46*42/48.412≈39.907
+    // 不同设备黑娃横打的时间相同 t=d/v=46*girdSize/90.00=46*60.1714/99.3498≈27.86
     // 初始化时会根据 dpr 计算 girdSize 
     // v=d/t
-    let v = roundNumber(46 * sysConfig.girdSize / 39.907, 4);
+    //let v = roundNumber(46 * sysConfig.girdSize / 27.86, 4);
+    // 99.3498 / 842 = v / canvas.width
+    let v = roundNumber(90.00 / 842 * canvas.width, 4);
     //console.log(">>>> getHeiwaSpeedByDpr v=" + v);
     return v;
 }
@@ -7599,9 +7609,9 @@ function getHeiwaSpeedByDpr() {
 
 // 根据canvas.width设置摩擦力
 function setFriction() {
-    // 正相关 0.6008 / 583 = f / canvas.width
-    // dpr=2 canvas.width=588 sysConfig.friction=0.606
-    sysConfig.friction = roundNumber(0.6008 / 583 * canvas.width, 4);
+    // 正相关 3.20 / 842 = f / canvas.width
+    // dpr=2.7 canvas.width=842 sysConfig.friction=3.20
+    sysConfig.friction = roundNumber(2.60 / 842 * canvas.width, 4);
     console.log(">>>> sysConfig.friction=" + sysConfig.friction);
 }
 
@@ -10244,6 +10254,15 @@ onMounted(() => {
                 inVal = inVal.toLocaleLowerCase();
                 e.target.value = inVal;
             }
+            else if (e.target.id.toLocaleLowerCase().indexOf("color")) { // 颜色码类型输入框
+                if (inVal !== "" && !Theme.isColorCode(inVal)) {
+                    alert("请输入正确的颜色码（格式：#ffffffff）");
+                    return;
+                }
+                // 颜色码统一小写
+                inVal = inVal.toLocaleLowerCase();
+                e.target.value = inVal;
+            }
             // 旧值
             let oldVal = currTheme[e.target.id];
             // 两值相等不处理
@@ -11829,9 +11848,9 @@ function checkOtherBallCollided(ball, isChPos) {
 function isSpeedMax(ball) {
     let speed0 = getBallSpeed0(ball);
     if (ball.isMainBall && ball.roleId === Role.JIANGJIANG.id) { // 僵尸主打时，上限为原始速度的 1.6 倍
-        if (ball.vx ** 2 + ball.vy ** 2 > (speed0 * 1.3) ** 2) return true; // 1.3 直打酷酷速度有点不够，1.5 又有点多了，需要更多实战观察验证
+        if (ball.vx ** 2 + ball.vy ** 2 > (speed0 * 1.4) ** 2) return true; // 1.3 直打酷酷速度有点不够，1.5 又有点多了，需要更多实战观察验证
     } else { // 1.5
-        if (ball.vx ** 2 + ball.vy ** 2 > (speed0 * 1.2) ** 2) return true; // 1.2
+        if (ball.vx ** 2 + ball.vy ** 2 > (speed0 * 1.3) ** 2) return true; // 1.2
     }
     return false;
 }
@@ -11932,9 +11951,9 @@ function isLeleCollided(ball0, ball1) {
 function doKukuSpeed(ball0, ball1) {
     if (!isKukuCollided(ball0, ball1)) return;
     // 为碰撞的队友加速60%【速度太快，手动调整比例】
-    const kukuTeammateRatio = 1.4;
+    const kukuTeammateRatio = 1.6;
     // 突破后酷酷自身加速50%
-    const kukuSelfRatio = 1.3;
+    const kukuSelfRatio = 1.5;
     if (ball0.roleId === Role.KUKU.id) { // ball0 为酷酷
         if (ball0.addCount < 10) {
             if (ball0.isMainBall) {
@@ -11983,10 +12002,10 @@ function doJiangjiangSpeed(ball0, ball1) {
     if (userConfig.currRole !== Role.JIANGJIANG.id) return;
     if (!isJiangjiangCollided(ball0, ball1)) return;
     if (isKukuCollided(ball0, ball1)) return; // 和酷酷碰撞，走酷酷加速逻辑
-    // 碰角色加速 4%
-    const body1Ratio = 1 + 0.09;
-    // 碰小丑分身减速 2%
-    const body2Ratio = 1 - 0.07;
+    // 碰角色加速 20%
+    const body1Ratio = 1 + 0.20; // 横向单角色能穿 6 次
+    // 碰小丑分身减速 10%
+    const body2Ratio = 1 - 0.15;
     if (ball0.roleId === Role.JIANGJIANG.id && ball0.isMainBall) {
         if (isJoker2Collided(ball0, ball1)) { // 碰到了小丑分身
             ball0.vx *= body2Ratio;
@@ -12006,12 +12025,12 @@ function doDianyinSpeed(ball0, ball1) {
     if (!isDianyinCollided(ball0, ball1)) return;
     //console.log(">>>> doDianyinSpeed isDianyinCollided=true");
     // 突破后，碰到存活对手，自身加速20%，手动调整比例，跟实战对比
-    let dianyinRatio = 0.20, addSpeed, speed0; // 改为原始速度的比例
+    let dianyinRatio = 0.17, addSpeed, speed0; // 改为原始速度的比例
     if (ball0.roleId === Role.DIANYIN.id) { // ball0 为电音
         ball0.upgradeEffect = 1; // 设置突破效果
         if (!isSpeedMax(ball0)) {
             speed0 = getBallSpeed0(ball0);
-            addSpeed = speed0 * dianyinRatio; // 20% 偏快，手动调整
+            addSpeed = speed0 * dianyinRatio;
             //console.log(">>>> doDianyinSpeed addSpeed", addSpeed);
             ball0.vx += (ball0.vx >= 0 ? addSpeed : -addSpeed); // 负数为反向加速
             ball0.vy += (ball0.vy >= 0 ? addSpeed : -addSpeed);
@@ -12033,7 +12052,7 @@ function doLeleSpeed(ball0, ball1) {
     if (userConfig.currRole !== Role.LELE.id) return;
     if (!isLeleCollided(ball0, ball1)) return;
     // 突破后，碰到存活角色（队友和对手都算），自身加速30%，后面加强到40%了，手动调整比例，跟实战对比
-    const leleRatio = 1.70; // 30%->1.5 40%->2.0 太快
+    const leleRatio = 1.50; // 30%->1.5 40%->2.0 太快
     if (ball0.roleId === Role.LELE.id) { // ball0 为太平乐
         if (!isSpeedMax(ball0)) {
             ball0.vx *= leleRatio;
@@ -12186,9 +12205,11 @@ function do2BallsCollided(ball0, ball1) {
 
 
 // 小球带质量碰撞反弹
+// friction:sysConfig.friction friction:roundNumber(0.8677 / 842 * canvas.width, 4)
 var collideParams = { friction: 0.70, bounce: 0.70, eggId: -1, verCode: 0 };
 onMounted(() => {
-    collideParams.friction = sysConfig.friction;
+    //collideParams.friction = sysConfig.friction;
+    collideParams.friction = roundNumber(0.8677 / 842 * canvas.width, 4);
     // 简单模拟摩擦力 f=0.2*m
     let m0 = balls.length > 0 ? balls[0].m : 70;
     collideParams.bounce = sysConfig.bounce ? sysConfig.bounce : (sysConfig.friction + 0.2 * m0);
@@ -12284,17 +12305,24 @@ function setXOrY(ball, collidedP0, flag) {
 
 
 // 摩擦力作用，整个台面
+// requestAnimationFrame 60 帧，每帧调用一次，摩擦力是固定值，但单位时间内走的距离远的，摩擦力总和大。在同样的一帧时间内，摩擦力跟速度正相关
 function checkFriction(ball) {
     if (sysConfig.friction <= 0) return;
     if (ball.isMainBall && ball.roleId === Role.KUILEI.id && !isKuileiPulling) return; // 傀儡的绳子不受摩擦力影响，拉回时影响
+    // 求合速度
     let v = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
     //if (v > 0 ) console.log(">>>> v=" + v);
-    let angle = Math.atan2(ball.vy, ball.vx);
-    if (v > sysConfig.friction) {
-        v -= sysConfig.friction;
+    //if (v <= 0) return;
+    // 摩擦力跟实时速度正相关，v0 / f0 = v1 / f1 -> f1 = v1 / (v0 / f0)
+    let f1 = v / (ball.v / sysConfig.friction);
+    if (!f1 || !isNumber(f1) || f1 < (0.5 / 842) * canvas.width) f1 = (0.5 / 842) * canvas.width; // 避免摩擦力太小，导致很久才停下来
+    if (v > f1) {
+        v -= f1;
     } else {
         v = 0;
     };
+    // 合速度分解
+    let angle = Math.atan2(ball.vy, ball.vx);
     ball.vx = Math.cos(angle) * v;
     ball.vy = Math.sin(angle) * v;
 }
@@ -13150,7 +13178,7 @@ function onMouseMove(isPlay2) {
 
         // 获取小球分速度 vx、vy
         if (isRoleCanPierces()) { // 能穿透的角色，速度设置大一些，加快拿到前5个碰撞点，减少延迟
-            tryMoveBall.v = 200;
+            tryMoveBall.v = 200; // 再往上快可能会出现路径不准
             getVxVy(null, null, tryMoveBall.v, selectedBall);
         } else { // 其他角色
             getVxVy(null, null, null, selectedBall);
@@ -13409,6 +13437,11 @@ function doClick(e) {
         // 瞄准松手开打之前，再次更新速度，避免瞄准看到的跟实际打的方向因为手抖导致偏差
         if (tryMoveBallFirstCollidedPos.x > 0 && tryMoveBallFirstCollidedPos.y > 0)
             getVxVy(tryMoveBallFirstCollidedPos, { x: selectedBall.x, y: selectedBall.y }, null, selectedBall);
+        // 傀儡绳子因为没有加受摩擦力，速度需要降一点，不然看着太快
+        if (selectedBall.isMainBall && selectedBall.roleId === Role.KUILEI.id && !isKuileiPulling) {
+            selectedBall.vx *= Ball.SPEEDRATIO.L;
+            selectedBall.vy *= Ball.SPEEDRATIO.L;
+        }
         // 清空selectedBall后开始运动
         if (!userConfig.isJustTrying) {
             selectedBall.draw();
