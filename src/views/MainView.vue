@@ -1773,10 +1773,15 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.3 更新：<span class="collide-try-update-date">2024-08-28</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.4 更新：<span class="collide-try-update-date">2024-09-03</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 重新调整角色速度和摩擦力，让运动碰撞更接近实战
+1. 优化傀儡、僵僵、幽灵等可穿透角色碰蛋问题
+2. 补全角色录入（63个）
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.3 更新：<span
+                            class="collide-try-update-date">2024-08-28</span></b></div>
+                1. 重新调整角色速度和摩擦力，让运动碰撞更接近实战
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.2 更新：<span
                             class="collide-try-update-date">2024-08-25</span></b></div>
                 1. 选择角色列表新增【悟空】选项
@@ -1800,7 +1805,7 @@ input:checked+.slider:before {
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.3.0 更新：<span
                             class="collide-try-update-date">2024-08-08</span></b></div>
-                1. 优化傀儡、僵尸等角色瞄准时不灵敏的问题
+                1. 优化傀儡、僵僵等角色瞄准时不灵敏的问题
                 2. 优化长按台面随机重置角色位置不灵敏的问题
                 3. 修复碰蛋时位置坐标会出现偏差的问题
 
@@ -1822,7 +1827,7 @@ input:checked+.slider:before {
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.1 更新：<span
                             class="collide-try-update-date">2024-07-31</span></b></div>
-                1. 新增【瞄准穿透】开关，弥补傀儡、僵尸等可穿透角色瞄准时的流畅灵敏度
+                1. 新增【瞄准穿透】开关，弥补傀儡、僵僵等可穿透角色瞄准时的流畅灵敏度
                 2. 补全角色录入（62个）
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.2.0 更新：<span
@@ -1875,7 +1880,7 @@ input:checked+.slider:before {
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.0.2 更新：<span
                             class="collide-try-update-date">2024-03-09</span></b></div>
-                1. 修复僵尸、傀儡瞄准时穿透问题
+                1. 修复僵僵、傀儡瞄准时穿透问题
                 2. 实现电音突破加速效果
                 3. 加入访问密钥（玩友私聊获取即可哦）
 
@@ -3638,7 +3643,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "240828"),
+    version: Number(packageVersion.replaceAll(".", "") + "240903"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -4435,8 +4440,9 @@ function isBallDrawAndUpdate(ball, caseNo) {
     // 非主角在拖动和瞄准时，主角也不画
     //if (caseNo === 1 && isMouseMoving && !selectedBall.isMainBall) return false;
 
-    // 僵尸不能改变其他角色位置；傀儡不拉回时，也不能改变其他角色位置
-    if (caseNo === 2 && (userConfig.currRole === Role.JIANGJIANG.id || (userConfig.currRole === Role.KUILEI.id && !isKuileiPulling))) {
+    // 僵尸、幽灵不能改变其他角色位置；傀儡不拉回时，也不能改变其他角色位置
+    if (caseNo === 2 && (userConfig.currRole === Role.JIANGJIANG.id || userConfig.currRole === Role.YLPAPA.id
+        || (userConfig.currRole === Role.KUILEI.id && !isKuileiPulling))) {
         return checkAnyBallPosChanged(caseNo);
     }
 
@@ -4722,14 +4728,16 @@ function getPullBackSpeed() {
 function isRoleCanPierces() {
     return userConfig.isShowTryFullPath
         && (userConfig.currRole === Role.JIANGJIANG.id || userConfig.currRole === Role.KUILEI.id
-            || userConfig.currRole === Role.HEIWA.id || userConfig.currRole === Role.DUODUO.id);
+            || userConfig.currRole === Role.HEIWA.id || userConfig.currRole === Role.DUODUO.id
+            || userConfig.currRole === Role.YLPAPA.id);
 }
 
 
 // 用于判断是否在瞄准的时候穿透一次
 function isTryCanPierces() {
     return userConfig.isPiercesTry
-        && (userConfig.currRole === Role.JIANGJIANG.id || userConfig.currRole === Role.KUILEI.id);
+        && (userConfig.currRole === Role.JIANGJIANG.id || userConfig.currRole === Role.KUILEI.id
+            || userConfig.currRole === Role.YLPAPA.id);
 }
 
 
@@ -4870,6 +4878,7 @@ class Role {
     static YEREN = new Role(60, "🧔", "灵域萨满", "野人", "野", null);
     static BAIGUJING = new Role(61, "🧞‍♀️", "白骨夫人", "白骨", "骨", null);
     static TUYA = new Role(62, "👨‍🎨", "涂鸦战士", "涂鸦", "涂", null);
+    static YLPAPA = new Role(63, "👻", "幽灵帕帕", "幽灵", "幽", null);
 
 
     // 角色类型分类：超肉、肉、杀、肉杀、乱碰、被乱碰、陷阱、标记、自动打(毒素、喷火等技能)、回血、复活/名刀、加速、减速、加护盾、加伤害、减伤害、反弹伤害
@@ -4882,7 +4891,7 @@ class Role {
 
     // 超杀，单回合本体伤害+技能伤害 180+
     static SUPER_KILLER = [Role.DIANYIN.id, Role.ZHANAN.id, Role.HONGZHAJI.id, Role.HEIWA.id, Role.BZGIRL.id, Role.JIANGJIANG.id,
-    Role.LINGLING.id, Role.KUILEI.id, Role.TIEMIAN.id,];
+    Role.LINGLING.id, Role.KUILEI.id, Role.TIEMIAN.id, Role.YLPAPA.id,];
     // 杀，单回合本体伤害+技能伤害 90+
     static KILLER = [Role.RABBIT.id, Role.RENZHE.id, Role.SHITOUREN.id, Role.MAGICLION.id, Role.KAIER.id, Role.QUANBA.id, Role.YINGYING.id,
     Role.HUABANTU.id, Role.CAPTAIN.id, Role.XIXUEGUI.id, Role.SHUANGZI.id, Role.LANLAN.id, Role.LANGZAI.id, Role.LEIMENG.id, Role.SANTAIZI.id,
@@ -4912,7 +4921,7 @@ class Role {
 
     // 自身标记
     static MARK_MAKER_SELF = [Role.BAIGUJING.id, Role.CAPTAIN.id, Role.LANLAN.id,
-    Role.LANGZAI.id, Role.HUOWANG.id, Role.MIAOJIANG.id, Role.WUNV.id, Role.YOUFANG.id, Role.XIUNV.id,
+    Role.LANGZAI.id, Role.HUOWANG.id, Role.MIAOJIANG.id, Role.WUNV.id, Role.YOUFANG.id, Role.XIUNV.id, Role.YLPAPA.id,
     ];
     // 本队标记
     static MARK_MAKER = [Role.YINGYING.id, Role.HUAQIANJI.id, Role.JUNDUN.id,];
@@ -4941,7 +4950,7 @@ class Role {
     static SHIELD_MAKER = [Role.JUNDUN.id, Role.LEIMENG.id, Role.LULU.id, Role.YINGYING.id,];
 
     // 自身攻击力加成
-    static ADD_ATTACK_SELF = [Role.KAIER.id, Role.NIUXIAOMANG.id, Role.QUANBA.id, Role.HEIWA.id, Role.BZGIRL.id, Role.JIANGJIANG.id, Role.LINGLING.id,
+    static ADD_ATTACK_SELF = [Role.KAIER.id, Role.NIUXIAOMANG.id, Role.QUANBA.id, Role.HEIWA.id, Role.BZGIRL.id, Role.JIANGJIANG.id, Role.YLPAPA.id, Role.LINGLING.id,
     Role.SHUANGZI.id, Role.HUAQIANJI.id, Role.LANLAN.id, Role.LEIMENG.id, Role.MUSHI.id, Role.TUYA.id, Role.TONY.id, Role.WUGEGE.id, Role.ZHANGYUGE.id,
     ];
     // 本队攻击力加成（要么只给队友加、要么本队都加）
@@ -5131,6 +5140,7 @@ class Role {
         this.YEREN.cps = [Role.DIANYIN.id, Role.RABBIT.id, Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.HUABANTU.id, Role.LANPANG.id, Role.MAGICLION.id, Role.JIANGJIANG.id, Role.NUANYANG.id, Role.CAPTAIN.id, Role.XIUNV.id, Role.ZHADANKE.id, Role.HONGSANSAN.id, Role.LEIMENG.id, Role.BZGIRL.id, Role.SANTAIZI.id];
         this.BAIGUJING.cps = [Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.HUABANTU.id, Role.NIUXIAOMANG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
         this.TUYA.cps = [Role.JIUWEIHU.id, Role.NURSE.id, Role.ZHANAN.id, Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.HUABANTU.id, Role.NIUXIAOMANG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
+        this.YLPAPA.cps = [Role.MANWANG.id, Role.KUKU.id, Role.LULU.id, Role.HUAQIANJI.id, Role.MUSHI.id, Role.DUODUO.id, Role.JIANGJIANG.id, Role.JIANSHI.id, Role.WUGEGE.id, Role.PUMPKIN.id, Role.CAPTAIN.id, Role.ZHADANKE.id];
 
     }
 
@@ -5710,8 +5720,6 @@ function initTableAngle() {
 
 // 初始化角色
 function initRoles() {
-    //userConfig.currRole = Role.HEIWA.id;
-    //userConfig.currRole = Role.JIANGJIANG.id;
     // 导入了角色和坐标数据，不用选角色
     if (userConfig.shareRoleAndPos) {
         try {
@@ -5756,8 +5764,8 @@ function initRoles() {
     setBallCollidingNos();
     // 设置完角色后，检测角色是否存在
     checkRoleExist();
-    // 僵尸露露组合，加快速度
-    if (userConfig.currRole === Role.JIANGJIANG.id && isLuluExist) balls[0].vRatio = 1.03;
+    // 露露加速 50%，手动调整一个跟实战相近的数值
+    if (isLuluExist) balls[0].vRatio += 0.20;
     // 设置蛋
     if (isDuoduoExist) setEggs();
     // 设置速度
@@ -6147,7 +6155,7 @@ function initBallByRole(ball) {
             ball.pathRadius = roundNumber(7.0 / 2 * dpr, 4); // 傀儡绳子运动路径半径
             ball.tryRadius = roundNumber(0.7 * sysConfig.girdSize / 2, 4); // 傀儡瞄准线半径
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
-            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 快/极快，算绳子的速度
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快
             //if (ball.isMainBall) userConfig.isShowBallPath = false; // 不显示全路径
             //if (ball.isMainBall) userConfig.isStopAfterCollided = false;
             break;
@@ -6504,6 +6512,12 @@ function initBallByRole(ball) {
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.XS; // 极轻
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 极快
+            break;
+        case Role.YLPAPA.id:
+            if (!ball.color) ball.color = "#817CCD"; // 取的默认皮肤衣服深颜色
+            ball.sizeRatio = Ball.SIZERATIO.S; // 小
+            ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 快 速度加快一点
             break;
         default: // 默认是黑娃
             ball.color = "#74593A"; // 默认皮肤颜色(RosyBrown玫瑰棕)-CA9480；脸颊边缘脸红的颜色(IndianRed印度红)-A36E5D；黑(Black)-151A14；棕色头发(DarkOliveGreen暗橄榄绿)-74593A
@@ -11490,7 +11504,7 @@ function checkWalls(ball, isCheck) {
             setXOrY(ball, ball.collidedP0, true);
             console.log(">>>> 上墙面-" + ball.getBallDesc() + "-撞击点坐标：x=" + ball.x + ", y=" + ball.y);
             lc = checkLineCollided(ball);
-            if (isDuoduoExist && isCheckEgg(ball)) ec = checkEggCollided(ball);
+            if (isDuoduoExist && isCheckEgg(ball, isCheck)) ec = checkEggCollided(ball);
             if (isCheck && !lc && !ec && recordCollidedPoint(ball) && !isRoleCanPierces()) return true;
             if (!lc && !ec && (!selectedBall || !isRoleCanPierces())) ball.drawCollidedPos();
             if (!lc && !ec) ball.vy *= -1;
@@ -11505,7 +11519,7 @@ function checkWalls(ball, isCheck) {
             setXOrY(ball, ball.collidedP0, true);
             console.log(">>>> 下墙面-" + ball.getBallDesc() + "-撞击点坐标：x=" + ball.x + ", y=" + ball.y);
             lc = checkLineCollided(ball);
-            if (isDuoduoExist && isCheckEgg(ball)) ec = checkEggCollided(ball);
+            if (isDuoduoExist && isCheckEgg(ball, isCheck)) ec = checkEggCollided(ball);
             if (isCheck && !lc && !ec && recordCollidedPoint(ball) && !isRoleCanPierces()) return true;
             if (!lc && !ec && (!selectedBall || !isRoleCanPierces())) ball.drawCollidedPos();
             if (!lc && !ec) ball.vy *= -1;
@@ -11757,7 +11771,7 @@ function checkOtherBalls(ball, isCheck) {
                 */
 
                 //console.log(">>>> do2BallsCollidedMV2 params=" + JSON.stringify(collideParams));
-                if (userConfig.currRole === Role.JIANGJIANG.id) {
+                if (userConfig.currRole === Role.JIANGJIANG.id || userConfig.currRole === Role.YLPAPA.id) {
                     //do2BallsCollidedMV2(ball, b, isCheck, false, collideParams);
                     doBackToBorderBallsCollided(ball, b, isCheck);
                 } else if (userConfig.currRole === Role.KUILEI.id) {
@@ -11793,6 +11807,9 @@ function checkOtherBalls(ball, isCheck) {
                 if (userConfig.currRole === Role.JIANGJIANG.id) {
                     // 简单模拟僵尸穿透加速、减速
                     doJiangjiangSpeed(ball, b);
+                } else if (userConfig.currRole === Role.YLPAPA.id) {
+                    // 处理帕帕速度
+                    doPapaSpeed(ball, b);
                 } else if (userConfig.currRole === Role.KUILEI.id) {
                     //console.log(">>>> checkOtherBalls isKuileiPulling=" + isKuileiPulling);
                     if (isKuileiPulling) do2BallsCollidedMV2(ball, b, false, true, collideParams);
@@ -12020,6 +12037,28 @@ function doJiangjiangSpeed(ball0, ball1) {
 }
 
 
+// 处理幽灵帕帕加速、减速
+function doPapaSpeed(ball0, ball1) {
+    if (userConfig.currRole !== Role.YLPAPA.id) return;
+    if (isKukuCollided(ball0, ball1)) return; // 和酷酷碰撞，走酷酷加速逻辑
+    // 碰角色加速 0
+    const body1Ratio = 1 + 0;
+    // 碰小丑分身减速 0
+    const body2Ratio = 1 + 0;
+    if (ball0.roleId === Role.YLPAPA.id && ball0.isMainBall) {
+        if (isJoker2Collided(ball0, ball1)) { // 碰到了小丑分身
+            ball0.vx *= body2Ratio;
+            ball0.vy *= body2Ratio;
+        } else {
+            if (!isSpeedMax(ball0)) {
+                ball0.vx *= body1Ratio;
+                ball0.vy *= body1Ratio;
+            }
+        }
+    }
+}
+
+
 // 处理电音加速
 function doDianyinSpeed(ball0, ball1) {
     if (!isDianyinCollided(ball0, ball1)) return;
@@ -12067,9 +12106,10 @@ function checkEggs(ball, isCheck) {
 
     ball.isEggCollided = false; // 碰撞标识重置
 
-    if (isCheckEgg(ball) && isInEggArea(ball)) {
+    if (isCheckEgg(ball, isCheck) && isInEggArea(ball)) {
         eggs.forEach(e => {
-            if (isCollisionBallAndBall(ball, e)) {
+            //if (isCollisionBallAndBall(ball, e)) {
+            if (is2CirclesCollided(ball, e)) {
                 console.log(">>>> checkEggs egg ball Collided.");
                 ball.isEggCollided = true;
                 ball.isCollided = true;
@@ -12134,7 +12174,7 @@ function checkEggs(ball, isCheck) {
 // 单独检测蛋切面是否碰撞
 function checkEggCollided(ball, isChPos) {
     let result = false;
-    if (isCheckEgg(ball) && isInEggArea(ball)) {
+    if (isCheckEgg(ball, true) && isInEggArea(ball)) {
         eggs.some(e => {
             //if (isCollisionBallAndBall(ball, e)) {
             if (is2CirclesCollided(ball, e)) {
@@ -12165,8 +12205,23 @@ function isInEggArea(ball) {
 
 
 // 是否需要检测碰蛋
-function isCheckEgg(ball) {
-    return !ball.isMainBall || ball.roleId !== Role.JIANGJIANG.id && (ball.roleId !== Role.KUILEI.id || isKuileiPulling);
+// 非主角要检测
+// 僵尸、幽灵，瞄准时检测
+// 傀儡绳子，瞄准或拉回时检测
+// 其他主角要检测
+function isCheckEgg(ball, isCheck) {
+    //return !ball.isMainBall || (ball.roleId !== Role.JIANGJIANG.id && ball.roleId !== Role.YLPAPA.id && (ball.roleId !== Role.KUILEI.id || isKuileiPulling));
+    if (!ball.isMainBall) return true;
+    if (ball.roleId === Role.JIANGJIANG.id || ball.roleId === Role.YLPAPA.id) {
+        if (isCheck) return true;
+        return false;
+    }
+    if (ball.roleId === Role.KUILEI.id) {
+        if (isCheck || isKuileiPulling) return true;
+        return false;
+    }
+
+    return true;
 }
 
 
@@ -12350,7 +12405,7 @@ function checkBounce(ball, bounceVal) {
 // 碰蛋反弹加速
 function checkEggBounce(ball) {
     if (sysConfig.eggBounce <= 0) return;
-    if (ball.isMainBall && (ball.roleId === Role.KUILEI.id && !isKuileiPulling || ball.roleId === Role.JIANGJIANG.id)) return;
+    if (ball.isMainBall && (ball.roleId === Role.KUILEI.id && !isKuileiPulling || ball.roleId === Role.JIANGJIANG.id || ball.roleId === Role.YLPAPA.id)) return;
     if (ball.vx <= 0 && ball.vy <= 0) return;
 
     ball.vx = ball.vx >= 0 ? ball.vx + sysConfig.eggBounce : ball.vx - sysConfig.eggBounce;
@@ -12396,9 +12451,10 @@ function isCollisionBallAndBall(ball0, ball1) {
     //console.log(">>>> isCollisionBallAndBall ball0:", ball0.collidingNos);
     //console.log(">>>> isCollisionBallAndBall ball1:", ball1.collidingNos);
 
-    // 正在碰撞不重复检测【只对僵尸和傀儡未拉回时生效】
-    if ((userConfig.currRole === Role.JIANGJIANG.id || (userConfig.currRole === Role.KUILEI.id && !isKuileiPulling)) &&
-        colliding01 && colliding01 === ball0.collidingNos[ball1.no - 1]) result = false;
+    // 正在碰撞不重复检测【只对可穿透的角色生效，僵尸、幽灵、傀儡未拉回时】
+    if ((userConfig.currRole === Role.JIANGJIANG.id || userConfig.currRole === Role.YLPAPA.id
+        || (userConfig.currRole === Role.KUILEI.id && !isKuileiPulling))
+        && colliding01 && colliding01 === ball0.collidingNos[ball1.no - 1]) result = false;
 
     //console.log(">>>> isCollisionBallAndBall final result=" + result);
     return result;
@@ -13438,10 +13494,12 @@ function doClick(e) {
         if (tryMoveBallFirstCollidedPos.x > 0 && tryMoveBallFirstCollidedPos.y > 0)
             getVxVy(tryMoveBallFirstCollidedPos, { x: selectedBall.x, y: selectedBall.y }, null, selectedBall);
         // 傀儡绳子因为没有加受摩擦力，速度需要降一点，不然看着太快
+        /*
         if (selectedBall.isMainBall && selectedBall.roleId === Role.KUILEI.id && !isKuileiPulling) {
             selectedBall.vx *= Ball.SPEEDRATIO.L;
             selectedBall.vy *= Ball.SPEEDRATIO.L;
         }
+        */
         // 清空selectedBall后开始运动
         if (!userConfig.isJustTrying) {
             selectedBall.draw();
