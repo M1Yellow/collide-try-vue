@@ -3961,6 +3961,14 @@ class Ball {
         return this.x !== this.x0 || this.y !== this.y0;
     }
 
+    // 判断是否为分身 分身判断
+    isRoleBuddy() {
+        if (userConfig.isTestOnlyOne && !this.isMainBall) return true;
+        if (!userConfig.isTestOnlyOne && !this.isMainBall && this.no > 4) return true;
+
+        return false;
+    }
+
     // TODO globalParams 目前只是单例，避免draw方法不停地创建对象。js 单线程执行没问题，多线程不行
     draw(params) {
         //if (this.x === this.prePoint.x && this.y === this.prePoint.y) return; // 位置没动不画。不行，画布被清空了，还是得画
@@ -4182,8 +4190,7 @@ class Ball {
         if (!userConfig.isShowRoleBloodLine) return;
         //if (userConfig.isTestOnlyOne) return; // 单个角色测试时不画
         if (!this.x || !this.y || this.x < 0 || this.y < 0 || !isFinite(this.x) || !isFinite(this.y)) return;
-        if (this.roleId === Role.WUKONG.id && !this.isMainBall && userConfig.isTestOnlyOne) return; // 猴子分身不画
-        if (this.roleId === Role.WUKONG.id && !this.isMainBall && this.no > 4) return; // 猴子分身不画
+        if (this.roleId === Role.WUKONG.id && this.isRoleBuddy()) return; // 猴子分身不画
         if (!params) params = GlobalParams.getCleanParams();
         this.context.save();
         this.context.beginPath();
@@ -6193,7 +6200,7 @@ function initBallByRole(ball) {
             if (!ball.color) ball.color = "#3F375A"; // 取的默认皮肤右边角色的衣服颜色
             ball.sizeRatio = Ball.SIZERATIO.L; // 大
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
-            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 快，实战貌似是极快
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快，实战貌似是极快
             break;
         case Role.X.id: // 自定义角色
             ball.color = "#305F6F";
@@ -6355,7 +6362,7 @@ function initBallByRole(ball) {
             if (!ball.color) ball.color = "#1B1D22"; // 取的默认皮肤头发深颜色-CC5F22
             ball.sizeRatio = Ball.SIZERATIO.S; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
-            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 快，实战更接近极快
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快，实战更接近极快
             break;
         case Role.ZHANAN.id:
             if (!ball.color) ball.color = "#4A406D"; // 取的默认皮肤飞行器翅膀颜色
@@ -6961,7 +6968,7 @@ function putAllBallsRandom() {
     if (!balls || balls.length < 1) return;
     balls.some(ball => {
         // 双子分身除外
-        if (!ball.isMainBall && ball.roleId === Role.SHUANGZI.id) return;
+        if (ball.roleId === Role.SHUANGZI.id && ball.isRoleBuddy()) return;
         putBallRandom(ball);
     });
 }
