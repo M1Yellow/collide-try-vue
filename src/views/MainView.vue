@@ -1773,11 +1773,16 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.4 更新：<span class="collide-try-update-date">2024-09-03</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.5 更新：<span class="collide-try-update-date">2024-11-24</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 优化傀儡、僵僵、幽灵等可穿透角色碰蛋问题
-2. 补全角色录入（63个）
+1. 双子、悟空分身速度调整
+2. 补全角色录入（65个）
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.4 更新：<span
+                            class="collide-try-update-date">2024-09-03</span></b></div>
+                1. 优化傀儡、僵僵、幽灵等可穿透角色碰蛋问题
+                2. 补全角色录入（63个）
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.3 更新：<span
                             class="collide-try-update-date">2024-08-28</span></b></div>
                 1. 重新调整角色速度和摩擦力，让运动碰撞更接近实战
@@ -3426,7 +3431,7 @@ function removeCoreScript(eles, eleIdOrClass) {
 
 
 let accessKey = null;
-let accessMsg = "🔑 请输入访问密钥";
+let accessMsg = "";
 let codeStr = null;
 let encodeStr = "YwHbeQCJtGZPfr+u9WoKYi6jGxlFlvl7ghXRgjuVFVmHpLQ6T75565lGNizgqwE0Jd/79N7QpQd4NBaVucf86Eguz5bW+GTtgw9+/LBqqkch5tgcYDmrEfCBpPqOyXv7DxaZvkET+iaKrBfJSFZ5nbN9Jgw5UYuLQspKQsSIARb9WSC7zBu7ZhGnRbnO/4Otsrh7qUyOBQ+sexDgVkS9etPLr7te/5nuxpIVpA2ymjln8xYzQVkSp/t6FcLQGn9wXrzpwTEukbfjL+tIWJuasHcjgc09Cr4z/TwHrJMK2+0f8sbwBOYetyyXm7rnyhEq3axAk8d+OouwzQZIjWmDzrnaTCZhTyESvkc+xa+gtNR9GkqCf/yI8bmt8OPCWtqHqyL0G7h5WuPAxxZBl0n7sGYzJ6iSl97XUT5IqMBGha+AV3HjSPE/SxLpBPPOE1ImidW5Fp487Er+6Ft5iNDvsZ/c8jCQoA5pkrQYaqMOeITaWwOgwEOXFH5d7jBNTvJOn0j8PAJ1iJiWGqefxDudY99q8rrCWv5O5C12LLeUPR8gsmznFW8VzrMIz8O0+z/kj8Ea5Ujr0d78y8QtWxZhkkbHAqVmEb+KAp0vSmLkjbFSCkPSyiNpVA1jmzfGgS0upK8/E3AjTMO1H2PyTybfLAsL/aqGNho2ZJDuQmlw1KHlyqJNaJ/PSfJQITY2jCY/6HQPSfPX64aWbYzH9/YEtskzNXlTEDWlHNcUG+wcSpnvDuRCjos63eJsORS0kfVuKrQMVaBkxiGhLK4EZBCdqW2/ZoJuCogBXn4u3I2Uu6S3wJwqQuLuNHZz/rSmvyl69uWVicUxHRkOGJ05lBv/2Nd7Rl2ZZ0mNgCKk0nroS2Gf+wL50lUW1uQTs731WPbnEh3os+rTB7x6GZCHfpfagXtN2orBkWmdl0R02c0zmrzHIrE0PWNf8mFp3xdmVrrtO0bsKpUic5gXs6nRXB30O1ASgxA2iRmecHMJJZQLyKYzoVJDzi4tXROm5irpvdx+Hp9LrSgOfEpHAcWz9d+R2luQxI2KADc0RCJ61ITDp8gZmCqS++Howkinb2vAZOwJh3csLZMbxcBL4TIqHyQhP5JhFgk6L5YCuAFjGeCCgVW/3LmY90R1HnHjcs7GZFE4g1s2JYH48K2kLTo6uNT5P40lQLDW9U7+DvIrKKhxtQ+W97q9sjx3Jb1UeC8ihV+q1ytpshhnrCEFiMGH/nPTJBqz7xAMcFIE4OkIP1m7ajo0lyZljXsXX7t03eXXBIhyWPhmm6ARPvBMBihHq0Fp5Oi4AaqFyffGQ8/vqjXeSsypEhKtPKlfUR2zqVHhFCQ2jjjiK+MZo16YWgX0tc+KTrABjIzaqswu3MwkxU9krXIJTAlxa0UXiZzS";
 let superKeyEnStr = "YgMkRgU7s2awMzmVajymZgD/2uNnyhG1Ew1pfd5GNVRzS3wPXqo3Kg==";
@@ -3442,7 +3447,12 @@ function checkCoreCode(method, isDialog) {
     // 本地版本不检测
     if (isLocalVersion()) return true;
 
+    // 调用方法名称校验
     if (!method || typeof method !== 'string' || method.length > 50) return false;
+
+    // 参数默认值
+    accessMsg = "🔑 请输入访问密钥";
+
     for (let i = 0, len = 100; i < len; i++) {
         // 先从 localStorage 获取 accessKey
         accessKey = localStorage.getItem('collide-try-access-key');
@@ -3453,7 +3463,6 @@ function checkCoreCode(method, isDialog) {
             if (!accessKey) accessKey = prompt(accessMsg);
             //console.log(">>>> accessKey=" + accessKey);
             if (accessKey === null) { // 点了取消
-                accessMsg = "🔑 请输入访问密钥";
                 alert("💡 温馨提示：\n没有访问密钥，核心功能会受到影响！请联系开发者获取访问密钥");
                 return false;
             }
@@ -3494,14 +3503,12 @@ function checkCoreCode(method, isDialog) {
             //break;
             return true;
         } catch (e) {
+            accessMsg = "❌ 访问密钥错误";
             //doGlobalError(e, (sysConfig && sysConfig.alertErrorCount)?sysConfig.alertErrorCount:3);
             doGlobalErrorMsg(e, false);
-            accessMsg = "❌ 访问密钥错误";
-            localStorage.removeItem('collide-try-access-key');
-            if (!isDialog) {
-                accessMsg = "🔑 请输入访问密钥";
-                break;
-            }
+            //localStorage.removeItem('collide-try-access-key');
+            // 处理密钥校验不通过
+            doKeyCheckFail();
         }
     }
     return false;
@@ -3509,7 +3516,21 @@ function checkCoreCode(method, isDialog) {
 
 // 页面元素、脚本、文件加载完成之后再执行，避免获取不到元素
 window.onload = function () {
-    checkCoreCode("do2BallsCollidedMV2", false);
+    let keyCkeckResult = checkCoreCode("do2BallsCollidedMV2", false);
+    if (!keyCkeckResult) {
+        // 处理密钥校验不通过
+        doKeyCheckFail();
+    }
+}
+
+
+// 密钥校验不通过处理事项
+function doKeyCheckFail() {
+    // 密钥校验不通过，清除用户已选的角色记录，重新弹出选择角色弹窗
+    localStorage.removeItem('collide-try-access-key');
+    localStorage.removeItem('collide-try-role-chose');
+    //userConfig.currRole = -1;
+    setCurrRoleV2();
 }
 
 
@@ -3643,7 +3664,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "240903"),
+    version: Number(packageVersion.replaceAll(".", "") + "241124"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -4886,6 +4907,8 @@ class Role {
     static BAIGUJING = new Role(61, "🧞‍♀️", "白骨夫人", "白骨", "骨", null);
     static TUYA = new Role(62, "👨‍🎨", "涂鸦战士", "涂鸦", "涂", null);
     static YLPAPA = new Role(63, "👻", "幽灵帕帕", "幽灵", "幽", null);
+    static YURRONG = new Role(64, "🐣", "羽绒绒", "鸡仔", "绒", null);
+    static LINGOU = new Role(65, "🦸‍♀️", "萌心灵偶", "灵偶", "偶", null);
 
 
     // 角色类型分类：超肉、肉、杀、肉杀、乱碰、被乱碰、陷阱、标记、自动打(毒素、喷火等技能)、回血、复活/名刀、加速、减速、加护盾、加伤害、减伤害、反弹伤害
@@ -4902,7 +4925,7 @@ class Role {
     // 杀，单回合本体伤害+技能伤害 90+
     static KILLER = [Role.RABBIT.id, Role.RENZHE.id, Role.SHITOUREN.id, Role.MAGICLION.id, Role.KAIER.id, Role.QUANBA.id, Role.YINGYING.id,
     Role.HUABANTU.id, Role.CAPTAIN.id, Role.XIXUEGUI.id, Role.SHUANGZI.id, Role.LANLAN.id, Role.LANGZAI.id, Role.LEIMENG.id, Role.SANTAIZI.id,
-    Role.WUGEGE.id, Role.NUANYANG.id, Role.QIANGWEI.id,
+    Role.WUGEGE.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.LINGOU.id,
     ];
 
     // 肉杀，血量(算回血)在 500+，单回合能稳定打出伤害 140+ 计算超肉+肉集合与超杀+杀集合的交集
@@ -4910,7 +4933,7 @@ class Role {
 
     // 乱碰
     static CHAOS_MAKER = [Role.DIANYIN.id, Role.BZGIRL.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.LANPANG.id, Role.LELE.id, Role.WUGEGE.id,
-    Role.WUKONG.id, Role.HEIWA.id, Role.HUABANTU.id, Role.KUKU.id,
+    Role.WUKONG.id, Role.HEIWA.id, Role.HUABANTU.id, Role.KUKU.id, Role.YURRONG.id,
     ];
     // 被乱碰
     static CHAOS_CONSUMER = [Role.RABBIT.id, Role.DIANYIN.id, Role.ZHANAN.id, Role.RENZHE.id, Role.YOUXIA.id, Role.JOKER.id, Role.NUANYANG.id,
@@ -5148,6 +5171,8 @@ class Role {
         this.BAIGUJING.cps = [Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.HUABANTU.id, Role.NIUXIAOMANG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
         this.TUYA.cps = [Role.JIUWEIHU.id, Role.NURSE.id, Role.ZHANAN.id, Role.WUGEGE.id, Role.WUKONG.id, Role.LANPANG.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.PUMPKIN.id, Role.LELE.id, Role.SHUANGZI.id, Role.KUILEI.id, Role.HUABANTU.id, Role.NIUXIAOMANG.id, Role.BZGIRL.id, Role.SANTAIZI.id, Role.YEREN.id];
         this.YLPAPA.cps = [Role.MANWANG.id, Role.KUKU.id, Role.LULU.id, Role.HUAQIANJI.id, Role.MUSHI.id, Role.DUODUO.id, Role.JIANGJIANG.id, Role.JIANSHI.id, Role.WUGEGE.id, Role.PUMPKIN.id, Role.CAPTAIN.id, Role.ZHADANKE.id];
+        this.YURRONG.cps = [Role.DUODUO.id, Role.ZHANAN.id, Role.DIANYIN.id, Role.RABBIT.id, Role.HEIWA.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.YEREN.id, Role.PUMPKIN.id, Role.HUAQIANJI.id, Role.YINGYING.id, Role.CAPTAIN.id, Role.JOKER.id, Role.ZHADANKE.id];
+        this.LINGOU.cps = [Role.RABBIT.id, Role.DIANYIN.id, Role.HEIWA.id, Role.ZHANAN.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.YEREN.id, Role.PUMPKIN.id, Role.YINGYING.id, Role.CAPTAIN.id, Role.JOKER.id, Role.ZHADANKE.id];
 
     }
 
@@ -6200,7 +6225,7 @@ function initBallByRole(ball) {
             if (!ball.color) ball.color = "#3F375A"; // 取的默认皮肤右边角色的衣服颜色
             ball.sizeRatio = Ball.SIZERATIO.L; // 大
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
-            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快，实战貌似是极快
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 快，实战貌似是极快
             break;
         case Role.X.id: // 自定义角色
             ball.color = "#305F6F";
@@ -6362,7 +6387,7 @@ function initBallByRole(ball) {
             if (!ball.color) ball.color = "#1B1D22"; // 取的默认皮肤头发深颜色-CC5F22
             ball.sizeRatio = Ball.SIZERATIO.S; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
-            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快，实战更接近极快
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 快，实战更接近极快
             break;
         case Role.ZHANAN.id:
             if (!ball.color) ball.color = "#4A406D"; // 取的默认皮肤飞行器翅膀颜色
@@ -6525,6 +6550,18 @@ function initBallByRole(ball) {
             ball.sizeRatio = Ball.SIZERATIO.S; // 小
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 快 速度加快一点
+            break;
+        case Role.YURRONG.id:
+            if (!ball.color) ball.color = "#FFEE9A"; // 取的默认皮肤鸡仔颜色
+            ball.sizeRatio = Ball.SIZERATIO.S; // 小
+            ball.mRatio = Ball.WEIGHTRATIO.S; // 轻
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快
+            break;
+        case Role.LINGOU.id:
+            if (!ball.color) ball.color = "#4E4656"; // 取的默认皮肤机甲中颜色
+            ball.sizeRatio = Ball.SIZERATIO.M; // 中等
+            ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 极快
             break;
         default: // 默认是黑娃
             ball.color = "#74593A"; // 默认皮肤颜色(RosyBrown玫瑰棕)-CA9480；脸颊边缘脸红的颜色(IndianRed印度红)-A36E5D；黑(Black)-151A14；棕色头发(DarkOliveGreen暗橄榄绿)-74593A
