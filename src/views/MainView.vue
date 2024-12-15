@@ -7812,6 +7812,9 @@ function reDrawTableAndEgg() {
         drawMonkeysMoveLine();
     }
     if (userConfig.isShowSceneGraph && !userConfig.isUseCustomTheme) { // 是否显示场景图形
+        // 重画场景中心图形
+        if (userConfig.sceneThemeMode === 0) drawCenterGraphSvg("svg-default-center");
+        if (userConfig.sceneThemeMode === 1) drawCenterGraphSvg("svg-snow");
         // 夏日主题个别动物上台面
         if (userConfig.sceneThemeMode === 5) {
             drawIconRandom("🦀", "ss", 1, false, true, gameSceneCanvas);
