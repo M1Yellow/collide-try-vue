@@ -40,7 +40,7 @@ canvas {
 }
 
 #game-main-ball {
-    z-index: 1;
+    z-index: 2;
     pointer-events: none;
     /* 可以点击穿透 */
 }
@@ -1773,11 +1773,17 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.5.5 更新：<span class="collide-try-update-date">2024-11-24</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.0 更新：<span class="collide-try-update-date">2025-01-29</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 双子、悟空分身速度调整
-2. 补全角色录入（65个）
+1. 完善角色碰撞反弹角度
+2. 调整台面斜边角度更接近实战
+3. 补全角色录入（66个）
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.5 更新：<span
+                            class="collide-try-update-date">2024-11-24</span></b></div>
+                1. 双子、悟空分身速度调整
+                2. 补全角色录入（65个）
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.4 更新：<span
                             class="collide-try-update-date">2024-09-03</span></b></div>
                 1. 优化傀儡、僵僵、幽灵等可穿透角色碰蛋问题
@@ -3247,7 +3253,7 @@ function doBack() {
         }, 3000);
         backClickCount += 1;
         if (backClickCount > 2) {
-            alert("👉 刷新页面重选角色，关掉页面退出游戏");
+            alert("👉 点击左上角重选角色，关掉页面退出游戏");
             backClickCount = 0;
         }
     }
@@ -3433,8 +3439,8 @@ function removeCoreScript(eles, eleIdOrClass) {
 let accessKey = null;
 let accessMsg = "";
 let codeStr = null;
-let encodeStr = "YwHbeQCJtGZPfr+u9WoKYi6jGxlFlvl7ghXRgjuVFVmHpLQ6T75565lGNizgqwE0Jd/79N7QpQd4NBaVucf86Eguz5bW+GTtgw9+/LBqqkch5tgcYDmrEfCBpPqOyXv7DxaZvkET+iaKrBfJSFZ5nbN9Jgw5UYuLQspKQsSIARb9WSC7zBu7ZhGnRbnO/4Otsrh7qUyOBQ+sexDgVkS9etPLr7te/5nuxpIVpA2ymjln8xYzQVkSp/t6FcLQGn9wXrzpwTEukbfjL+tIWJuasHcjgc09Cr4z/TwHrJMK2+0f8sbwBOYetyyXm7rnyhEq3axAk8d+OouwzQZIjWmDzrnaTCZhTyESvkc+xa+gtNR9GkqCf/yI8bmt8OPCWtqHqyL0G7h5WuPAxxZBl0n7sGYzJ6iSl97XUT5IqMBGha+AV3HjSPE/SxLpBPPOE1ImidW5Fp487Er+6Ft5iNDvsZ/c8jCQoA5pkrQYaqMOeITaWwOgwEOXFH5d7jBNTvJOn0j8PAJ1iJiWGqefxDudY99q8rrCWv5O5C12LLeUPR8gsmznFW8VzrMIz8O0+z/kj8Ea5Ujr0d78y8QtWxZhkkbHAqVmEb+KAp0vSmLkjbFSCkPSyiNpVA1jmzfGgS0upK8/E3AjTMO1H2PyTybfLAsL/aqGNho2ZJDuQmlw1KHlyqJNaJ/PSfJQITY2jCY/6HQPSfPX64aWbYzH9/YEtskzNXlTEDWlHNcUG+wcSpnvDuRCjos63eJsORS0kfVuKrQMVaBkxiGhLK4EZBCdqW2/ZoJuCogBXn4u3I2Uu6S3wJwqQuLuNHZz/rSmvyl69uWVicUxHRkOGJ05lBv/2Nd7Rl2ZZ0mNgCKk0nroS2Gf+wL50lUW1uQTs731WPbnEh3os+rTB7x6GZCHfpfagXtN2orBkWmdl0R02c0zmrzHIrE0PWNf8mFp3xdmVrrtO0bsKpUic5gXs6nRXB30O1ASgxA2iRmecHMJJZQLyKYzoVJDzi4tXROm5irpvdx+Hp9LrSgOfEpHAcWz9d+R2luQxI2KADc0RCJ61ITDp8gZmCqS++Howkinb2vAZOwJh3csLZMbxcBL4TIqHyQhP5JhFgk6L5YCuAFjGeCCgVW/3LmY90R1HnHjcs7GZFE4g1s2JYH48K2kLTo6uNT5P40lQLDW9U7+DvIrKKhxtQ+W97q9sjx3Jb1UeC8ihV+q1ytpshhnrCEFiMGH/nPTJBqz7xAMcFIE4OkIP1m7ajo0lyZljXsXX7t03eXXBIhyWPhmm6ARPvBMBihHq0Fp5Oi4AaqFyffGQ8/vqjXeSsypEhKtPKlfUR2zqVHhFCQ2jjjiK+MZo16YWgX0tc+KTrABjIzaqswu3MwkxU9krXIJTAlxa0UXiZzS";
-let superKeyEnStr = "YgMkRgU7s2awMzmVajymZgD/2uNnyhG1Ew1pfd5GNVRzS3wPXqo3Kg==";
+let encodeStr = "OQBRc/pWmmdwBwY8INgxEQPPy/L08SOA3GbTrxBQbu6Y/polmFcHgFseL5QNI2CcVOxU6rCCoAzSASS4dz4gV0xRoR89HhnO2RYWbz+MXBGIxFtNUCm0gPtImtspBniQ4F3XFEyKIpuo6u400n7bnocff6Ccoyqs3yO9CCyM5jlfYVWm3N+/qu6dmxWwliI+StJ76OAOdf/PsOPWQqHwYtVRFE90n4tTJdNNe8rzwxyDcuc6L2sy7zGIYP/Z9NXniQv8SiN/ACx290CzRjSMDylCR4qBCq0PHXcjDvnjyKkSsnLUSzogYZh7Ww92m7Co1vkQIDWf/5WnjCQpOuoV1mEuXly4ZTipLMvkWjl6yJYYggzE7mcOOYTHbQchOtVALhxCYfAwgEbd/lE0aEQI5p7jtG0L/NZi1WF41TpZ5k2SsPQW4IybGjZKAAMyDoR2uDrYLLutMcFe0D3EE9wzYoaGIBwK8bKtZIyc/nBmb83Q7wWaIUyh/YfmTUSB38iwyajGFyf4ZSZHreS6K3I9qjDWQwD9rDnzn67ZtT/NFfuSzo23m4lLfjBKGLvfDyB6Gi7li2dryOdJmg6G5/f+WRgx5C8zgB2tjlu4rR6VSkyCGx8bhWi/RmH8DcaPpdYoZquClxMnjZtImowS6CcqaXbStow2bkZYaEWcUWyQDgSlR0L00YWWGiqX+0IBFl5rGMeMorlDErfwrTVdDF+osWKJhxvOJjWgCXnkgvNLtpBcGYOTtVeulE4dWpvdq55zktDZpZ7x6Ywy1Mhrqe8KL+RH+vH0HdRcTP9DC5cSNtU83zknZVJ85sYvfEeqCakwj51UYIrwri1R2I7BrjtAz30mgXK0QhsLxMDOy1T0/2zzfCsq1iP5KI5wqReCjq/qDOozWPF5lAmW+y9pGYyKvZKLPh5UHrDtIIfB5PdFwV0qP2t4RCSs3k36W6bFBsP0Kdx+p08yJjAI9zvsVmV/fa6IKHL0EH2f97W7GRWFln5ZB8kPN/i8ImP5WvMRiDuQAA1fyzI=";
+let superKeyEnStr = "OAAmtPpWmmd9teJ4Z+9eMFoxd/j3pm2wnjXQEK6aV4a3W4qPFKFisA==";
 //superKeyEnStr = Aes.Ctr.encrypt("", "", 256);
 //console.log('>>>> superKeyEnStr=', superKeyEnStr);
 //encodeStr = Aes.Ctr.encrypt(codeStr, "", 256);
@@ -3664,7 +3670,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "241124"),
+    version: Number(packageVersion.replaceAll(".", "") + "250129"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3698,7 +3704,7 @@ var sysConfig = {
     // 碰撞损耗，玩吧角色碰墙或者碰其他角色，看着似乎没有损耗。checkBounce方法，作用在合速度上
     bounce: 0,
     // 蛋有弹性，碰撞可增加一定百分比的速度
-    eggBounce: 0.2, // v * eggBounce 50 * 0.2 = 10
+    eggBounce: 0.35, // v * eggBounce 50 * 0.2 = 10
     // 摩擦力 f=μ×Fn（Fn：正压力，不一定等于施力物体的重力(mg) μ：动摩擦因数，是数值，无单位）
     // 简单模拟 0.05 0.24 一个接近0.9的系数能很好的模拟出摩擦力的效果
     friction: 0.575,
@@ -3781,8 +3787,8 @@ var userConfig = {
     // 是否使用自定义主题
     isUseCustomTheme: false,
     // 斜边角度倾斜偏差（单位：格），用户设置看到的是这里的数值。第一个值对应点(0, 3)，其他点往顺时针方向递增
-    //wan8CocosTableMoveVals: [0,0.05,-0.025,-0.025,0.05,-0.025,0.025,0.025], // 注意 undefined 找不到值，或者数值不对，需要清除 localStorage 缓存
-    wan8CocosTableMoveVals: [0, 0.05, -0.05, -0.05, 0.12, -0.025, 0.025, 0.08],
+    //wan8CocosTableMoveVals: [0,0.05,-0.05,-0.05,0.12,-0.025,0.025,0.08], // 注意 undefined 找不到值，或者数值不对，需要清除 localStorage 缓存
+    wan8CocosTableMoveVals: [0, 0.05, -0.05, -0.05, 0.12, -0.025, 0, 0],
 
 }
 // 用户原始配置备份
@@ -4083,7 +4089,7 @@ class Ball {
         if (this.iconSize < 10) {
             let metrics, width, ratio;
             ratio = 1.4;
-            if (this.roleId === Role.BAKE.id
+            if (this.roleId === Role.BAKE.id || this.roleId === Role.GOLDKING.id
                 || this.roleId === Role.X.id || this.roleId === Role.DUODUO.id
                 || this.roleId === Role.HUAQIANJI.id) ratio = 1.2; // 图标偏大，手动调小一点
 
@@ -4140,6 +4146,9 @@ class Ball {
             this.context.fillText(content, this.x, this.y); // 中间
             //this.context.fillText(content, roundNumber(this.x + (0.20 * sysConfig.girdSize), 4), roundNumber(this.y + (0.2 * sysConfig.girdSize), 4)); // 右下
             this.context.fillText(content, this.x, roundNumber(this.y + (0.4 * sysConfig.girdSize), 4)); // 下
+        } else if (this.roleId === Role.GOLDKING.id) { // 金角大王
+            this.context.fillStyle = "#ffd700";
+            this.context.fillText(content, this.x, this.y);
         }
         else this.context.fillText(content, this.x, this.y);
         this.context.restore();
@@ -4418,6 +4427,7 @@ class Ball {
         if (!this.isMainBall && this.roleId !== Role.SHUANGZI.id) return; // 非主球不画，双子分身除外
         if (!this.isMainBall && this.roleId === Role.SHUANGZI.id && !userConfig.isTestOnlyOne && this.no > 1 && this.no < 5) return;
         if (this.isMainBall && this.roleId === Role.KUILEI.id) return; // 傀儡不画碰撞点
+        if (this.isMainBall && userConfig.isStopAfter2WallCollided && this.wallCollidedCount >= 2) return; // 碰撞两次停止时不画
         // 绘制外虚线
         gamePathContext.save();
         gamePathContext.beginPath();
@@ -4909,6 +4919,7 @@ class Role {
     static YLPAPA = new Role(63, "👻", "幽灵帕帕", "幽灵", "幽", null);
     static YURRONG = new Role(64, "🐣", "羽绒绒", "鸡仔", "绒", null);
     static LINGOU = new Role(65, "🦸‍♀️", "萌心灵偶", "灵偶", "偶", null);
+    static GOLDKING = new Role(66, "金", "金角大王", "金角", "金", null);
 
 
     // 角色类型分类：超肉、肉、杀、肉杀、乱碰、被乱碰、陷阱、标记、自动打(毒素、喷火等技能)、回血、复活/名刀、加速、减速、加护盾、加伤害、减伤害、反弹伤害
@@ -5173,6 +5184,7 @@ class Role {
         this.YLPAPA.cps = [Role.MANWANG.id, Role.KUKU.id, Role.LULU.id, Role.HUAQIANJI.id, Role.MUSHI.id, Role.DUODUO.id, Role.JIANGJIANG.id, Role.JIANSHI.id, Role.WUGEGE.id, Role.PUMPKIN.id, Role.CAPTAIN.id, Role.ZHADANKE.id];
         this.YURRONG.cps = [Role.DUODUO.id, Role.ZHANAN.id, Role.DIANYIN.id, Role.RABBIT.id, Role.HEIWA.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.YEREN.id, Role.PUMPKIN.id, Role.HUAQIANJI.id, Role.YINGYING.id, Role.CAPTAIN.id, Role.JOKER.id, Role.ZHADANKE.id];
         this.LINGOU.cps = [Role.RABBIT.id, Role.DIANYIN.id, Role.HEIWA.id, Role.ZHANAN.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.YEREN.id, Role.PUMPKIN.id, Role.YINGYING.id, Role.CAPTAIN.id, Role.JOKER.id, Role.ZHADANKE.id];
+        this.GOLDKING.cps = [Role.RABBIT.id, Role.DIANYIN.id, Role.HEIWA.id, Role.LINGLING.id, Role.QUANBA.id, Role.CAPTAIN.id, Role.JOKER.id, Role.ZHADANKE.id];
 
     }
 
@@ -5947,9 +5959,10 @@ function doVersionThings() {
         if (userConfigCache) {
             for (let f in userConfig) {
                 //console.log(f + " = " + userConfig[f]);
-                // 个别特殊字段不受缓存影响，以配置为准
+                // 个别特殊字段不受缓存影响，以代码配置为准
                 if (f === 'tryFullPathPointNum') continue;
                 if (f === 'animateAutoRestTime') continue;
+                if (f === 'wan8CocosTableMoveVals') continue;
                 if (userConfigCache[f] || typeof userConfigCache[f] === "boolean") userConfig[f] = userConfigCache[f];
             }
             // 更新 localStorage 中的 userConfig
@@ -6562,6 +6575,12 @@ function initBallByRole(ball) {
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 极快
+            break;
+        case Role.GOLDKING.id:
+            if (!ball.color) ball.color = "#DF3530"; // 取的默认皮肤葫芦颜色
+            ball.sizeRatio = Ball.SIZERATIO.M; // 中等
+            ball.mRatio = Ball.WEIGHTRATIO.S; // 轻
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 极快
             break;
         default: // 默认是黑娃
             ball.color = "#74593A"; // 默认皮肤颜色(RosyBrown玫瑰棕)-CA9480；脸颊边缘脸红的颜色(IndianRed印度红)-A36E5D；黑(Black)-151A14；棕色头发(DarkOliveGreen暗橄榄绿)-74593A
@@ -11083,7 +11102,7 @@ function arrayUnique(array) {
 
 // 两平面⚪是否碰撞 两圆碰撞 两球碰撞
 function is2CirclesCollided(ball0, ball1) {
-    return (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 <= (ball0.radius + ball1.radius) ** 2;
+    return (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 < (ball0.radius + ball1.radius) ** 2;
 }
 
 
@@ -11827,7 +11846,7 @@ function checkOtherBalls(ball, isCheck) {
                     else doBackToBorderBallsCollided(ball, b, isCheck);
                 } else {
                     if (isCheck) doBackToBorderBallsCollided(ball, b, true);
-                    else do2BallsCollidedMV2(ball, b, true, false, collideParams);
+                    //else do2BallsCollidedMV2(ball, b, true, false, collideParams);
                 }
 
                 // TODO 显示瞄准碰撞指示圈【瞄准时会不停地拖动检测，导致指示圈有闪动，后续再搞】
@@ -11861,7 +11880,6 @@ function checkOtherBalls(ball, isCheck) {
                     //console.log(">>>> checkOtherBalls isKuileiPulling=" + isKuileiPulling);
                     if (isKuileiPulling) do2BallsCollidedMV2(ball, b, false, true, collideParams);
                 } else {
-                    //do2BallsCollided(ball, b);
                     do2BallsCollidedMV2(ball, b, false, true, collideParams);
                 }
 
@@ -12203,7 +12221,7 @@ function checkEggs(ball, isCheck) {
                     // 蛋不会动
                     e.vx = 0;
                     e.vy = 0;
-                    // 蛋反弹加速
+                    // 碰蛋反弹加速
                     //checkEggBounce(ball);
                 }
 
@@ -12434,6 +12452,7 @@ function checkFriction(ball) {
 function checkBounce(ball, bounceVal) {
     if (!bounceVal && sysConfig.bounce <= 0) return;
     if (ball.isMainBall && ball.roleId === Role.KUILEI.id && !isKuileiPulling) return; // 傀儡的绳子不减速，拉回时影响
+    if (ball.vx === 0 && ball.vy === 0) return;
     let v = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
     //if (v > 0 ) console.log(">>>> v=" + v);
     let val = bounceVal ? bounceVal : sysConfig.bounce;
@@ -12450,13 +12469,16 @@ function checkBounce(ball, bounceVal) {
 
 
 // 碰蛋反弹加速
-function checkEggBounce(ball) {
+function checkEggBounce(ball, eggBounceVal) {
     if (sysConfig.eggBounce <= 0) return;
     if (ball.isMainBall && (ball.roleId === Role.KUILEI.id && !isKuileiPulling || ball.roleId === Role.JIANGJIANG.id || ball.roleId === Role.YLPAPA.id)) return;
-    if (ball.vx <= 0 && ball.vy <= 0) return;
-
-    ball.vx = ball.vx >= 0 ? ball.vx + sysConfig.eggBounce : ball.vx - sysConfig.eggBounce;
-    ball.vy = ball.vy >= 0 ? ball.vy + sysConfig.eggBounce : ball.vy - sysConfig.eggBounce;
+    if (ball.vx === 0 && ball.vy === 0) return;
+    let v = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
+    let val = eggBounceVal ? eggBounceVal : sysConfig.eggBounce;
+    v = v * (1 + val);
+    let angle = Math.atan2(ball.vy, ball.vx);
+    ball.vx = Math.cos(angle) * v;
+    ball.vy = Math.sin(angle) * v;
 }
 
 
@@ -12474,7 +12496,7 @@ function isCollisionBallAndBall(ball0, ball1) {
     // 双子本体与分身不会碰撞，会穿透
     let twinCheck = isTwinSelf(ball0, ball1);
     //console.log(">>>> isCollisionBallAndBall twinCheck=" + twinCheck);
-    result = !twinCheck && (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 <= ((KLRadius ? KLRadius : ball0.radius) + ball1.radius) ** 2;
+    result = !twinCheck && (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 < ((KLRadius ? KLRadius : ball0.radius) + ball1.radius) ** 2;
     //console.log(">>>> isCollisionBallAndBall 2 balls check result=" + result);
 
     // 如果是碰蛋检测，直接返回
