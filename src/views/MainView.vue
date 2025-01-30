@@ -1760,7 +1760,7 @@ input:checked+.slider:before {
 </div>
 
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">📖 功能说明：<span class="collide-try-update-date"></span></b></div>
-<span class="collide-try-each-item-margin">1️⃣ 支持一个主打角色、三个辅助角色，主要适用于黑娃、僵僵、朵朵、傀儡、双子、太平乐等角色『角度』和『走位』练习</span>
+<span class="collide-try-each-item-margin">1️⃣ 支持一个主打角色、三个辅助角色，主要适用于黑娃、僵僵、朵朵、傀儡、双子、电音、太平乐、悟空等角色『角度』和『走位』练习</span>
 <span class="collide-try-each-item-margin">2️⃣ 血量条仅用来区分队伍，因为血量伤害体系很复杂，目前不考虑去实现</span>
 <span class="collide-try-each-item-margin">3️⃣ 角色运动速度和距离可能和实战有一定差距，做到一模一样很难</span>
 <span class="collide-try-each-item-margin">4️⃣ 可能存在个别角度（碰墙角）反弹有点问题，请以实战数据为准</span>
@@ -3436,15 +3436,20 @@ function removeCoreScript(eles, eleIdOrClass) {
 }
 
 
-let accessKey = null;
+let accessKey = "";
+let superKey = "";
 let accessMsg = "";
-let codeStr = null;
-let encodeStr = "OQBRc/pWmmdwBwY8INgxEQPPy/L08SOA3GbTrxBQbu6Y/polmFcHgFseL5QNI2CcVOxU6rCCoAzSASS4dz4gV0xRoR89HhnO2RYWbz+MXBGIxFtNUCm0gPtImtspBniQ4F3XFEyKIpuo6u400n7bnocff6Ccoyqs3yO9CCyM5jlfYVWm3N+/qu6dmxWwliI+StJ76OAOdf/PsOPWQqHwYtVRFE90n4tTJdNNe8rzwxyDcuc6L2sy7zGIYP/Z9NXniQv8SiN/ACx290CzRjSMDylCR4qBCq0PHXcjDvnjyKkSsnLUSzogYZh7Ww92m7Co1vkQIDWf/5WnjCQpOuoV1mEuXly4ZTipLMvkWjl6yJYYggzE7mcOOYTHbQchOtVALhxCYfAwgEbd/lE0aEQI5p7jtG0L/NZi1WF41TpZ5k2SsPQW4IybGjZKAAMyDoR2uDrYLLutMcFe0D3EE9wzYoaGIBwK8bKtZIyc/nBmb83Q7wWaIUyh/YfmTUSB38iwyajGFyf4ZSZHreS6K3I9qjDWQwD9rDnzn67ZtT/NFfuSzo23m4lLfjBKGLvfDyB6Gi7li2dryOdJmg6G5/f+WRgx5C8zgB2tjlu4rR6VSkyCGx8bhWi/RmH8DcaPpdYoZquClxMnjZtImowS6CcqaXbStow2bkZYaEWcUWyQDgSlR0L00YWWGiqX+0IBFl5rGMeMorlDErfwrTVdDF+osWKJhxvOJjWgCXnkgvNLtpBcGYOTtVeulE4dWpvdq55zktDZpZ7x6Ywy1Mhrqe8KL+RH+vH0HdRcTP9DC5cSNtU83zknZVJ85sYvfEeqCakwj51UYIrwri1R2I7BrjtAz30mgXK0QhsLxMDOy1T0/2zzfCsq1iP5KI5wqReCjq/qDOozWPF5lAmW+y9pGYyKvZKLPh5UHrDtIIfB5PdFwV0qP2t4RCSs3k36W6bFBsP0Kdx+p08yJjAI9zvsVmV/fa6IKHL0EH2f97W7GRWFln5ZB8kPN/i8ImP5WvMRiDuQAA1fyzI=";
+let codeStr = "";
+let encodeStr = "DgF9Zzthm2dzH9BlrA8f3Tr2sq9qo8v3W3uErbwRDa71mhgFYLoioDR5PV/RgBSJqgH/GEdqs4UJXSoL4pzfYfQPDwIf5ANJtOekDPOuAT7facW4ox7eQuBbW42IY9DV49trRS1ScTBa4leniUcpZGz9Mk86f12M7jq95TWkng2r/FnMGTWY2z8YOPEbq5B/7lw4JnfFMb7rOODDyUDdP8Vx6whPjsHX0VRlSApOyzscFdDcQinBdolaOFxQn7WwUeBzswktWAR95GebkVUHDXUEh+OnQ+XGrVmdEmG3MRocVOD/6NbpZN0FXG8uQ+XOEPYQpZpsyek5PAGTD70Cf3hwMv1y3Ubp0K7Nx6QabVBZPt+UN+yHefD4f2popjvvVuMDULekmx6Sq/OXJUka8o+i/2uHGc/1FEuAb3lgTakZoV49lqlotxmciTu6V24CPIm/4lEmrJG61kJvdjxZB5iXtNckRqgr4h6UNiF/WxD3uqgRKxdy3hd3rRkyQ8Xa04XYn3kZ5VqHMldsYeQ+6FpXfqwxqH+QKxVIhlPe+pboBJ+X+8Mc1Dx3QPoZrBWA7fSToIK/0IkJ5aWP//ReaK+rzftYpNUQNHxRsV9Kv8nJSyR1nUysaMSPEO6nPY/fHcAY+kxPbvk2rs16cgnmtqgx+BVqXL02FW1JHh5OPRlvJzDYx7E7L4vU8XGgVoMXVSFEP522Nrg37ulGaXCfNSqZj3jURUS1QEfQ0sd9J3W3eO4R00mqrSvNr/uDdiXlmm1u89pHqrK2J9odvLt1JVeHhHA8ABgzmSF2Gw1Tx3qz2YeeYBHOUNTvp+cJuoNVjA+EpSlJhH6+MMPLvFbacEwYNf9/5ePFMxjKoRtvt6j4DTuYF/NFJZS9hr1hQX1auJI4N1pSTjyEThQocSGF8cMg9VYTskm+ducrQpqJtcve3LyF1eNwmmwaqPVAmsjYD2M=";
 let superKeyEnStr = "OAAmtPpWmmd9teJ4Z+9eMFoxd/j3pm2wnjXQEK6aV4a3W4qPFKFisA==";
-//superKeyEnStr = Aes.Ctr.encrypt("", "", 256);
-//console.log('>>>> superKeyEnStr=', superKeyEnStr);
-//encodeStr = Aes.Ctr.encrypt(codeStr, "", 256);
-//console.log('>>>> encodeStr=', encodeStr);
+if (accessKey && superKey) {
+    superKeyEnStr = Aes.Ctr.encrypt(accessKey, superKey, 256);
+    console.log('>>>> superKeyEnStr=', superKeyEnStr);
+}
+if (accessKey && codeStr) {
+    encodeStr = Aes.Ctr.encrypt(codeStr, accessKey, 256);
+    console.log('>>>> encodeStr=', encodeStr);
+}
 // TODO 更新访问密钥之后，还需要更改 nginx 下载链接中的密钥
 
 // 检测核心代码和密钥
@@ -11102,7 +11107,9 @@ function arrayUnique(array) {
 
 // 两平面⚪是否碰撞 两圆碰撞 两球碰撞
 function is2CirclesCollided(ball0, ball1) {
-    return (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 < (ball0.radius + ball1.radius) ** 2;
+    // 在碰撞检测时，增加一个微小的容差值（epsilon），确保即使小球非常接近也能检测到碰撞
+    const epsilon = 0.001 * dpr;
+    return (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 <= (ball0.radius + ball1.radius) ** 2 + epsilon;
 }
 
 
@@ -12282,11 +12289,11 @@ function isCheckEgg(ball, isCheck) {
     //return !ball.isMainBall || (ball.roleId !== Role.JIANGJIANG.id && ball.roleId !== Role.YLPAPA.id && (ball.roleId !== Role.KUILEI.id || isKuileiPulling));
     if (!ball.isMainBall) return true;
     if (ball.roleId === Role.JIANGJIANG.id || ball.roleId === Role.YLPAPA.id) {
-        if (isCheck) return true;
+        if (isCheck && !userConfig.isShowTryFullPath) return true;
         return false;
     }
     if (ball.roleId === Role.KUILEI.id) {
-        if (isCheck || isKuileiPulling) return true;
+        if (isCheck && !userConfig.isShowTryFullPath || isKuileiPulling) return true;
         return false;
     }
 
@@ -12500,7 +12507,9 @@ function isCollisionBallAndBall(ball0, ball1) {
     // 双子本体与分身不会碰撞，会穿透
     let twinCheck = isTwinSelf(ball0, ball1);
     //console.log(">>>> isCollisionBallAndBall twinCheck=" + twinCheck);
-    result = !twinCheck && (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 < ((KLRadius ? KLRadius : ball0.radius) + ball1.radius) ** 2;
+    // 在碰撞检测时，增加一个微小的容差值（epsilon），确保即使小球非常接近也能检测到碰撞
+    const epsilon = 0.001 * dpr;
+    result = !twinCheck && (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 <= ((KLRadius ? KLRadius : ball0.radius) + ball1.radius) ** 2 + epsilon;
     //console.log(">>>> isCollisionBallAndBall 2 balls check result=" + result);
 
     // 如果是碰蛋检测，直接返回
