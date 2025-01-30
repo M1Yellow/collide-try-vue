@@ -1775,7 +1775,7 @@ input:checked+.slider:before {
 
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.0 更新：<span class="collide-try-update-date">2025-01-29</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 完善角色碰撞反弹角度
+1. 优化角色碰撞反弹角度问题
 2. 调整台面斜边角度更接近实战
 3. 补全角色录入（66个）
 </pre>
@@ -12129,23 +12129,27 @@ function doDianyinSpeed(ball0, ball1) {
     if (!isDianyinCollided(ball0, ball1)) return;
     //console.log(">>>> doDianyinSpeed isDianyinCollided=true");
     // 突破后，碰到存活对手，自身加速20%，手动调整比例，跟实战对比
-    let dianyinRatio = 0.17, addSpeed, speed0; // 改为原始速度的比例
+    let dianyinRatio = 0.2, addSpeed, speed0; // 改为原始速度的比例
     if (ball0.roleId === Role.DIANYIN.id) { // ball0 为电音
         ball0.upgradeEffect = 1; // 设置突破效果
         if (!isSpeedMax(ball0)) {
             speed0 = getBallSpeed0(ball0);
             addSpeed = speed0 * dianyinRatio;
             //console.log(">>>> doDianyinSpeed addSpeed", addSpeed);
-            ball0.vx += (ball0.vx >= 0 ? addSpeed : -addSpeed); // 负数为反向加速
-            ball0.vy += (ball0.vy >= 0 ? addSpeed : -addSpeed);
+            let vRate = 1 + addSpeed / Math.sqrt(ball0.vx * ball0.vx + ball0.vy * ball0.vy);
+            //console.log(">>>> doDianyinSpeed ball0 vRate", vRate);
+            ball0.vx *= vRate;
+            ball0.vy *= vRate;
         }
     } else { // ball1 为电音
         ball1.upgradeEffect = 1;
         if (!isSpeedMax(ball1)) {
             speed0 = getBallSpeed0(ball1);
             addSpeed = speed0 * dianyinRatio;
-            ball1.vx += (ball1.vx >= 0 ? addSpeed : -addSpeed);
-            ball1.vy += (ball1.vy >= 0 ? addSpeed : -addSpeed);
+            let vRate = 1 + addSpeed / Math.sqrt(ball1.vx * ball1.vx + ball1.vy * ball1.vy);
+            //console.log(">>>> doDianyinSpeed ball1 vRate", vRate);
+            ball1.vx *= vRate;
+            ball1.vy *= vRate;
         }
     }
 }
