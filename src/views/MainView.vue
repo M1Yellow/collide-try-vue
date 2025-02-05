@@ -1556,6 +1556,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
+                <!--
                 <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">瞄准穿透</span>
                     <span class="user-setting-item-switch-right">
@@ -1565,6 +1566,7 @@ input:checked+.slider:before {
                         </label>
                     </span>
                 </li>
+                -->
                 <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">瞄准显示路径</span>
                     <span class="user-setting-item-switch-right">
@@ -3438,13 +3440,19 @@ function removeCoreScript(eles, eleIdOrClass) {
 
 let accessKey = "";
 let superKey = "";
+let easyKey = "";
 let accessMsg = "";
 let codeStr = "";
 let encodeStr = "DgF9Zzthm2dzH9BlrA8f3Tr2sq9qo8v3W3uErbwRDa71mhgFYLoioDR5PV/RgBSJqgH/GEdqs4UJXSoL4pzfYfQPDwIf5ANJtOekDPOuAT7facW4ox7eQuBbW42IY9DV49trRS1ScTBa4leniUcpZGz9Mk86f12M7jq95TWkng2r/FnMGTWY2z8YOPEbq5B/7lw4JnfFMb7rOODDyUDdP8Vx6whPjsHX0VRlSApOyzscFdDcQinBdolaOFxQn7WwUeBzswktWAR95GebkVUHDXUEh+OnQ+XGrVmdEmG3MRocVOD/6NbpZN0FXG8uQ+XOEPYQpZpsyek5PAGTD70Cf3hwMv1y3Ubp0K7Nx6QabVBZPt+UN+yHefD4f2popjvvVuMDULekmx6Sq/OXJUka8o+i/2uHGc/1FEuAb3lgTakZoV49lqlotxmciTu6V24CPIm/4lEmrJG61kJvdjxZB5iXtNckRqgr4h6UNiF/WxD3uqgRKxdy3hd3rRkyQ8Xa04XYn3kZ5VqHMldsYeQ+6FpXfqwxqH+QKxVIhlPe+pboBJ+X+8Mc1Dx3QPoZrBWA7fSToIK/0IkJ5aWP//ReaK+rzftYpNUQNHxRsV9Kv8nJSyR1nUysaMSPEO6nPY/fHcAY+kxPbvk2rs16cgnmtqgx+BVqXL02FW1JHh5OPRlvJzDYx7E7L4vU8XGgVoMXVSFEP522Nrg37ulGaXCfNSqZj3jURUS1QEfQ0sd9J3W3eO4R00mqrSvNr/uDdiXlmm1u89pHqrK2J9odvLt1JVeHhHA8ABgzmSF2Gw1Tx3qz2YeeYBHOUNTvp+cJuoNVjA+EpSlJhH6+MMPLvFbacEwYNf9/5ePFMxjKoRtvt6j4DTuYF/NFJZS9hr1hQX1auJI4N1pSTjyEThQocSGF8cMg9VYTskm+ducrQpqJtcve3LyF1eNwmmwaqPVAmsjYD2M=";
 let superKeyEnStr = "OAAmtPpWmmd9teJ4Z+9eMFoxd/j3pm2wnjXQEK6aV4a3W4qPFKFisA==";
+let easyKeyEnStr = "aQCKYRNVnmeL4I8rOidyVAEmJJbbAEObleUp+Y47zjHTiFAeDLrLMw==";
 if (accessKey && superKey) {
     superKeyEnStr = Aes.Ctr.encrypt(accessKey, superKey, 256);
     console.log('>>>> superKeyEnStr=', superKeyEnStr);
+}
+if (accessKey && easyKey) {
+    easyKeyEnStr = Aes.Ctr.encrypt(accessKey, easyKey, 256);
+    console.log('>>>> easyKeyEnStr=', easyKeyEnStr);
 }
 if (accessKey && codeStr) {
     encodeStr = Aes.Ctr.encrypt(codeStr, accessKey, 256);
@@ -3471,7 +3479,7 @@ function checkCoreCode(method, isDialog) {
         if (isDialog) {
             // 没找到，再弹窗提示输入【访问密钥】
             // 单击取消按钮，prompt() 方法将返回 null，单击确认按钮，prompt() 将返回输入的文本，弹窗时会暂停 JavaScript 执行
-            if (!accessKey) accessKey = prompt(accessMsg);
+            if (!accessKey) accessKey = prompt(accessMsg, "询问作者或关注作者玩吧动态");
             //console.log(">>>> accessKey=" + accessKey);
             if (accessKey === null) { // 点了取消
                 alert("💡 温馨提示：\n没有访问密钥，核心功能会受到影响！请联系开发者获取访问密钥");
@@ -3495,7 +3503,8 @@ function checkCoreCode(method, isDialog) {
         try {
             //encodeStr = Aes.Ctr.encrypt(codeStr, accessKey, 256);
             //console.log(encodeStr);
-            if (accessKey.toLowerCase().includes("thelight")) accessKey = Aes.Ctr.decrypt(superKeyEnStr, accessKey, 256);
+            if (accessKey.toLowerCase().includes("thelight")) accessKey = Aes.Ctr.decrypt(superKeyEnStr, accessKey, 256); // superKey
+            else if (accessKey.length < 32) accessKey = Aes.Ctr.decrypt(easyKeyEnStr, accessKey, 256); // easyKey
             //console.log(">>>> accessKey=" + accessKey);
             codeStr = Aes.Ctr.decrypt(encodeStr, accessKey, 256);
             //console.log(codeStr); // 密钥不对，返回是乱码 QªÑg=[JLäój´qÀ76
@@ -3746,7 +3755,7 @@ var userConfig = {
     // 是否显示小球运动路径
     isShowBallMovePath: true,
     // 是否显示小球本体路径
-    isShowBallPath: false,
+    isShowBallPath: true,
     // 碰到另一个小球是否停止运动
     isStopAfterCollided: false,
     // 只瞄准不打，用于截图分享
@@ -3768,11 +3777,11 @@ var userConfig = {
     // 是否双击屏幕回退
     isDbclickBack: true,
     // 傀儡拉回
-    isKuileiPullBack: false,
+    isKuileiPullBack: true,
     // 瞄准穿透(提升流畅)，只对僵尸、傀儡等可穿透角色有效
     isPiercesTry: false,
     // 瞄准显示路径，只对僵尸、傀儡等可穿透角色有效
-    isShowTryFullPath: false,
+    isShowTryFullPath: true,
     // 显示猴子分身提示
     isShowWkPath: true,
     // 瞄准显示路径，指定碰撞几次的路径
@@ -5968,6 +5977,10 @@ function doVersionThings() {
                 if (f === 'tryFullPathPointNum') continue;
                 if (f === 'animateAutoRestTime') continue;
                 if (f === 'wan8CocosTableMoveVals') continue;
+                if (f === 'isShowBallMovePath') continue;
+                if (f === 'isShowBallPath') continue;
+                if (f === 'isKuileiPullBack') continue;
+                if (f === 'isShowTryFullPath') continue;
                 if (userConfigCache[f] || typeof userConfigCache[f] === "boolean") userConfig[f] = userConfigCache[f];
             }
             // 更新 localStorage 中的 userConfig
