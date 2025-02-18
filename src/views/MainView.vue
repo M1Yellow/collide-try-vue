@@ -57,6 +57,11 @@ canvas {
     /* 可以点击穿透 */
 }
 
+#game-click-play {
+    z-index: 10;
+    /* 在角色和运动层之上 */
+}
+
 #game-mask {
     z-index: -2;
 }
@@ -1071,6 +1076,11 @@ input:checked+.slider:before {
                 style="width: 420px; height: 660px;"><!-- 角色全路径层，手动清空画布 -->
                 Canvas not supported
             </canvas>
+            <!-- click-play 点按发射按钮层 -->
+            <canvas id="game-click-play" width="600" height="600"
+                style="width: 600px; height: 600px;"><!-- 点按发射按钮层，只画一次 -->
+                Canvas not supported
+            </canvas>
             <!-- mask 运动遮罩层 -->
             <canvas id="game-mask" ref="gameMask" width="420" height="660"
                 style="width: 420px; height: 660px;"><!-- 遮罩层，避免运动时操作小球，手动调整图层顺序 -->
@@ -1441,6 +1451,12 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item li-space-between-center">
+                    <span class="user-setting-item-msg-left">当前操作方式</span>
+                    <span class="user-setting-item-switch-right">
+                        <button class="dropbtn" @click="toggleCurrPlayOpt()" id="currPlayOpt">拖拽</button>
+                    </span>
+                </li>
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">主角所在队颜色</span>
                     <span class="user-setting-item-switch-right">
                         <button class="dropbtn red" @click="toggleTeamColor()" id="mainTeamColor">红色</button>
@@ -1749,38 +1765,39 @@ input:checked+.slider:before {
 <b class="collide-try-app-full-name collide-try-each-item-margin">玩吧-撞击王者-角色角度练习器</b>
 <b class="collide-try-each-item-margin">👨‍💻 Author: THeLiGht_ Group</b>
 <b class="collide-try-each-item-margin">📧 Contact: m1yellow@163.com</b>
-
 <div class="collide-try-author-declare">
-<b class="collide-try-author-declare-title">关于近期有玩友反馈网站被QQ浏览器屏蔽打不开了！郑重声明以下几点：</b>
+<b class="collide-try-author-declare-title">开发者声明：</b>
 <ul class="collide-try-author-declare-content">
 <li>1. 本工具<b>不收取任何费用</b>，也不与官方游戏产生任何关联，仅用于日常练习和交流，<b>如果有侵害到玩吧官方的利益，请玩吧工作人员直接联系上方的邮箱处理！</b></li>
 <li>2. 本工具<b>保证不包含任何恶意代码，不收集任何个人隐私信息！</b></li>
-<li>3. 个人站点容易被利益相关者或不友好的人<b>【恶意匿名举报】</b>，每次申诉会在三个工作日内答复（首次申诉很快处理），但可能过不了多久又会被举报屏蔽！</li>
-<li>4. 这个练习工具已经花费了将近两年的时间和精力开发和维护了，纯属<b>为爱发电！</b></li>
-<li>5. 可以用其他浏览器打开这个练习工具网页。【<a target="_blank" href="https://viayoo.com/zh-cn/">Via浏览器</a>】或【<a target="_blank" href="https://www.xbext.com/">X浏览器</a>】，极简无广告（App大小不到2M），哪个能用好用选哪个就行（没有任何推广），感谢各位玩友的信任！</li>
+<!-- <li>3. 个人站点可能会被利益相关者或不友好的人<b>【恶意匿名举报】</b>，每次申诉会在三个工作日内答复（首次申诉很快处理），但可能过不了多久又会被举报屏蔽！</li> -->
+<li>3. 这个练习工具已经花费了将近两年的时间和精力开发和维护了，纯属<b>为爱发电！</b></li>
+<li>4. 如果有个别浏览器屏蔽了网站导致打不开页面，可以尝试更换其他浏览器。【<a target="_blank" href="https://viayoo.com/zh-cn/">Via浏览器</a>】或【<a target="_blank" href="https://www.xbext.com/">X浏览器</a>】，极简无广告（App大小不到2M），哪个能用好用选哪个就行（没有任何推广），感谢各位玩友的信任！</li>
 </ul>
 </div>
-
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">📖 功能说明：<span class="collide-try-update-date"></span></b></div>
 <span class="collide-try-each-item-margin">1️⃣ 支持一个主打角色、三个辅助角色，主要适用于黑娃、僵僵、朵朵、傀儡、双子、电音、太平乐、悟空等角色『角度』和『走位』练习</span>
 <span class="collide-try-each-item-margin">2️⃣ 血量条仅用来区分队伍，因为血量伤害体系很复杂，目前不考虑去实现</span>
 <span class="collide-try-each-item-margin">3️⃣ 角色运动速度和距离可能和实战有一定差距，做到一模一样很难</span>
 <span class="collide-try-each-item-margin">4️⃣ 可能存在个别角度（碰墙角）反弹有点问题，请以实战数据为准</span>
 <span class="collide-try-each-item-margin">5️⃣ 兼容手机、平板、电脑浏览器</span>
-
-
+<!-- 
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">👨‍🏫 温馨提示：<span class="collide-try-update-date"></span></b></div>
 <span class="collide-try-each-item-margin">浏览器会对打开过的网页做缓存，多次刷新只会去查询网页是否有变动，没变动是不会重新请求网页资源的，所以，<b>【刷新重选角色】要不了多少流量哦~</b></span>
 <span class="collide-try-each-item-margin">输入正确访问密钥后，<b>可以到设置里面下载离线版（没有网络也可以玩）</b>，点击下载的html文件会用默认浏览器打开，也可以长按文件，选择其他方式打开。</span>
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
+-->
 
-
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.0 更新：<span class="collide-try-update-date">2025-01-29</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.1 更新：<span class="collide-try-update-date">2025-02-18</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 优化角色碰撞反弹角度问题
-2. 调整台面斜边角度更接近实战
-3. 补全角色录入（66个）
+1. 新增【点按发射】操作方式
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.6.0 更新：<span
+                            class="collide-try-update-date">2025-01-29</span></b></div>
+                1. 优化角色碰撞反弹角度问题
+                2. 调整台面斜边角度更接近实战
+                3. 补全角色录入（66个）
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.5.5 更新：<span
                             class="collide-try-update-date">2024-11-24</span></b></div>
                 1. 双子、悟空分身速度调整
@@ -3618,6 +3635,7 @@ let canvas = document.getElementById('game-main'); // 主运动层画布
 let gameMainBallCanvas = document.getElementById('game-main-ball'); // 主球运动层画布，主球和其他球分开
 let gamePathCanvas = document.getElementById('game-path'); // 角色中线路径层画布（一条细线）
 let gamePathBallCanvas = document.getElementById('game-path-ball'); // 角色全路径层画布（路径线宽为角色直径）
+let gameClickPlayCanvas = document.getElementById('game-click-play'); // 点按发射按钮层
 let gameMaskCanvas = document.getElementById('game-mask'); // 遮罩层画布
 // 获取上下文
 let gameSceneGraphContext = gameSceneGraphCanvas ? gameSceneGraphCanvas.getContext('2d') : null;
@@ -3629,6 +3647,7 @@ let context = canvas ? canvas.getContext('2d') : null;
 let gameMainBallContext = gameMainBallCanvas ? gameMainBallCanvas.getContext('2d') : null;
 let gamePathContext = gamePathCanvas ? gamePathCanvas.getContext('2d') : null;
 let gamePathBallContext = gamePathBallCanvas ? gamePathBallCanvas.getContext('2d') : null;
+let gameClickPlayContext = gameClickPlayCanvas ? gameClickPlayCanvas.getContext('2d') : null;
 let gameMaskContext = gameMaskCanvas ? gameMaskCanvas.getContext('2d') : null;
 // 弹窗元素
 let dialogMask = document.getElementById('dialog-mask'); // 选择角色弹窗遮罩
@@ -3652,6 +3671,7 @@ onMounted(() => {
     gameMainBallCanvas = document.getElementById('game-main-ball'); // 主球运动层画布，主球和其他球分开
     gamePathCanvas = document.getElementById('game-path'); // 角色中线路径层画布（一条细线）
     gamePathBallCanvas = document.getElementById('game-path-ball'); // 角色全路径层画布（路径线宽为角色直径）
+    gameClickPlayCanvas = document.getElementById('game-click-play'); // 点按发射按钮层
     gameMaskCanvas = document.getElementById('game-mask'); // 遮罩层画布
 
     gameSceneGraphContext = gameSceneGraphCanvas.getContext('2d');
@@ -3663,6 +3683,7 @@ onMounted(() => {
     gameMainBallContext = gameMainBallCanvas.getContext('2d');
     gamePathContext = gamePathCanvas.getContext('2d');
     gamePathBallContext = gamePathBallCanvas.getContext('2d');
+    gameClickPlayContext = gameClickPlayCanvas.getContext('2d');
     gameMaskContext = gameMaskCanvas.getContext('2d');
 
     dialogMask = document.getElementById('dialog-mask'); // 选择角色弹窗遮罩
@@ -3684,7 +3705,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250129"),
+    version: Number(packageVersion.replaceAll(".", "") + "250218"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3744,6 +3765,8 @@ var userConfig = {
     currRole: -1, // 默认没选任何角色，具体设置哪个角色会弹窗提示用户选择。角色对应序号在 Role 枚举类
     // 场景主题，0-默认主题；1-冬季冰雪主题；2-新年主题；3-田园主题；4-星际主题
     sceneThemeMode: -1, // -1 没选择任何主题，根据时间季节自动设置
+    // 当前操作方式，0-拖拽（默认）；1-点按
+    currPlayOpt: 0,
     // 主角所在队颜色
     mainTeamColor: 'r',
     // 是否随机角色，完全随机
@@ -4488,7 +4511,7 @@ function isBallDrawAndUpdate(ball, caseNo) {
     if (!sysConfig.isGameBeginning) return true;
 
     // 主角在拖动和瞄准时，所有非主角不画
-    if (caseNo === 2 && isMouseMoving && selectedBall.isMainBall) return false;
+    if (caseNo === 2 && isMouseMoving && selectedBall && selectedBall.isMainBall) return false;
     // 非主角在拖动和瞄准时，主角也不画
     //if (caseNo === 1 && isMouseMoving && !selectedBall.isMainBall) return false;
 
@@ -5645,6 +5668,133 @@ class Theme {
 
 
 //////////////////////////////////////////////////////////////////////
+// 【点按模式按钮】 变量、方法区域
+////////////////////////////////////////////////////////////////////// 
+class ClickPlayBtn {
+    constructor(x, y, radius, outRadius, color, outColor, outLineColor,
+        fontColor, fontLineColor, content, fontSize, isReady) {
+        this.x = x || 0;
+        this.y = y || 0;
+        this.radius = radius || roundNumber(sysConfig.girdSize * (1.68 - 0.4), 4); // 阴影半径
+        this.outRadius = outRadius || roundNumber(sysConfig.girdSize * (1.68 - 0.1), 4); // 按钮半径
+        this.color = color || "#DEC27BA0"; // 按钮颜色
+        this.outColor = outColor || "#FAEDCE40"; // 阴影颜色
+        this.outLineColor = outLineColor || "#5A5963"; // 边界线颜色
+        this.fontColor = fontColor || "#FFFFFF"; // 文字颜色
+        this.fontLineColor = fontLineColor || "#000000"; // 文字描边颜色
+        this.content = content || "发射"; // 文字
+        this.fontSize = fontSize || 12; // 文字大小
+        this.isReady = isReady || false; // 是否已经准备发射
+    }
+
+    // 点按发射按钮阴影
+    drawClickPlayBtnOut() {
+        gameClickPlayContext.save();
+        gameClickPlayContext.beginPath();
+        gameClickPlayContext.fillStyle = clickPlayBtn.outColor;
+        gameClickPlayContext.arc(gameClickPlayCanvas.width / 2, gameClickPlayCanvas.height / 2, clickPlayBtn.outRadius, 0, 2 * Math.PI);
+        gameClickPlayContext.fill();
+        gameClickPlayContext.closePath();
+        gameClickPlayContext.restore();
+    }
+
+    // 点按发射按钮描边
+    drawClickPlayBtnOutLine() {
+        gameClickPlayContext.save();
+        gameClickPlayContext.beginPath();
+        gameClickPlayContext.lineWidth = roundNumber(1 * dpr * sysConfig.pxRatio, 4);
+        gameClickPlayContext.setLineDash([Math.round(5 * dpr * sysConfig.pxRatio), Math.round(5 * dpr * sysConfig.pxRatio)]); // 虚线
+        gameClickPlayContext.strokeStyle = this.outLineColor;
+        gameClickPlayContext.arc(gameClickPlayCanvas.width / 2, gameClickPlayCanvas.height / 2, this.outRadius, 0, 2 * Math.PI);
+        gameClickPlayContext.stroke();
+        gameClickPlayContext.closePath();
+        gameClickPlayContext.restore();
+    }
+
+    // 点按发射按钮
+    drawClickPlayBtn() {
+        //if (userConfig.currPlayOpt !== 1) return; // 1-点按模式
+
+        // 画阴影
+        this.drawClickPlayBtnOut();
+        // 画边界线
+        this.drawClickPlayBtnOutLine();
+
+        gameClickPlayContext.save();
+        gameClickPlayContext.beginPath();
+        gameClickPlayContext.fillStyle = this.color;
+        //gameClickPlayContext.rect(0, 0, 140, 140);
+        gameClickPlayContext.arc(gameClickPlayCanvas.width / 2, gameClickPlayCanvas.height / 2, this.radius, 0, 2 * Math.PI);
+        gameClickPlayContext.fill();
+        gameClickPlayContext.closePath();
+        gameClickPlayContext.restore();
+
+        // 文字
+        this.drawBtnText();
+    }
+
+    // 绘制文字
+    drawBtnText() {
+        gameClickPlayContext.save();
+        gameClickPlayContext.fillStyle = this.fontColor;
+        // 水平对齐方式 (center left right start end)
+        gameClickPlayContext.textAlign = "center";
+        // 垂直对齐的方式 (top bottom middle)
+        gameClickPlayContext.textBaseline = 'middle';
+
+        let fontSize = 16;
+        let metrics, width, height;
+
+        gameClickPlayContext.font = fontSize * dpr + "px serif";
+        metrics = gameClickPlayContext.measureText(this.content);
+        width = roundNumber(metrics.width, 4);
+        height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
+
+        while (width > 0.5 * gameClickPlayCanvas.width) {
+            fontSize -= 1;
+            gameClickPlayContext.font = fontSize * dpr + "px serif";
+            metrics = gameClickPlayContext.measureText(this.content);
+            width = roundNumber(metrics.width, 4);
+            height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
+            if (fontSize < 1) break; // 避免 height 计算异常，导致死循环
+        }
+
+        while (height < 0.2 * gameClickPlayCanvas.height) {
+            fontSize += 1;
+            gameClickPlayContext.font = fontSize * dpr + "px serif";
+            metrics = gameClickPlayContext.measureText(this.content);
+            width = roundNumber(metrics.width, 4);
+            height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
+            if (fontSize > 50) break; // 避免 height 计算异常，导致死循环
+        }
+
+        if (fontSize < 1 || fontSize > 50) { // 字体大小异常
+            console.error(">>>> drawBtnText fontSize error.");
+            fontSize = 16;
+            gameClickPlayContext.font = fontSize * dpr + "px serif";
+        }
+
+        console.log(">>>> drawBtnText fontSize=" + fontSize + ", width=" + width + ", height=" + height);
+
+        // 写文字
+        gameClickPlayContext.font = "bold " + fontSize * dpr + "px serif";
+        gameClickPlayContext.fillStyle = this.fontColor;
+        gameClickPlayContext.fillText(this.content, gameClickPlayCanvas.width / 2, gameClickPlayCanvas.height / 2);
+        // 文字描边
+        //gameClickPlayContext.font = "bold " + (fontSize + 1) * dpr + "px serif";
+        //gameClickPlayContext.fillStyle  = this.fontLineColor;
+        //gameClickPlayContext.fillText(this.content, gameClickPlayCanvas.width / 2, gameClickPlayCanvas.height / 2);
+        gameClickPlayContext.lineWidth = roundNumber(0.5 * dpr * sysConfig.pxRatio, 4);
+        gameClickPlayContext.strokeText(this.content, gameClickPlayCanvas.width / 2, gameClickPlayCanvas.height / 2);
+
+        gameClickPlayContext.restore();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////
 // 【应用初始化】 变量、方法区域
 //////////////////////////////////////////////////////////////////////
 
@@ -5682,6 +5832,8 @@ var largeEmojiPoints = [];
 var currTheme = null;
 // 猴子分身坐标
 var monkeysPos, monkeysTargetPos;
+// 点按发射按钮，因为依赖砖格大小，初始化需要放到砖格大小计算完成之后
+var clickPlayBtn = null;
 
 
 onMounted(() => {
@@ -5741,6 +5893,9 @@ function initAppParams() {
     setDialogScrollMaxHeight(1.70);
     // 画布居中
     canvasAutoCenter();
+    // 设置点按发射按钮画布大小和位置
+    clickPlayBtn = new ClickPlayBtn();
+    setClickPlayCanvas();
     // 台面区域初始化
     tablePolygon = [
         { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 3), y: Math.round(sysConfig.cTop * dpr - currTheme.tblWidth + sysConfig.girdSize * 0) },
@@ -6862,6 +7017,22 @@ function canvasAutoCenter() {
 }
 
 
+// 设置点按发射按钮画布大小和位置
+function setClickPlayCanvas() {
+    // 设置图层为显示
+    if (userConfig.currPlayOpt === 1) gameClickPlayCanvas.style.display = "unset";
+    // 设置大小为 1.68 * 2 格
+    gameClickPlayCanvas.width = roundNumber(sysConfig.girdSize * 1.68 * 2, 4);
+    gameClickPlayCanvas.height = roundNumber(sysConfig.girdSize * 1.68 * 2, 4);
+    gameClickPlayCanvas.style.width = roundNumber(sysConfig.girdSizeCss * 1.68 * 2, 4) + "px";
+    gameClickPlayCanvas.style.height = roundNumber(sysConfig.girdSizeCss * 1.68 * 2, 4) + "px";
+
+    // 设置位置，右下角，y距离下墙面2.2格，距离右墙面2.2格
+    gameClickPlayCanvas.style.left = roundNumber(sysConfig.cLeft + sysConfig.girdSizeCss * 11.8, 4) + "px";
+    gameClickPlayCanvas.style.top = roundNumber(sysConfig.cTop + sysConfig.girdSizeCss * (19.8 - 1.68 * 2), 4) + "px";
+}
+
+
 // 设置四根切角线
 function set4AngleLine() {
     lines = []; // 避免重复添加
@@ -7801,6 +7972,9 @@ function drawTable() {
             drawIconRandom("🦀", "xxs", 2, false, true, gameSceneCanvas);
         }
     }
+
+    // 在点按发射钮图层，画发射按钮，全局只画一次
+    clickPlayBtn.drawClickPlayBtn();
 }
 
 
@@ -9387,6 +9561,8 @@ function initUserSettingDialogVal() {
 
             } else if (f === "sceneThemeMode") { // 主题名称
                 setSceneThemeText(userConfig[f]);
+            } else if (f === "currPlayOpt") { // 当前操作方式
+                setCurrPlayOptText(userConfig[f]);
             } else if (f === "mainTeamColor") { // 主角所在队颜色
                 setMainTeamColorText(userConfig[f]);
             } else if (f === "gameRoleIds") { // 指定角色名称
@@ -9709,6 +9885,28 @@ function toggleDropdown() {
 }
 
 
+// 切换操作方式，拖拽或点按，默认拖拽
+function toggleCurrPlayOpt() {
+    let val = userConfig.currPlayOpt;
+    if (!isNumber(val)) return;
+    if (val === 1) { // 1-点按
+        // 当前为点按，点击后切换为默认的拖拽
+        val = 0;
+        // 隐藏发射按钮
+        gameClickPlayCanvas.style.display = "none";
+    } else { // 其他默认为拖拽
+        // 当前为拖拽，点击后切换为点按
+        val = 1;
+        // 显示发射按钮
+        gameClickPlayCanvas.style.display = "unset";
+    }
+
+    setCurrPlayOptText(val);
+    userConfig.currPlayOpt = val;
+    localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
+}
+
+
 // 切换主角所在队颜色
 function toggleTeamColor() {
 
@@ -9824,6 +10022,17 @@ function setSceneThemeText(val) {
             break;
         default:
             document.getElementById("sceneThemeMode").innerText = "默认主题";
+    }
+}
+
+
+// 设置当前操作方式文字
+function setCurrPlayOptText(val) {
+    let ele = document.getElementById("currPlayOpt");
+    if (val === 1) { // 1-点按
+        ele.innerText = "点按";
+    } else { // 其他-默认拖拽
+        ele.innerText = "拖拽";
     }
 }
 
@@ -12623,6 +12832,7 @@ onMounted(() => {
 })
 // 尝试运动的小球，第一次碰撞坐标
 let tryMoveBallFirstCollidedPos = { x: 0, y: 0 };
+let tryMoveBallFirstCollidedPosBack = { x: 0, y: 0 };
 // 尝试运动的小球，碰撞点坐标
 let tryMoveBallCollidedPoints = [];
 // 控制绘制运动轨迹
@@ -12965,6 +13175,9 @@ function recordCollidedPoint(ball) {
         tryMoveBallFirstCollidedPos.x = ball.x;
         tryMoveBallFirstCollidedPos.y = ball.y;
         tryMoveBallCollidedPoints[0] = tryMoveBallFirstCollidedPos;
+        // 备份第一次碰撞点坐标
+        tryMoveBallFirstCollidedPosBack.x = tryMoveBallFirstCollidedPos.x;
+        tryMoveBallFirstCollidedPosBack.y = tryMoveBallFirstCollidedPos.y;
     } else {
         tryMoveBallCollidedPoints.push({ x: ball.x, y: ball.y });
     }
@@ -13082,14 +13295,11 @@ function setBallPosToBeginPoint(ball) {
 
 
 // 根据鼠标与小球连线角度，获取vx、vy
-//function getVxVy(p1, p2) {}
 function getVxVy(p1, p2, v, ball) {
     if (!ball) return { vx: 0, vy: 0 };
     let targetBall = ball;
     //if (!targetBall) targetBall = balls[0];
-    // 获取角度，鼠标位置、球位置，两点连线与y轴的角度
-    // 1-近点（主球）；2-远点
-    //let angle = getAngle({x:mouse.x, y:mouse.y},{x:targetBall.x, y:targetBall.y});
+    // 获取两点连线与X轴的夹角 1-近点；2-远点
     let angle = getAngleX({
         x: p1 ? p1.x : targetBall.x,
         y: p1 ? p1.y : targetBall.y
@@ -13097,6 +13307,19 @@ function getVxVy(p1, p2, v, ball) {
         x: p2 ? p2.x : mouse.x,
         y: p2 ? p2.y : mouse.y
     });
+    //console.log('>>>> angleX=' + angle);
+    // 主角A、撞击点B、触摸点C，计算AB、AC的夹角
+    let angleV = getAngleV(targetBall, tryMoveBallFirstCollidedPosBack, mouse);
+    // 点按操作模式
+    //clickOffset.x = 0; clickOffset.y = 0;
+    if (userConfig.currPlayOpt === 1 && (!isDragging || angleV < 135))
+        angle = getAngleX({
+            x: p1 ? p1.x : (mouse.x - clickOffset.x),
+            y: p1 ? p1.y : (mouse.y - clickOffset.y)
+        }, {
+            x: p2 ? p2.x : targetBall.x,
+            y: p2 ? p2.y : targetBall.y
+        });
     //console.log('>>>> angle=' + angle);
 
     // 已知角度、速度v，求 vx vy
@@ -13113,6 +13336,7 @@ function getVxVy(p1, p2, v, ball) {
 
     vx = roundNumber(vx, 4);
     vy = roundNumber(vy, 4);
+
     return { vx: -vx, vy: -vy };
 }
 
@@ -13181,6 +13405,31 @@ const getAngleY = ({ x: x1, y: y1 }, { x: x2, y: y2 }) => {
     return angle;
 }
 
+// 线段AB、AC相交于A，求两线段的夹角
+function getAngleV(A, B, C) {
+    // 计算向量AB和AC
+    let AB = { x: B.x - A.x, y: B.y - A.y };
+    let AC = { x: C.x - A.x, y: C.y - A.y };
+
+    // 计算向量的点积
+    let dotProduct = AB.x * AC.x + AB.y * AC.y;
+
+    // 计算向量的模
+    let magnitudeAB = Math.sqrt(AB.x * AB.x + AB.y * AB.y);
+    let magnitudeAC = Math.sqrt(AC.x * AC.x + AC.y * AC.y);
+
+    // 计算夹角的余弦值
+    let cosTheta = dotProduct / (magnitudeAB * magnitudeAC);
+
+    // 计算夹角（弧度）
+    let theta = Math.acos(cosTheta);
+
+    // 将弧度转换为角度
+    let angleInDegrees = theta * (180 / Math.PI);
+
+    return angleInDegrees;
+}
+
 //////////////////////////////////////////////////////////////////////
 
 
@@ -13188,13 +13437,23 @@ const getAngleY = ({ x: x1, y: y1 }, { x: x2, y: y2 }) => {
 // 【点击、拖动监听事件】 变量、方法区域
 //////////////////////////////////////////////////////////////////////
 // 长按定时器
-let longPressTimer = 0;
+var longPressTimer = 0;
 // 长按坐标
-let longPressPoint = { x: 0, y: 0 };
+var longPressPoint = { x: 0, y: 0 };
 // 小球拖动前的坐标
-let oldBallPos = { x: 0, y: 0 };
+var oldBallPos = { x: 0, y: 0 };
+// 点按模式触摸点与上一个碰撞点的偏移量
+var clickOffset = { x: 0, y: 0 };
+// 鼠标按下并拖动
+var isMouseMoving = false;
+// 是否正在拖动
+var isDragging = false;
+// 记录触摸开始的时间和位置
+var touchStartTime = 0;
+var touchStartX = 0;
+var touchStartY = 0;
 // 移动端开始触摸事件
-let currTouchPointNum = 0;
+var currTouchPointNum = 0;
 
 
 // 事件顺序：touchstart-touchmove-touchend-mousedown-mouseup-click
@@ -13202,7 +13461,19 @@ let currTouchPointNum = 0;
 onMounted(() => {
     if (os.isPc) canvas.addEventListener('mousedown', (e) => {
 
-        if (isMoving) return; // 运动状态
+        if (userConfig.currPlayOpt !== 1 && isMoving) return; // 处于移动或运动状态
+        touchStartTime = Date.now(); // 记录触摸开始时间
+        touchStartX = mouse.x; // 记录触摸开始位置的 X 坐标
+        touchStartY = mouse.y; // 记录触摸开始位置的 Y 坐标
+        //isDragging = true;
+        // 计算触摸点与端点 B 的偏移量
+        if (tryMoveBallFirstCollidedPosBack.x <= 0 && tryMoveBallFirstCollidedPosBack.y <= 0) {
+            clickOffset.x = 0;
+            clickOffset.y = 0;
+        } else {
+            clickOffset.x = mouse.x - tryMoveBallFirstCollidedPosBack.x;
+            clickOffset.y = mouse.y - tryMoveBallFirstCollidedPosBack.y;
+        }
 
         doEventDefault(e); // 处理事件默认行为
 
@@ -13222,13 +13493,26 @@ onMounted(() => {
 
     }, false);
 
+
     if (!os.isPc) canvas.addEventListener('touchstart', (e) => {
-        //console.log(e);
+        //isDragging = true;
+        //const touch = e.touches[0]; // 获取第一个触摸点
+        getClickPos(e);
+        touchStartTime = Date.now(); // 记录触摸开始时间
+        touchStartX = mouse.x; // 记录触摸开始位置的 X 坐标
+        touchStartY = mouse.y; // 记录触摸开始位置的 Y 坐标
+        // 计算触摸点与端点 B 的偏移量
+        if (tryMoveBallFirstCollidedPosBack.x <= 0 && tryMoveBallFirstCollidedPosBack.y <= 0) {
+            clickOffset.x = 0;
+            clickOffset.y = 0;
+        } else {
+            clickOffset.x = mouse.x - tryMoveBallFirstCollidedPosBack.x;
+            clickOffset.y = mouse.y - tryMoveBallFirstCollidedPosBack.y;
+        }
         doEventDefault(e);
         currTouchPointNum = e.touches.length;
         // 目前只支持单点触碰
         if (currTouchPointNum !== 1) return;
-        getClickPos(e);
         // 触摸开始，设置长按定时器
         longPressPoint.x = mouse.x;
         longPressPoint.y = mouse.y;
@@ -13250,8 +13534,7 @@ onMounted(() => {
 })
 
 
-// 鼠标按下并拖动
-var isMouseMoving = false;
+// 拖拽移动业务处理
 function onMouseMove(isPlay2) {
 
     // 如果是导入，标记移动完成
@@ -13405,7 +13688,11 @@ function switchPxOrGird(p, no) {
 }
 
 
-function onMouseUp() {
+function onMouseUp(e) {
+    //console.log(e);
+    isDragging = false;
+    // PC 端移动完成后模拟一次点击
+    doClick(e);
     // 鼠标左键抬起，重置长按定时器
     longPressTimer && clearTimeout(longPressTimer);
     longPressTimer = 0;
@@ -13417,6 +13704,7 @@ function onMouseUp() {
 
 function onMouseOrTouchMove(e) {
     //console.log(e);
+    isDragging = true;
     doEventDefault(e);
     // 解决部分机型，手指没有move，touchmove事件仍会被调用的问题
     // 太精确的全等会导致触摸稍微抖动一下就会重置定时器，导致长按不灵敏
@@ -13433,6 +13721,7 @@ function onMouseOrTouchMove(e) {
 
 
 function onTouchEnd() {
+    isDragging = false;
     // 清除事件
     canvas.removeEventListener('touchmove', onMouseOrTouchMove, false);
     canvas.removeEventListener('touchend', onTouchEnd, false);
@@ -13470,7 +13759,23 @@ onMounted(() => {
     if (os.isPc) canvas.addEventListener('click', (e) => {
         doEventDefault(e);
         getClickPos(e);
-        doClick(e);
+        const touchEndX = mouse.x; // 触摸结束位置的 X 坐标
+        const touchEndY = mouse.y; // 触摸结束位置的 Y 坐标
+        const touchEndTime = Date.now(); // 记录触摸结束时间
+
+        // 计算触摸移动的距离
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // 计算触摸持续时间
+        const duration = touchEndTime - touchStartTime;
+
+        // 判断是否为单击事件
+        if (duration < 300 && distance < 10) { // 300ms 内且移动距离小于 10px
+            //alert("PC Click"); // PC 端移动结束时会出发点击事件
+            doClick(e, true);
+        }
 
     }, false);
 
@@ -13488,6 +13793,14 @@ onMounted(() => {
         //getClickPos(e);
     }, false);
 
+    // 点按发射按钮点击监听
+    if (os.isPc) gameClickPlayCanvas.addEventListener('click', (e) => {
+        doEventDefault(e);
+        // 发射处理
+        doClickPlay(e);
+    }, false);
+
+    // 砖格坐标双击切换显示
     if (os.isPc) gameSceneCoordinateCanvas.addEventListener('dblclick', (e) => {
         doEventDefault(e);
         // 切换完全坐标
@@ -13507,6 +13820,7 @@ onMounted(() => {
     if (!os.isPc) canvas.addEventListener('touchend', (e) => {
         //console.log(e);
         //alert(e.touches.length);
+        isDragging = false;
         doEventDefault(e);
         //if (e.type !== "touchend" && e.touches.length !== 0) return;
         if (currTouchPointNum !== 1) return;
@@ -13514,15 +13828,56 @@ onMounted(() => {
         longPressTimer && clearTimeout(longPressTimer);
         longPressTimer = 0;
 
-        let now = (new Date()).getTime();
-        if (now - lastTouchEnd <= 300) { // 200~300
+        //const touch = e.changedTouches[0]; // 获取第一个触摸点
+        //const touchEndX = touch.clientX; // 触摸结束位置的 X 坐标
+        //const touchEndY = touch.clientY; // 触摸结束位置的 Y 坐标
+        //const touchEndTime = Date.now(); // 记录触摸结束时间
+        //getClickPos(e);
+        const touchEndX = mouse.x; // 触摸结束位置的 X 坐标
+        const touchEndY = mouse.y; // 触摸结束位置的 Y 坐标
+        const touchEndTime = Date.now(); // 记录触摸结束时间
+
+        // 计算触摸移动的距离
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // 计算触摸持续时间
+        const duration = touchEndTime - touchStartTime;
+
+        // 判断是否为单击事件
+        let isClicked = false;
+        if (duration < 300 && distance < 10) { // 300ms 内且移动距离小于 10px
+            //alert(">>>> 单击了"); // TODO 双击会触发两次单击
+            isClicked = true;
+            doClick(e, true);
+        }
+
+        if (touchEndTime - lastTouchEnd <= 300) { // 200~300
             //alert(">>>> 双击了");
             doDbClick(e);
         } else {
-            //alert(">>>> 单击了");
-            doClick(e);
+            //alert(">>>> 鼠标抬起触发单击了");
+            if (!isClicked) doClick(e);
         }
-        lastTouchEnd = now;
+        lastTouchEnd = touchEndTime;
+    }, false);
+
+
+    // 移动端点按发射按钮点击监听
+    var lastTouchEndClickBtn = 0;
+    if (!os.isPc) gameClickPlayCanvas.addEventListener('touchend', (e) => {
+        doEventDefault(e);
+        let now = (new Date()).getTime();
+        if (now - lastTouchEndClickBtn <= 300) { // 200~300
+            //alert(">>>> 双击了");
+            //doDbClick(e);
+        } else {
+            //alert(">>>> 单击了");
+            // 发射处理
+            doClickPlay(e);
+        }
+        lastTouchEndClickBtn = now;
     }, false);
 
 
@@ -13551,8 +13906,19 @@ onMounted(() => {
 })
 
 
+// 点按发射按钮点击
+function doClickPlay(e) {
+    if (!selectedBall) return; // 没用选中球
+    if (selectedBall.vx === 0 && selectedBall.vy === 0) return; // 没有拖动完成时，没有速度
+    // 点击范围判断，不同的画布坐标系不一致
+    //if (!is2CirclesCollided(ball1, ball2)) return;
+    clickPlayBtn.isReady = true;
+    doClick(e);
+}
+
+
 // 单击后处理逻辑
-function doClick(e) {
+function doClick(e, isClick) {
 
     // 三连击计数
     //preTripleClick(e);
@@ -13561,6 +13927,16 @@ function doClick(e) {
 
     if (!selectedBall) return; // 没用选中球
     if (userConfig.isJustShowTable) return; // 只显示台面，不处理点击事件
+    // 点按模式点击时模拟拖动
+    if (isClick && userConfig.currPlayOpt === 1 && !clickPlayBtn.isReady) {
+        // 点击调整位置时，偏移归零
+        clickOffset.x = 0; clickOffset.y = 0;
+        // 模拟一次移动
+        onMouseMove();
+        // 需重新渲染
+        isAnimated = false;
+        if (!isPlaying) animate();
+    }
 
     //console.log(">>>> isChgPosFinished=" + selectedBall.isChgPosFinished);
     //if (selectedBall) console.log(">>>> isBallReady=" + isBallReady(selectedBall));
@@ -13617,7 +13993,14 @@ function doClick(e) {
         isKuileiPulling = false;
         // 只瞄准不打
         if (userConfig.isJustTrying) doJustTrying();
+        // 点按发射标识重置
+        clickPlayBtn.isReady = false;
+        // 隐藏发射按钮
+        if (userConfig.currPlayOpt === 1) gameClickPlayCanvas.style.display = "none";
+        // 第一个碰撞点备份重置
+        tryMoveBallFirstCollidedPosBack.x = 0; tryMoveBallFirstCollidedPosBack.y = 0;
     }
+
     // 判断球位置是否改动
     if (isBallMoved(selectedBall)) { // 拖动完成
         if (selectedBall.isMainBall) selectedBall.isChgPosFinished = true; // 主球才会有拖动完成，会发射，发射后才可以再次拖动
@@ -13625,6 +14008,11 @@ function doClick(e) {
         // 自动隐藏坐标条
         rolePosLineTimer = setTimeout(() => { rolePosLine.style.display = 'none' }, 3000);
     }
+
+    // 鼠标抬起的click事件，点按发射偏移坐标重置
+    clickOffset.x = 0; clickOffset.y = 0;
+    // 显示发射按钮
+    if (userConfig.currPlayOpt === 1 && selectedBall && selectedBall.isChgPosFinished) gameClickPlayCanvas.style.display = "unset";
 }
 
 
@@ -13676,6 +14064,8 @@ function preTripleClick(e, isDbClick) {
 function doLongPress(e) {
     //console.log(e);
     if (!userConfig.isLongPressRandom) return;
+    // 在瞄准阶段不能重置
+    if (selectedBall && selectedBall.isChgPosFinished) return;
     // 移动端目前只支持单点触碰
     if (!os.isPc && currTouchPointNum !== 1) return;
     // 只显示台面，不处理点击事件
@@ -13751,6 +14141,7 @@ function isBallMoved(ball) {
 // 小球是否准备就绪，vx、vy 不为零
 function isBallReady(ball) {
     if (!ball) return false;
+    if (userConfig.currPlayOpt === 1 && !clickPlayBtn.isReady) return false;
     if (ball.vx !== 0 || ball.vy !== 0) {
         // 速度准备就绪
         return true;
