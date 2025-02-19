@@ -1662,8 +1662,7 @@ input:checked+.slider:before {
                     <span class="user-setting-item-msg-left">分享/导入角色及坐标</span><span class="reset-btn"
                         @click="resetShareContent(this);" title="重置分享"> 🔄 </span>
                     <div class="user-setting-item-input-area collide-try-in-one-line">
-                        <input type="text" id="shareRoleAndPos" value="" maxlength="1000"
-                            placeholder="粘贴内容后点击导入，刷新页面生效">
+                        <input type="text" id="shareRoleAndPos" value="" maxlength="1000" placeholder="粘贴内容后点击导入">
                         <button class="collide-try-btn bg-lv1" id="rpShareCopy" @click="copyShareContent();">复制</button>
                         <button class="collide-try-btn bg-lv2" id="rpShareImport" @click="importShareContent();"
                             style="display: none;">导入</button>
@@ -5937,7 +5936,7 @@ function initRoles() {
     if (userConfig.shareRoleAndPos) {
         try {
             shareData = JSON.parse(userConfig.shareRoleAndPos);
-            console.log(shareData);
+            //console.log(shareData);
         } catch (e) { }
     }
     if (!shareData) setCurrRoleV2();
@@ -6025,9 +6024,11 @@ function reInit(isImport, isKeepDialog) {
     resetAnimate();
     // 模拟重打清屏重新开始新的渲染
     if (isImport) directPlayAgain(true);
-    else directPlayAgain(false);
-    // 解除 directPlayAgain() 选中的主球
-    selectedBall = null;
+    else {
+        directPlayAgain(false);
+        // 解除 directPlayAgain() 选中的主球
+        selectedBall = null;
+    }
     // 重新渲染
     //isAnimated = false;
     //if (!isPlaying) animate();
@@ -13109,7 +13110,7 @@ function doBackToBorderBallsCollided(ball0, ball1, isCheck) {
     if (!ball0.vx && !ball0.vy) return;
     if (!isCheck) return;
     let count = 0; // 循环计数，避免死循环
-    let bvx = 0, bvy = 0, bpx = 1, bvxyp = Math.abs(roundNumber(ball0.vx / ball0.vy)); // 后退的速度方向和大小
+    let bvx = 0, bvy = 0, bpx = 1, bvxyp = Math.abs(roundNumber(ball0.vx / ball0.vy)); // 后退的速度方向和大小 可能会有除0异常，但为0的情况后续没用到，没影响
     //if (!isNumber(bvxyp)) alert(bvxyp); // Infinity
     while (is2CirclesCollided(ball0, ball1)) {
         // 把速度大的设置为 bpx
@@ -13135,7 +13136,7 @@ function doBackToBorderBallsCollided(ball0, ball1, isCheck) {
     }
     console.log(">>>> doBackToBorderBallsCollided count=" + count);
 
-    // 取上一次碰撞坐标，因为 while 结束之后，是没有碰撞的坐标
+    // 取上一次碰撞坐标，因为 while 结束之后，是两球没有碰撞时的坐标，需要加一点点
     if (bvx || bvy) {
         ball0.x += bvx;
         ball0.y += bvy;
