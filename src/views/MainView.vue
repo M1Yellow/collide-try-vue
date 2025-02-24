@@ -1787,9 +1787,10 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.1 更新：<span class="collide-try-update-date">2025-02-18</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.1 更新：<span class="collide-try-update-date">2025-02-23</span></b></div>
 <pre id="collide-try-about-app-update-newest">
 1. 新增【点按发射】操作方式
+2. 补全角色录入（67个）
 </pre>
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.6.0 更新：<span
                             class="collide-try-update-date">2025-01-29</span></b></div>
@@ -4956,6 +4957,7 @@ class Role {
     static YURRONG = new Role(64, "🐣", "羽绒绒", "鸡仔", "绒", null);
     static LINGOU = new Role(65, "🦸‍♀️", "萌心灵偶", "灵偶", "偶", null);
     static GOLDKING = new Role(66, "金", "金角大王", "金角", "金", null);
+    static DUDU = new Role(67, "🐕️", "嘟嘟上校", "嘟嘟", "嘟", null);
 
 
     // 角色类型分类：超肉、肉、杀、肉杀、乱碰、被乱碰、陷阱、标记、自动打(毒素、喷火等技能)、回血、复活/名刀、加速、减速、加护盾、加伤害、减伤害、反弹伤害
@@ -5221,6 +5223,7 @@ class Role {
         this.YURRONG.cps = [Role.DUODUO.id, Role.ZHANAN.id, Role.DIANYIN.id, Role.RABBIT.id, Role.HEIWA.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.YEREN.id, Role.PUMPKIN.id, Role.HUAQIANJI.id, Role.YINGYING.id, Role.CAPTAIN.id, Role.JOKER.id, Role.ZHADANKE.id];
         this.LINGOU.cps = [Role.RABBIT.id, Role.DIANYIN.id, Role.HEIWA.id, Role.ZHANAN.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.YEREN.id, Role.PUMPKIN.id, Role.YINGYING.id, Role.CAPTAIN.id, Role.JOKER.id, Role.ZHADANKE.id];
         this.GOLDKING.cps = [Role.RABBIT.id, Role.DIANYIN.id, Role.HEIWA.id, Role.LINGLING.id, Role.QUANBA.id, Role.CAPTAIN.id, Role.JOKER.id, Role.ZHADANKE.id];
+        this.DUDU.cps = [Role.JUNDUN.id, Role.WUNV.id, Role.XIUNV.id, Role.CHUZI.id, Role.LEIMENG.id, Role.YEREN.id, Role.CAPTAIN.id, Role.JOKER.id, Role.TUYA.id, Role.LINGOU.id, Role.BAKE.id, Role.JIUWEIHU.id, Role.NUANYANG, Role.XIXUEGUI.id.id];
 
     }
 
@@ -6493,7 +6496,7 @@ function initBallByRole(ball) {
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
             break;
         case Role.LEIMENG.id:
-            if (!ball.color) ball.color = "#342F41"; // 取的默认皮肤头发颜色
+            if (!ball.color) ball.color = "#FF7896"; // 取通行证皮肤头发中颜色
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快
@@ -6553,7 +6556,7 @@ function initBallByRole(ball) {
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XS; // 极慢
             break;
         case Role.SANTAIZI.id:
-            if (!ball.color) ball.color = "#B9C6CE"; // 取的默认皮肤衣服颜色
+            if (!ball.color) ball.color = "#E14039"; // 取通行证皮肤衣服颜色
             ball.sizeRatio = Ball.SIZERATIO.S; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
@@ -6703,7 +6706,7 @@ function initBallByRole(ball) {
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.S; // 慢
             break;
         case Role.YOUFANG.id:
-            if (!ball.color) ball.color = "#6D2665"; // 取的默认皮肤头发颜色
+            if (!ball.color) ball.color = "#D61D38"; // 取通行证皮肤头发中颜色
             ball.sizeRatio = Ball.SIZERATIO.S; // 小
             ball.mRatio = Ball.WEIGHTRATIO.S; // 轻
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快
@@ -6715,19 +6718,19 @@ function initBallByRole(ball) {
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
             break;
         case Role.YEREN.id:
-            if (!ball.color) ball.color = "#FFA803"; // 取的默认皮肤牛角颜色
+            if (!ball.color) ball.color = "#747A51"; // 取通行证皮肤头发中颜色
             ball.sizeRatio = Ball.SIZERATIO.L; // 大
             ball.mRatio = Ball.WEIGHTRATIO.L; // 重
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
             break;
         case Role.BAIGUJING.id:
-            if (!ball.color) ball.color = "#5A4A71"; // 取的默认皮肤头发颜色
+            if (!ball.color) ball.color = "#D9D7E6"; // 取通行证皮肤头发中颜色
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
             break;
         case Role.TUYA.id:
-            if (!ball.color) ball.color = "#3F3B41"; // 取的默认皮肤头发颜色
+            if (!ball.color) ball.color = "#A651EF"; // 取通行证皮肤头发中颜色
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.XS; // 极轻
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 极快
@@ -6739,22 +6742,28 @@ function initBallByRole(ball) {
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 快 速度加快一点
             break;
         case Role.YURRONG.id:
-            if (!ball.color) ball.color = "#FFEE9A"; // 取的默认皮肤鸡仔颜色
+            if (!ball.color) ball.color = "#DBA9EC"; // 取通行证皮肤棉服颜色
             ball.sizeRatio = Ball.SIZERATIO.S; // 小
             ball.mRatio = Ball.WEIGHTRATIO.S; // 轻
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快
             break;
         case Role.LINGOU.id:
-            if (!ball.color) ball.color = "#4E4656"; // 取的默认皮肤机甲中颜色
+            if (!ball.color) ball.color = "#BAD7FF"; // 取通行证皮肤头发颜色
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 极快
             break;
         case Role.GOLDKING.id:
-            if (!ball.color) ball.color = "#DF3530"; // 取的默认皮肤葫芦颜色
+            if (!ball.color) ball.color = "#9B9A5A"; // 取通行证皮肤头巾颜色
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.S; // 轻
-            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 极快
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
+            break;
+        case Role.DUDU.id:
+            if (!ball.color) ball.color = "#FC3D39"; // 取的通行证皮肤铠甲颜色
+            ball.sizeRatio = Ball.SIZERATIO.M; // 中等
+            ball.mRatio = Ball.WEIGHTRATIO.M; // 轻
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
             break;
         default: // 默认是黑娃
             ball.color = "#74593A"; // 默认皮肤颜色(RosyBrown玫瑰棕)-CA9480；脸颊边缘脸红的颜色(IndianRed印度红)-A36E5D；黑(Black)-151A14；棕色头发(DarkOliveGreen暗橄榄绿)-74593A
