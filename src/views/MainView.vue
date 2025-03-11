@@ -1787,11 +1787,16 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.1 更新：<span class="collide-try-update-date">2025-02-23</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.2 更新：<span class="collide-try-update-date">2025-03-11</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 新增【点按发射】操作方式
-2. 补全角色录入（67个）
+1. 不公平的游戏，全是⭕️💰️和算计！
+2. 游戏的意义应该是和有趣的人轻松愉快地享受游戏过程，而不是每日每夜千篇一律地打来打去、比来比去！
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.6.1 更新：<span
+                            class="collide-try-update-date">2025-02-23</span></b></div>
+                1. 新增【点按发射】操作方式
+                2. 补全角色录入（67个）
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.6.0 更新：<span
                             class="collide-try-update-date">2025-01-29</span></b></div>
                 1. 优化角色碰撞反弹角度问题
@@ -1944,9 +1949,9 @@ input:checked+.slider:before {
                 <div id="collide-try-bye-reason" class="collide-try-goodbye">
                     <pre>
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">几个游戏公平建议：<span class="collide-try-update-date"></span></b></div>
-<span class="collide-try-each-item-margin">① 开局在选择角色框下方加入“石头剪刀布”选项，谁赢谁先手！系统不要帮选，不选则后手，选完在游戏界面公示！</span>
+<span class="collide-try-each-item-margin">① 开局在选择角色框下方加入“石头剪刀布”选项，谁赢谁先手！系统不要帮选，不选则后手，选完在游戏界面公示！平局再按现有的蓝红顺序轮流先手方式</span>
 <span class="collide-try-each-item-margin">② 1号位先打，2号位后打，交给玩家自己决定，玩家就想1号位先打就这么难？</span>
-<span class="collide-try-each-item-margin">③ 开局角色位置、🌿、💣、🍄 等陷阱位置，请完全随机！哪有那么巧就刚好给直线？</span>
+<span class="collide-try-each-item-margin">③ 开局角色位置、🌿、💣、🍄、🔪 等陷阱位置，请完全随机！哪有那么巧就刚好给直线？</span>
 <span class="collide-try-each-item-margin">④ 加入『允许发言交流』勾选框，只要有一个玩家不勾选，就不能发言和发表情！</span>
 <span class="collide-try-each-item-margin">⑤ 加入《撞王等级资格证》机制，根据上一个赛季和当前赛季最高段位自动区分，大奖赛【大师】以下段位加入撞王等级匹配规则，避免 20、30 多级的玩家频繁对阵满级大佬被气走！留住新用户才有得 ⭕ 啊！[狗头]</span>
 <span class="collide-try-each-item-margin">⑥ 中奖概率有偏爱就不提了！回馈衣食父母也没错 👌</span>
@@ -1959,13 +1964,15 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">• 牺牲公平换利益，实在是玩不过！每天都会被不公平和各种BUG气炸！（越是在乎，看得越清，就会越气）</span>
 <span class="collide-try-each-item-margin">• 工作、生活已经够累了，还要比来比去！游戏娱乐放松了个啥？游戏社交真的能交到好朋友或奔现对象？</span>
 <span class="collide-try-each-item-margin">• 40级以下，技巧不够、没角色或者只有标配组合，很难打赢高配组合，大概率白送；40级以上，几乎都是高配，先手和开局位置至关重要，两局甚至三局不给先手，大概率连跪！先手和开局好位置给谁，懂的都懂！</span>
+<span class="collide-try-each-item-margin">• 耗费一两年好不容易换齐了高配组合，又陆续搞出新的“一刀999”的⭕️💰️角色，永远都是花钱的爽，不花钱的陪玩！</span>
+<span class="collide-try-each-item-margin">• 一直匹配满级满角色的对手，还一直给对手先手和开局位置优势，谁有这个时间精力被这样算计戏弄？每天拿一两个小时宝贵的业余时间来玩游戏，换来的却是算计和气愤！</span>
 
 
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">所以呢？还玩吗？<span class="collide-try-update-date"></span></b></div>
 <span class="collide-try-each-item-margin">• <b>清楚自己为什么玩这个游戏！</b>不公平的事情多了去了！怕浪费时间精力就减少做任务/冲分的局数，或者跟好友过一下日常任务、切磋几局练习角色技巧，再或者每天登录签到就行了！</span>
 <span class="collide-try-each-item-margin">• <b>目标段位期望太高会玩得很累！</b>角色搭配没凑齐高配，撞击技巧（角度、连击、落点）熟练度不够（角色 > 技巧 = 运气[氪金]），遇到满级大佬或者突破&高配组合确实很难赢（毕竟他们已经玩了几年了）！很多 20、30 多级的玩家大奖赛频繁对阵满级大佬，输到怀疑人生，没挺过这段艰难的瓶颈期就气到【注销】了！</span>
-<span class="collide-try-each-item-margin">• <b>大奖赛“日三”，十局完不成就放下吧！</b>平均一大局（3小局）7 分钟，10 局就一个多小时，20 局两小时以上，每天几个小时玩游戏是挺奢侈的了！用一半的游戏时间经营打理现实生活，会不会更有意义？</span>
-<span class="collide-try-each-item-margin">•【角色拼不过】+【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！<b>这个【拼角色】的游戏别太较劲硬肝！40级之前，角色兑换路线和技巧练习才是关键！</b></span>
+<span class="collide-try-each-item-margin">• <b>大奖赛“日三”，最多二十局完不成就放下吧！</b>平均一大局（3小局）7 分钟，10 局就一个多小时，20 局两小时以上，每天几个小时玩游戏是挺奢侈的了！用一半的游戏时间经营打理现实生活，会不会更有意义？</span>
+<span class="collide-try-each-item-margin">•【角色拼不过】+【系统先后手和开局位置算计】+【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！<b>这个【拼角色】的游戏别太较劲硬肝！40级之前，角色兑换路线和技巧练习才是关键！</b></span>
 
 
                     </pre>
@@ -3460,9 +3467,13 @@ let superKey = "";
 let easyKey = "";
 let accessMsg = "";
 let codeStr = "";
-let encodeStr = "DgF9Zzthm2dzH9BlrA8f3Tr2sq9qo8v3W3uErbwRDa71mhgFYLoioDR5PV/RgBSJqgH/GEdqs4UJXSoL4pzfYfQPDwIf5ANJtOekDPOuAT7facW4ox7eQuBbW42IY9DV49trRS1ScTBa4leniUcpZGz9Mk86f12M7jq95TWkng2r/FnMGTWY2z8YOPEbq5B/7lw4JnfFMb7rOODDyUDdP8Vx6whPjsHX0VRlSApOyzscFdDcQinBdolaOFxQn7WwUeBzswktWAR95GebkVUHDXUEh+OnQ+XGrVmdEmG3MRocVOD/6NbpZN0FXG8uQ+XOEPYQpZpsyek5PAGTD70Cf3hwMv1y3Ubp0K7Nx6QabVBZPt+UN+yHefD4f2popjvvVuMDULekmx6Sq/OXJUka8o+i/2uHGc/1FEuAb3lgTakZoV49lqlotxmciTu6V24CPIm/4lEmrJG61kJvdjxZB5iXtNckRqgr4h6UNiF/WxD3uqgRKxdy3hd3rRkyQ8Xa04XYn3kZ5VqHMldsYeQ+6FpXfqwxqH+QKxVIhlPe+pboBJ+X+8Mc1Dx3QPoZrBWA7fSToIK/0IkJ5aWP//ReaK+rzftYpNUQNHxRsV9Kv8nJSyR1nUysaMSPEO6nPY/fHcAY+kxPbvk2rs16cgnmtqgx+BVqXL02FW1JHh5OPRlvJzDYx7E7L4vU8XGgVoMXVSFEP522Nrg37ulGaXCfNSqZj3jURUS1QEfQ0sd9J3W3eO4R00mqrSvNr/uDdiXlmm1u89pHqrK2J9odvLt1JVeHhHA8ABgzmSF2Gw1Tx3qz2YeeYBHOUNTvp+cJuoNVjA+EpSlJhH6+MMPLvFbacEwYNf9/5ePFMxjKoRtvt6j4DTuYF/NFJZS9hr1hQX1auJI4N1pSTjyEThQocSGF8cMg9VYTskm+ducrQpqJtcve3LyF1eNwmmwaqPVAmsjYD2M=";
+let encodeStr = "AAE34ufuz2culEBoacX1oHWt5cTES9ys/1a1IW6jzPhw9nIXTuJmztjfQ3wYndTc4QcL+v4ydrAaHD60ZhPgdU09vuFvP9WOTjVZlOX0w3p9Bu1gRrqSryqxzY4lMlnxl8b8fotlfCfJcbWyRjdfO5Hk3lMoE/A8ZcgHft2Tf1LiFqsIK4P6B5odMtVN9y4Hne48ByT+386TEM6jowJYDteD8wV0syMbhgSpEsocJ9hu/58oEERVNE8i4JUhnGx9Zjw2oeXS6Hq7cyEpPuOxO79m6cCBL4NdsUaEY0RLQzLQVsb80L98gjBXvIJzmzySRYEWT16PuJ42Ayps2NxhaKlNR0M4QMtyxCHZeWj+bJXc4dO7gr+idSripI2s7p9jzyZJ2n0b98iYqDHFOHHeimQqvqgIIqaSMeQ7E6mTpUUU91iJy/OYd+Yq5wZuXOKpssnM6hSFkkfNRGCVFAIisoVZED88JgieWLW61bkOHXRDYeBxqYVxgQAXrlpd9WOJV3S8cSda6d6JdbG6MAknmH/hRr35Eb8t7d0z6k5BB1olDnYVeJiM5OC8xxOOtbE7Tf5oSflsOYKoclRrERsG9RKHyce+gW9FMiJ1ARlvekhn5thV+MVQnV2svhYvwlnbP23ByJUJkwKQatEyqzv4ybUSPO2plC2t5JRtmsbb2fmfrGPwsCyuzN6O/R1Og+lQ9jeZ70cpmZNL3aD8kCfpAaKwjFiCZx+eUHDDUQCrTst4k646V82uyx08y/xrtz0zjh/Dd/AK9+Yp083qfh0XTXiUdLWZvZJQHS3XFsouCYFfEdQIPs02B0rivvs3gODScznXaYj7avgvu5HskCxAziyuJtJGrO1kVghSCKCoxjBhWOwPgKfLe8cni3rqQ9SZry3gAcTd4vBASZiSzH92dYMlOSYJeXfm9stYrp9gJ0RNKtEA7VcW6vsOJ5cqwxTPyuraT6isdPZY1SR58tJw";
 let superKeyEnStr = "OAAmtPpWmmd9teJ4Z+9eMFoxd/j3pm2wnjXQEK6aV4a3W4qPFKFisA==";
 let easyKeyEnStr = "aQCKYRNVnmeL4I8rOidyVAEmJJbbAEObleUp+Y47zjHTiFAeDLrLMw==";
+if (accessKey && codeStr) {
+    encodeStr = Aes.Ctr.encrypt(codeStr, accessKey, 256);
+    console.log('>>>> encodeStr=', encodeStr);
+}
 if (accessKey && superKey) {
     superKeyEnStr = Aes.Ctr.encrypt(accessKey, superKey, 256);
     console.log('>>>> superKeyEnStr=', superKeyEnStr);
@@ -3470,10 +3481,6 @@ if (accessKey && superKey) {
 if (accessKey && easyKey) {
     easyKeyEnStr = Aes.Ctr.encrypt(accessKey, easyKey, 256);
     console.log('>>>> easyKeyEnStr=', easyKeyEnStr);
-}
-if (accessKey && codeStr) {
-    encodeStr = Aes.Ctr.encrypt(codeStr, accessKey, 256);
-    console.log('>>>> encodeStr=', encodeStr);
 }
 // TODO 更新访问密钥之后，还需要更改 nginx 下载链接中的密钥
 
@@ -3492,6 +3499,8 @@ function checkCoreCode(method, isDialog) {
     for (let i = 0, len = 100; i < len; i++) {
         // 先从 localStorage 获取 accessKey
         accessKey = localStorage.getItem('collide-try-access-key');
+        // 退游了，公开访问
+        accessKey = "Pg24fzRl02a45odGEvKsFqL0MHmykigF";
 
         if (isDialog) {
             // 没找到，再弹窗提示输入【访问密钥】
@@ -3705,7 +3714,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250218"),
+    version: Number(packageVersion.replaceAll(".", "") + "250311"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -6762,7 +6771,7 @@ function initBallByRole(ball) {
         case Role.DUDU.id:
             if (!ball.color) ball.color = "#FC3D39"; // 取的通行证皮肤铠甲颜色
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
-            ball.mRatio = Ball.WEIGHTRATIO.M; // 轻
+            ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
             break;
         default: // 默认是黑娃
@@ -8566,15 +8575,15 @@ function drawTableLines() {
     // 移动坐标系到场景中心
     gameSceneLinesContext.translate(roundNumber(gameSceneLinesCanvas.width / 2, 4), roundNumber(gameSceneLinesCanvas.height / 2, 4));
     gameSceneLinesContext.beginPath();
-    gameSceneLinesContext.moveTo(-sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[1], -sysConfig.girdSize * 11 - currTheme.tblWidth / 2); // 起点，对应左上第二个点
-    gameSceneLinesContext.lineTo(sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[2], -sysConfig.girdSize * 11 - currTheme.tblWidth / 2);
-    gameSceneLinesContext.lineTo(sysConfig.girdSize * 7 + currTheme.tblWidth / 2, -sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[3]);
-    gameSceneLinesContext.lineTo(sysConfig.girdSize * 7 + currTheme.tblWidth / 2, sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[4]);
-    gameSceneLinesContext.lineTo(sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[5], sysConfig.girdSize * 11 + currTheme.tblWidth / 3);
-    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 4 + sysConfig.wan8CocosTableMoveVals[6], sysConfig.girdSize * 11 + currTheme.tblWidth / 3);
-    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 7 - currTheme.tblWidth / 2, sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[7]);
-    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 7 - currTheme.tblWidth / 2, -sysConfig.girdSize * 8 + sysConfig.wan8CocosTableMoveVals[0]);
-    gameSceneLinesContext.closePath(); // 闭合路径
+    gameSceneLinesContext.moveTo(-sysConfig.girdSize * 4 - currTheme.tblWidth / 4 + sysConfig.wan8CocosTableMoveVals[1], -sysConfig.girdSize * 11 - currTheme.tblWidth / 2); // 起点，上边框左端点
+    gameSceneLinesContext.lineTo(sysConfig.girdSize * 4 + currTheme.tblWidth / 4 + sysConfig.wan8CocosTableMoveVals[2], -sysConfig.girdSize * 11 - currTheme.tblWidth / 2); // 上边框
+    gameSceneLinesContext.lineTo(sysConfig.girdSize * 7 + currTheme.tblWidth / 2, -sysConfig.girdSize * 8 - currTheme.tblWidth / 4 + sysConfig.wan8CocosTableMoveVals[3]); // 右上角斜边框
+    gameSceneLinesContext.lineTo(sysConfig.girdSize * 7 + currTheme.tblWidth / 2, sysConfig.girdSize * 8 + currTheme.tblWidth / 4 + sysConfig.wan8CocosTableMoveVals[4]); // 右边框
+    gameSceneLinesContext.lineTo(sysConfig.girdSize * 4 + currTheme.tblWidth / 4 + sysConfig.wan8CocosTableMoveVals[5], sysConfig.girdSize * 11 + currTheme.tblWidth / 2); // 右下角斜边框
+    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 4 - currTheme.tblWidth / 4 + sysConfig.wan8CocosTableMoveVals[6], sysConfig.girdSize * 11 + currTheme.tblWidth / 2); // 下边框
+    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 7 - currTheme.tblWidth / 2, sysConfig.girdSize * 8 + currTheme.tblWidth / 4 + sysConfig.wan8CocosTableMoveVals[7]); // 左下角斜边框
+    gameSceneLinesContext.lineTo(-sysConfig.girdSize * 7 - currTheme.tblWidth / 2, -sysConfig.girdSize * 8 - currTheme.tblWidth / 4 + sysConfig.wan8CocosTableMoveVals[0]); // 左边框
+    gameSceneLinesContext.closePath(); // 闭合路径，左上角斜边框
     gameSceneLinesContext.stroke();
     gameSceneLinesContext.restore();
 }
