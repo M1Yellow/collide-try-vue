@@ -448,12 +448,12 @@ canvas {
 }
 
 #role-shuangzi-1 {
-    margin-right: 7px;
+    margin-right: 4px;
     z-index: 1002;
 }
 
 #role-shuangzi-2 {
-    margin-left: 7px;
+    margin-right: -4px;
     margin-top: -2px;
     z-index: 1001;
 }
