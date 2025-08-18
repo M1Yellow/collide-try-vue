@@ -1787,11 +1787,16 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.2 更新：<span class="collide-try-update-date">2025-03-11</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.3 更新：<span class="collide-try-update-date">2025-08-18</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 不公平的游戏，全是⭕️💰️和算计！
-2. 游戏的意义应该是和有趣的人轻松愉快地享受游戏过程，而不是每日每夜千篇一律地打来打去、比来比去！
+1. 修复高屏幕帧率（90/120Hz）兼容性问题
+2. 补全角色录入（70个）
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.6.2 更新：<span
+                            class="collide-try-update-date">2025-03-11</span></b></div>
+                1. 不公平的游戏，全是⭕️💰️和算计！
+                2. 游戏的意义应该是和有趣的人轻松愉快地享受游戏过程，而不是每日每夜千篇一律地打来打去、比来比去！
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.6.1 更新：<span
                             class="collide-try-update-date">2025-02-23</span></b></div>
                 1. 新增【点按发射】操作方式
@@ -2901,6 +2906,38 @@ dpr = roundNumber(dpr, 4);
 console.log(">>>> dpr=" + dpr); // 2/2.7/3
 
 
+// 设备帧率检测
+let fpsCheckLast = Date.now();
+let fpsTicks = 0;
+let fpsCheckValues = new Array();
+let fpsCheckCount = 0;
+let fpsCtrlFlag = false; // fps 帧率是否需要控制帧率
+function fpsCheckLoop() {
+    fpsTicks += 1;
+    // 每30帧统计一次帧率
+    if (fpsTicks >= 30) {
+        const now = Date.now();
+        const diff = now - fpsCheckLast;
+        const fps = Math.round(1000 / (diff / fpsTicks));
+        fpsCheckLast = now;
+        fpsTicks = 0;
+        fpsCheckValues[fpsCheckCount] = fps;
+        fpsCheckCount += 1;
+        //console.log(">>>> fps" + fpsCheckCount + ":" + fps);
+        if (fpsCheckCount >= 3) {
+            fpsCheckCount = 0;
+            let minVal = 50;
+            let maxVal = 70;
+            if (fpsCheckValues[0] < minVal && fpsCheckValues[1] < minVal && fpsCheckValues[2] < minVal) alert("⚠️ 当前手机帧率低于60帧，游戏不能正常运作！");
+            if (fpsCheckValues[0] > maxVal || fpsCheckValues[1] > maxVal || fpsCheckValues[2] > maxVal) fpsCtrlFlag = true;
+            return;
+        }
+    }
+    requestAnimationFrame(fpsCheckLoop);
+}
+fpsCheckLoop();
+
+
 // 获取鼠标移动点坐标
 let mouse = null; // 放在设置画布位置后再初始化赋值
 let screenPos = { x: 0, y: 0 }; // 屏幕可见坐标，不算dpr
@@ -3714,7 +3751,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250311"),
+    version: Number(packageVersion.replaceAll(".", "") + "250818"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -4967,6 +5004,9 @@ class Role {
     static LINGOU = new Role(65, "🦸‍♀️", "萌心灵偶", "灵偶", "偶", null);
     static GOLDKING = new Role(66, "金", "金角大王", "金角", "金", null);
     static DUDU = new Role(67, "🐕️", "嘟嘟上校", "嘟嘟", "嘟", null);
+    static GEJI = new Role(68, "👩‍🎤", "百变歌姬", "歌姬", "歌", null);
+    static YUANSU = new Role(69, "🧙‍♀", "元素师", "元素", "元", null);
+    static TANGSENG = new Role(70, "🧑🏼‍🦲", "金蝉子", "唐僧", "禅", null);
 
 
     // 角色类型分类：超肉、肉、杀、肉杀、乱碰、被乱碰、陷阱、标记、自动打(毒素、喷火等技能)、回血、复活/名刀、加速、减速、加护盾、加伤害、减伤害、反弹伤害
@@ -5233,6 +5273,9 @@ class Role {
         this.LINGOU.cps = [Role.RABBIT.id, Role.DIANYIN.id, Role.HEIWA.id, Role.ZHANAN.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.YEREN.id, Role.PUMPKIN.id, Role.YINGYING.id, Role.CAPTAIN.id, Role.JOKER.id, Role.ZHADANKE.id];
         this.GOLDKING.cps = [Role.RABBIT.id, Role.DIANYIN.id, Role.HEIWA.id, Role.LINGLING.id, Role.QUANBA.id, Role.CAPTAIN.id, Role.JOKER.id, Role.ZHADANKE.id];
         this.DUDU.cps = [Role.JUNDUN.id, Role.WUNV.id, Role.XIUNV.id, Role.CHUZI.id, Role.LEIMENG.id, Role.YEREN.id, Role.CAPTAIN.id, Role.JOKER.id, Role.TUYA.id, Role.LINGOU.id, Role.BAKE.id, Role.JIUWEIHU.id, Role.NUANYANG, Role.XIXUEGUI.id.id];
+        this.GEJI.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.HEIWA.id, Role.RABBIT.id, Role.DIANYIN.id, Role.RENZHE.id, Role.XIXUEGUI.id];
+        this.YUANSU.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.HEIWA.id, Role.RABBIT.id, Role.DIANYIN.id, Role.RENZHE.id, Role.XIXUEGUI.id, Role.WUGEGE.id, Role.KUILEI.id];
+        this.TANGSENG.cps = [Role.HONGSANSAN.id, Role.LINGOU.id, Role.MANWANG.id, Role.PUMPKIN.id, Role.JUNDUN.id, Role.MOUSE.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.HONGZHAJI.id, Role.BZGIRL.id, Role.CAPTAIN.id];
 
     }
 
@@ -6059,6 +6102,9 @@ function init() {
     initOnce();
     // 初始化其他配置
     initOthers();
+
+    //console.log(">>>> init sysConfig=" + JSON.stringify(sysConfig));
+    //alert(">>>> init sysConfig=" + JSON.stringify(sysConfig));
 }
 
 
@@ -6774,6 +6820,24 @@ function initBallByRole(ball) {
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
             break;
+        case Role.GEJI.id:
+            if (!ball.color) ball.color = "#E4BF93"; // 取默认皮肤头发颜色
+            ball.sizeRatio = Ball.SIZERATIO.S; // 小
+            ball.mRatio = Ball.WEIGHTRATIO.S; // 轻
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
+            break;
+        case Role.YUANSU.id:
+            if (!ball.color) ball.color = "#E90131"; // 取默认皮肤头发颜色
+            ball.sizeRatio = Ball.SIZERATIO.M; // 中等
+            ball.mRatio = Ball.WEIGHTRATIO.S; // 轻
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快
+            break;
+        case Role.TANGSENG.id:
+            if (!ball.color) ball.color = "#B6721C"; // 取默认皮肤袈裟颜色
+            ball.sizeRatio = Ball.SIZERATIO.M; // 中等
+            ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
+            break;
         default: // 默认是黑娃
             ball.color = "#74593A"; // 默认皮肤颜色(RosyBrown玫瑰棕)-CA9480；脸颊边缘脸红的颜色(IndianRed印度红)-A36E5D；黑(Black)-151A14；棕色头发(DarkOliveGreen暗橄榄绿)-74593A
             ball.sizeRatio = Ball.SIZERATIO.XS; // 极小 黑娃直径 1.8 格
@@ -7235,6 +7299,12 @@ function putAllBallsRandom() {
         if (ball.roleId === Role.SHUANGZI.id && ball.isRoleBuddy()) return;
         putBallRandom(ball);
     });
+}
+
+
+// 随机放置漩涡位置
+function putWhirlpoolRandom() {
+
 }
 
 
@@ -12890,6 +12960,11 @@ onMounted(() => {
 })
 
 
+// 控制帧率
+var fps = 60;
+var fpsInterval = 1000 / fps;
+var fpsLast = new Date().getTime();
+
 // 动画渲染主函数。注意！多次调用这个渲染函数，会导致动画变快！即倍速快放的效果
 // TODO 减少图形重复绘制渲染，可以很好地节省CPU性能
 function animate() {
@@ -12914,6 +12989,14 @@ function animate() {
     // 执行次数通常是每秒 60 次，当页面处于未激活的状态下，该页面的屏幕绘制任务也会被浏览器暂停
     requestAnimationFrame(animate);
     //console.log(">>>> requestAnimationFrame 动画渲染 >>>>");
+
+    // 帧率 90 120，需要进行帧率控制
+    if (fpsCtrlFlag) {
+        let fpsNow = new Date().getTime();
+        let elapsed = fpsNow - fpsLast;
+        if (elapsed <= fpsInterval) return; // 帧率时间不够，不往下执行
+        fpsLast = fpsNow - (elapsed % fpsInterval); // 校正帧率时间
+    }
 
     // 清空运动层画布【TODO 目前存在位置没变会重复画一次的问题，可以看到小丑分身透明度变化】
     doClearMoveCanvas();
