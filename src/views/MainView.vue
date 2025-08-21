@@ -21,6 +21,10 @@ canvas {
     z-index: -1;
 }
 
+#game-scene-lines-bg {
+    z-index: -1;
+}
+
 #game-scene {
     background: rgba(255, 255, 255, 0);
     /*图层透明，给画的图形填充颜色*/
@@ -1041,6 +1045,11 @@ input:checked+.slider:before {
                 style="width: 420px; height: 660px; display: unset;"><!-- 静态场景景物图形层，全屏画布，只渲染一次 -->
                 Canvas not supported
             </canvas>
+            <!-- scene-lines 场景边框背景层，把游戏场景层夹在中间 -->
+            <canvas id="game-scene-lines-bg" width="420" height="660"
+                style="width: 420px; height: 660px; display: unset;"><!-- 静态场景边框背景层，全屏画布，只渲染一次 -->
+                Canvas not supported
+            </canvas>
             <!-- scene 游戏场景层 -->
             <canvas id="game-scene" ref="gameScene" width="420" height="660"
                 style="width: 420px; height: 660px;"><!-- 静态场景背景层，只渲染一次，优化CPU性能 -->
@@ -1789,7 +1798,7 @@ input:checked+.slider:before {
 
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.3 更新：<span class="collide-try-update-date">2025-08-18</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 修复高屏幕帧率（90/120Hz）兼容性问题
+1. 修复高屏幕刷新率（90/120Hz）兼容性问题
 2. 补全角色录入（70个）
 </pre>
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.6.2 更新：<span
@@ -2912,6 +2921,7 @@ let fpsTicks = 0;
 let fpsCheckValues = new Array();
 let fpsCheckCount = 0;
 let fpsCtrlFlag = false; // fps 帧率是否需要控制帧率
+let fpsCheckRst = 60; // fps 检测值，默认60
 function fpsCheckLoop() {
     fpsTicks += 1;
     // 每30帧统计一次帧率
@@ -2929,7 +2939,15 @@ function fpsCheckLoop() {
             let minVal = 50;
             let maxVal = 70;
             if (fpsCheckValues[0] < minVal && fpsCheckValues[1] < minVal && fpsCheckValues[2] < minVal) alert("⚠️ 当前手机帧率低于60帧，游戏不能正常运作！");
+            // TODO 不用限制帧率的方式，改用调整摩檫力比例的方式
             if (fpsCheckValues[0] > maxVal || fpsCheckValues[1] > maxVal || fpsCheckValues[2] > maxVal) fpsCtrlFlag = true;
+            fpsCheckRst = fpsCheckValues[2];
+            console.log(">>>> fps=" + fpsCheckRst);
+            // 重新计算一遍速度和摩檫力
+            //setSpeed();
+            //setFriction();
+            //alert(">>>> fps=" + fpsCheckRst);
+            //alert(">>>> friction=" + sysConfig.friction);
             return;
         }
     }
@@ -3504,9 +3522,9 @@ let superKey = "";
 let easyKey = "";
 let accessMsg = "";
 let codeStr = "";
-let encodeStr = "AwORjWtEPmi+is5Vs+vuGwaNsWYLkIt5q3l9HQkmaom/MFl/5g0D7DOfwKSPj4z9SBce362Wfx+4DLdP4QqmYkJ7oKt4RQv0du88bEl/raeTwELOB3PLoKaZcj5h00p7Cka9d/eCEFN7yQ8E3bbrF2v+txO4y7yQZmGcNhmImExaPiE1Aquw4nZaAPJNM2i9ae8LN5tHI8pkVjKsfVesCiiTHeoadu3CR+1j9qI7OIGFkf28UPcdVTaxxVETvbuOpKFtkG++/DXJkFlri2DKn6BQh7QyiCBYL6szmQoaj7YeYldJp5S1tB0GsR06KuhXhst83THPvp+G+odigTncbYsomHS/xbrT78OdrxA0l/7Cd8m8SM7vEe2QA+YOSqYCRp0Zn77sLR/GTX7L8o3W3mlBMNuVTQ/snUMSPcvmx6POcupkNbLhgEZo98rpRSnLv7Mxxf6JS/zt+4bA01mu/E5g0v/ea6t4tfkHzszZK4HgtcrpZXbnFslHBW6ymIXFOycPKkgq";
-let superKeyEnStr = "OAAmtPpWmmd9teJ4Z+9eMFoxd/j3pm2wnjXQEK6aV4a3W4qPFKFisA==";
-let easyKeyEnStr = "aQCKYRNVnmeL4I8rOidyVAEmJJbbAEObleUp+Y47zjHTiFAeDLrLMw==";
+let encodeStr = "pQJ2U2hTpWizUb7pjutdkUIG1NRvSVr/gdSSTQkVP+/v5iWxG/5qkpDPx3B60y+rFrTDI1wwWa7nZFDE+LIJpbu3++ouJZGzXfZjsyaV8I2Tq7UnHZsmq+NlKS1eDOJ6OPLf8TNLgjAnQcTai60E9NUiVSms6RiU5IhP7VsmdSvhe5+5LCEMy+RYQb7ltFi/2MWNnFcWDwnOgnIK9zEwuTPtuX2tYelS80xN3uaGpjN9lExKA105oG6rIPAVLn4Xc25lpgegk9ghGro7Mj9duMcLfjICWndB283W16Lwk5hni0OHDiDYpXsvFY8gMlXA+fv8/FPLDzztgz6JEgvfzXLAAIY3uLW6ZKoPeKxUqWg3FYhOhO6X4ez0U1BHu4+itFhoOX8uvj7umqKYGt7YGkJEg+7lcxfAvdZMRYCiIfZ12wiRLPJsdVKmTwKg6VdmU27eBueKFdjPJOmIiHzCTDuX1nwMvo9i+A2xCN1JEtxU3f0k6Aa1AohKeHkewNNiR+QhMuGfWEk1GMpHmujJ1S37Il5+A+qoHQ1lj0/oFtcRFA==";
+let superKeyEnStr = "pgIHKWhTpWgum5RUy260ov+kWrkQeKmKwrHN+A2gkj9AK9ylSlk8MA==";
+let easyKeyEnStr = "pgLrbmhTpWiWGR96Qv/yz6kQ7C5QUvDhVLKtSrSwjuAJnqs7WvRWcA==";
 if (accessKey && codeStr) {
     encodeStr = Aes.Ctr.encrypt(codeStr, accessKey, 256);
     console.log('>>>> encodeStr=', encodeStr);
@@ -3537,7 +3555,7 @@ function checkCoreCode(method, isDialog) {
         // 先从 localStorage 获取 accessKey
         accessKey = localStorage.getItem('collide-try-access-key');
         // 退游了，公开访问
-        accessKey = "Pg24fzRl02a45odGEvKsFqL0MHmykigF";
+        //accessKey = "Pg24fzRl02a45odGEvKsFqL0MHmykigF";
 
         if (isDialog) {
             // 没找到，再弹窗提示输入【访问密钥】
@@ -3676,6 +3694,7 @@ let gameSceneGraphCanvas = document.getElementById('game-scene-graph'); // 静�
 let gameSceneEmojiCanvas = document.getElementById('game-scene-emoji'); // 静态场景景物图形层画布
 let gameSceneCanvas = document.getElementById('game-scene'); // 静态场景层画布
 let gameSceneLinesCanvas = document.getElementById('game-scene-lines'); // 静态场景边框层画布
+let gameSceneLinesBgCanvas = document.getElementById('game-scene-lines-bg'); // 静态场景边框背景层画布
 let gameSceneCoordinateCanvas = document.getElementById('game-scene-coordinate'); // 静态场景砖格坐标布
 let canvas = document.getElementById('game-main'); // 主运动层画布
 let gameMainBallCanvas = document.getElementById('game-main-ball'); // 主球运动层画布，主球和其他球分开
@@ -3688,6 +3707,7 @@ let gameSceneGraphContext = gameSceneGraphCanvas ? gameSceneGraphCanvas.getConte
 let gameSceneEmojiContext = gameSceneEmojiCanvas ? gameSceneEmojiCanvas.getContext('2d') : null;
 let gameSceneContext = gameSceneCanvas ? gameSceneCanvas.getContext('2d') : null;
 let gameSceneLinesContext = gameSceneLinesCanvas ? gameSceneLinesCanvas.getContext('2d') : null;
+let gameSceneLinesBgContext = gameSceneLinesBgCanvas ? gameSceneLinesBgCanvas.getContext('2d') : null;
 let gameSceneCoordinateContext = gameSceneCoordinateCanvas ? gameSceneCoordinateCanvas.getContext('2d') : null;
 let context = canvas ? canvas.getContext('2d') : null;
 let gameMainBallContext = gameMainBallCanvas ? gameMainBallCanvas.getContext('2d') : null;
@@ -3712,6 +3732,7 @@ onMounted(() => {
     gameSceneEmojiCanvas = document.getElementById('game-scene-emoji'); // 静态场景景物图形层画布
     gameSceneCanvas = document.getElementById('game-scene'); // 静态场景层画布
     gameSceneLinesCanvas = document.getElementById('game-scene-lines'); // 静态场景边框层画布
+    gameSceneLinesBgCanvas = document.getElementById('game-scene-lines-bg'); // 静态场景边框背景层画布
     gameSceneCoordinateCanvas = document.getElementById('game-scene-coordinate'); // 静态场景砖格坐标布
     canvas = document.getElementById('game-main'); // 主运动层画布
     gameMainBallCanvas = document.getElementById('game-main-ball'); // 主球运动层画布，主球和其他球分开
@@ -3724,6 +3745,7 @@ onMounted(() => {
     gameSceneEmojiContext = gameSceneEmojiCanvas.getContext('2d');
     gameSceneContext = gameSceneCanvas.getContext('2d');
     gameSceneLinesContext = gameSceneLinesCanvas.getContext('2d');
+    gameSceneLinesBgContext = gameSceneLinesBgCanvas.getContext('2d');
     gameSceneCoordinateContext = gameSceneCoordinateCanvas.getContext('2d');
     context = canvas.getContext('2d');
     gameMainBallContext = gameMainBallCanvas.getContext('2d');
@@ -5669,7 +5691,7 @@ class Theme {
     static reCalculate(theme) {
         if (!theme) return;
         theme.tblWidth = sceneLineRealWidth; // 台面边框线宽
-        theme.gnSize = Math.round(htmlFontSizeNum * dpr * sysConfig.pxRatio); // 砖格坐标数值字体大小
+        theme.gnSize = Math.round(htmlFontSizeNum * dpr * sysConfig.pxRatio * 0.8); // 砖格坐标数值字体大小
     }
 
     // 判断是否为颜色码
@@ -5941,7 +5963,7 @@ function initAppParams() {
     console.log(">>>> sceneLineRealWidth=" + sceneLineRealWidth);
     if (!userConfig.isUseCustomTheme) { // 没有启用自定义主题时才重新计算，关联 Theme 类中的 reCalculate()
         currTheme.tblWidth = sceneLineRealWidth; // 台面边框线宽
-        currTheme.gnSize = Math.round(htmlFontSizeNum * dpr * sysConfig.pxRatio); // 砖格坐标数值字体大小
+        currTheme.gnSize = Math.round(htmlFontSizeNum * dpr * sysConfig.pxRatio * 0.8); // 砖格坐标数值字体大小
     }
     // 设置弹窗滚动区域高度 canvas.width * hRadio
     setDialogScrollMaxHeight(1.70);
@@ -6957,6 +6979,12 @@ function setPageSize() {
     gameSceneLinesCanvas.style.width = document.body.clientWidth + 'px';
     gameSceneLinesCanvas.style.height = document.body.clientHeight + 'px';
 
+    // 静态场景边界线背景画布设置全屏宽高
+    gameSceneLinesBgCanvas.width = document.body.clientWidth * dpr;
+    gameSceneLinesBgCanvas.height = document.body.clientHeight * dpr;
+    gameSceneLinesBgCanvas.style.width = document.body.clientWidth + 'px';
+    gameSceneLinesBgCanvas.style.height = document.body.clientHeight + 'px';
+
     // 静态场景砖格边框层设置全屏宽高
     gameSceneCoordinateCanvas.width = document.body.clientWidth * dpr;
     gameSceneCoordinateCanvas.height = document.body.clientHeight * dpr;
@@ -7957,16 +7985,21 @@ function getHeiwaSpeedByDpr() {
     //let v = roundNumber(46 * sysConfig.girdSize / 27.86, 4);
     // 99.3498 / 842 = v / canvas.width
     let v = roundNumber(90.00 / 842 * canvas.width, 4);
+    // 与帧率反相关 60Hz v2 = 60 / fps * v
+    //v = roundNumber(60 / fpsCheckRst * v, 4);
     //console.log(">>>> getHeiwaSpeedByDpr v=" + v);
     return v;
 }
 
 
 // 根据canvas.width设置摩擦力
+// f=μ×Fn 假设 μ 都一样，地面都是水平方向，Fn = μmg
 function setFriction() {
     // 正相关 3.20 / 842 = f / canvas.width
     // dpr=2.7 canvas.width=842 sysConfig.friction=3.20
     sysConfig.friction = roundNumber(2.60 / 842 * canvas.width, 4);
+    // 与帧率反相关 60Hz f = 60 / fps * sysConfig.friction
+    //sysConfig.friction = roundNumber(60 / fpsCheckRst * sysConfig.friction, 4);
     console.log(">>>> sysConfig.friction=" + sysConfig.friction);
 }
 
@@ -8139,6 +8172,7 @@ function reDrawSceneGraph() {
 // 重画台面边框和砖格坐标
 function reDrawTableLineAndGirdNum() {
     clearCanvasAll(gameSceneLinesCanvas); // 台面边框层
+    clearCanvasAll(gameSceneLinesBgCanvas); // 台面边框背景层
     clearCanvasAll(gameSceneCoordinateCanvas); // 台面砖格坐标层
     // 画台面边框，放在主题设置之后，确保边框覆盖emoji图形
     if (userConfig.isShowTableBorder) doDrawTableLines();
@@ -8625,6 +8659,8 @@ function setBodyBackgroundColor(hex) {
 function doDrawTableLines() {
     globalParams.shadowColor = "#352e6160";
     //if (userConfig.sceneThemeMode === 1 && isLightMode) globalParams.shadowColor = "#819BC3"; // 冰雪主题边框阴影
+    // 填充一次台面背景颜色
+    drawTableLines(true);
     globalParams.shadowBlur = 6 * dpr;
     drawTableLines();
     globalParams.shadowBlur = 1 * dpr;
@@ -8634,7 +8670,7 @@ function doDrawTableLines() {
 
 // 边框阴影只用画一次，性能影响不大
 // gameSceneLines画布全屏，坐标移到正中间
-function drawTableLines() {
+function drawTableLines(isFill) {
     gameSceneLinesContext.save();
     if (globalParams) { // 设置阴影
         gameSceneLinesContext.shadowColor = globalParams.shadowColor;
@@ -8654,7 +8690,34 @@ function drawTableLines() {
     gameSceneLinesContext.lineTo(-sysConfig.girdSize * 7 - currTheme.tblWidth / 2, sysConfig.girdSize * 8 + currTheme.tblWidth / 4 + sysConfig.wan8CocosTableMoveVals[7]); // 左下角斜边框
     gameSceneLinesContext.lineTo(-sysConfig.girdSize * 7 - currTheme.tblWidth / 2, -sysConfig.girdSize * 8 - currTheme.tblWidth / 4 + sysConfig.wan8CocosTableMoveVals[0]); // 左边框
     gameSceneLinesContext.closePath(); // 闭合路径，左上角斜边框
-    gameSceneLinesContext.stroke();
+    if (!isFill) {
+        gameSceneLinesContext.stroke();
+    } else {
+        // 由于边框和场景用的不是一个坐标系，为了避免边框误差出现缝隙，填充一层背景颜色
+        // 采用内容复制的方式
+        // 先隐藏边框图层
+        gameSceneLinesCanvas.style.display = "none";
+        // 清除画布内容，注意，这里清空画布，会导致没有内容
+        //clearCanvasAll(gameSceneLinesCanvas);
+        // 填充边框背景
+        gameSceneLinesContext.fillStyle = currTheme.tbColor; // 台面背景颜色
+        //gameSceneLinesContext.globalCompositeOperation = "source-over";
+        gameSceneLinesContext.fill();
+
+        // 复制到边框背景图层画布
+        gameSceneLinesBgContext.save();
+        const dataURL = gameSceneLinesCanvas.toDataURL();
+        const image = new Image();
+        image.src = dataURL;
+        image.onload = function () {
+            gameSceneLinesBgContext.drawImage(image, 0, 0);
+        };
+        gameSceneLinesBgContext.restore();
+        // 再次清空边框层画布
+        clearCanvasAll(gameSceneLinesCanvas);
+        // 还原边框层显示
+        gameSceneLinesCanvas.style.display = "inherit";
+    }
     gameSceneLinesContext.restore();
 }
 
@@ -9625,7 +9688,10 @@ function switchCanvasShow(canvasEle, isShow) {
         // 开启场景边框，最好清空重画一次，避免之前没画
         if (canvasEle === gameSceneLinesCanvas) {
             clearCanvasAll(gameSceneLinesCanvas);
+            clearCanvasAll(gameSceneLinesBgCanvas);
             doDrawTableLines();
+            // 显示边框背景层
+            switchCanvasShow(gameSceneLinesBgCanvas, true);
         }
         // 开启砖格坐标，最好清空重画一次，避免显示没有边框时位置
         if (canvasEle === gameSceneCoordinateCanvas) {
@@ -9634,6 +9700,11 @@ function switchCanvasShow(canvasEle, isShow) {
         }
         canvasEle.style.display = "inherit";
     } else { // 关闭
+        // 关闭场景边框，把边框背景图层清空隐藏
+        if (canvasEle === gameSceneLinesCanvas) {
+            clearCanvasAll(gameSceneLinesBgCanvas);
+            switchCanvasShow(gameSceneLinesBgCanvas, false);
+        }
         canvasEle.style.display = "none";
     }
 }
@@ -10976,6 +11047,7 @@ function doWan8CocosTableMoveVals(str) {
     // 重画台面
     reDrawTableAndEgg();
     clearCanvasAll(gameSceneLinesCanvas);
+    clearCanvasAll(gameSceneLinesBgCanvas);
     if (userConfig.isShowTableBorder) doDrawTableLines();
 }
 
@@ -11385,7 +11457,7 @@ function hashCode(str) {
         hash = ((hash << 5) - hash) + chr;
         hash |= 0; // Convert to 32bit integer
     }
-    return hash;
+    return Math.abs(hash);
 }
 
 
@@ -13075,9 +13147,18 @@ function doClearPathCanvas() {
 
 // 清空画布所有内容
 function clearCanvasAll(cvs) {
+    // 指定区域清除，对于移动了坐标系原点的情况不适用
+    /*
     let ctx = cvs.getContext('2d');
     ctx.clearRect(0, 0, cvs.width, cvs.height);
     ctx.beginPath(); // 开启新path，避免旧的path残留
+    */
+
+    // 重置画布高度，内容会被自动移除
+    let w = cvs.width;
+    let h = cvs.height;
+    cvs.width = w;
+    cvs.height = h;
 }
 
 
