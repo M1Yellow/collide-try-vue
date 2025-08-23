@@ -1573,6 +1573,15 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item li-space-between-center">
+                    <span class="user-setting-item-msg-left">显示角色编号</span>
+                    <span class="user-setting-item-switch-right">
+                        <label class="switch" @click="switchCheckbox($event, 'isShowRoleBloodNo');">
+                            <input type="checkbox" id="isShowRoleBloodNo">
+                            <div class="slider round"></div>
+                        </label>
+                    </span>
+                </li>
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">傀儡拉回</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isKuileiPullBack');">
@@ -1649,13 +1658,13 @@ input:checked+.slider:before {
                     <span class="user-setting-item-msg-left">指定游戏角色(输入角色名)</span><span class="reset-btn"
                         @click="resetGameRoleIds(this);" title="重置角色"> 🔄 </span>
                     <div class="user-setting-item-input-area">
-                        <div class="div-input-game-roles default red" contenteditable="true" id="gameRoleId1"
+                        <div class="div-input-game-roles default" contenteditable="true" id="gameRoleId1"
                             placeholder="输入主角" value="">输入主角</div>
-                        <div class="div-input-game-roles default red" contenteditable="true" id="gameRoleId2"
+                        <div class="div-input-game-roles default" contenteditable="true" id="gameRoleId2"
                             placeholder="输入队友" value="">输入队友</div>
-                        <div class="div-input-game-roles default" contenteditable="true" id="gameRoleId3"
+                        <div class="div-input-game-roles default red" contenteditable="true" id="gameRoleId3"
                             placeholder="输入对手1" value="">输入对手1</div>
-                        <div class="div-input-game-roles default" contenteditable="true" id="gameRoleId4"
+                        <div class="div-input-game-roles default red" contenteditable="true" id="gameRoleId4"
                             placeholder="输入对手2" value="">输入对手2</div>
                         <div id="game-setting-main-role-dialog" class="collide-try-dialog collide-try-tiny-dialog"
                             style="display: none;">
@@ -1796,11 +1805,16 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.6.3 更新：<span class="collide-try-update-date">2025-08-18</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.7.0 更新：<span class="collide-try-update-date">2025-08-23</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 修复高屏幕刷新率（90/120Hz）兼容性问题
-2. 补全角色录入（70个）
+1. 新增血量条显示角色编号
+2. 优化了一些已知问题
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.6.3 更新：<span
+                            class="collide-try-update-date">2025-08-18</span></b></div>
+                1. 修复高屏幕刷新率（90/120Hz）兼容性问题
+                2. 补全角色录入（70个）
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.6.2 更新：<span
                             class="collide-try-update-date">2025-03-11</span></b></div>
                 1. 不公平的游戏，全是⭕️💰️和算计！
@@ -1978,7 +1992,7 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">• 牺牲公平换利益，实在是玩不过！每天都会被不公平和各种BUG气炸！（越是在乎，看得越清，就会越气）</span>
 <span class="collide-try-each-item-margin">• 工作、生活已经够累了，还要比来比去！游戏娱乐放松了个啥？游戏社交真的能交到好朋友或奔现对象？</span>
 <span class="collide-try-each-item-margin">• 40级以下，技巧不够、没角色或者只有标配组合，很难打赢高配组合，大概率白送；40级以上，几乎都是高配，先手和开局位置至关重要，两局甚至三局不给先手，大概率连跪！先手和开局好位置给谁，懂的都懂！</span>
-<span class="collide-try-each-item-margin">• 耗费一两年好不容易换齐了高配组合，又陆续搞出新的“一刀999”的⭕️💰️角色，永远都是花钱的爽，不花钱的陪玩！</span>
+<span class="collide-try-each-item-margin">• 耗费一两年好不容易换齐了高配组合，又陆续搞出新的“一刀666”的⭕️💰️角色，永远都是花钱的爽，不花钱的陪玩！</span>
 <span class="collide-try-each-item-margin">• 一直匹配满级满角色的对手，还一直给对手先手和开局位置优势，谁有这个时间精力被这样算计戏弄？每天拿一两个小时宝贵的业余时间来玩游戏，换来的却是算计和气愤！</span>
 
 
@@ -3773,7 +3787,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-角色角度练习器",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250818"),
+    version: Number(packageVersion.replaceAll(".", "") + "250823"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3865,6 +3879,8 @@ var userConfig = {
     isShowSceneGraph: true,
     // 是否显示角色血量条
     isShowRoleBloodLine: true,
+    // 是否显示角色编号
+    isShowRoleBloodNo: true,
     // 是否双击屏幕回退
     isDbclickBack: true,
     // 傀儡拉回
@@ -3984,7 +4000,7 @@ class Ball {
         ////////////////////////////////////////////////
         // 【新增】小球碰撞检测相关变量
         ////////////////////////////////////////////////
-        this.no = options.no || 0; // 角色id编号，从1开始
+        this.no = options.no || 0; // 角色编号，从1开始
         this.teamColor = options.teamColor || 'r'; // r-red;b-blue
         this.roleId = options.roleId || Role.HEIWA.id; // 小球对应角色id，从枚举 Role 中取id。注意：options.roleId 为 0 时，是 false，导致取值为 -1
         this.isMainBall = options.isMainBall || false; // 是否为主球，目前只有主球可以发射
@@ -4088,12 +4104,26 @@ class Ball {
         return this.no + "-" + Role.getShortNameById(this.roleId) + "-" + this.roleId + "-" + this.teamColor;
     }
 
+    // 获取角色血量条显示序号
+    getShowNo() {
+        if (userConfig.isTestOnlyOne) return this.no;
+        if (this.no > 4) return this.no;
+        // 玩吧目前硬性规则，蓝队编号为1、2，红队为3、4
+        if (this.teamColor === 'b') {
+            if (this.no % 2 === 0) return 2;
+            else return 1;
+        } else {
+            if (this.no % 2 === 0) return 4;
+            else return 3;
+        }
+    }
+
     // 是否改变了位置
     isPosChanged() {
         return this.x !== this.x0 || this.y !== this.y0;
     }
 
-    // 判断是否为分身 分身判断
+    // 判断是否为分身 判断分身 角色分身
     isRoleBuddy() {
         if (userConfig.isTestOnlyOne && !this.isMainBall) return true;
         if (!userConfig.isTestOnlyOne && !this.isMainBall && this.no > 4) return true;
@@ -4328,27 +4358,69 @@ class Ball {
         if (this.roleId === Role.WUKONG.id && this.isRoleBuddy()) return; // 猴子分身不画
         if (!params) params = GlobalParams.getCleanParams();
         this.context.save();
-        this.context.beginPath();
         this.context.fillStyle = "#D84646";
+        this.context.strokeStyle = "#00000050";
+        this.context.lineWidth = roundNumber(0.25 * dpr * sysConfig.pxRatio, 4);
         if (this.teamColor === 'b') this.context.fillStyle = "#2A7CE9";
-        // TODO 频繁绘制阴影，会影响性能，可以改用描边形式
-        //this.context.shadowColor = '#60221D60'; // 设置阴影
-        //this.context.shadowBlur = 1 * dpr;
+        // TODO 频繁绘制阴影，会影响性能，可以改用描边形式，用scene观察了功耗，有阴影确实功率最大值更高
+        //this.context.shadowColor = '#00000050'; // 设置阴影
+        //this.context.shadowBlur = roundNumber(0.5 * dpr * sysConfig.pxRatio, 4);
         //this.context.globalCompositeOperation = "destination-over";
         if (params.composite) this.context.globalCompositeOperation = params.composite;
+
+        let roleNoWidth = roundNumber(0.6 * sysConfig.girdSize);
+        let bloodLineWidth = roundNumber(2.6 * sysConfig.girdSize - roleNoWidth, 4);
+        let bloodLineWidth2 = roundNumber(2.3 * sysConfig.girdSize, 4);
+        let bloodLineHeight = roundNumber(0.40 * sysConfig.girdSize, 4);
+        let borderRadius = 4;
+
+        this.context.font = 10 * sysConfig.pxRatio * dpr + "px Arial";
+        this.context.textAlign = "center";
+        this.context.textBaseline = 'middle';
+
+        // 角色本体坐标位置
+        let realPos = { x: this.x, y: this.y };
+        if (this.isMainBall && this.roleId === Role.KUILEI.id && this.isMoving && !isKuileiPulling) { // 傀儡画在本体上
+            realPos.x = this.x0 === 0 ? this.x : this.x0;
+            realPos.y = this.y0 === 0 ? this.y : this.y0;
+        }
+
         // TODO roundRect 兼容性有问题，老机型/老浏览器不支持
         try {
-            //this.context.save00();
-            if (this.isMainBall && this.roleId === Role.KUILEI.id && this.isMoving && !isKuileiPulling) this.context.roundRect(roundNumber((this.x0 === 0 ? this.x : this.x0) - 2.3 * sysConfig.girdSize / 2, 4), roundNumber((this.y0 === 0 ? this.y : this.y0) - this.radiusTmp - 0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2);
-            else this.context.roundRect(roundNumber(this.x - 2.3 * sysConfig.girdSize / 2, 4), roundNumber(this.y - this.radiusTmp - 0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2);
+            // 分身没有角色编号，只有普通血量条
+            // 没有开启显示角色编号，只显示普通血量条
+            if (this.isRoleBuddy() || !userConfig.isShowRoleBloodNo) {
+                this.context.beginPath();
+                this.context.roundRect(roundNumber(realPos.x - bloodLineWidth2 / 2, 4), roundNumber(realPos.y - this.radiusTmp - 0.3 * sysConfig.girdSize - bloodLineHeight, 4), bloodLineWidth2, bloodLineHeight, borderRadius);
+                this.context.stroke();
+                this.context.fill();
+            } else {
+                // 血量条
+                this.context.beginPath();
+                this.context.roundRect(roundNumber(realPos.x - (bloodLineWidth - roleNoWidth) / 2 - 1 * dpr, 4), roundNumber(realPos.y - this.radiusTmp - 0.3 * sysConfig.girdSize - bloodLineHeight, 4), bloodLineWidth, bloodLineHeight, borderRadius);
+                this.context.stroke();
+                this.context.fill();
+                // 角色编号方框
+                this.context.beginPath();
+                this.context.roundRect(roundNumber(realPos.x - (bloodLineWidth + roleNoWidth) / 2 + 1 * dpr, 4), roundNumber(realPos.y - this.radiusTmp - 0.3 * sysConfig.girdSize - roleNoWidth + (roleNoWidth - bloodLineHeight) / 2, 4), roleNoWidth, roleNoWidth, borderRadius);
+                this.context.stroke();
+                this.context.fill();
+                // 角色编号文字
+                this.context.beginPath();
+                this.context.fillStyle = "#fff";
+                this.context.strokeText(this.getShowNo(), roundNumber(realPos.x - bloodLineWidth / 2 + 1 * dpr, 4), roundNumber(realPos.y - this.radiusTmp - 0.3 * sysConfig.girdSize - roleNoWidth / 2 + (roleNoWidth - bloodLineHeight) / 2, 4));
+                this.context.fillText(this.getShowNo(), roundNumber(realPos.x - bloodLineWidth / 2 + 1 * dpr, 4), roundNumber(realPos.y - this.radiusTmp - 0.3 * sysConfig.girdSize - roleNoWidth / 2 + (roleNoWidth - bloodLineHeight) / 2, 4));
+                this.context.stroke();
+            }
         } catch (e) {
             doGlobalErrorMsg(e, false);
             //doGlobalError(e, (sysConfig && sysConfig.alertErrorCount)?sysConfig.alertErrorCount:3);
-            // 使用原始方法绘制圆角矩形
-            if (this.isMainBall && this.roleId === Role.KUILEI.id && this.isMoving && !isKuileiPulling) fillRoundRect(this.context, roundNumber((this.x0 === 0 ? this.x : this.x0) - 2.3 * sysConfig.girdSize / 2, 4), roundNumber((this.y0 === 0 ? this.y : this.y0) - this.radiusTmp - 0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2, this.context.fillStyle);
-            else fillRoundRect(this.context, roundNumber(this.x - 2.3 * sysConfig.girdSize / 2, 4), roundNumber(this.y - this.radiusTmp - 0.7 * sysConfig.girdSize, 4), roundNumber(2.3 * sysConfig.girdSize, 4), roundNumber(0.39 * sysConfig.girdSize, 4), 2, this.context.fillStyle);
+            // 使用原始方法绘制圆角矩形 fillRoundRect(cxt, x, y, width, height, radius, fillColor)
+            this.context.beginPath();
+            fillRoundRect(this.context, roundNumber(realPos.x - bloodLineWidth2 / 2, 4), roundNumber(realPos.y - this.radiusTmp - 0.3 * sysConfig.girdSize - bloodLineHeight, 4), bloodLineWidth2, bloodLineHeight, borderRadius, this.context.fillStyle);
+            this.context.stroke();
+            this.context.fill();
         }
-        this.context.fill();
         this.context.restore();
     }
 
@@ -5821,14 +5893,14 @@ class ClickPlayBtn {
         let fontSize = 16;
         let metrics, width, height;
 
-        gameClickPlayContext.font = fontSize * dpr + "px serif";
+        gameClickPlayContext.font = fontSize * dpr + "px Arial";
         metrics = gameClickPlayContext.measureText(this.content);
         width = roundNumber(metrics.width, 4);
         height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
 
         while (width > 0.5 * gameClickPlayCanvas.width) {
             fontSize -= 1;
-            gameClickPlayContext.font = fontSize * dpr + "px serif";
+            gameClickPlayContext.font = fontSize * dpr + "px Arial";
             metrics = gameClickPlayContext.measureText(this.content);
             width = roundNumber(metrics.width, 4);
             height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
@@ -5837,7 +5909,7 @@ class ClickPlayBtn {
 
         while (height < 0.2 * gameClickPlayCanvas.height) {
             fontSize += 1;
-            gameClickPlayContext.font = fontSize * dpr + "px serif";
+            gameClickPlayContext.font = fontSize * dpr + "px Arial";
             metrics = gameClickPlayContext.measureText(this.content);
             width = roundNumber(metrics.width, 4);
             height = roundNumber(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent, 4);
@@ -5847,21 +5919,29 @@ class ClickPlayBtn {
         if (fontSize < 1 || fontSize > 50) { // 字体大小异常
             console.error(">>>> drawBtnText fontSize error.");
             fontSize = 16;
-            gameClickPlayContext.font = fontSize * dpr + "px serif";
+            gameClickPlayContext.font = fontSize * dpr + "px Arial";
         }
 
         console.log(">>>> drawBtnText fontSize=" + fontSize + ", width=" + width + ", height=" + height);
 
+        // 文字样式
+        gameClickPlayContext.font = "bold " + fontSize * dpr + "px Arial";
+        //gameClickPlayContext.imageSmoothingEnabled = true; // 平滑边缘绘制，消除锯齿，但是对文字描边锯齿没用
+
+        // 文字阴影
+        //gameClickPlayContext.shadowColor = '#000'; // 阴影颜色
+        //gameClickPlayContext.shadowBlur = dpr; // 模糊程度
+        //gameClickPlayContext.shadowOffsetX = dpr; // 水平偏移
+        //gameClickPlayContext.shadowOffsetY = dpr; // 垂直偏移
+
+        // 文字描边
+        gameClickPlayContext.strokeStyle = "#000";
+        gameClickPlayContext.lineWidth = roundNumber(2 * dpr * sysConfig.pxRatio, 4);
+        gameClickPlayContext.strokeText(this.content, gameClickPlayCanvas.width / 2, gameClickPlayCanvas.height / 2);
+
         // 写文字
-        gameClickPlayContext.font = "bold " + fontSize * dpr + "px serif";
         gameClickPlayContext.fillStyle = this.fontColor;
         gameClickPlayContext.fillText(this.content, gameClickPlayCanvas.width / 2, gameClickPlayCanvas.height / 2);
-        // 文字描边
-        //gameClickPlayContext.font = "bold " + (fontSize + 1) * dpr + "px serif";
-        //gameClickPlayContext.fillStyle  = this.fontLineColor;
-        //gameClickPlayContext.fillText(this.content, gameClickPlayCanvas.width / 2, gameClickPlayCanvas.height / 2);
-        gameClickPlayContext.lineWidth = roundNumber(0.5 * dpr * sysConfig.pxRatio, 4);
-        gameClickPlayContext.strokeText(this.content, gameClickPlayCanvas.width / 2, gameClickPlayCanvas.height / 2);
 
         gameClickPlayContext.restore();
     }
@@ -6217,6 +6297,8 @@ function doVersionThings() {
                 if (f === 'isShowBallPath') continue;
                 if (f === 'isKuileiPullBack') continue;
                 if (f === 'isShowTryFullPath') continue;
+                if (f === 'isShowRoleBloodLine') continue;
+                if (f === 'isShowRoleBloodNo') continue;
                 if (userConfigCache[f] || typeof userConfigCache[f] === "boolean") userConfig[f] = userConfigCache[f];
             }
             // 更新 localStorage 中的 userConfig
@@ -7262,11 +7344,14 @@ function setShareRoleAndPos(shareData) {
         balls.push(shareBall);
     }
 
+    // 重置角色编号
+    //resetMainTeamNo(balls);
+
     // 是否为一个角色测试
     if (balls.length < 4) userConfig.isTestOnlyOne = true;
     else userConfig.isTestOnlyOne = false;
 
-    // 单独设置小丑分身颜色
+    // 单独设置小丑分身颜色，因为导入导出数据没有记录角色颜色，roleId初始化角色里面没有配置分身
     setJoker2Color();
 }
 
@@ -7275,7 +7360,7 @@ function setShareRoleAndPos(shareData) {
 function setBallMain() {
     let mainBall = new Ball(gameMainBallContext, {
         no: 1,
-        teamColor: 'r',
+        teamColor: 'b',
         roleId: userConfig.currRole, // 主球对应角色
         isMainBall: true, // 主球
         x: sysConfig.girdSize * 7, // 水平居中
@@ -7451,7 +7536,7 @@ function setRolesFlash(roleIds, isSetCurrRole) {
     let flashRoles = [];
     // 有指定角色，补全常用组合
     if (isUseGameRoleIds()) {
-        // 红队角色补全
+        // 第一队角色补全
         if (isUseGameRoleIdsFull(1)) { // 设置了俩
             flashRoles.push(roleIds[0]);
             flashRoles.push(roleIds[1]);
@@ -7473,7 +7558,7 @@ function setRolesFlash(roleIds, isSetCurrRole) {
             flashRoles.push(role.cps[fullCloseInt(0, role.cps.length - 1)]);
             flashRoles.push(roleIds[1]);
         }
-        // 蓝队角色补全
+        // 第二队角色补全
         if (isUseGameRoleIdsFull(2)) {
             flashRoles.push(roleIds[2]);
             flashRoles.push(roleIds[3]);
@@ -7489,7 +7574,7 @@ function setRolesFlash(roleIds, isSetCurrRole) {
             flashRoles.push(roleIds[3]);
         }
     } else { // 全新常用组合
-        // 红队
+        // 第一队
         if (isSetCurrRole) { // 重新选择主角
             flashRoles = flashRoles.concat(RegularlyCollocation.getRandomGroup());
         } else {
@@ -7497,7 +7582,7 @@ function setRolesFlash(roleIds, isSetCurrRole) {
             let role = Role.getRoleById(userConfig.currRole);
             flashRoles.push(role.cps[fullCloseInt(0, role.cps.length - 1)]);
         }
-        // 蓝队
+        // 第二队
         flashRoles = flashRoles.concat(RegularlyCollocation.getRandomGroup());
     }
 
@@ -7512,12 +7597,12 @@ function setRolesFlash(roleIds, isSetCurrRole) {
 function doCkeckOtherRoles(otherRoles) {
     console.log(">>>> doCkeckOtherRoles before otherRoles=" + otherRoles);
     if (otherRoles.length > 3) otherRoles = otherRoles.slice(0, 3); // slice[tart, end) 开区间 不改变原数组
-    // 红队校验
+    // 第一队校验
     if (otherRoles[0] < 0 || otherRoles[0] === userConfig.currRole) {
         let role = Role.getRoleById(userConfig.currRole);
         otherRoles[0] = role.cps[fullCloseInt(0, role.cps.length - 1)];
     }
-    // 蓝队校验
+    // 第二队校验
     if (otherRoles[1] > -1 && otherRoles[2] > -1) { // 两个都设置了
         if (otherRoles[1] === otherRoles[2]) { // 俩角色一样
             let role = Role.getRoleById(otherRoles[1]);
@@ -7547,7 +7632,7 @@ function setRoleOthers(otherRoles) {
         // 非主球只能移动和被撞击
         let otherBall = new Ball(context, {
             no: idx,
-            teamColor: idx > 2 ? 'b' : 'r',
+            teamColor: idx > 2 ? 'r' : 'b',
             roleId: rid,
             isMainBall: false,
             x: 0,
@@ -7570,13 +7655,13 @@ function setRoleOthers(otherRoles) {
 // 设置小丑分身
 function setRoleJoker() {
     let rid;
-    for (let i = 0, len = balls.length; i < len; i++) {
+    for (let i = 0, len = balls.length; i < len; i++) { // len = balls.length 只取一次值，目前 len 可能为 1 或 4
         rid = balls[i].roleId;
         if (rid !== Role.JOKER.id) continue;
 
         let otherBall = new Ball(context, {
-            no: balls.length + 1,
-            teamColor: i > 1 ? 'b' : 'r',
+            no: balls.length + 1, // 这里的 balls.length 会在 balls.push 之后增加
+            teamColor: i > 1 ? 'r' : 'b',
             color: '#A8A8A8A8', // 小丑分身单独颜色，取默认皮肤帽子颜色
             roleId: rid,
             isMainBall: false,
@@ -7804,9 +7889,37 @@ function resetMainTeamColorRandom(mtc) {
     // 参数设置角色输入框颜色跟着变化
     let roleInputEles = document.getElementsByClassName("div-input-game-roles");
     if (!roleInputEles || roleInputEles.length !== 4) return;
-    for (let i = 0, len = roleInputEles.length; i < len; i++) {
+    let mtcNew = balls[0].teamColor;
+    for (let i = 0, len = 4; i < len; i++) {
+        // 如果主角在红队，则前两个输入框红色、后两个蓝色
+        if (mtcNew === 'r') {
+            if (i < 2) roleInputEles[i].classList.add("red");
+            else roleInputEles[i].classList.remove("red");
+        } else { // 如果主角在蓝队，则前两个输入框蓝色、后两个红色
+            if (i < 2) roleInputEles[i].classList.remove("red");
+            else roleInputEles[i].classList.add("red");
+        }
         // 存在则删除，不存在则添加
-        roleInputEles[i].classList.toggle("red");
+        //roleInputEles[i].classList.toggle("red");
+    }
+    // 重置角色编号
+    //resetMainTeamNo(balls);
+}
+
+
+// TODO 设置主角所在对编号【很多地方用到了初始编号做条件判断，之前的逻辑是主球编号一定是1，改动影响的地方比较多】
+function resetMainTeamNo(balls) {
+    if (!balls || balls.length < 1) return;
+    if (userConfig.isTestOnlyOne) return;
+    // 目前硬性规则，四个角色，蓝队编号1、2，红队编号3、4
+    for (let i = 0, len = 4; i < len; i++) {
+        if (balls[i].teamColor === 'b') {
+            if (i % 2 === 0) balls[i].no = 1;
+            else balls[i].no = 2;
+        } else {
+            if (i % 2 === 0) balls[i].no = 3;
+            else balls[i].no = 4;
+        }
     }
 }
 
@@ -7854,6 +7967,8 @@ function resetEggs() {
     drawSceneBg();
     // 画网格，在背景色之后
     drawSceneGrid();
+    // 夏日主题画间隔颜色的砖格
+    if (userConfig.sceneThemeMode === 5) drawSceneGridRect();
     // 墙面切角
     clipTableAngles();
     // 画蛋
@@ -10006,7 +10121,8 @@ function switchCheckbox(label, key, params) {
     // 角色球体路径
     if (key === "isShowBallPath") togglePathBallShow(isShow);
     // 血量条切换显示
-    if (key === "isShowRoleBloodLine") directPlayAgain(false);
+    if (key === "isShowRoleBloodLine" || key === "isShowRoleBloodNo")
+        flushAllRoleOnce();
     // 启用自定义主题开关
     if (key === "isUseCustomTheme") switchCustomThemeCheckbox(isShow);
     // 显示猴子分身提示
@@ -10094,7 +10210,13 @@ function toggleTeamColor() {
 
     // 角色血量条开启，需要重新渲染角色
     if (userConfig.isShowRoleBloodLine) {
+        /*
+        if (selectedBall && selectedBall.isChgPosFinished) 
+            selectedBall.isChgPosFinished = false; // 标记为未拖动完成
         directPlayAgain(false);
+        */
+        // 重画一次角色即可
+        flushAllRoleOnce();
     }
 
     // 更新设置
@@ -13159,6 +13281,19 @@ function clearCanvasAll(cvs) {
     let h = cvs.height;
     cvs.width = w;
     cvs.height = h;
+}
+
+
+// 刷新一次所有角色渲染，不影响路径和场景
+function flushAllRoleOnce() {
+    if (!balls || balls.length < 1) return;
+    // 清空角色所在图层
+    clearCanvasAll(canvas); // 角色运动层
+    clearCanvasAll(gameMainBallCanvas); // 主角运动层
+    // 重画
+    balls.some(ball => {
+        ball.draw();
+    });
 }
 
 
