@@ -1192,6 +1192,7 @@ input:checked+.slider:before {
                 <!--<div id="user-setting-head-desc"></div>-->
             </div>
             <ul id="user-setting-area">
+                <!-- 指定角色放到最上方，免得每次都要上滑页面很久【输入法会把输入框顶上去导致看不到输入框】 -->
                 <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">自定义主题</span>
                     <span id="toggleCustomThemeSvgArrow"
@@ -1779,7 +1780,7 @@ input:checked+.slider:before {
             </div>
             <div id="user-setting-about-app-content">
                 <pre>
-<b class="collide-try-app-full-name collide-try-each-item-margin">玩吧-撞击王者-角色角度练习器</b>
+<b class="collide-try-app-full-name collide-try-each-item-margin">玩吧-撞击王者-模拟练习工具</b>
 <b class="collide-try-each-item-margin">👨‍💻 Author: THeLiGht_ Group</b>
 <b class="collide-try-each-item-margin">📧 Contact: m1yellow@163.com</b>
 <div class="collide-try-author-declare">
@@ -1805,11 +1806,16 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.7.0 更新：<span class="collide-try-update-date">2025-08-23</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.7.1 更新：<span class="collide-try-update-date">2025-08-28</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 新增血量条显示角色编号
-2. 优化了一些已知问题
+1. 优化了贴边碰撞可能碰不到的问题
+2. 调整了应用名称
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.0 更新：<span
+                            class="collide-try-update-date">2025-08-23</span></b></div>
+                1. 新增血量条显示角色编号
+                2. 优化了一些已知问题
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.6.3 更新：<span
                             class="collide-try-update-date">2025-08-18</span></b></div>
                 1. 修复高屏幕刷新率（90/120Hz）兼容性问题
@@ -1978,7 +1984,7 @@ input:checked+.slider:before {
                     <pre>
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">几个游戏公平建议：<span class="collide-try-update-date"></span></b></div>
 <span class="collide-try-each-item-margin">① 开局在选择角色框下方加入“石头剪刀布”选项，谁赢谁先手！系统不要帮选，不选则后手，选完在游戏界面公示！平局再按现有的蓝红顺序轮流先手方式</span>
-<span class="collide-try-each-item-margin">② 1号位先打，2号位后打，交给玩家自己决定，玩家就想1号位先打就这么难？</span>
+<span class="collide-try-each-item-margin">② 1号位先打，2号位后打，交给玩家自己决定，玩家就想1号位先打就这么难？（已实现）</span>
 <span class="collide-try-each-item-margin">③ 开局角色位置、🌿、💣、🍄、🔪 等陷阱位置，请完全随机！哪有那么巧就刚好给直线？</span>
 <span class="collide-try-each-item-margin">④ 加入『允许发言交流』勾选框，只要有一个玩家不勾选，就不能发言和发表情！</span>
 <span class="collide-try-each-item-margin">⑤ 加入《撞王等级资格证》机制，根据上一个赛季和当前赛季最高段位自动区分，大奖赛【大师】以下段位加入撞王等级匹配规则，避免 20、30 多级的玩家频繁对阵满级大佬被气走！留住新用户才有得 ⭕ 啊！[狗头]</span>
@@ -3536,7 +3542,7 @@ let superKey = "";
 let easyKey = "";
 let accessMsg = "";
 let codeStr = "";
-let encodeStr = "pQJ2U2hTpWizUb7pjutdkUIG1NRvSVr/gdSSTQkVP+/v5iWxG/5qkpDPx3B60y+rFrTDI1wwWa7nZFDE+LIJpbu3++ouJZGzXfZjsyaV8I2Tq7UnHZsmq+NlKS1eDOJ6OPLf8TNLgjAnQcTai60E9NUiVSms6RiU5IhP7VsmdSvhe5+5LCEMy+RYQb7ltFi/2MWNnFcWDwnOgnIK9zEwuTPtuX2tYelS80xN3uaGpjN9lExKA105oG6rIPAVLn4Xc25lpgegk9ghGro7Mj9duMcLfjICWndB283W16Lwk5hni0OHDiDYpXsvFY8gMlXA+fv8/FPLDzztgz6JEgvfzXLAAIY3uLW6ZKoPeKxUqWg3FYhOhO6X4ez0U1BHu4+itFhoOX8uvj7umqKYGt7YGkJEg+7lcxfAvdZMRYCiIfZ12wiRLPJsdVKmTwKg6VdmU27eBueKFdjPJOmIiHzCTDuX1nwMvo9i+A2xCN1JEtxU3f0k6Aa1AohKeHkewNNiR+QhMuGfWEk1GMpHmujJ1S37Il5+A+qoHQ1lj0/oFtcRFA==";
+let encodeStr = "wQHfljkjsGiy3+wT9BSL41AFs6yD2vgAiUwRiNznhC4BQ+M2cnX9rDrWmuiqxHUbMuEKgdHc9B41dNO9mmo9fDvmnnh44OhNZcTTlAGxTp+7C37Hh4Fvnw0WB3GCZ0L0TU0ZQgYVf2Z0fcPS1IuOXio0qZEq+LE8u+T3OHY3WP6d+6Yf9ab5JmWIjEpMkZHDDK0rGMNjm9S02UiM/AwVJYHNHPJOu464ag70ZuX0Gfc2971eLh38bqFkTL+O4+K8wSrmS+LN8V3i8GrY5DfqV+O/NSz1eN8nmddrVJTyWTVdjW6wMQNkeqybR00hRdQmffpBLu6fGSMakyQGhjNswd1DZVcuBNIxqiBiiTlM12C9tJPImrkq1m0AmWIz5Vp1ed7yxm8nTTFj7EfWRouNAO/8iasWXYuOUOa5fuba4u3nidLlQNYVFsDfqLAA81bV4K9ugm6JgcFioc/UjJkgkpuTq+x9mug0kO6x+h+NUH5/FrrfNmCFPQvBVTHqB1bqmIFBkvhT2F+7w50GYQTyraDAqpw19MwZiFPnMT9bSH42eBWxFbRFEYwhuztc9gvR5Cz2FIu3MAmGGujIjkIi0VQ/G3+crwwWgA1TTTRNtDwhx/wxcQ==";
 let superKeyEnStr = "pgIHKWhTpWgum5RUy260ov+kWrkQeKmKwrHN+A2gkj9AK9ylSlk8MA==";
 let easyKeyEnStr = "pgLrbmhTpWiWGR96Qv/yz6kQ7C5QUvDhVLKtSrSwjuAJnqs7WvRWcA==";
 if (accessKey && codeStr) {
@@ -3785,9 +3791,9 @@ onMounted(() => {
 ////////////////////////////////////////////////
 var sysConfig = {
     // 应用名称
-    appName: "玩吧-撞击王者-角色角度练习器",
+    appName: "玩吧-撞击王者-模拟练习工具",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250823"),
+    version: Number(packageVersion.replaceAll(".", "") + "250828"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3850,7 +3856,7 @@ var userConfig = {
     // 当前操作方式，0-拖拽（默认）；1-点按
     currPlayOpt: 0,
     // 主角所在队颜色
-    mainTeamColor: 'r',
+    mainTeamColor: 'b',
     // 是否随机角色，完全随机
     isRandomRole: false,
     // 是否极速开始，挑选常用组合
@@ -5369,7 +5375,7 @@ class Role {
         this.DUDU.cps = [Role.JUNDUN.id, Role.WUNV.id, Role.XIUNV.id, Role.CHUZI.id, Role.LEIMENG.id, Role.YEREN.id, Role.CAPTAIN.id, Role.JOKER.id, Role.TUYA.id, Role.LINGOU.id, Role.BAKE.id, Role.JIUWEIHU.id, Role.NUANYANG, Role.XIXUEGUI.id.id];
         this.GEJI.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.HEIWA.id, Role.RABBIT.id, Role.DIANYIN.id, Role.RENZHE.id, Role.XIXUEGUI.id];
         this.YUANSU.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.HEIWA.id, Role.RABBIT.id, Role.DIANYIN.id, Role.RENZHE.id, Role.XIXUEGUI.id, Role.WUGEGE.id, Role.KUILEI.id];
-        this.TANGSENG.cps = [Role.HONGSANSAN.id, Role.LINGOU.id, Role.MANWANG.id, Role.PUMPKIN.id, Role.JUNDUN.id, Role.MOUSE.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.HONGZHAJI.id, Role.BZGIRL.id, Role.CAPTAIN.id];
+        this.TANGSENG.cps = [Role.HONGSANSAN.id, Role.LINGOU.id, Role.KUILEI.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.YOUFANG.id, Role.MANWANG.id, Role.PUMPKIN.id, Role.JUNDUN.id, Role.MOUSE.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.HONGZHAJI.id, Role.BZGIRL.id, Role.CAPTAIN.id];
 
     }
 
@@ -6297,8 +6303,8 @@ function doVersionThings() {
                 if (f === 'isShowBallPath') continue;
                 if (f === 'isKuileiPullBack') continue;
                 if (f === 'isShowTryFullPath') continue;
-                if (f === 'isShowRoleBloodLine') continue;
-                if (f === 'isShowRoleBloodNo') continue;
+                //if (f === 'isShowRoleBloodLine') continue;
+                //if (f === 'isShowRoleBloodNo') continue;
                 if (userConfigCache[f] || typeof userConfigCache[f] === "boolean") userConfig[f] = userConfigCache[f];
             }
             // 更新 localStorage 中的 userConfig
@@ -12855,6 +12861,7 @@ onMounted(() => {
     if (!collideParams.eggId) collideParams.eggId = -1;
     console.log(">>>> do2BallsCollidedMV2 params=" + JSON.stringify(collideParams));
 });
+//var dotCount = 0;
 //function do2BallsCollidedMV2(ball0, ball1, isChPos, isChVel, params) {}
 
 
