@@ -1509,6 +1509,15 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item li-space-between-center">
+                    <span class="user-setting-item-msg-left">只碰一次角色</span>
+                    <span class="user-setting-item-switch-right">
+                        <label class="switch" @click="switchCheckbox($event, 'isRoleCollidedOnce');">
+                            <input type="checkbox" id="isRoleCollidedOnce">
+                            <div class="slider round"></div>
+                        </label>
+                    </span>
+                </li>
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">碰到角色即停止</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isStopAfterCollided');">
@@ -1806,11 +1815,16 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.7.1 更新：<span class="collide-try-update-date">2025-08-28</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.8.0 更新：<span class="collide-try-update-date">2025-09-05</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 优化了贴边碰撞可能碰不到的问题
-2. 调整了应用名称
+1. 新增【只碰一次角色】开关，方便练习碰撞反弹角度
+2. 修复了角色碰撞位置调整可能不正确的问题
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.1 更新：<span
+                            class="collide-try-update-date">2025-08-30</span></b></div>
+                1. 优化了贴边碰撞可能碰不到的问题
+                2. 调整了应用名称
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.0 更新：<span
                             class="collide-try-update-date">2025-08-23</span></b></div>
                 1. 新增血量条显示角色编号
@@ -3542,9 +3556,9 @@ let superKey = "";
 let easyKey = "";
 let accessMsg = "";
 let codeStr = "";
-let encodeStr = "wQHfljkjsGiy3+wT9BSL41AFs6yD2vgAiUwRiNznhC4BQ+M2cnX9rDrWmuiqxHUbMuEKgdHc9B41dNO9mmo9fDvmnnh44OhNZcTTlAGxTp+7C37Hh4Fvnw0WB3GCZ0L0TU0ZQgYVf2Z0fcPS1IuOXio0qZEq+LE8u+T3OHY3WP6d+6Yf9ab5JmWIjEpMkZHDDK0rGMNjm9S02UiM/AwVJYHNHPJOu464ag70ZuX0Gfc2971eLh38bqFkTL+O4+K8wSrmS+LN8V3i8GrY5DfqV+O/NSz1eN8nmddrVJTyWTVdjW6wMQNkeqybR00hRdQmffpBLu6fGSMakyQGhjNswd1DZVcuBNIxqiBiiTlM12C9tJPImrkq1m0AmWIz5Vp1ed7yxm8nTTFj7EfWRouNAO/8iasWXYuOUOa5fuba4u3nidLlQNYVFsDfqLAA81bV4K9ugm6JgcFioc/UjJkgkpuTq+x9mug0kO6x+h+NUH5/FrrfNmCFPQvBVTHqB1bqmIFBkvhT2F+7w50GYQTyraDAqpw19MwZiFPnMT9bSH42eBWxFbRFEYwhuztc9gvR5Cz2FIu3MAmGGujIjkIi0VQ/G3+crwwWgA1TTTRNtDwhx/wxcQ==";
+let encodeStr = "iwCkbEe4umgXW8Z8XMxbCkBZYXCUpgJlRaxhZtRQ4cG09pa5tlsKs0jzY+7WLIkaR2JN8tAKX2TpSsDN1YudYqqVasY6kZYG7ywzls7LJEabMBIwPz/O2FlyH1VxamwMxyZHXYGLS/EF2wtiwyUv+npl63pZi4mUNBAwFMy7T5rwiJtiM5guQ/SaK7/3W37A+F46Q0cIKkPfd8ZKs9D7WjfXdfEtiPNCB80QqzvwfOgTSQ0uveMamdpx4lEYcUiEgiWHy0n54lnakg/jj8JLcYqesjAC8GM972q5ZUeV5NZnJ7Q/xRtdOSaFrcDJlXdjyVI11Zrf/nELZDMGTIiC8oGclsYVe7nchj+8lX6NKXrYPlZu1XHze7bW1O6FwZRdNrwL4NbahskjroQlC4Q9FD3e1CPO4v0v7J5zxPkjXxU6cWQ+dB5gLIv3732UyDZj25NBlhmvKzuU82yfB+GInhntvGAjtWdXy2ZsswQvVrhr09sAF5PPycRtQlp1L0oY4TK0BAY7HnYvORPVEcWg1FhPRN1TckMFN7rqTjgUQmps5oZjdoBUCW7V3kpq85FZT8cJFTXPo7EBQu3Oow+CExuGuGJ510QcGVNJshihxUJXFW5zruGYOU8ahqo0+HqpuHTx2j0Emx0=";
 let superKeyEnStr = "pgIHKWhTpWgum5RUy260ov+kWrkQeKmKwrHN+A2gkj9AK9ylSlk8MA==";
-let easyKeyEnStr = "pgLrbmhTpWiWGR96Qv/yz6kQ7C5QUvDhVLKtSrSwjuAJnqs7WvRWcA==";
+let easyKeyEnStr = "jgCXJUe4umhO7FyajvDhdPi+6mrNKa1/GIUz6wtrBxS3YjtaHGlzEw==";
 if (accessKey && codeStr) {
     encodeStr = Aes.Ctr.encrypt(codeStr, accessKey, 256);
     console.log('>>>> encodeStr=', encodeStr);
@@ -3793,7 +3807,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-模拟练习工具",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250828"),
+    version: Number(packageVersion.replaceAll(".", "") + "250905"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3824,6 +3838,8 @@ var sysConfig = {
     isWan8CocosTable: true,
     // 斜边角度倾斜偏差（单位：像素），初始化的时候会根据 girdSize 重新计算，程序取这里的数值。第一个值对应点(0, 3)，其他点往顺时针方向递增
     wan8CocosTableMoveVals: [0, 0, 0, 0, 0, 0, 0, 0],
+    // 在检测两圆球碰撞时，增加一个微小的容差值（epsilon），确保即使小球非常接近也能检测到碰撞
+    epsilon: 0.20,
     // 碰撞损耗，玩吧角色碰墙或者碰其他角色，看着似乎没有损耗。checkBounce方法，作用在合速度上
     bounce: 0,
     // 蛋有弹性，碰撞可增加一定百分比的速度
@@ -3871,6 +3887,8 @@ var userConfig = {
     isStopAfterCollided: false,
     // 只瞄准不打，用于截图分享
     isJustTrying: false,
+    // 只碰一次角色，用于练习碰撞反弹
+    isRoleCollidedOnce: false,
     // 碰两次后停止，用于测试观察角度
     isStopAfter2WallCollided: false,
     // 只显示台面
@@ -3915,7 +3933,7 @@ var userConfig = {
     isUseCustomTheme: false,
     // 斜边角度倾斜偏差（单位：格），用户设置看到的是这里的数值。第一个值对应点(0, 3)，其他点往顺时针方向递增
     //wan8CocosTableMoveVals: [0,0.05,-0.05,-0.05,0.12,-0.025,0.025,0.08], // 注意 undefined 找不到值，或者数值不对，需要清除 localStorage 缓存
-    wan8CocosTableMoveVals: [0, 0.05, -0.05, -0.05, 0.12, -0.025, 0, 0],
+    wan8CocosTableMoveVals: [0, 0.05, -0.05, -0.05, 0.12, -0.025, 0.025, 0.05],
 
 }
 // 用户原始配置备份
@@ -11618,9 +11636,7 @@ function arrayUnique(array) {
 
 // 两平面⚪是否碰撞 两圆碰撞 两球碰撞
 function is2CirclesCollided(ball0, ball1) {
-    // 在碰撞检测时，增加一个微小的容差值（epsilon），确保即使小球非常接近也能检测到碰撞
-    const epsilon = 0.001 * dpr;
-    return (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 <= (ball0.radius + ball1.radius) ** 2 + epsilon;
+    return (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 <= (ball0.radius + ball1.radius) ** 2 + sysConfig.epsilon;
 }
 
 
@@ -12354,6 +12370,10 @@ function checkOtherBalls(ball, isCheck) {
                 }
                 */
 
+                // 有一个小球没有速度的情况，只调整有速度小球的坐标位置
+                adjustMovingBallPos(ball, b);
+
+                /*
                 //console.log(">>>> do2BallsCollidedMV2 params=" + JSON.stringify(collideParams));
                 if (userConfig.currRole === Role.JIANGJIANG.id || userConfig.currRole === Role.YLPAPA.id) {
                     //do2BallsCollidedMV2(ball, b, isCheck, false, collideParams);
@@ -12363,9 +12383,10 @@ function checkOtherBalls(ball, isCheck) {
                     //else do2BallsCollidedMV2(ball, b, isCheck, false, collideParams);
                     else doBackToBorderBallsCollided(ball, b, isCheck);
                 } else {
-                    if (isCheck) doBackToBorderBallsCollided(ball, b, true);
-                    //else do2BallsCollidedMV2(ball, b, true, false, collideParams);
+                    doBackToBorderBallsCollided(ball, b, isCheck);
+                    //if (ball.isMainBall) doBackToBorderBallsCollided(ball, b, true);
                 }
+                */
 
                 // TODO 显示瞄准碰撞指示圈【瞄准时会不停地拖动检测，导致指示圈有闪动，后续再搞】
                 // 还要考虑同时碰墙、碰蛋、碰多个角色时怎么显示
@@ -12377,14 +12398,32 @@ function checkOtherBalls(ball, isCheck) {
                 // 碰到就停止
                 if (userConfig.isStopAfterCollided) {
                     // 调整碰撞位置
-                    doBackToBorderBallsCollided(ball, b, true);
-                    ball.vx = 0;
-                    ball.vy = 0;
-                    //ball.isMoving = false;
+                    //doBackToBorderBallsCollided(ball, b, true);
                     b.vx = 0;
                     b.vy = 0;
                     //b.isMoving = false;
+                    // 使用新方式调整碰撞位置
+                    adjustMovingBallPos(ball, b);
+                    ball.vx = 0;
+                    ball.vy = 0;
+                    //ball.isMoving = false;
                     return true;
+                }
+
+                // 主角只碰一次角色
+                if (userConfig.isRoleCollidedOnce) {
+                    if (ball.isMainBall && ball.roleCollidedCount >= 2 || b.isMainBall && b.roleCollidedCount >= 2) {
+                        // 调整碰撞位置
+                        //doBackToBorderBallsCollided(ball, b, true);
+                        b.vx = 0;
+                        b.vy = 0;
+                        //b.isMoving = false;
+                        adjustMovingBallPos(ball, b);
+                        ball.vx = 0;
+                        ball.vy = 0;
+                        //ball.isMoving = false;
+                        return true;
+                    }
                 }
 
                 // 处理小球碰撞后速度                
@@ -12720,7 +12759,9 @@ function checkEggs(ball, isCheck) {
                 // 位置调整有偏差
                 //do2BallsCollidedMV2(ball, e, true, false, collideParams);
                 // 使用回退方式调整位置
-                doBackToBorderBallsCollided(ball, e, true);
+                //doBackToBorderBallsCollided(ball, e, true);
+                // 使用新的计算方式调整坐标位置
+                adjustMovingBallPos(ball, e);
 
                 console.log(">>>> checkEggs-" + ball.getBallDesc() + "-撞击点坐标：x=" + ball.x + ", y=" + ball.y);
                 if (isCheck && recordCollidedPoint(ball)) return true;
@@ -12738,7 +12779,6 @@ function checkEggs(ball, isCheck) {
                     ball.vy = -ball.collidedV0.y;
                 } else {
                     // 计算小球反弹速度和反向
-                    //do2BallsCollided(ball, e);
                     do2BallsCollidedMV2(ball, e, false, true, collideParams);
                     // 蛋不会动
                     e.vx = 0;
@@ -12827,22 +12867,6 @@ function checkSelfCollided(ball) {
             ball.wallCollidedCount = 3;
         }
     }
-}
-
-
-// 计算两球碰撞后速度和方向【不带质量】
-function do2BallsCollided(ball0, ball1) {
-    let dvx = ball0.vx - ball1.vx;
-    let dvy = ball0.vy - ball1.vy;
-    let d_x = ball0.x - ball1.x;
-    let d_y = ball0.y - ball1.y;
-    let xx_yy = d_x * d_x + d_y * d_y;
-    let DVx = (dvx * d_x * d_x + dvy * d_x * d_y) / xx_yy;
-    let DVy = (dvy * d_y * d_y + dvx * d_x * d_y) / xx_yy;
-    ball0.vx = ball0.vx - DVx;
-    ball0.vy = ball0.vy - DVy;
-    ball1.vx = ball1.vx + DVx;
-    ball1.vy = ball1.vy + DVy;
 }
 
 
@@ -13014,14 +13038,12 @@ function isCollisionBallAndBall(ball0, ball1) {
     let KLRadius;
     if (ball0.isMainBall && ball0.roleId === Role.KUILEI.id) {
         if (isKuileiPulling) KLRadius = ball0.radiusTmp;
-        else KLRadius = ball0.pathRadius;
+        else KLRadius = ball0.pathRadius; // pathRadius-绳子路径半径，拉回之前默认的是 tryRadius-瞄准圈半径
     }
     // 双子本体与分身不会碰撞，会穿透
     let twinCheck = isTwinSelf(ball0, ball1);
     //console.log(">>>> isCollisionBallAndBall twinCheck=" + twinCheck);
-    // 在碰撞检测时，增加一个微小的容差值（epsilon），确保即使小球非常接近也能检测到碰撞
-    const epsilon = 0.001 * dpr;
-    result = !twinCheck && (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 <= ((KLRadius ? KLRadius : ball0.radius) + ball1.radius) ** 2 + epsilon;
+    result = !twinCheck && (ball0.x - ball1.x) ** 2 + (ball0.y - ball1.y) ** 2 <= ((KLRadius ? KLRadius : ball0.radius) + ball1.radius) ** 2 + sysConfig.epsilon;
     //console.log(">>>> isCollisionBallAndBall 2 balls check result=" + result);
 
     // 如果是碰蛋检测，直接返回
@@ -13428,6 +13450,30 @@ function doTryMoveBallFirstCollidedPos() {
 }
 
 
+// 重叠碰撞时，调整有速度小球的坐标位置，只适用有一个小球有速度的情况，两球都有速度在核心碰撞方法调整
+function adjustMovingBallPos(ball0, ball1, isCheck) {
+    if (!ball0 || !ball1) return;
+    if (ball0.vx * ball0.vy !== 0 && ball1.vx * ball1.vy !== 0) return;
+    let targetBall = ball0; // targetBall 引用地址指向 ball0
+    if (ball1.vx * ball1.vy !== 0) targetBall = ball1;
+    let vRatio = 1.2;
+    if (userConfig.currRole === Role.KUILEI.id) vRatio = 2.0;
+    let preBall = {
+        x: targetBall.x - targetBall.vx * vRatio,
+        y: targetBall.y - targetBall.vy * vRatio,
+        vx: targetBall.vx * vRatio, // 注意，这个速度不是上一帧的，已经减去了摩擦力，乘以 1.2 大致还原上一帧的速度
+        vy: targetBall.vy * vRatio,
+        radius: targetBall.radius
+    };
+    // 计算实际碰撞点坐标
+    const pos = calculateCircleCollision(preBall, targetBall.no === ball0.no ? ball1 : ball0);
+    if (!pos) return;
+    // 将运动小球坐标调整为实际碰撞点坐标
+    targetBall.x = pos.x;
+    targetBall.y = pos.y;
+}
+
+
 // 两球碰撞后，主球位置后退到碰撞边界
 function doBackToBorderBallsCollided(ball0, ball1, isCheck) {
     if (!ball0 || !ball1) return;
@@ -13487,6 +13533,100 @@ function doTryMoveBallFinished() {
     if (!tryMoveBall) return;
     tryMoveBall.vx = 0;
     tryMoveBall.vy = 0;
+}
+
+
+// 计算圆碰撞/获取两小球碰撞点坐标
+function calculateCircleCollision(ball1, ball2) {
+    const movingCircle = {
+        x: roundNumber(ball1.x, 4),
+        y: roundNumber(ball1.y, 4),
+        radius: roundNumber(ball1.radius, 4) // 注意有的角色瞄准半径和本体半径不一样，傀儡、游侠、花千机等
+    };
+
+    const staticCircle = {
+        x: roundNumber(ball2.x, 4),
+        y: roundNumber(ball2.y, 4),
+        radius: roundNumber(ball2.radius, 4)
+    };
+
+    const velocity = {
+        x: roundNumber(ball1.vx, 4),
+        y: roundNumber(ball1.vy, 4),
+    };
+
+    // 计算圆心之间的距离向量
+    const dx = staticCircle.x - movingCircle.x;
+    const dy = staticCircle.y - movingCircle.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    // 如果圆心距离已经小于两圆半径之和，说明已经碰撞
+    if (distance <= staticCircle.radius + movingCircle.radius) {
+        // 可以尝试回退到刚好碰撞点位置
+        return null;
+    }
+
+    // 计算速度向量长度
+    const speed = Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
+
+    // 如果速度为0，则不会发生碰撞
+    if (speed === 0) {
+        return null;
+    }
+
+    // 计算速度向量的单位向量
+    const unitVelocity = {
+        x: velocity.x / speed,
+        y: velocity.y / speed
+    };
+
+    // 计算圆心连线在速度方向上的投影长度
+    const projection = dx * unitVelocity.x + dy * unitVelocity.y;
+
+    // 如果投影为负，移动圆正在远离静止圆，不会发生碰撞
+    if (projection < 0) {
+        return null;
+    }
+
+    // 计算圆心连线的垂直分量长度
+    const perpendicular = Math.sqrt(distance * distance - projection * projection);
+
+    // 如果垂直距离大于两圆半径之和，则不会发生碰撞
+    if (perpendicular > staticCircle.radius + movingCircle.radius) {
+        //collisionResult.textContent = "移动圆不会与静止圆碰撞，它们会错过彼此。";
+        //collisionPoint.textContent = `垂直距离: ${perpendicular.toFixed(2)}，最小距离: ${staticCircle.radius + movingCircle.radius}`;
+        return null;
+    }
+
+    // 计算碰撞点沿速度方向的距离
+    const approach = projection - Math.sqrt(Math.pow(staticCircle.radius + movingCircle.radius, 2) - perpendicular * perpendicular);
+
+    // 如果approach为负，表示移动圆已经越过了碰撞点
+    if (approach < 0) {
+        return null;
+    }
+
+    // 计算碰撞点的坐标
+    const collisionX = roundNumber(movingCircle.x + unitVelocity.x * approach, 4);
+    const collisionY = roundNumber(movingCircle.y + unitVelocity.y * approach, 4);
+
+    // 返回碰撞点坐标
+    return { x: collisionX, y: collisionY };
+
+    /*
+    // 计算碰撞时间
+    const timeToCollision = approach / speed;
+    
+    // 计算碰撞时移动圆的位置
+    const movingCircleAtCollision = {
+        x: movingCircle.x + velocity.x * timeToCollision,
+        y: movingCircle.y + velocity.y * timeToCollision
+    };
+    */
+
+    // 显示结果
+    //collisionResult.textContent = `将会发生碰撞！碰撞时间: ${timeToCollision.toFixed(2)} 单位时间后`;
+    //collisionPoint.textContent = `碰撞点坐标: (${collisionX.toFixed(2)}, ${collisionY.toFixed(2)})，移动圆圆心位置: (${movingCircleAtCollision.x.toFixed(2)}, ${movingCircleAtCollision.y.toFixed(2)})`;
 }
 
 
