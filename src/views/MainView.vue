@@ -904,8 +904,8 @@ canvas {
     right: 0;
     bottom: 0;
     background-color: #ccc;
-    -webkit-transition: .2s;
-    transition: .2s;
+    -webkit-transition: .1s;
+    transition: .1s;
 }
 
 .slider:before {
@@ -916,8 +916,8 @@ canvas {
     left: 3px;
     bottom: 2px;
     background-color: white;
-    -webkit-transition: .2s;
-    transition: .2s;
+    -webkit-transition: .1s;
+    transition: .1s;
 }
 
 input:checked+.slider {
@@ -1815,10 +1815,11 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.8.0 更新：<span class="collide-try-update-date">2025-09-05</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.8.0 更新：<span class="collide-try-update-date">2025-09-07</span></b></div>
 <pre id="collide-try-about-app-update-newest">
 1. 新增【只碰一次角色】开关，方便练习碰撞反弹角度
 2. 修复了角色碰撞位置调整可能不正确的问题
+3. 优化了一些已知问题
 </pre>
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.1 更新：<span
                             class="collide-try-update-date">2025-08-30</span></b></div>
@@ -3807,7 +3808,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-模拟练习工具",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250905"),
+    version: Number(packageVersion.replaceAll(".", "") + "250907"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3823,7 +3824,7 @@ var sysConfig = {
     alertErrorCount: 3,
     // 设置游戏台面占屏幕宽度的比例
     sceneWidthRatio: 0.78,
-    // 设置游戏台面边界宽度，取 0.3 * girdSizeCss
+    // 设置游戏台面边框线宽，取 0.3 * girdSizeCss
     sceneLineWidth: 6,
     // 设置画布显示大小（css样式中的大小）【大图缩小不会模糊】，初始化的时候会计算修改
     cssWidth: 0,
@@ -4351,7 +4352,7 @@ class Ball {
         this.context.strokeStyle = "#D75956";
         if (this.teamColor === 'b') this.context.strokeStyle = "#0A7AFD";
         this.context.closePath();
-        this.context.lineWidth = roundNumber(2 * dpr * sysConfig.pxRatio, 4);
+        this.context.lineWidth = roundNumber(0.085 * sysConfig.girdSize); // 0.0892
         this.context.stroke();
         this.context.restore();
     }
@@ -4666,6 +4667,16 @@ class Ball {
         gamePathBallContext.restore();
         //}
     }
+}
+
+
+// 将所有小球速度置零
+function stopAllBalls(balls) {
+    balls.some(ball => {
+        ball.vx = 0;
+        ball.vy = 0;
+        ball.update();
+    });
 }
 
 
@@ -5686,7 +5697,7 @@ class Theme {
         this.gndColor = gndColor || "#D7D7DC"; // gird number dark 砖格坐标数值黑夜模式颜色
         this.gnSize = gnSize || 24; // TODO gird number 砖格坐标数值显示大小，初始化的时候计算 htmlFontSizeNum * dpr * sysConfig.pxRatio + "px serif"
         this.plColor = plColor || "#cfe0d380"; // point line 角色中心点运动路径颜色
-        this.plWidth = plWidth || roundNumber(5.20 / 2 * dpr * (os.isTablet ? 1.618 : 1)); // point line 角色中心点运动路径宽度 TODO 后续可改为按砖格的百分比来计算，就会更适配不同的设备
+        this.plWidth = plWidth || roundNumber(5.20 / 2 * dpr * (os.isTablet ? 1.618 : 1)); // point line 角色中心点运动路径宽度
         this.rlColor = rlColor || "#cfe0d325"; // role line 角色本体运动路径颜色
         this.klplColor = klplColor || "#D61C24"; // kuilei point line 傀儡中心点运动路径颜色
         this.klplWidth = klplWidth || roundNumber(7.00 / 2 * dpr * (os.isTablet ? 1.618 : 1)); // kuilei point line 傀儡中心点运动路径宽度
@@ -5786,8 +5797,12 @@ class Theme {
     // 重新计算属性值
     static reCalculate(theme) {
         if (!theme) return;
-        theme.tblWidth = sceneLineRealWidth; // 台面边框线宽
+        theme.tblWidth = sysConfig.sceneLineWidth; // 台面边框线宽
         theme.gnSize = Math.round(htmlFontSizeNum * dpr * sysConfig.pxRatio * 0.8); // 砖格坐标数值字体大小
+        theme.plWidth = roundNumber(0.11 * sysConfig.girdSize); // 角色运动路径线宽
+        theme.klplWidth = roundNumber(0.18 * sysConfig.girdSize); // 傀儡运动路径线宽
+        theme.ccWidth = roundNumber(0.05 * sysConfig.girdSize); // 瞄准、碰撞指示圈线宽
+
     }
 
     // 判断是否为颜色码
@@ -6000,8 +6015,6 @@ var isShuangziExist = false;
 var shareData = null;
 // html根元素字体大小
 var htmlEle, htmlFontSize, htmlFontSizeNum;
-// 不同设备实际线宽
-var sceneLineRealWidth = 0;
 // 台面区域
 var tablePolygon = [];
 // emoji 大图形 size
@@ -6060,15 +6073,11 @@ function initAppParams() {
     setPageSize();
     console.log(">>>> sysConfig.girdSize=" + sysConfig.girdSize);
     console.log(">>>> sysConfig.girdSizeCss=" + sysConfig.girdSizeCss);
-    // 调整边框宽度为 0.3 * girdSizeCss
-    sysConfig.sceneLineWidth = roundNumber(0.27 * sysConfig.girdSizeCss, 4);
+    // 调整边框宽度为 0.3 * girdSize
+    sysConfig.sceneLineWidth = roundNumber(0.27 * sysConfig.girdSize, 4);
     console.log(">>>> sysConfig.sceneLineWidth=" + sysConfig.sceneLineWidth);
-    sceneLineRealWidth = roundNumber(sysConfig.sceneLineWidth * dpr);
-    console.log(">>>> sceneLineRealWidth=" + sceneLineRealWidth);
-    if (!userConfig.isUseCustomTheme) { // 没有启用自定义主题时才重新计算，关联 Theme 类中的 reCalculate()
-        currTheme.tblWidth = sceneLineRealWidth; // 台面边框线宽
-        currTheme.gnSize = Math.round(htmlFontSizeNum * dpr * sysConfig.pxRatio * 0.8); // 砖格坐标数值字体大小
-    }
+    // 没有启用自定义主题时，重新计算主题中的动态属性
+    if (!userConfig.isUseCustomTheme) Theme.reCalculate(currTheme);
     // 设置弹窗滚动区域高度 canvas.width * hRadio
     setDialogScrollMaxHeight(1.70);
     // 画布居中
@@ -6076,7 +6085,7 @@ function initAppParams() {
     // 设置点按发射按钮画布大小和位置
     clickPlayBtn = new ClickPlayBtn();
     setClickPlayCanvas();
-    // 台面区域初始化
+    // 台面区域初始化，用于检测判断是否与emoji图形重叠
     tablePolygon = [
         { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 3), y: Math.round(sysConfig.cTop * dpr - currTheme.tblWidth + sysConfig.girdSize * 0) },
         { x: Math.round(sysConfig.cLeft * dpr + sysConfig.girdSize * 11), y: Math.round(sysConfig.cTop * dpr - currTheme.tblWidth + sysConfig.girdSize * 0) },
@@ -6557,8 +6566,8 @@ function initBallByRole(ball) {
         case Role.KUILEI.id:
             ball.color = "#E72E38";
             ball.sizeRatio = Ball.SIZERATIO.L; //  大
-            ball.pathRadius = roundNumber(7.0 / 2 * dpr, 4); // 傀儡绳子运动路径半径
-            ball.tryRadius = roundNumber(0.7 * sysConfig.girdSize / 2, 4); // 傀儡瞄准线半径
+            ball.pathRadius = roundNumber((currTheme.klplWidth + 0.1 * sysConfig.girdSize) / 2); // + 0.1 * sysConfig.girdSize 弥补半径过小导致检测不到碰撞的误差。roundNumber(7.0 / 2 * dpr); // 傀儡绳子运动路径半径
+            ball.tryRadius = roundNumber(0.7 * sysConfig.girdSize / 2); // 傀儡瞄准线半径
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快
             //if (ball.isMainBall) userConfig.isShowBallPath = false; // 不显示全路径
@@ -8063,7 +8072,7 @@ function checkBallsCollided(newBall) {
 
     // 小球区域不能碰到蛋的区域
     if (isInEggArea(newBall)) result = true;
-    //console.log(">>>> checkBallsCollided isBallAndEggCollided=" + result + " > " + ball.getBallDesc());
+    //console.log(">>>> checkBallsCollided isBallAndEggCollided=" + result + " > " + newBall.getBallDesc());
 
     return result;
 }
@@ -8424,7 +8433,7 @@ function drawSceneCoordinate() {
     gameSceneCoordinateContext.translate(gameSceneCoordinateCanvas.width / 2, gameSceneCoordinateCanvas.height / 2);
 
     // 间隔宽度
-    let sceneLineNumMargin = roundNumber(sysConfig.sceneLineWidth * dpr * 1.3, 4);
+    let sceneLineNumMargin = roundNumber(sysConfig.sceneLineWidth * 1.3, 4);
     if (userConfig.isShowTableBorder) sceneLineNumMargin += roundNumber(currTheme.tblWidth * 1.1);
 
     let CanvasWidth = gameSceneCanvas.width;
@@ -8477,7 +8486,7 @@ function isInGirdNumArea(p) {
     // 移动坐标系到画布中心
     //gameSceneCoordinateContext.translate(gameSceneCoordinateCanvas.width / 2, gameSceneCoordinateCanvas.height / 2);
     // 间隔宽度
-    let sceneLineNumMargin = roundNumber(sysConfig.sceneLineWidth * dpr * 1.3, 4);
+    let sceneLineNumMargin = roundNumber(sysConfig.sceneLineWidth * 1.3, 4);
     if (userConfig.isShowTableBorder) sceneLineNumMargin += roundNumber(currTheme.tblWidth * 1.1);
     sceneLineNumMargin = sceneLineNumMargin / 4;
 
@@ -8746,7 +8755,6 @@ function setSceneTheme() {
             }
             break;
         default: // 默认主题
-            //sysConfig.sceneLineWidth -= 2; // 边框窄一点
             if (userConfig.isShowSceneGraph) {
                 // 中心图形
                 drawCenterGraphSvg("svg-default-center");
@@ -9006,27 +9014,8 @@ function getGraphViewAreaSize() {
 
 
 // 判断【全屏】坐标是否与台面重叠
-function isInTableAreaFull(p, width) {
-    if (!p) return false;
-    if (!isNumber(p.x) || !isNumber(p.y)) return false;
-    let x = Math.round(p.x);
-    let y = Math.round(p.y);
-    // 坐标点向 十 台面中心靠拢
-    if (x <= sysConfig.cLeft * dpr + gameSceneEmojiCanvas.width / 2) x = Math.round(x + width / 2);
-    else x = Math.round(x - width / 2);
-    if (y <= sysConfig.cTop * dpr + gameSceneEmojiCanvas.height / 2) y = Math.round(y + width / 2);
-    else y = Math.round(y - width / 2);
-    //if (x <= 0 || y <= 0) return false;
-    if (x >= sysConfig.cLeft * dpr - sysConfig.sceneLineWidth && x <= gameSceneEmojiCanvas.width - sysConfig.cLeft * dpr + sysConfig.sceneLineWidth
-        && y >= sysConfig.cTop * dpr - sysConfig.sceneLineWidth && y <= gameSceneEmojiCanvas.height - sysConfig.cTop * dpr + sysConfig.sceneLineWidth) return true;
-
-    return false;
-}
-
-
-// 判断【全屏】坐标是否与台面重叠
 // 不画与台面重叠的 emoji 图形，能节省几十毫秒的时间
-function isInTableAreaFullV2(p, width) {
+function isInTableAreaFull(p, width) {
     if (!p) return false;
     if (!isNumber(p.x) || !isNumber(p.y)) return false;
     let x = Math.round(p.x);
@@ -9229,7 +9218,7 @@ function drawIconRandom(icon, size, num, isNumRd, isInner, targetCanvas) {
         if (!fillPos) continue;
         // 不画在台面内部且图形与台面有重叠，则不画
         //if (isInner === undefined) isInner = true;
-        if (!isInner && isInTableAreaFullV2(fillPos, width)) continue;
+        if (!isInner && isInTableAreaFull(fillPos, width)) continue;
         //gameSceneCanvas.style.display = "none";
         //console.log(fillPos);
         //console.log(width);
@@ -9365,7 +9354,7 @@ function drawSvgRandom(svgId, size, num, isNumRd, isInner, targetCanvas) {
                 let fillPos = getEmojiPos(svgId, size, width, height, 0, true, gameSceneEmojiCanvas);
                 if (!fillPos) continue;
                 // 不画在台面内部且图形与台面有重叠，则不画
-                if (!isInner && isInTableAreaFullV2(fillPos, width)) continue;
+                if (!isInner && isInTableAreaFull(fillPos, width)) continue;
                 gameSceneEmojiContext.drawImage(img, 0, 0, img.width, img.height, fillPos.x, fillPos.y, width, height);
                 gameSceneEmojiContext.beginPath();
             }
@@ -12412,16 +12401,18 @@ function checkOtherBalls(ball, isCheck) {
 
                 // 主角只碰一次角色
                 if (userConfig.isRoleCollidedOnce) {
+                    // 只有外层传入的ball才可能为主球，内层b不会是主球
                     if (ball.isMainBall && ball.roleCollidedCount >= 2 || b.isMainBall && b.roleCollidedCount >= 2) {
                         // 调整碰撞位置
                         //doBackToBorderBallsCollided(ball, b, true);
-                        b.vx = 0;
-                        b.vy = 0;
-                        //b.isMoving = false;
-                        adjustMovingBallPos(ball, b);
                         ball.vx = 0;
                         ball.vy = 0;
                         //ball.isMoving = false;
+                        // 如果这时候ball的速度刚好停止，这个调整坐标方法不会执行，会出现重叠
+                        adjustMovingBallPos(ball, b);
+                        b.vx = 0;
+                        b.vy = 0;
+                        //b.isMoving = false;
                         return true;
                     }
                 }
@@ -12456,6 +12447,42 @@ function checkOtherBalls(ball, isCheck) {
 
     if (!isDuoduoExist) ball.isCheckFinished = true; // 不检测蛋，则检测完球碰撞之后，所有检测完成
     drawAndUpdate(ball, isCheck); // 绘制小球并更新速度
+}
+
+
+// 判断是否为速度过快穿透导致未检测到碰撞。没有碰撞的时机太多了，时刻检测耗电很大
+function isCrossedCollision(ball, b, isCheck) {
+    // 当前帧无碰撞、有碰撞点
+    const cFlag = is2CirclesCollided(ball, b);
+    if (cFlag) return false;
+    // 判断当前帧位置是否可能碰撞
+    const currCollidedPos = getCurrFrameCollidedPos(ball, b);
+    if (!currCollidedPos) return false;
+
+    // 且下一帧无碰撞、无碰撞点
+    // 获取下一帧坐标位置
+    const targetBall = getMovingBall(ball, b);
+    const nextPos = getPreOrNextFramePos(targetBall, 1);
+    const nFlag = is2CirclesCollided(nextPos, targetBall.no === ball.no ? b : ball);
+    if (nFlag) return false;
+    // 获取下一帧碰撞坐标位置
+    const nextCollidedPos = getPreOrNextFrameCollidedPos(ball, b, 1);
+    if (nextCollidedPos) return false;
+
+    return true;
+
+    /*
+    // 判断当前帧位置是否可能碰撞
+    const currCollidedPos = getCurrFrameCollidedPos(ball, b);
+    // 存在可能碰撞的坐标则不用处理，不可能碰撞则找上一帧是否可能有碰撞点
+    if (!currCollidedPos) {
+        // 获取上一帧碰撞坐标
+        const preCollidedPos = getPreOrNextFrameCollidedPos(ball, b, 0);
+        // 如果上一帧有碰撞坐标，说明是穿透过来的，调整坐标位置回退到上一个碰撞点，执行碰撞逻辑
+        if (preCollidedPos) return isCheck;
+    }
+    return false;
+    */
 }
 
 
@@ -12826,7 +12853,7 @@ function checkEggCollided(ball, isChPos) {
 
 // 是否碰到蛋区域
 function isInEggArea(ball) {
-    let posCheck = ((ball.y <= 2 * sysConfig.girdSize || ball.y >= 20 * sysConfig.girdSize) && ball.x >= 5 * sysConfig.girdSize && ball.x <= 9 * sysConfig.girdSize);
+    let posCheck = ((ball.y - ball.radius <= 1 * sysConfig.girdSize || ball.y + ball.radius >= 21 * sysConfig.girdSize) && ball.x + ball.radius >= 6 * sysConfig.girdSize && ball.x - ball.radius <= 8 * sysConfig.girdSize);
     return posCheck;
 }
 
@@ -12980,6 +13007,7 @@ function checkFriction(ball) {
     let v = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
     //if (v > 0 ) console.log(">>>> v=" + v);
     //if (v <= 0) return;
+    // 模拟实战打完后缓慢停止运动效果
     // 摩擦力跟实时速度正相关，v0 / f0 = v1 / f1 -> f1 = v1 / (v0 / f0)
     let f1 = v / (ball.v / sysConfig.friction);
     if (!f1 || !isNumber(f1) || f1 < (0.5 / 842) * canvas.width) f1 = (0.5 / 842) * canvas.width; // 避免摩擦力太小，导致很久才停下来
@@ -13367,11 +13395,7 @@ function checkIsMoving() {
 // animate 单次执行次数过多，可能是出现了死循环，将所有小球速度置零
 function resetBallsSpeed(balls) {
     // 重置所有角色速度，更新运动状态
-    balls.some(ball => {
-        ball.vx = 0;
-        ball.vy = 0;
-        ball.update();
-    });
+    stopAllBalls(balls);
     // 处理停止事项 animate() 会调用
     doAfterBallStopped(balls);
     // 再检测一次 animate 状态
@@ -13393,7 +13417,7 @@ function preTryMoveBall(num) {
             balls[0].radius = balls[0].radiusTmp;
             break;
         case 1: // 调整半径
-            tryMoveBall.radius = balls[0].tryRadius;
+            tryMoveBall.radius = balls[0].tryRadius; // 瞄准圈半径
             balls[0].radius = balls[0].tryRadius;
             break;
         default:
@@ -13452,25 +13476,101 @@ function doTryMoveBallFirstCollidedPos() {
 
 // 重叠碰撞时，调整有速度小球的坐标位置，只适用有一个小球有速度的情况，两球都有速度在核心碰撞方法调整
 function adjustMovingBallPos(ball0, ball1, isCheck) {
-    if (!ball0 || !ball1) return;
-    if (ball0.vx * ball0.vy !== 0 && ball1.vx * ball1.vy !== 0) return;
-    let targetBall = ball0; // targetBall 引用地址指向 ball0
-    if (ball1.vx * ball1.vy !== 0) targetBall = ball1;
-    let vRatio = 1.2;
-    if (userConfig.currRole === Role.KUILEI.id) vRatio = 2.0;
-    let preBall = {
-        x: targetBall.x - targetBall.vx * vRatio,
-        y: targetBall.y - targetBall.vy * vRatio,
-        vx: targetBall.vx * vRatio, // 注意，这个速度不是上一帧的，已经减去了摩擦力，乘以 1.2 大致还原上一帧的速度
-        vy: targetBall.vy * vRatio,
-        radius: targetBall.radius
-    };
     // 计算实际碰撞点坐标
-    const pos = calculateCircleCollision(preBall, targetBall.no === ball0.no ? ball1 : ball0);
+    const pos = getPreOrNextFrameCollidedPos(ball0, ball1, 0);
     if (!pos) return;
     // 将运动小球坐标调整为实际碰撞点坐标
+    const targetBall = getMovingBall(ball0, ball1);
     targetBall.x = pos.x;
     targetBall.y = pos.y;
+}
+
+
+// 获取两个小球之间有速度的小球
+function getMovingBall(ball0, ball1) {
+    if (!ball0 || !ball1) return null;
+    if (ball0.vx * ball0.vy === 0 && ball1.vx * ball1.vy === 0) return null; // 都没有速度不检测
+    if (ball0.vx * ball0.vy !== 0 && ball1.vx * ball1.vy !== 0) return null; // 都有速度也不检测
+    let targetBall = ball0; // targetBall 引用地址指向 ball0
+    if (ball1.vx * ball1.vy !== 0) targetBall = ball1; // 只处理有速度的
+    return targetBall;
+}
+
+
+// 获取当前帧碰撞点坐标
+function getCurrFrameCollidedPos(ball0, ball1) {
+    const targetBall = getMovingBall(ball0, ball1);
+    if (!targetBall) return null;
+    return calculateCircleCollision(targetBall, targetBall.no === ball0.no ? ball1 : ball0);
+}
+
+
+// 获取上一帧或下一帧碰撞点坐标
+function getPreOrNextFrameCollidedPos(ball0, ball1, idx) {
+    const targetBall = getMovingBall(ball0, ball1);
+    if (!targetBall) return null;
+    switch (idx) {
+        case 0:
+            const preBall = getPreOrNextFramePos(targetBall, 0);
+            if (!preBall) return null;
+            return calculateCircleCollision(preBall, targetBall.no === ball0.no ? ball1 : ball0);
+        case 1:
+            const nextBall = getPreOrNextFramePos(targetBall, 1);
+            if (!nextBall) return null;
+            return calculateCircleCollision(nextBall, targetBall.no === ball0.no ? ball1 : ball0);
+        default:
+            return null;
+    }
+}
+
+
+// 获取上一帧或下一帧位置坐标信息
+function getPreOrNextFramePos(targetBall, idx) {
+    if (!targetBall) return null;
+    switch (idx) {
+        case 0:
+            return doGetPreFramePos(targetBall);
+        case 1:
+            return doGetNextFramePos(targetBall);
+        default:
+            return null;
+    }
+}
+
+
+function doGetPreFramePos(ball) {
+    if (!ball) return null;
+    if (ball.vx * ball.vy === 0) return null;
+    let vRatio = 1.2;
+    let preBall = {
+        x: ball.x - ball.vx * vRatio,
+        y: ball.y - ball.vy * vRatio,
+        vx: ball.vx * vRatio, // 注意，这个速度不是实际上一帧的，已经减去了摩擦力，乘以 1.2 大致还原上一帧的速度
+        vy: ball.vy * vRatio,
+        radius: ball.radius
+    };
+    return preBall;
+}
+
+
+function doGetNextFramePos(ball) {
+    if (!ball) return null;
+    if (ball.vx * ball.vy === 0) return null;
+    let tmpBall = {
+        v: ball.v,
+        vx: ball.vx,
+        vy: ball.vy,
+    };
+    // 处理摩擦力
+    checkFriction(tmpBall);
+    let nextBall = {
+        x: ball.x + tmpBall.vx,
+        y: ball.y + tmpBall.vy,
+        vx: tmpBall.vx,
+        vy: tmpBall.vy,
+        radius: ball.radius
+    };
+    return nextBall;
 }
 
 
