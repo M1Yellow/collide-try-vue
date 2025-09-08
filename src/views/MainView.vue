@@ -1818,7 +1818,7 @@ input:checked+.slider:before {
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.8.0 更新：<span class="collide-try-update-date">2025-09-07</span></b></div>
 <pre id="collide-try-about-app-update-newest">
 1. 新增【只碰一次角色】开关，方便练习碰撞反弹角度
-2. 修复了角色碰撞位置调整可能不正确的问题
+2. 修复了角色碰撞反弹角度可能不正确的问题
 3. 优化了一些已知问题
 </pre>
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.1 更新：<span
@@ -3319,7 +3319,7 @@ function pushHistory() {
 }
 var backClickCount = 0;
 var backClickTimer = 0;
-function doBack() {
+function doBack(isMaskIn) {
     // 弹窗遮罩
     let isDialogMaskShowing = isDialogShowing(dialogMask);
     // 选择角色弹窗
@@ -3334,13 +3334,13 @@ function doBack() {
     let isHowToPlayDialogShowing = isDialogShowing(howToPlayDialog);
 
     // 关闭更新提示弹窗
-    if (isUpdateContentDialogShowing) {
+    if (!isMaskIn && isUpdateContentDialogShowing) {
         showUpdateContent(false);
         return;
     }
 
     // 关闭操作指南弹窗
-    if (isHowToPlayDialogShowing) {
+    if (!isMaskIn && isHowToPlayDialogShowing) {
         showHowToPlay(false);
         return;
     }
@@ -3356,6 +3356,14 @@ function doBack() {
         switchUserSettingDialog(false);
         return;
     }
+
+    // 关闭选择角色弹窗
+    if (isChooseRoleDialogShowing) {
+        switchChooseRoleDialog(false);
+        return;
+    }
+
+    if (isMaskIn) return;
 
     // 游戏正在进行
     if (checkIsMoving()) {
@@ -3558,7 +3566,7 @@ let easyKey = "";
 let accessMsg = "";
 let codeStr = "";
 let encodeStr = "iwCkbEe4umgXW8Z8XMxbCkBZYXCUpgJlRaxhZtRQ4cG09pa5tlsKs0jzY+7WLIkaR2JN8tAKX2TpSsDN1YudYqqVasY6kZYG7ywzls7LJEabMBIwPz/O2FlyH1VxamwMxyZHXYGLS/EF2wtiwyUv+npl63pZi4mUNBAwFMy7T5rwiJtiM5guQ/SaK7/3W37A+F46Q0cIKkPfd8ZKs9D7WjfXdfEtiPNCB80QqzvwfOgTSQ0uveMamdpx4lEYcUiEgiWHy0n54lnakg/jj8JLcYqesjAC8GM972q5ZUeV5NZnJ7Q/xRtdOSaFrcDJlXdjyVI11Zrf/nELZDMGTIiC8oGclsYVe7nchj+8lX6NKXrYPlZu1XHze7bW1O6FwZRdNrwL4NbahskjroQlC4Q9FD3e1CPO4v0v7J5zxPkjXxU6cWQ+dB5gLIv3732UyDZj25NBlhmvKzuU82yfB+GInhntvGAjtWdXy2ZsswQvVrhr09sAF5PPycRtQlp1L0oY4TK0BAY7HnYvORPVEcWg1FhPRN1TckMFN7rqTjgUQmps5oZjdoBUCW7V3kpq85FZT8cJFTXPo7EBQu3Oow+CExuGuGJ510QcGVNJshihxUJXFW5zruGYOU8ahqo0+HqpuHTx2j0Emx0=";
-let superKeyEnStr = "pgIHKWhTpWgum5RUy260ov+kWrkQeKmKwrHN+A2gkj9AK9ylSlk8MA==";
+let superKeyEnStr = "PQJ2F4bEvWjpdc6Yw2U3jioK4lk/IaWec5Jyy89UeoCGHtii0ljX6A==";
 let easyKeyEnStr = "jgCXJUe4umhO7FyajvDhdPi+6mrNKa1/GIUz6wtrBxS3YjtaHGlzEw==";
 if (accessKey && codeStr) {
     encodeStr = Aes.Ctr.encrypt(codeStr, accessKey, 256);
@@ -6078,8 +6086,8 @@ function initAppParams() {
     console.log(">>>> sysConfig.sceneLineWidth=" + sysConfig.sceneLineWidth);
     // 没有启用自定义主题时，重新计算主题中的动态属性
     if (!userConfig.isUseCustomTheme) Theme.reCalculate(currTheme);
-    // 设置弹窗滚动区域高度 canvas.width * hRadio
-    setDialogScrollMaxHeight(1.70);
+    // 设置弹窗滚动区域高度
+    setDialogScrollMaxHeight(1.80);
     // 画布居中
     canvasAutoCenter();
     // 设置点按发射按钮画布大小和位置
@@ -7165,12 +7173,13 @@ function setPageSize() {
 // 设置弹窗可滚动区域高度【依赖 canvas 宽高】
 // height = Math.round(width * 1.63)
 function setDialogScrollMaxHeight(hRadio) {
-    let targetHeight = Math.round(canvas.width * hRadio);
+    //let targetHeight = Math.round(canvas.width * hRadio);
     let targetCssHeight = Math.round(sysConfig.cssWidth * hRadio);
+    //let targetCssHeight = Math.round(document.body.clientHeight * hRadio);
 
     // 高度不能超过或太接近页面可见高度
-    if (targetHeight >= gameSceneCanvas.height - 40) targetHeight = Math.round(gameSceneCanvas.height * 0.85);
-    if (targetCssHeight >= document.body.clientHeight - 40) targetCssHeight = Math.round(document.body.clientHeight * 0.85);
+    //if (targetHeight >= gameSceneCanvas.height - 40) targetHeight = Math.round(gameSceneCanvas.height * 0.85);
+    if (targetCssHeight >= document.body.clientHeight * 0.90) targetCssHeight = Math.round(document.body.clientHeight * 0.80);
 
     // 选择角色列表
     let targetElm = document.getElementById('role-list-area');
@@ -9752,6 +9761,7 @@ function switchChooseRoleDialog(isShow) {
         dialogMask.style.display = "unset"; // 显示选择角色遮罩层
         chooseRoleDialog.style.display = "unset"; // 显示选择角色弹窗
     } else { // 关闭
+        if (userConfig.currRole < 0) return; // 没选择角色不能关闭
         dialogMask.style.display = "none"; // 隐藏选择角色遮罩层
         chooseRoleDialog.style.display = "none"; // 隐藏选择角色弹窗
     }
@@ -12337,7 +12347,7 @@ function checkOtherBalls(ball, isCheck) {
             if (ball !== tryMoveBall && b === ball) return;
 
             //console.log(">>>> checkOtherBalls " + ball.getBallDesc() + "-" + b.collidingNos[ball.no - 1]);
-            if (isCollisionBallAndBall(ball, b)) { // TODO 处理正在碰撞被当成很多次碰撞问题。animate 60 帧内会调用很多次方法，导致穿一次被计算成很多次
+            if (isCollisionBallAndBall(ball, b) || isCrossedCollision(ball, b, isCheck)) { // TODO 处理正在碰撞被当成很多次碰撞问题。animate 60 帧内会调用很多次方法，导致穿一次被计算成很多次
                 if (!isCheck) console.log(">>>> checkOtherBalls ball Collided > " + b.getBallDesc());
                 ball.isBallCollided = true;
                 ball.isCollided = true;
@@ -12451,37 +12461,48 @@ function checkOtherBalls(ball, isCheck) {
 
 
 // 判断是否为速度过快穿透导致未检测到碰撞。没有碰撞的时机太多了，时刻检测耗电很大
+// 穿透检测：当前帧没碰撞但继续运动会有碰撞点，下一帧也没碰撞，但找不到碰撞点
 function isCrossedCollision(ball, b, isCheck) {
-    // 当前帧无碰撞、有碰撞点
-    const cFlag = is2CirclesCollided(ball, b);
-    if (cFlag) return false;
+    if (!isCheck) return false; // 只在瞄准阶段判断
+    if (!ball || !b) return false;
+    if (!ball.isMainBall) return false; // 只检测外层ball为主球的情况，其他非主球穿透的概率很小，节省性能
+    // 只有一个小球有速度才检测
+    const targetBall = getMovingBall(ball, b);
+    if (!targetBall) return false;
+
+    // 当前帧不能为穿透后的位置，调整位置后回到穿透前，然后又检测到穿透，陷入死循环【瞄准时稳定没啥问题，开打时会卡在原地循环】
+    // 当前帧两小球没有碰撞，isCollisionBallAndBall 已经检测了
+    //const cFlag = is2CirclesCollided(ball, b);
+    //if (cFlag) return false;
     // 判断当前帧位置是否可能碰撞
     const currCollidedPos = getCurrFrameCollidedPos(ball, b);
-    if (!currCollidedPos) return false;
-
-    // 且下一帧无碰撞、无碰撞点
-    // 获取下一帧坐标位置
-    const targetBall = getMovingBall(ball, b);
-    const nextPos = getPreOrNextFramePos(targetBall, 1);
-    const nFlag = is2CirclesCollided(nextPos, targetBall.no === ball.no ? b : ball);
-    if (nFlag) return false;
-    // 获取下一帧碰撞坐标位置
-    const nextCollidedPos = getPreOrNextFrameCollidedPos(ball, b, 1);
-    if (nextCollidedPos) return false;
-
-    return true;
+    if (currCollidedPos) return false;
+    // 获取上一帧碰撞坐标
+    const preCollidedPos = getPreOrNextFrameCollidedPos(ball, b, 0);
+    // 如果上一帧也没有碰撞坐标则不用检测，有则说明是穿透过来的，调整坐标位置回退到上一个碰撞点，执行碰撞逻辑
+    if (!preCollidedPos) return false;
+    return isCheck;
 
     /*
-    // 判断当前帧位置是否可能碰撞
+    // 当前帧为碰撞前的位置，判断下一帧是否为穿透【瞄准时不稳定有闪动，开打时会出现乱调整位置】
+    // 当前帧两小球没有碰撞，isCollisionBallAndBall 已经检测了
+    //const cFlag = is2CirclesCollided(ball, b);
+    //if (cFlag) return false;
+    // 判断当前帧位置是否可能碰撞，没有碰撞点则不用管
     const currCollidedPos = getCurrFrameCollidedPos(ball, b);
-    // 存在可能碰撞的坐标则不用处理，不可能碰撞则找上一帧是否可能有碰撞点
-    if (!currCollidedPos) {
-        // 获取上一帧碰撞坐标
-        const preCollidedPos = getPreOrNextFrameCollidedPos(ball, b, 0);
-        // 如果上一帧有碰撞坐标，说明是穿透过来的，调整坐标位置回退到上一个碰撞点，执行碰撞逻辑
-        if (preCollidedPos) return isCheck;
-    }
-    return false;
+    if (!currCollidedPos) return false;
+    
+    // 下一帧无碰撞且不可能会碰撞，实际只需要满足不可能碰撞就行了
+    // 获取下一帧坐标位置
+    //const targetBall = getMovingBall(ball, b);
+    //const nextPos = getPreOrNextFramePos(targetBall, 1);
+    //const nFlag = is2CirclesCollided(nextPos, targetBall.no === ball.no ? b : ball);
+    //if (nFlag) return false;
+    // 获取下一帧碰撞点坐标位置，已经重叠碰撞不返回碰撞点
+    const nextCollidedPos = getPreOrNextFrameCollidedPos(ball, b, 1);
+    // 下一帧能找到碰撞点，说明还没有穿透
+    if (nextCollidedPos) return false;
+    return true;
     */
 }
 
@@ -13481,18 +13502,20 @@ function adjustMovingBallPos(ball0, ball1, isCheck) {
     if (!pos) return;
     // 将运动小球坐标调整为实际碰撞点坐标
     const targetBall = getMovingBall(ball0, ball1);
+    if (!targetBall) return;
     targetBall.x = pos.x;
     targetBall.y = pos.y;
 }
 
 
 // 获取两个小球之间有速度的小球
+// null-两球都没有速度；0-两球都有速度；targetBall-有速度的小球
 function getMovingBall(ball0, ball1) {
     if (!ball0 || !ball1) return null;
-    if (ball0.vx * ball0.vy === 0 && ball1.vx * ball1.vy === 0) return null; // 都没有速度不检测
-    if (ball0.vx * ball0.vy !== 0 && ball1.vx * ball1.vy !== 0) return null; // 都有速度也不检测
+    if (ball0.vx + ball0.vy + ball1.vx + ball1.vy === 0) return null; // 都没有速度不检测
+    if (ball0.vx + ball0.vy !== 0 && ball1.vx + ball1.vy !== 0) return 0; // 都有速度也不检测
     let targetBall = ball0; // targetBall 引用地址指向 ball0
-    if (ball1.vx * ball1.vy !== 0) targetBall = ball1; // 只处理有速度的
+    if (ball1.vx + ball1.vy !== 0) targetBall = ball1; // 只处理有速度的
     return targetBall;
 }
 
@@ -13637,22 +13660,22 @@ function doTryMoveBallFinished() {
 
 
 // 计算圆碰撞/获取两小球碰撞点坐标
-function calculateCircleCollision(ball1, ball2) {
+function calculateCircleCollision(ball0, ball1) {
     const movingCircle = {
-        x: roundNumber(ball1.x, 4),
-        y: roundNumber(ball1.y, 4),
-        radius: roundNumber(ball1.radius, 4) // 注意有的角色瞄准半径和本体半径不一样，傀儡、游侠、花千机等
+        x: roundNumber(ball0.x, 4),
+        y: roundNumber(ball0.y, 4),
+        radius: roundNumber(ball0.radius, 4) // 注意！有的角色瞄准半径和本体半径不一样，傀儡、游侠、花千机等
     };
 
     const staticCircle = {
-        x: roundNumber(ball2.x, 4),
-        y: roundNumber(ball2.y, 4),
-        radius: roundNumber(ball2.radius, 4)
+        x: roundNumber(ball1.x, 4),
+        y: roundNumber(ball1.y, 4),
+        radius: roundNumber(ball1.radius, 4)
     };
 
     const velocity = {
-        x: roundNumber(ball1.vx, 4),
-        y: roundNumber(ball1.vy, 4),
+        x: roundNumber(ball0.vx, 4),
+        y: roundNumber(ball0.vy, 4),
     };
 
     // 计算圆心之间的距离向量
@@ -14376,6 +14399,12 @@ onMounted(() => {
             localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
         }
     }, false);
+
+    // 单击遮罩层关闭最上层弹窗监听事件
+    if (os.isPc) dialogMask.addEventListener('click', (e) => {
+        doEventDefault(e);
+        doCloseTopDialog(e);
+    }, false);
 })
 
 
@@ -14468,6 +14497,20 @@ onMounted(() => {
         }
         lastTouchEnd = now; // 共用一个事件标志会导致判断错乱问题，目前业务不多，没有冲突，先这样
     }, false);
+
+
+    // 单击遮罩层关闭最上层弹窗监听事件
+    if (!os.isPc) dialogMask.addEventListener('touchend', (e) => {
+        doEventDefault(e);
+        let now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) { // 200~300
+            //alert(">>>> 双击了");
+        } else {
+            //alert(">>>> 单击了");
+            doCloseTopDialog(e);
+        }
+        lastTouchEnd = now;
+    }, false);
 })
 
 
@@ -14476,9 +14519,15 @@ function doClickPlay(e) {
     if (!selectedBall) return; // 没用选中球
     if (selectedBall.vx === 0 && selectedBall.vy === 0) return; // 没有拖动完成时，没有速度
     // 点击范围判断，不同的画布坐标系不一致
-    //if (!is2CirclesCollided(ball1, ball2)) return;
+    //if (!is2CirclesCollided(ball0, ball1)) return;
     clickPlayBtn.isReady = true;
     doClick(e);
+}
+
+
+// 关闭最上层弹窗
+function doCloseTopDialog(e) {
+    doBack(true);
 }
 
 
