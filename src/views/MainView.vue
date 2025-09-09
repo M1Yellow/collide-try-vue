@@ -1193,6 +1193,28 @@ input:checked+.slider:before {
             </div>
             <ul id="user-setting-area">
                 <!-- 指定角色放到最上方，免得每次都要上滑页面很久【输入法会把输入框顶上去导致看不到输入框】 -->
+                <li class="user-setting-item">
+                    <span class="user-setting-item-msg-left">指定游戏角色(输入角色名)</span><span class="reset-btn"
+                        onclick="resetGameRoleIds(this);" title="重置角色"> 🔄 </span>
+                    <div class="user-setting-item-input-area">
+                        <div class="div-input-game-roles default" contenteditable="true" id="gameRoleId1"
+                            placeholder="输入主角" value="">输入主角</div>
+                        <div class="div-input-game-roles default" contenteditable="true" id="gameRoleId2"
+                            placeholder="输入队友" value="">输入队友</div>
+                        <div class="div-input-game-roles default red" contenteditable="true" id="gameRoleId3"
+                            placeholder="输入对手1" value="">输入对手1</div>
+                        <div class="div-input-game-roles default red" contenteditable="true" id="gameRoleId4"
+                            placeholder="输入对手2" value="">输入对手2</div>
+                        <div id="game-setting-main-role-dialog" class="collide-try-dialog collide-try-tiny-dialog"
+                            style="display: none;">
+                            <div id="game-setting-main-role-dialog-msg" class="collide-try-tiny-dialog-msg">
+                                👆主角设置只在<span>【极速开始】</span>选项生效哦~</div>
+                            <div id="game-setting-main-role-dialog-ok" class="collide-try-tiny-dialog-ok"
+                                onclick="closeGameSettingMainRoleDialog();"><span
+                                    class="collide-try-dialog-ok">好的吧</span></div>
+                        </div>
+                    </div>
+                </li>
                 <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">自定义主题</span>
                     <span id="toggleCustomThemeSvgArrow"
@@ -1663,28 +1685,6 @@ input:checked+.slider:before {
                         <input type="text" class="user-setting-item-right-input-number-m" id="roleSpeedAddVal" value="0"
                             maxlength="3">
                     </span>
-                </li>
-                <li class="user-setting-item">
-                    <span class="user-setting-item-msg-left">指定游戏角色(输入角色名)</span><span class="reset-btn"
-                        @click="resetGameRoleIds(this);" title="重置角色"> 🔄 </span>
-                    <div class="user-setting-item-input-area">
-                        <div class="div-input-game-roles default" contenteditable="true" id="gameRoleId1"
-                            placeholder="输入主角" value="">输入主角</div>
-                        <div class="div-input-game-roles default" contenteditable="true" id="gameRoleId2"
-                            placeholder="输入队友" value="">输入队友</div>
-                        <div class="div-input-game-roles default red" contenteditable="true" id="gameRoleId3"
-                            placeholder="输入对手1" value="">输入对手1</div>
-                        <div class="div-input-game-roles default red" contenteditable="true" id="gameRoleId4"
-                            placeholder="输入对手2" value="">输入对手2</div>
-                        <div id="game-setting-main-role-dialog" class="collide-try-dialog collide-try-tiny-dialog"
-                            style="display: none;">
-                            <div id="game-setting-main-role-dialog-msg" class="collide-try-tiny-dialog-msg">
-                                👆主角设置只在<span>【极速开始】</span>选项生效哦~</div>
-                            <div id="game-setting-main-role-dialog-ok" class="collide-try-tiny-dialog-ok"
-                                @click="closeGameSettingMainRoleDialog();"><span
-                                    class="collide-try-dialog-ok">好的吧</span></div>
-                        </div>
-                    </div>
                 </li>
                 <li class="user-setting-item">
                     <span class="user-setting-item-msg-left">分享/导入角色及坐标</span><span class="reset-btn"
@@ -3123,7 +3123,26 @@ function resetCanvasSize() {
     if (!isPlaying) animate();
     */
 }
-window.addEventListener('resize', resetCanvasSize); // 对同一个元素的同一个事件重复添加监听函数，只会生效一次
+
+
+// 页面大小 resize 监听事件
+window.addEventListener('resize', () => {
+    // 重新调整画布大小
+    resetCanvasSize();
+
+    // 处理输入法把弹窗顶上去的问题，移动端输入法弹起会触发resize
+    if (!os.isPc) {
+        let nvh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        // 变动大于 10%
+        const resizeRatio = roundNumber((vh - nvh) / vh) * 100;
+        if (isSettingRole && resizeRatio >= 10) {
+            userSettingDialog.style.top = "60%";
+            //userSettingDialog.style.top = resizeRatio + "%";
+        } else {
+            userSettingDialog.style.top = "0";
+        }
+    }
+});
 
 
 // 检测是否可以使用，浏览器支持，以及浏览器隐私设置允许
@@ -5998,7 +6017,7 @@ class ClickPlayBtn {
 
 
 //////////////////////////////////////////////////////////////////////
-// 【应用初始化】 变量、方法区域
+// 【应用初始化】 全局游戏参数、变量、方法区域
 //////////////////////////////////////////////////////////////////////
 
 // 四条切角线
@@ -6021,6 +6040,8 @@ var isLuluExist = false;
 var isShuangziExist = false;
 // 分享的角色和坐标数据
 var shareData = null;
+// 浏览器页面可见高度，不包括地址栏、工具栏
+var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
 // html根元素字体大小
 var htmlEle, htmlFontSize, htmlFontSizeNum;
 // 台面区域
@@ -10565,6 +10586,7 @@ function testForEachList() {
 
 
 // gameRoleIds 输入控制
+var isSettingRole = false; // 是否正在设置角色
 var gameRoleIdEles;
 onMounted(() => {
     gameRoleIdEles = document.getElementsByClassName('div-input-game-roles');
@@ -10633,11 +10655,18 @@ onMounted(() => {
             }
         });
 
+        // 聚焦监听
+        ele.addEventListener("focus", (e) => {
+            doEventDefault(e);
+            isSettingRole = true;
+        });
+
         // 失焦监听，为空设置默认值
         ele.addEventListener("blur", (e) => {
             // 处理事件默认行为，防止事件冒泡
             doEventDefault(e);
             //console.log(e.target);
+            isSettingRole = false;
             let text = e.target.innerText;
             if (text) return;
             let value = e.target.getAttribute("value");
@@ -10906,19 +10935,6 @@ onMounted(() => {
     }
 })
 
-/*
-// 处理输入法把弹窗顶上去的问题
-const vh = window.visualViewport.height;
-if (!os.isPc) window.visualViewport.addEventListener('resize', function () {
-    // 变动大于 10%，且input聚焦，才调整
-    if ((vh - window.visualViewport.height) / vh >= 0.10
-        && pageBgInput == document.activeElement) {
-        userSettingDialog.style.top = "50vh";
-    } else {
-        userSettingDialog.style.top = "0";
-    }
-});
-*/
 
 // 处理修改背景颜色
 function doPageBg(code) {
