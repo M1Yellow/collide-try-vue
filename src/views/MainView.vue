@@ -1815,10 +1815,10 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.8.0 更新：<span class="collide-try-update-date">2025-09-07</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.8.0 更新：<span class="collide-try-update-date">2025-09-05</span></b></div>
 <pre id="collide-try-about-app-update-newest">
 1. 新增【只碰一次角色】开关，方便练习碰撞反弹角度
-2. 修复了角色碰撞反弹角度可能不正确的问题
+2. 修复了角色碰撞反弹角度可能不准确的问题
 3. 优化了一些已知问题
 </pre>
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.1 更新：<span
@@ -3816,7 +3816,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-模拟练习工具",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250907"),
+    version: Number(packageVersion.replaceAll(".", "") + "250905"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -6273,7 +6273,7 @@ onMounted(() => {
 function setAppFullName() {
     let fullNameEles = document.getElementsByClassName('collide-try-app-full-name');
     if (!fullNameEles) return;
-    let fullName = sysConfig.appName + "_" + sysConfig.versionName;
+    let fullName = sysConfig.appName + "-" + sysConfig.versionName;
     for (let i = 0, len = fullNameEles.length; i < len; i++) {
         fullNameEles[i].innerText = fullName;
     }
