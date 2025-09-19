@@ -1195,7 +1195,7 @@ input:checked+.slider:before {
                 <!-- 指定角色放到最上方，免得每次都要上滑页面很久【输入法会把输入框顶上去导致看不到输入框】 -->
                 <li class="user-setting-item">
                     <span class="user-setting-item-msg-left">指定游戏角色(输入角色名)</span><span class="reset-btn"
-                        onclick="resetGameRoleIds(this);" title="重置角色"> 🔄 </span>
+                        @click="resetGameRoleIds(this);" title="重置角色"> 🔄 </span>
                     <div class="user-setting-item-input-area">
                         <div class="div-input-game-roles default" contenteditable="true" id="gameRoleId1"
                             placeholder="输入主角" value="">输入主角</div>
@@ -1210,7 +1210,7 @@ input:checked+.slider:before {
                             <div id="game-setting-main-role-dialog-msg" class="collide-try-tiny-dialog-msg">
                                 👆主角设置只在<span>【极速开始】</span>选项生效哦~</div>
                             <div id="game-setting-main-role-dialog-ok" class="collide-try-tiny-dialog-ok"
-                                onclick="closeGameSettingMainRoleDialog();"><span
+                                @click="closeGameSettingMainRoleDialog();"><span
                                     class="collide-try-dialog-ok">好的吧</span></div>
                         </div>
                     </div>
@@ -1815,16 +1815,22 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.8.0 更新：<span class="collide-try-update-date">2025-09-05</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.8.1 更新：<span class="collide-try-update-date">2025-09-12</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 新增【只碰一次角色】开关，方便练习碰撞反弹角度
-2. 修复了角色碰撞反弹角度可能不准确的问题
-3. 优化了一些已知问题
+1. 指定角色栏目移动到最上方
+2. 龙虾、章鱼、托尼开启瞄准显示路径
+3. 调整场地砖格中线透明度
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.8.0 更新：<span
+                            class="collide-try-update-date">2025-09-05</span></b></div>
+                1. 新增【只碰一次角色】开关，方便练习碰撞反弹角度
+                2. 修复角色碰撞反弹角度可能不准确的问题
+                3. 优化了一些已知问题
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.1 更新：<span
                             class="collide-try-update-date">2025-08-30</span></b></div>
-                1. 优化了贴边碰撞可能碰不到的问题
-                2. 调整了应用名称
+                1. 优化贴边碰撞可能碰不到的问题
+                2. 调整应用名称
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.0 更新：<span
                             class="collide-try-update-date">2025-08-23</span></b></div>
@@ -1940,9 +1946,8 @@ input:checked+.slider:before {
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.2 更新：<span
                             class="collide-try-update-date">2024-03-27</span></b></div>
-                1. 离线版调整为不需要输入访问密钥
-                2. 新增切换【主角所在队颜色】功能
-                3. 优化【只显示撞击台面】、【显示场景图形】开关，免刷新页面
+                1. 新增切换【主角所在队颜色】功能
+                2. 优化【只显示撞击台面】、【显示场景图形】开关，免刷新页面
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.1.1 更新：<span
                             class="collide-try-update-date">2024-03-18</span></b></div>
@@ -3835,7 +3840,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-模拟练习工具",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250905"),
+    version: Number(packageVersion.replaceAll(".", "") + "250912"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -5006,7 +5011,8 @@ function isRoleCanPierces() {
     return userConfig.isShowTryFullPath
         && (userConfig.currRole === Role.JIANGJIANG.id || userConfig.currRole === Role.KUILEI.id
             || userConfig.currRole === Role.HEIWA.id || userConfig.currRole === Role.DUODUO.id
-            || userConfig.currRole === Role.YLPAPA.id);
+            || userConfig.currRole === Role.YLPAPA.id || userConfig.currRole === Role.TIEMIAN.id
+            || userConfig.currRole === Role.ZHANGYUGE.id || userConfig.currRole === Role.TONY.id);
 }
 
 
@@ -5717,8 +5723,8 @@ class Theme {
         this.tbColor = tbColor || "#8d93d8"; // table 台面背景颜色
         this.tblColor = tblColor || "#35357A"; // table line 台面边框线颜色
         this.tblWidth = tblWidth || roundNumber(6.00 * dpr); // TODO table line 台面边框线宽，根据设备 DPR 决定，在 init() 初始化的时候计算设置 0.27 * sysConfig.girdSizeCss * dpr
-        this.glColor = glColor || "#8384D1D0"; // gird line 砖格线颜色
-        this.glmColor = glmColor || "#6A6CBFD0"; // gird line middle 砖格线中间线颜色
+        this.glColor = glColor || "#8587D2"; // gird line 砖格线颜色
+        this.glmColor = glmColor || "#797DCA"; // gird line middle 砖格线中间线颜色
         this.glWidth = glWidth || roundNumber(1.00 * dpr * (os.isTablet ? 1.618 : 1)); // gird line 砖格线宽，根据设备 DPR 决定
         this.gnColor = gnColor || "#D2CCF1"; // gird number 砖格坐标数值颜色
         this.gndColor = gndColor || "#D7D7DC"; // gird number dark 砖格坐标数值黑夜模式颜色
@@ -5734,16 +5740,16 @@ class Theme {
         this.ccWidth = ccWidth || roundNumber(1.00 * dpr * (os.isTablet ? 1.618 : 1)); // collide circle 碰撞指示圈宽度
         this.ccStyle = ccStyle || 0; // collide circle 碰撞指示圈样式，0-虚线；1-实线
         this.szccColor = szccColor || "#ffffffaa"; // shuangzi collide circle 双子分身碰撞指示圈颜色
-        this.wkShowColor = wkShowColor || "#1B1D2230"; // 猴子分身提示路径颜色
+        this.wkShowColor = wkShowColor || "#1b1d2217"; // 猴子分身提示路径颜色
     }
 
 
     static DEFAULT = new Theme(0, "默认主题", "#7F70C3");
     //static WINTER_NEW_YEAR = new Theme(2, "新年主题", "#7F70C3");
-    static WINTER_SNOW = new Theme(1, "冰雪主题", "#C7D0E0", "", "", "#4B99C9", "#EEF0F2", 0, "#438EC2", "#3483B7", 0, "#687CA1", "#EEF0F2", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "", "#1B1D2230");
-    static SPRING_RUSTICITY = new Theme(3, "田园主题", "#E6DD9C", "", "", "#9A9069", "#FBFAD0", 0, "#6B624060", "#6B6240D0", 0, "#252042", "#FBFAD0", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "", "#1B1D2230");
-    static AUTUMN_INTERSTELLAR = new Theme(4, "星际主题", "#05132C", "", "", "#808080", "#D7D7DC", 0, "#696969A0", "#2F4F4FA0", 0, "#D7D7DC", "#D7D7DC", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "", "#1B1D2230");
-    static SUMMER_SEASIDE = new Theme(5, "夏日主题", "#3C8BBB", "", "", "#FFBF6F", "#FAF9CB", 0, "#B7521AA0", "#B7521AD0", 0, "#2B117D", "#FBFAD0", 0, "#F9FBF580", 0, "#F9FBF540", "", 0, "#EADF5580", "", "", 0, 0, "", "#1B1D2230");
+    static WINTER_SNOW = new Theme(1, "冰雪主题", "#C7D0E0", "", "", "#4B99C9", "#EEF0F2", 0, "#438EC2", "#3483B7", 0, "#687CA1", "#EEF0F2", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "", "#1b1d2217");
+    static SPRING_RUSTICITY = new Theme(3, "田园主题", "#E6DD9C", "", "", "#9A9069", "#FBFAD0", 0, "#887F59", "#78704B", 0, "#252042", "#FBFAD0", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "", "#1b1d2217");
+    static AUTUMN_INTERSTELLAR = new Theme(4, "星际主题", "#05132C", "", "", "#808080", "#D7D7DC", 0, "#717171", "#546666", 0, "#D7D7DC", "#D7D7DC", 0, "#cfe0d380", 0, "#cfe0d325", "", 0, "#EADF5580", "", "", 0, 0, "", "#1b1d2217");
+    static SUMMER_SEASIDE = new Theme(5, "夏日主题", "#3C8BBB", "", "", "#FFBF6F", "#FAF9CB", 0, "#B7521AA0", "#B7521AC0", 0, "#2B117D", "#FBFAD0", 0, "#F9FBF580", 0, "#F9FBF540", "", 0, "#EADF5580", "", "", 0, 0, "", "#1b1d2217");
 
     static CURR_THEME_COPY = null;
 
@@ -7919,7 +7925,7 @@ function drawMonkeysStart() {
     if (!isMonkeys()) return;
     if (balls[0].roleId != Role.WUKONG.id) return;
     for (let i = 0, len = buddies.length; i < len; i++) {
-        buddies[i].drawBuddyBeginPoint({ ctx: gameSceneContext, color: currTheme.wkShowColor ? currTheme.wkShowColor : "#1B1D2230" });
+        buddies[i].drawBuddyBeginPoint({ ctx: gameSceneContext, color: currTheme.wkShowColor });
     }
 }
 
@@ -7930,7 +7936,7 @@ function drawMonkeysMoveLine() {
     if (!isMonkeys()) return;
     if (balls[0].roleId != Role.WUKONG.id) return;
     for (let i = 0, len = buddies.length; i < len; i++) {
-        drawArrow(gameSceneContext, monkeysPos[i].x, monkeysPos[i].y, monkeysTargetPos[i].x, monkeysTargetPos[i].y, 30, roundNumber(0.80 * sysConfig.girdSize, 4), roundNumber(3.20 * dpr * sysConfig.pxRatio, 4), currTheme.wkShowColor ? currTheme.wkShowColor : "#1B1D2230"); // "#7F726E"
+        drawArrow(gameSceneContext, monkeysPos[i].x, monkeysPos[i].y, monkeysTargetPos[i].x, monkeysTargetPos[i].y, 30, roundNumber(0.80 * sysConfig.girdSize, 4), roundNumber(3.20 * dpr * sysConfig.pxRatio, 4), currTheme.wkShowColor);
     }
 }
 
