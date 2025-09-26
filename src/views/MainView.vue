@@ -1531,15 +1531,6 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item li-space-between-center">
-                    <span class="user-setting-item-msg-left">只碰一次角色</span>
-                    <span class="user-setting-item-switch-right">
-                        <label class="switch" @click="switchCheckbox($event, 'isRoleCollidedOnce');">
-                            <input type="checkbox" id="isRoleCollidedOnce">
-                            <div class="slider round"></div>
-                        </label>
-                    </span>
-                </li>
-                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">碰到角色即停止</span>
                     <span class="user-setting-item-switch-right">
                         <label class="switch" @click="switchCheckbox($event, 'isStopAfterCollided');">
@@ -1679,6 +1670,14 @@ input:checked+.slider:before {
                     </span>
                 </li>
                 <li class="user-setting-item li-space-between-center">
+                    <span class="user-setting-item-msg-left">瞄准显示路径碰撞点数量</span>
+                    <span
+                        class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
+                        <input type="text" class="user-setting-item-right-input-number-m" id="tryFullPathPointNum"
+                            value="6" maxlength="2">
+                    </span>
+                </li>
+                <li class="user-setting-item li-space-between-center">
                     <span class="user-setting-item-msg-left">角色加速或减速(-20~200)</span>
                     <span
                         class="user-setting-item-switch-right user-setting-item-input-area user-setting-item-right-input-area">
@@ -1815,17 +1814,21 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.8.1 更新：<span class="collide-try-update-date">2025-09-12</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.7.4 更新：<span class="collide-try-update-date">2025-09-27</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 指定角色栏目移动到最上方
-2. 龙虾、章鱼、托尼开启瞄准显示路径
-3. 调整场地砖格中线透明度
+1. 新增瞄准显示路径碰撞点数量配置项
+2. 修复电音中心碰撞对方同等重量角色没有反向加速问题
 </pre>
-                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.8.0 更新：<span
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.3 更新：<span
+                            class="collide-try-update-date">2025-09-12</span></b></div>
+                1. 指定角色栏目移动到最上方
+                2. 龙虾、章鱼、托尼开启瞄准显示路径
+                3. 调整场地砖格中线透明度
+
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.2 更新：<span
                             class="collide-try-update-date">2025-09-05</span></b></div>
-                1. 新增【只碰一次角色】开关，方便练习碰撞反弹角度
-                2. 修复角色碰撞反弹角度可能不准确的问题
-                3. 优化了一些已知问题
+                1. 修复角色碰撞反弹角度可能不准确的问题
+                2. 优化了一些已知问题
 
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.1 更新：<span
                             class="collide-try-update-date">2025-08-30</span></b></div>
@@ -3840,7 +3843,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-模拟练习工具",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250912"),
+    version: Number(packageVersion.replaceAll(".", "") + "250927"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -3946,10 +3949,10 @@ var userConfig = {
     isPiercesTry: false,
     // 瞄准显示路径，只对僵尸、傀儡等可穿透角色有效
     isShowTryFullPath: true,
-    // 显示猴子分身提示
-    isShowWkPath: true,
     // 瞄准显示路径，指定碰撞几次的路径
     tryFullPathPointNum: 6,
+    // 显示猴子分身提示
+    isShowWkPath: true,
     // 长按重置角色位置
     isLongPressRandom: true,
     // 移动角色显示坐标（单位：格）
@@ -4703,11 +4706,11 @@ class Ball {
 
 
 // 将所有小球速度置零
-function stopAllBalls(balls) {
+function stopAllBalls(balls, isUpdate) {
     balls.some(ball => {
         ball.vx = 0;
         ball.vy = 0;
-        ball.update();
+        if (isUpdate) ball.update();
     });
 }
 
@@ -6023,7 +6026,7 @@ class ClickPlayBtn {
 
 
 //////////////////////////////////////////////////////////////////////
-// 【应用初始化】 全局游戏参数、变量、方法区域
+// 【应用初始化】 游戏全局参数、全局变量、方法区域
 //////////////////////////////////////////////////////////////////////
 
 // 四条切角线
@@ -6358,7 +6361,7 @@ function doVersionThings() {
             for (let f in userConfig) {
                 //console.log(f + " = " + userConfig[f]);
                 // 个别特殊字段不受缓存影响，以代码配置为准
-                if (f === 'tryFullPathPointNum') continue;
+                //if (f === 'tryFullPathPointNum') continue;
                 if (f === 'animateAutoRestTime') continue;
                 if (f === 'wan8CocosTableMoveVals') continue;
                 if (f === 'isShowBallMovePath') continue;
@@ -6422,7 +6425,7 @@ function setUserConfig() {
     if (localUserConfigStr) {
         userConfig = JSON.parse(localUserConfigStr);
         // TODO 特殊字段不受缓存影响，以代码配置为准
-        userConfig.tryFullPathPointNum = userConfigBack.tryFullPathPointNum;
+        //userConfig.tryFullPathPointNum = userConfigBack.tryFullPathPointNum;
         console.log(">>>> localStorage userConfig: " + JSON.stringify(userConfig));
     }
 }
@@ -9875,7 +9878,7 @@ function switchCanvasShow(canvasEle, isShow) {
 }
 
 
-// 初始化角色参数弹窗变量值
+// 初始化参数设置弹窗变量值
 function initUserSettingDialogVal() {
     try {
         let ele;
@@ -10754,6 +10757,50 @@ function resetGameRoleIds(ele) {
 }
 
 
+// 瞄准显示路径碰撞点数量
+onMounted(() => {
+    const tryFullPathPointNumInput = document.getElementById("tryFullPathPointNum");
+    tryFullPathPointNumInput.addEventListener("change", (e) => {
+        // 处理事件默认行为，防止事件冒泡
+        doEventDefault(e);
+        // 获取输入框内容
+        let inVal = e.target.value;
+        inVal = inVal.replaceAll(" ", "");
+        e.target.value = inVal;
+        if (!inVal) {
+            inVal = "6";
+            e.target.value = inVal;
+        }
+        if (!Number.isInteger(Number(inVal))) {
+            inVal = "6";
+            e.target.value = inVal;
+        }
+        if (Number(inVal) < 1) {
+            inVal = "1";
+            e.target.value = inVal;
+        }
+        if (Number(inVal) > 10) {
+            inVal = "10";
+            e.target.value = inVal;
+        }
+        // 旧值
+        let oldVal = userConfig.tryFullPathPointNum.toString();
+        // 两值相等不处理
+        if (inVal === oldVal) return;
+
+        doTryFullPathPointNum(inVal);
+    });
+})
+
+
+// 保存显示路径碰撞点数量
+function doTryFullPathPointNum(str) {
+    userConfig.tryFullPathPointNum = Number(str);
+    localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
+    console.log(">>>> doTryFullPathPointNum userConfig.tryFullPathPointNum in localStorage updated.");
+}
+
+
 // roleSpeedAddVal 角色加速或减速
 onMounted(() => {
     const roleSpeedAddValInput = document.getElementById("roleSpeedAddVal");
@@ -10769,12 +10816,24 @@ onMounted(() => {
             e.target.value = inVal;
         }
         if (!Number.isInteger(Number(inVal))) {
-            alert("请输入整数");
-            return;
+            //alert("请输入整数");
+            //return;
+            inVal = "0";
+            e.target.value = inVal;
         }
+        /*
         if (Number(inVal) < -20 || Number(inVal) > 200) {
             alert("数值范围：-20~200");
             return;
+        }
+        */
+        if (Number(inVal) < -20) {
+            inVal = "-20";
+            e.target.value = inVal;
+        }
+        if (Number(inVal) > 200) {
+            inVal = "200";
+            e.target.value = inVal;
         }
         // 旧值
         let oldVal = userConfig.roleSpeedAddVal.toString();
@@ -12431,24 +12490,6 @@ function checkOtherBalls(ball, isCheck) {
                     return true;
                 }
 
-                // 主角只碰一次角色
-                if (userConfig.isRoleCollidedOnce) {
-                    // 只有外层传入的ball才可能为主球，内层b不会是主球
-                    if (ball.isMainBall && ball.roleCollidedCount >= 2 || b.isMainBall && b.roleCollidedCount >= 2) {
-                        // 调整碰撞位置
-                        //doBackToBorderBallsCollided(ball, b, true);
-                        ball.vx = 0;
-                        ball.vy = 0;
-                        //ball.isMoving = false;
-                        // 如果这时候ball的速度刚好停止，这个调整坐标方法不会执行，会出现重叠
-                        adjustMovingBallPos(ball, b);
-                        b.vx = 0;
-                        b.vy = 0;
-                        //b.isMoving = false;
-                        return true;
-                    }
-                }
-
                 // 处理小球碰撞后速度                
                 if (userConfig.currRole === Role.JIANGJIANG.id) {
                     // 简单模拟僵尸穿透加速、减速
@@ -12755,6 +12796,8 @@ function doPapaSpeed(ball0, ball1) {
 function doDianyinSpeed(ball0, ball1) {
     if (!isDianyinCollided(ball0, ball1)) return;
     //console.log(">>>> doDianyinSpeed isDianyinCollided=true");
+    // 电音直线碰撞对方同等重要角色时，特殊处理
+    doDianyinSpecial(ball0, ball1);
     // 突破后，碰到存活对手，自身加速20%，手动调整比例，跟实战对比
     let dianyinRatio = 0.2, addSpeed, speed0; // 改为原始速度的比例
     if (ball0.roleId === Role.DIANYIN.id) { // ball0 为电音
@@ -12779,6 +12822,21 @@ function doDianyinSpeed(ball0, ball1) {
             ball1.vy *= vRate;
         }
     }
+}
+
+
+// 电音直线碰到对方极轻角色，交换速度停止后，有一个反向的加速
+function doDianyinSpecial(ball0, ball1) {
+    // 判断碰到的角色重量是否为极轻
+    if (ball1.mRatio !== Ball.WEIGHTRATIO.XS) return;
+    // 只处理对方角色没有速度的情况
+    if (ball1.collidedV0.x + ball1.collidedV0.y !== 0) return;
+    // 电音碰撞前速度方向和被碰角色速度方向偏差不大
+    let a1 = Math.abs(Math.atan2(ball0.collidedV0.y, ball0.collidedV0.x));
+    let a2 = Math.abs(Math.atan2(ball1.vy, ball1.vx));
+    if (Math.abs(a1 - a2) > 0.1) return;
+    ball0.vx = -roundNumber(ball0.collidedV0.x * 0.1);
+    ball0.vy = -roundNumber(ball0.collidedV0.y * 0.1);
 }
 
 
@@ -13438,7 +13496,7 @@ function checkIsMoving() {
 // animate 单次执行次数过多，可能是出现了死循环，将所有小球速度置零
 function resetBallsSpeed(balls) {
     // 重置所有角色速度，更新运动状态
-    stopAllBalls(balls);
+    stopAllBalls(balls, true);
     // 处理停止事项 animate() 会调用
     doAfterBallStopped(balls);
     // 再检测一次 animate 状态
