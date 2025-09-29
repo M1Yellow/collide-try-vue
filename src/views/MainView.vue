@@ -5108,10 +5108,10 @@ class Role {
     static BAKE = new Role(4, "8g", "火焰巴克", "巴克", "巴", null); // 🧝‍♂️ 天神降临皮肤【尽可能不用氪金皮肤图标】
     static LULU = new Role(5, "🍰", "甜心露露", "露露", "露", null);
     static KUKU = new Role(6, "😎", "疾速酷酷", "酷酷", "酷", null);
-    static YINGYING = new Role(7, "❄", "冰雪莹莹", "莹莹", "莹", null);
+    static YINGYING = new Role(7, "❄️", "冰雪莹莹", "莹莹", "莹", null);
     static JIUWEIHU = new Role(8, "🦊", "狐尾纱", "狐尾", "纱", null);
     static SHUANGZI = new Role(9, "👬", "怪盗双子", "双子", "双", null);
-    static X = new Role(10, "x", "自定角色", "自定", "x", null); // 自定义角色
+    static X = new Role(10, "X", "自定角色", "自定", "X", null); // 自定义角色
     static YOUXIA = new Role(11, "🏹", "暗夜游侠", "游侠", "箭", null);
     static CHUZI = new Role(12, "🍗", "小食神", "厨子", "厨", null);
     static HUAQIANJI = new Role(13, "🚀", "花千机", "炮弹", "机", null);
@@ -12832,8 +12832,11 @@ function doDianyinSpecial(ball0, ball1) {
     // 只处理对方角色没有速度的情况
     if (ball1.collidedV0.x + ball1.collidedV0.y !== 0) return;
     // 电音碰撞前速度方向和被碰角色速度方向偏差不大
-    let a1 = Math.abs(Math.atan2(ball0.collidedV0.y, ball0.collidedV0.x));
-    let a2 = Math.abs(Math.atan2(ball1.vy, ball1.vx));
+    let a1 = Math.atan2(ball0.collidedV0.y, ball0.collidedV0.x);
+    let a2 = Math.atan2(ball1.vy, ball1.vx);
+    if (a1 * a2 < 0) return; // 速度方向得一致，要么都为正、要么都为负
+    a1 = Math.abs(a1);
+    a2 = Math.abs(a2);
     if (Math.abs(a1 - a2) > 0.1) return;
     ball0.vx = -roundNumber(ball0.collidedV0.x * 0.1);
     ball0.vy = -roundNumber(ball0.collidedV0.y * 0.1);
