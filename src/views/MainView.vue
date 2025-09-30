@@ -5172,6 +5172,7 @@ class Role {
     static GEJI = new Role(68, "👩‍🎤", "百变歌姬", "歌姬", "歌", null);
     static YUANSU = new Role(69, "🧙‍♀", "元素师", "元素", "元", null);
     static TANGSENG = new Role(70, "🧑🏼‍🦲", "金蝉子", "唐僧", "禅", null);
+    static JINGLING = new Role(71, "🧚‍♀️", "精灵莉雅", "精灵", "精", null);
 
 
     // 角色类型分类：超肉、肉、杀、肉杀、乱碰、被乱碰、陷阱、标记、自动打(毒素、喷火等技能)、回血、复活/名刀、加速、减速、加护盾、加伤害、减伤害、反弹伤害
@@ -5441,6 +5442,7 @@ class Role {
         this.GEJI.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.HEIWA.id, Role.RABBIT.id, Role.DIANYIN.id, Role.RENZHE.id, Role.XIXUEGUI.id];
         this.YUANSU.cps = [Role.LELE.id, Role.SHUANGZI.id, Role.HEIWA.id, Role.RABBIT.id, Role.DIANYIN.id, Role.RENZHE.id, Role.XIXUEGUI.id, Role.WUGEGE.id, Role.KUILEI.id];
         this.TANGSENG.cps = [Role.HONGSANSAN.id, Role.LINGOU.id, Role.KUILEI.id, Role.HUOWANG.id, Role.GUISHUSHI.id, Role.YOUFANG.id, Role.MANWANG.id, Role.PUMPKIN.id, Role.JUNDUN.id, Role.MOUSE.id, Role.NUANYANG.id, Role.QIANGWEI.id, Role.HONGZHAJI.id, Role.BZGIRL.id, Role.CAPTAIN.id];
+        this.JINGLING.cps = [Role.LINGLING.id, Role.XIXUEGUI.id, Role.JOKER.id, Role.ZHANGYUGE.id, Role.RABBIT.id, Role.DIANYIN.id, Role.ZHANAN.id, Role.LANGZAI.id, Role.HONGZHAJI.id, Role.RENZHE.id, Role.YOUFANG.id];
 
     }
 
@@ -6980,7 +6982,7 @@ function initBallByRole(ball) {
         case Role.LINGOU.id:
             if (!ball.color) ball.color = "#BAD7FF"; // 取通行证皮肤头发颜色
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
-            ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
+            ball.mRatio = Ball.WEIGHTRATIO.S; // 中等，实际重量可能是轻/极轻
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 极快
             break;
         case Role.GOLDKING.id:
@@ -7012,6 +7014,12 @@ function initBallByRole(ball) {
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.M; // 中等
             if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.M; // 中等
+            break;
+        case Role.JINGLING.id:
+            if (!ball.color) ball.color = "#ADD264"; // 取默认皮肤裙子深颜色
+            ball.sizeRatio = Ball.SIZERATIO.M; // 中等
+            ball.mRatio = Ball.WEIGHTRATIO.S; // 轻
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.L; // 快
             break;
         default: // 默认是黑娃
             ball.color = "#74593A"; // 默认皮肤颜色(RosyBrown玫瑰棕)-CA9480；脸颊边缘脸红的颜色(IndianRed印度红)-A36E5D；黑(Black)-151A14；棕色头发(DarkOliveGreen暗橄榄绿)-74593A
