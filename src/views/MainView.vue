@@ -848,13 +848,16 @@ canvas {
     top: 0;
     margin: auto;
     z-index: 1;
+    font-size: 10px;
+    color: #000;
+    line-height: 1;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 3px;
     width: max-content;
     height: max-content;
     text-align: center;
     vertical-align: middle;
-    padding: 2px 0px 2px 4px;
+    padding: 4px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     display: none;
 }
@@ -862,11 +865,17 @@ canvas {
 .div-input-role-pos {
     display: inline-block;
     text-align: left;
+    font-size: inherit;
+    color: inherit;
     line-height: 1;
-    padding: 2px 4px;
+    /*padding: 2px 4px;*/
     background-color: transparent;
     outline: none;
     -webkit-appearance: none;
+}
+
+#roleFullName {
+    font-weight: bold;
 }
 
 /* 颜色样式 */
@@ -1757,18 +1766,12 @@ input:checked+.slider:before {
         </div>
 
         <!-- 角色坐标悬浮条 -->
-        <div id="collide-try-role-pos-line" ref="collideTryRolePosLine"
-            class="collide-try-dialog collide-try-role-pos-line-font">
-            <b class="collide-try-role-pos-line-font">X</b> :<div
-                class="div-input-role-pos collide-try-role-pos-line-font" contenteditable="false" id="rolePosX"
-                placeholder="0.00" value="">
-                0.00
-            </div>
-            <b class="collide-try-role-pos-line-font">Y</b> :<div
-                class="div-input-role-pos collide-try-role-pos-line-font" contenteditable="false" id="rolePosY"
-                placeholder="0.00" value="">
-                0.00
-            </div>
+        <div id="collide-try-role-pos-line" class="collide-try-dialog collide-try-role-pos-line-font">
+            <div class="div-input-role-pos collide-try-role-pos-line-font" contenteditable="false" id="roleFullName"
+                placeholder="名字四字" value="">名字四字</div>
+            (<div class="div-input-role-pos collide-try-role-pos-line-font" contenteditable="false" id="rolePosX"
+                placeholder="0.00" value="">0.00</div>, <div class="div-input-role-pos collide-try-role-pos-line-font"
+                contenteditable="false" id="rolePosY" placeholder="0.00" value="">0.00</div>)
         </div>
 
         <!-- 关于应用弹窗 -->
@@ -1814,11 +1817,16 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">手机系统版本过低，可能会有兼容问题。如果看到一些图形显示为方块，需要升级手机系统或用新的智能手机打开；如果网页打开白屏，则是程序不兼容，可以把网址后面的“collide-try”改为“collide-try-vue”，Vue版本的程序兼容性更好哦~</span>
 -->
 
-<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.7.4 更新：<span class="collide-try-update-date">2025-09-27</span></b></div>
+<div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">🆕 V4.7.5 更新：<span class="collide-try-update-date">2025-10-02</span></b></div>
 <pre id="collide-try-about-app-update-newest">
-1. 新增瞄准显示路径碰撞点数量配置项
-2. 修复电音中心碰撞对方同等重量角色没有反向加速问题
+1. 新增拖动角色显示角色名称
+2. 补全角色录入（71个）
 </pre>
+                <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.4 更新：<span
+                            class="collide-try-update-date">2025-09-27</span></b></div>
+                1. 新增瞄准显示路径碰撞点数量配置项
+                2. 修复电音中心碰撞对方同等重量角色没有反向加速问题
+
                 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">V4.7.3 更新：<span
                             class="collide-try-update-date">2025-09-12</span></b></div>
                 1. 指定角色栏目移动到最上方
@@ -3843,7 +3851,7 @@ var sysConfig = {
     // 应用名称
     appName: "玩吧-撞击王者-模拟练习工具",
     // 程序版本号 TODO 记得查看并更新版本过期的时间
-    version: Number(packageVersion.replaceAll(".", "") + "250927"),
+    version: Number(packageVersion.replaceAll(".", "") + "251002"),
     versionName: "V" + packageVersion + "-Beta",
     // 设备屏幕像素比，init方法初始化时更新
     dpr: 3,
@@ -7036,6 +7044,15 @@ function initBallByRole(ball) {
     if (ball.roleId != Role.KUILEI.id) ball.tryRadius = ball.radius;
     ball.radiusTmp = ball.radius;
     ball.m = roundNumber(ball.mRatio * sysConfig.maxWeightVal, 4);
+
+    // 如果角色本体颜色跟场地背景色相近，自动调整本体颜色
+    let aCount = 1; // 防止死循环
+    while (aCount < 20 && areColorsSimilarSimple(ball.color, currTheme.tbColor)) {
+        let aColor = colorSimpleEdit(ball.color);
+        console.log(">>>> " + ball.getBallDesc() + " 颜色[" + ball.color + "]跟场地背景颜色[" + currTheme.tbColor + "]相近，自动调整颜色[" + aCount + "]：" + ball.color + " -> " + aColor);
+        ball.color = aColor;
+        aCount++;
+    }
 
     console.log(">>>> initBallByRole ball: " + JSON.stringify(ball));
 
@@ -12013,18 +12030,28 @@ function drawRoundRectPath(cxt, width, height, radius) {
  */
 function rgbToHex(rgb) {
     if (!rgb) return "";
-    let arr = rgb
-        .replace("rgb", "")
-        .replace("(", "")
-        .replace(")", "")
-        .replaceAll(" ", "")
-        .split(",");
-    // 转十六进制
-    let h = parseInt(arr[0]).toString(16).padStart(2, '0');
-    let e = parseInt(arr[1]).toString(16).padStart(2, '0');
-    let x = parseInt(arr[2]).toString(16).padStart(2, '0');
-    let a = arr[3] ? (Math.round(255 * Number(arr[3])).toString(16).padStart(2, '0')) : "ff";
-    return ("#" + h + e + x + a).toLocaleLowerCase();
+    if (typeof rgb === "string") {
+        let arr = rgb
+            .replace("rgb", "")
+            .replace("(", "")
+            .replace(")", "")
+            .replaceAll(" ", "")
+            .split(",");
+        // 转十六进制
+        let h = parseInt(arr[0]).toString(16).padStart(2, '0');
+        let e = parseInt(arr[1]).toString(16).padStart(2, '0');
+        let x = parseInt(arr[2]).toString(16).padStart(2, '0');
+        let a = arr[3] ? (Math.round(255 * Number(arr[3])).toString(16).padStart(2, '0')) : "ff";
+        return ("#" + h + e + x + a).toLocaleLowerCase();
+    } else if (typeof rgb === "object") {
+        let h = parseInt(rgb.r).toString(16).padStart(2, '0');
+        let e = parseInt(rgb.g).toString(16).padStart(2, '0');
+        let x = parseInt(rgb.b).toString(16).padStart(2, '0');
+        let a = rgb.a ? (Math.round(255 * Number(rgb.a)).toString(16).padStart(2, '0')) : "ff";
+        return ("#" + h + e + x + a).toLocaleLowerCase();
+    }
+
+    return "";
 }
 //let rgb = "rgb(5, 19, 44)";
 //console.log(rgbToHex(rgb)); // #05132c
@@ -12038,8 +12065,14 @@ function rgbToHex(rgb) {
  * @return {string} rgb 字符串
  */
 function hexToRgb(hex) {
-    var a = parseInt(((hex.indexOf('#') > -1 && hex.length == 9) ? hex.substring(7, 9) : "FF"), 16) * (1 / 255);
-    var hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1, 7) : hex), 16);
+    // 移除 # 号
+    hex = hex.replace(/^#/, '');
+    // 处理3位简写格式
+    if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    var a = parseInt(hex.length === 8 ? hex.substring(6, 8) : "FF", 16) * (1 / 255);
+    var hex = parseInt(hex.substring(0, 6), 16);
     //return {r: hex >> 16, g: (hex & 0x00FF00) >> 8, b: (hex & 0x0000FF), a: Number(a.toFixed(2))};
     return `rgb(${hex >> 16}, ${(hex & 0x00FF00) >> 8}, ${(hex & 0x0000FF)}, ${a.toFixed(2)})`;
 }
@@ -12047,6 +12080,56 @@ function hexToRgb(hex) {
 //console.log(hexToRgb(hex)); // rgb(5, 19, 44, 1.00)
 //let hex = "#05132c80";
 //console.log(hexToRgb(hex)); // rgb(5, 19, 44, 0.50)
+
+
+function hexToRgbObj(hex) {
+    // 移除 # 号
+    hex = hex.replace(/^#/, '');
+    // 处理3位简写格式
+    if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    let a = parseInt(((hex.length === 8) ? hex.substring(6, 8) : "FF"), 16) * (1 / 255);
+    a = Math.round(a * 100) / 100;
+
+    return { r, g, b, a };
+}
+
+
+// 简化RGB差异计算，判断颜色相近，阈值建议在 20-50 之间
+function areColorsSimilarSimple(hex1, hex2, threshold = 30) {
+    const rgb1 = hexToRgbObj(hex1);
+    const rgb2 = hexToRgbObj(hex2);
+
+    const diff = Math.abs(rgb1.r - rgb2.r) +
+        Math.abs(rgb1.g - rgb2.g) +
+        Math.abs(rgb1.b - rgb2.b);
+
+    return diff <= threshold;
+}
+
+
+// 颜色加减一个数值
+function colorSimpleEdit(hex, val = 5, opt = 1) {
+    let rgb = hexToRgbObj(hex);
+
+    rgb.r += val * opt;
+    rgb.g += val * opt;
+    rgb.b += val * opt;
+
+    if (rgb.r < 0) rgb.r = 0;
+    if (rgb.r > 255) rgb.r = 255;
+    if (rgb.g < 0) rgb.r = 0;
+    if (rgb.g > 255) rgb.r = 255;
+    if (rgb.b < 0) rgb.r = 0;
+    if (rgb.b > 255) rgb.r = 255;
+
+    return rgbToHex(rgb);
+}
 
 
 // 文件名缩短
@@ -14312,7 +14395,7 @@ function onMouseMove(isPlay2) {
 
 
 // 角色坐标提示跟随角色移动
-let rolePosXEle, rolePosYEle, rolePosLineTimer;
+let rolePosXEle, rolePosYEle, roleFullName, rolePosLineTimer;
 function setRolePosLineFollowing(ball, isShow) {
     if (!userConfig.isShowRoleMovePos) return;
     //if (!ball) return;
@@ -14321,7 +14404,7 @@ function setRolePosLineFollowing(ball, isShow) {
     rolePosLineTimer && clearTimeout(rolePosLineTimer);
 
     let girdCount = 2.5;
-    if (userConfig.isShowRoleBloodLine) girdCount = 3.2;
+    if (userConfig.isShowRoleBloodLine) girdCount += 0.7;
     //rolePosLine.style.left = (screenPos.x - rolePosLine.getBoundingClientRect().width / 2).toFixed(2) + "px";
     //rolePosLine.style.top = (screenPos.y - sysConfig.girdSizeCss * girdCount).toFixed(2) + "px";
     rolePosLine.style.left = (ball.x / dpr + sysConfig.cLeft - rolePosLine.getBoundingClientRect().width / 2).toFixed(2) + "px";
@@ -14329,11 +14412,16 @@ function setRolePosLineFollowing(ball, isShow) {
 
     if (!rolePosXEle) rolePosXEle = document.getElementById("rolePosX");
     if (!rolePosYEle) rolePosYEle = document.getElementById("rolePosY");
+    if (!roleFullName) roleFullName = document.getElementById("roleFullName");
     let pos = { x: ball.x, y: ball.y };
     switchPxOrGird(pos, 0);
     //switchPxOrGird(pos, 1);
     rolePosXEle.innerText = pos.x.toFixed(2);
     rolePosYEle.innerText = pos.y.toFixed(2);
+    roleFullName.innerText = Role.getFullNameById(ball.roleId);
+
+    // 字体颜色设置为角色本体颜色【可能会看不清】
+    //rolePosLine.style.color = ball.color;
 
     if (isShow) rolePosLine.style.display = "unset";
     else rolePosLine.style.display = "none";
