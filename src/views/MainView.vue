@@ -2016,8 +2016,8 @@ input:checked+.slider:before {
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">几个游戏公平建议：<span class="collide-try-update-date"></span></b></div>
 <span class="collide-try-each-item-margin">① 开局在选择角色框下方加入“石头剪刀布”选项，谁赢谁先手！系统不要帮选，不选则后手，选完在游戏界面公示！平局再按现有的蓝红顺序轮流先手方式</span>
 <span class="collide-try-each-item-margin">② 1号位先打，2号位后打，交给玩家自己决定，玩家就想1号位先打就这么难？（已实现）</span>
-<span class="collide-try-each-item-margin">③ 开局角色位置、🌿、💣、🍄、🔪 等陷阱位置，请完全随机！哪有那么巧就刚好给直线？</span>
-<span class="collide-try-each-item-margin">④ 加入『允许发言交流』勾选框，只要有一个玩家不勾选，就不能发言和发表情！</span>
+<span class="collide-try-each-item-margin">③ 开局角色位置，🌿、💣、🍄、🔪、🌀 等道具位置，请【完全随机】！哪有那么巧开局就刚好给直线？道具直接挡脸上？（系统用来控制连胜晋级）</span>
+<span class="collide-try-each-item-margin">④ 加入『允许发言交流』勾选框，只要有一个玩家不勾选，就不能发言和发表情！加一个像使用双倍经验卡一样的勾选框即可（目前是在资料卡里面关闭，但是过几小时又会自动打开）</span>
 <span class="collide-try-each-item-margin">⑤ 加入《撞王等级资格证》机制，根据上一个赛季和当前赛季最高段位自动区分，大奖赛【大师】以下段位加入撞王等级匹配规则，避免 20、30 多级的玩家频繁对阵满级大佬被气走！留住新用户才有得 ⭕ 啊！[狗头]</span>
 <span class="collide-try-each-item-margin">⑥ 中奖概率有偏爱就不提了！回馈衣食父母也没错 👌</span>
 
@@ -2027,9 +2027,9 @@ input:checked+.slider:before {
 
 <div class="collide-try-update-title"><b class="collide-try-each-item-border-bottom">不公平！BUG太多！太浪费时间精力！<span class="collide-try-update-date"></span></b></div>
 <span class="collide-try-each-item-margin">• 牺牲公平换利益，实在是玩不过！每天都会被不公平和各种BUG气炸！（越是在乎，看得越清，就会越气）</span>
-<span class="collide-try-each-item-margin">• 工作、生活已经够累了，还要比来比去！游戏娱乐放松了个啥？游戏社交真的能交到好朋友或奔现对象？</span>
+<span class="collide-try-each-item-margin">• 工作、生活已经够累了，还要比来比去！游戏娱乐放松了个啥？游戏社交真的能交到好朋友或奔现对象？（小作坊游戏几万用户跟大厂游戏上亿用户根本没法比）</span>
 <span class="collide-try-each-item-margin">• 40级以下，技巧不够、没角色或者只有标配组合，很难打赢高配组合，大概率白送；40级以上，几乎都是高配，先手和开局位置至关重要，两局甚至三局不给先手，大概率连跪！先手和开局好位置给谁，懂的都懂！</span>
-<span class="collide-try-each-item-margin">• 耗费一两年好不容易换齐了高配组合，又陆续搞出新的“一刀666”的⭕️💰️角色，永远都是花钱的爽，不花钱的陪玩！</span>
+<span class="collide-try-each-item-margin">• 耗费一两年好不容易换齐了高配组合，又陆续搞出新的“一刀666”的⭕️💰️角色，永远都是花钱的爽，不花钱的陪玩！打不过氪金角色的无奈和气愤，会让很多不想一直氪金的玩家退游注销！看似是在精准挑选用户收割，把用户当作人傻钱多的冤大头，根都烂透了，游戏生命力注定不长久！</span>
 <span class="collide-try-each-item-margin">• 一直匹配满级满角色的对手，还一直给对手先手和开局位置优势，谁有这个时间精力被这样算计戏弄？每天拿一两个小时宝贵的业余时间来玩游戏，换来的却是算计和气愤！</span>
 
 
@@ -2037,7 +2037,7 @@ input:checked+.slider:before {
 <span class="collide-try-each-item-margin">• <b>清楚自己为什么玩这个游戏！</b>不公平的事情多了去了！怕浪费时间精力就减少做任务/冲分的局数，或者跟好友过一下日常任务、切磋几局练习角色技巧，再或者每天登录签到就行了！</span>
 <span class="collide-try-each-item-margin">• <b>目标段位期望太高会玩得很累！</b>角色搭配没凑齐高配，撞击技巧（角度、连击、落点）熟练度不够（角色 > 技巧 = 运气[氪金]），遇到满级大佬或者突破&高配组合确实很难赢（毕竟他们已经玩了几年了）！很多 20、30 多级的玩家大奖赛频繁对阵满级大佬，输到怀疑人生，没挺过这段艰难的瓶颈期就气到【注销】了！</span>
 <span class="collide-try-each-item-margin">• <b>大奖赛“日三”，最多二十局完不成就放下吧！</b>平均一大局（3小局）7 分钟，10 局就一个多小时，20 局两小时以上，每天几个小时玩游戏是挺奢侈的了！用一半的游戏时间经营打理现实生活，会不会更有意义？</span>
-<span class="collide-try-each-item-margin">•【角色拼不过】+【系统先后手和开局位置算计】+【一个劲儿不认输】，新手角色跟高配角色比拼，就像“鸡蛋碰石头”和高等数学，打不过就是打不过！不会就是不会！<b>这个【拼角色】的游戏别太较劲硬肝！40级之前，角色兑换路线和技巧练习才是关键！</b></span>
+<span class="collide-try-each-item-margin">•【角色拼不过】+【系统先后手和开局位置算计】+【一个劲儿不认输】，新手角色跟高配角色比拼，就像鸡蛋碰石头和高等数学，打不过就是打不过！不会就是不会！<b>这个【拼角色】的游戏别太较劲硬肝！40级之前，角色兑换路线和技巧练习才是关键！</b></span>
 
 
                     </pre>
@@ -4114,13 +4114,12 @@ class Ball {
         ////////////////////////////////////////////////
     }
 
-    // 体型常量，极小-1.80；偏小-1.90；小-2.00；中等-2.10；中大-2.20；大-2.30；极大-2.40
-    static SIZERATIO = { XS: 1.80, SS: 1.90, S: 2.00, M: 2.10, ML: 2.20, L: 2.30, XL: 2.40 }
-    // 速度常量，极慢-0.70；慢-0.75；中等-0.80；快-0.90；极快-1.00
-    static SPEEDRATIO = { XS: 0.70, S: 0.75, M: 0.80, L: 0.90, XL: 1.00 }
-    // 质量常量，极轻-0.20；轻-0.40；中等-0.60；重-0.80；极重-1.00
-    //static WEIGHTRATIO = { XS: 0.20, S: 0.40, M: 0.60, L: 0.80, XL: 1.00 }
-    static WEIGHTRATIO = { XS: 0.30, S: 0.45, M: 0.60, L: 0.80, XL: 1.00 }
+    // 体型常量，超级小-1.60；极小-1.80；偏小-1.90；小-2.00；中等-2.10；中大-2.20；大-2.30；极大-2.40；超级大-2.60
+    static SIZERATIO = { XXS: 1.60, XS: 1.80, SS: 1.90, S: 2.00, M: 2.10, ML: 2.20, L: 2.30, XL: 2.40, XXL: 2.60 }
+    // 速度常量，超级慢-0.60；极慢-0.70；慢-0.75；中等-0.80；快-0.90；极快-1.00；超级快-1.20
+    static SPEEDRATIO = { XXS: 0.60, XS: 0.70, S: 0.75, M: 0.80, L: 0.90, XL: 1.00, XXL: 1.20 }
+    // 质量常量，超级轻-0.20；极轻-0.20；轻-0.40；中等-0.60；重-0.80；极重-1.00；超级重-1.20
+    static WEIGHTRATIO = { XXS: 0.20, XS: 0.30, S: 0.45, M: 0.60, L: 0.80, XL: 1.00, XXL: 1.20 }
     // 分身初始位置
     static BODY2POS = { x: -1000, y: -1000 }
     // 特殊角色id
@@ -6973,7 +6972,7 @@ function initBallByRole(ball) {
             if (!ball.color) ball.color = "#A651EF"; // 取通行证皮肤头发中颜色
             ball.sizeRatio = Ball.SIZERATIO.M; // 中等
             ball.mRatio = Ball.WEIGHTRATIO.XS; // 极轻
-            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XL; // 极快
+            if (ball.isMainBall) ball.vRatio = Ball.SPEEDRATIO.XXL; // 实际应该是超极快
             break;
         case Role.YLPAPA.id:
             if (!ball.color) ball.color = "#817CCD"; // 取的默认皮肤衣服深颜色
