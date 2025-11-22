@@ -3633,7 +3633,7 @@ function checkCoreCode(method, isDialog) {
         // 先从 localStorage 获取 accessKey
         accessKey = localStorage.getItem('collide-try-access-key');
         // 退游了，公开访问
-        //accessKey = "Pg24fzRl02a45odGEvKsFqL0MHmykigF";
+        accessKey = "L1ghtHhh@250905";
 
         if (isDialog) {
             // 没找到，再弹窗提示输入【访问密钥】
@@ -3709,7 +3709,7 @@ function doKeyCheckFail() {
     localStorage.removeItem('collide-try-access-key');
     localStorage.removeItem('collide-try-role-chose');
     //userConfig.currRole = -1;
-    setCurrRoleV2();
+    setCurrRole();
 }
 
 
@@ -3859,8 +3859,10 @@ var sysConfig = {
     pxRatio: 1,
     // 游戏是否开始，从第一次拖动后，就设置为true
     isGameBeginning: false,
-    // 游戏角色是否选择完成，用于控制性能优化
+    // 游戏角色是否【默认】选择完成，用于初始化控制
     isRoleChooseFinished: false,
+    // 游戏角色是否【实际】选择完成，用于实际判断，与上方的类似变量作用不同，暂时不能取舍
+    isRoleChooseFinishedReally: false,
     // 修改参数设置后，是否需要刷新页面
     isNeedReload: false,
     // 程序出错几次弹窗提示
@@ -6176,7 +6178,8 @@ function initRoles() {
             //console.log(shareData);
         } catch (e) { }
     }
-    if (!shareData) setCurrRoleV2();
+    if (!shareData) setCurrRole();
+    // 如果没有选择，设置黑娃为默认角色
     if (userConfig.currRole < 0) userConfig.currRole = 0;
     // 只显示台面，隐藏主运动层、主球运动层、清空路径层
     if (userConfig.isJustShowTable) toggleOnlyTable(true);
@@ -6200,8 +6203,9 @@ function initRoles() {
     } finally {
         // 加载之后，清除导入数据【放到onMouseMove方法再处理】
         //clearShareRoleAndPos();
-        // 标记角色已经选择完成
+        // 标记角色已经选择完成（默认黑娃也算选择完成）
         if (userConfig.currRole > -1) sysConfig.isRoleChooseFinished = true;
+        sysConfig.isRoleChooseFinishedReally = isRoleChooseFinishedReally();
     }
     // 设置双子分身
     if (userConfig.currRole === Role.SHUANGZI.id) setTwins();
@@ -6440,65 +6444,8 @@ function setUserConfig() {
 }
 
 
-// 设置当前角色
-function setCurrRole() {
-    // 从 sessionStorage 读取，注意关闭页面，重新打开才会失效，浏览器标题栏右键“重新打开关闭页面”还是能获取到
-    try {
-        let roleValStr = sessionStorage.getItem('collide-try-role-chose');
-        // 如果不是数字类型
-        if (!(!isNaN(parseFloat(roleValStr)) && isFinite(roleValStr))) throw new Error(">>>> 角色选择出现错误！请重新选择或联系开发者");
-        userConfig.currRole = Number(roleValStr);
-    } catch (e) {
-        //console.log(">>>> sessionStorage getItem error: " + e.message);
-        userConfig.currRole = -1;
-    }
-
-    //if (!userConfig.currRole) { // 没获取到，则弹出选择角色框。注意 0 为 false
-    if (userConfig.currRole < 0) {
-        // sessionStorage 没找到，再从 localStorage 中取值
-        try {
-            let roleValStr = localStorage.getItem('collide-try-role-chose');
-            // 如果不是数字类型
-            if (!(!isNaN(parseFloat(roleValStr)) && isFinite(roleValStr))) throw new Error(">>>> 角色选择出现错误！请重新选择或联系开发者");
-            userConfig.currRole = Number(roleValStr);
-        } catch (e) {
-            //console.log(">>>> localStorage getItem error: " + e.message);
-            userConfig.currRole = -1;
-        }
-        // 还是没找到，再弹出角色选择窗
-        if (userConfig.currRole < 0) {
-            dialogMask.style.display = "unset"; // 显示选择角色遮罩层
-            chooseRoleDialog.style.display = "unset"; // 显示选择角色弹窗
-            //return;
-            //alert(">>>> 角色选择出现错误！请联系开发者");
-            //throw new Error("角色选择出现错误！请联系开发者");
-        } else {
-            // localStorage 找到了
-            localStorage.removeItem("collide-try-role-chose");
-            //sessionStorage.setItem('collide-try-role-chose', userConfig.currRole);
-        }
-    }
-
-    // 标记角色选择完成
-    if (userConfig.currRole > -1) sysConfig.isRoleChooseFinished = true;
-
-    if (userConfig.isRandomRole || userConfig.isFlashRole) {
-        if (userConfig.isRandomRole) userConfig.currRole = Role.getRandomRoleId();
-        if (userConfig.isFlashRole) setRolesFlash(userConfig.gameRoleIds, true);
-        // 存到 sessionStorage【PC浏览器刷新不会失效，关闭页面会失效】
-        //if (userConfig.currRole > -1) sessionStorage.setItem('collide-try-role-chose', userConfig.currRole);
-        // TODO 存到 localStorage，兼容一些浏览器（Via）刷新后 sessionStorage 失效，导致一直弹出选择角色问题
-        //if (userConfig.currRole > -1) localStorage.setItem('collide-try-role-chose', userConfig.currRole);
-        // localStorage 存储更新 userConfig 对象
-        if (userConfig.currRole > -1) localStorage.setItem('collide-try-user-settings', JSON.stringify(userConfig));
-    }
-
-    console.log(">>>> userConfig.currRole=" + userConfig.currRole);
-}
-
-
 // 设置当前角色（不刷新页面版本，选择的角色永久存储在localStorage）
-function setCurrRoleV2() {
+function setCurrRole() {
     // 一直从 localStorage 读取
     try {
         let roleValStr = localStorage.getItem('collide-try-role-chose');
@@ -9662,17 +9609,19 @@ function chooseRole(ele, roleId) {
     reInit();
     // 显示操作指南弹窗
     if (sysConfig.isRoleChooseFinished) showHowToPlay(true);
-    // 显示左上角重新选择角色提示
+    // 显示左上角重新选择角色提示，这里重复调用是防止showHowToPlay弹窗显示时，刷新页面，导致后续提示中断
     if (sysConfig.isRoleChooseFinished) showReChooseRoleEntryDialog();
 }
 
 
-// 弹窗选择角色是否完成
-function isRoleChooseFinished() {
-    let choseRoleIdStr = sessionStorage.getItem('collide-try-role-chose');
-    if (!choseRoleIdStr) choseRoleIdStr = localStorage.getItem('collide-try-role-chose');
+// 弹窗选择角色是否真实完成（初始化默认选择的角色不算）
+// 涉及到数据存取操作的方法尽量避免高频率调用，频繁判断使用全局变量
+function isRoleChooseFinishedReally() {
+    let choseRoleIdStr = localStorage.getItem('collide-try-role-chose');
     if (!choseRoleIdStr) return false;
-    if (Number(choseRoleIdStr) > -1) return true;
+    try {
+        if (Number(choseRoleIdStr) > -1) return true;
+    } catch(e) {}
     return false;
 }
 
@@ -9815,7 +9764,8 @@ function switchChooseRoleDialog(isShow) {
         dialogMask.style.display = "unset"; // 显示选择角色遮罩层
         chooseRoleDialog.style.display = "unset"; // 显示选择角色弹窗
     } else { // 关闭
-        if (userConfig.currRole < 0) return; // 没选择角色不能关闭
+        //if (userConfig.currRole < 0) return; // 没选择角色不能关闭，初始化会默认选择角色
+        if (!sysConfig.isRoleChooseFinishedReally) return; // 是否实际操作选择了角色
         dialogMask.style.display = "none"; // 隐藏选择角色遮罩层
         chooseRoleDialog.style.display = "none"; // 隐藏选择角色弹窗
     }
@@ -9824,10 +9774,10 @@ function switchChooseRoleDialog(isShow) {
 
 // 根据是否已经选过角色，判断选择角色弹窗右上角是设置⚙入口，还是关闭❎按钮
 function switchChooseRoleBtnShow() {
-    if (userConfig.currRole < 0) { // 第一次进入页面或者清缓存重置后，显示设置入口
+    if (!sysConfig.isRoleChooseFinishedReally) { // 没有实际选择角色，显示设置入口
         document.getElementById("choose-role-to-setting-entry").style.display = "unset";
         document.getElementById("choose-role-close-btn").style.display = "none";
-    } else { // 点击左上角进入的重新选择角色，显示关闭按钮
+    } else { // 显示关闭按钮
         document.getElementById("choose-role-to-setting-entry").style.display = "none";
         document.getElementById("choose-role-close-btn").style.display = "unset";
     }
