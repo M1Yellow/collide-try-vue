@@ -1114,8 +1114,7 @@ input:checked+.slider:before {
             class="collide-try-dialog collide-try-tiny-dialog collide-try-left-tiny-dialog" style="display: none;">
             <div id="re-choose-role-entry-dialog-msg" class="collide-try-tiny-dialog-msg"><span>👈</span>点击左上角可以重新选择角色哦~
             </div>
-            <div id="re-choose-role-entry-dialog-ok" class="collide-try-tiny-dialog-ok collide-try-left-tiny-dialog-ok"
-                @click="closeReChooseRoleEntryDialog();"><span class="collide-try-dialog-ok">可以的</span></div>
+            <div id="re-choose-role-entry-dialog-ok" class="collide-try-tiny-dialog-ok collide-try-left-tiny-dialog-ok"><span class="collide-try-dialog-ok" @click="closeReChooseRoleEntryDialog();">可以的</span></div>
         </div>
         <!-- 右上角设置提示 -->
         <div id="game-setting-icon"><span @click="switchUserSettingDialog(true);">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
@@ -1123,8 +1122,7 @@ input:checked+.slider:before {
             class="collide-try-dialog collide-try-tiny-dialog" style="display: none;">
             <div id="game-setting-entry-dialog-msg" class="collide-try-tiny-dialog-msg">
                 右上角有一个隐藏的设置<span>⚙</span>入口哦~<span>👉</span></div>
-            <div id="game-setting-entry-dialog-ok" class="collide-try-tiny-dialog-ok"
-                @click="closeGameSettingEntryDialog();"><span class="collide-try-dialog-ok">知道啦</span></div>
+            <div id="game-setting-entry-dialog-ok" class="collide-try-tiny-dialog-ok"><span class="collide-try-dialog-ok" @click="closeGameSettingEntryDialog();">知道啦</span></div>
         </div>
         <!-- 选择角色弹窗 -->
         <div id="choose-role-dialog" ref="chooseRoleDialog" class="collide-try-dialog">
@@ -1218,9 +1216,7 @@ input:checked+.slider:before {
                             style="display: none;">
                             <div id="game-setting-main-role-dialog-msg" class="collide-try-tiny-dialog-msg">
                                 👆主角设置只在<span>【极速开始】</span>选项生效哦~</div>
-                            <div id="game-setting-main-role-dialog-ok" class="collide-try-tiny-dialog-ok"
-                                @click="closeGameSettingMainRoleDialog();"><span
-                                    class="collide-try-dialog-ok">好的吧</span></div>
+                            <div id="game-setting-main-role-dialog-ok" class="collide-try-tiny-dialog-ok"><span class="collide-try-dialog-ok" @click="closeGameSettingMainRoleDialog();">好的吧</span></div>
                         </div>
                     </div>
                 </li>
@@ -1760,8 +1756,8 @@ input:checked+.slider:before {
                 ③ 设置里面可以指定任意角色哦~
                 </pre>
             </div>
-            <div class="collide-try-close-btn-dialog-ok" @click="showHowToPlay(false);">
-                <span class="collide-try-dialog-ok">朕知道了</span>
+            <div class="collide-try-close-btn-dialog-ok">
+                <span class="collide-try-dialog-ok" @click="showHowToPlay(false);">朕知道了</span>
             </div>
         </div>
 
